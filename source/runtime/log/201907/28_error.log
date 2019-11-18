@@ -1,0 +1,153 @@
+---------------------------------------------------------------
+[ 2019-07-28T13:08:13+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907192028156532
+[ error ] [0]方法参数错误:order_id[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\App.php:431]
+---------------------------------------------------------------
+[ 2019-07-28T15:59:10+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [1]Class 'app\store\controller\OrderRefundModel' not found[D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\Order.php:45]
+---------------------------------------------------------------
+[ 2019-07-28T16:02:16+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [0]method not exist:think\db\Query->getOrderDetail[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Query.php:103]
+---------------------------------------------------------------
+[ 2019-07-28T16:05:23+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [0]method not exist:think\db\Query->orderGoods[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Query.php:103]
+---------------------------------------------------------------
+[ 2019-07-28T16:13:15+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [2]Invalid argument supplied for foreach()[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:339]
+---------------------------------------------------------------
+[ 2019-07-28T16:14:44+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [2]Invalid argument supplied for foreach()[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:339]
+---------------------------------------------------------------
+[ 2019-07-28T16:14:47+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [2]Invalid argument supplied for foreach()[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:339]
+---------------------------------------------------------------
+[ 2019-07-28T16:15:17+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [2]Invalid argument supplied for foreach()[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:339]
+---------------------------------------------------------------
+[ 2019-07-28T16:17:37+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [1]Call to a member function goods() on null[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Query.php:2099]
+---------------------------------------------------------------
+[ 2019-07-28T16:20:06+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [1]Call to a member function goods() on null[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Query.php:2099]
+---------------------------------------------------------------
+[ 2019-07-28T17:42:53+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [1]Call to a member function goods() on null[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Query.php:2099]
+---------------------------------------------------------------
+[ 2019-07-28T17:43:15+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [1]Call to a member function goods() on null[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Query.php:2099]
+---------------------------------------------------------------
+[ 2019-07-28T17:44:42+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [2]Invalid argument supplied for foreach()[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:339]
+---------------------------------------------------------------
+[ 2019-07-28T17:46:48+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [0]method not exist:think\db\Query->each[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Query.php:103]
+---------------------------------------------------------------
+[ 2019-07-28T17:52:06+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [2]Illegal string offset 'order_sn'[D:\wamp\www\lmeriPro\newLmeri\source\application\store\model\Order.php:77]
+---------------------------------------------------------------
+[ 2019-07-28T17:55:35+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [2]Invalid argument supplied for foreach()[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:339]
+---------------------------------------------------------------
+[ 2019-07-28T17:57:21+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义数组索引: pay_status[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:178]
+---------------------------------------------------------------
+[ 2019-07-28T17:57:46+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:170]
+---------------------------------------------------------------
+[ 2019-07-28T17:57:59+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义数组索引: pay_status[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:170]
+---------------------------------------------------------------
+[ 2019-07-28T17:58:20+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义数组索引: pay_status[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:170]
+---------------------------------------------------------------
+[ 2019-07-28T17:59:06+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义数组索引: pay_status[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:170]
+---------------------------------------------------------------
+[ 2019-07-28T17:59:08+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义数组索引: pay_status[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:170]
+---------------------------------------------------------------
+[ 2019-07-28T19:05:34+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:236]
+---------------------------------------------------------------
+[ 2019-07-28T19:06:57+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义数组索引: pay_status[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:236]
+---------------------------------------------------------------
+[ 2019-07-28T19:07:20+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义数组索引: pay_status[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:236]
+---------------------------------------------------------------
+[ 2019-07-28T19:19:13+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义数组索引: update_price[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:261]
+---------------------------------------------------------------
+[ 2019-07-28T19:31:49+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:269]
+---------------------------------------------------------------
+[ 2019-07-28T19:31:51+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [8]未定义数组索引: order_sn[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\2e1204e5d2826cecb26b0b7fba377a8f.php:260]
+---------------------------------------------------------------
+[ 2019-07-28T19:32:11+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [8]未定义数组索引: order_sn[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\2e1204e5d2826cecb26b0b7fba377a8f.php:260]
+---------------------------------------------------------------
+[ 2019-07-28T19:33:52+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [0]类的属性不存在:app\store\model\Order->OrderGoodsModel[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\Model.php:626]
+---------------------------------------------------------------
+[ 2019-07-28T19:35:15+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:269]
+---------------------------------------------------------------
+[ 2019-07-28T19:35:34+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:269]
+---------------------------------------------------------------
+[ 2019-07-28T19:38:44+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:269]
+---------------------------------------------------------------
+[ 2019-07-28T19:39:24+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:277]
+---------------------------------------------------------------
+[ 2019-07-28T19:39:58+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:298]
+---------------------------------------------------------------
+[ 2019-07-28T19:41:41+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [0]类的属性不存在:app\store\model\OrderGoods->goods_no[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\Model.php:626]
+---------------------------------------------------------------
+[ 2019-07-28T19:46:44+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:329]
+---------------------------------------------------------------
+[ 2019-07-28T19:47:06+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:364]
+---------------------------------------------------------------
+[ 2019-07-28T19:48:14+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:516]
+---------------------------------------------------------------
+[ 2019-07-28T19:50:05+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:466]
+---------------------------------------------------------------
+[ 2019-07-28T19:53:09+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:319]
+---------------------------------------------------------------
+[ 2019-07-28T20:26:03+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: progress[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:175]
+---------------------------------------------------------------
+[ 2019-07-28T20:26:15+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:178]
+---------------------------------------------------------------
+[ 2019-07-28T20:26:41+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义数组索引: create_time[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:178]
+---------------------------------------------------------------
+[ 2019-07-28T20:27:13+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:182]
+---------------------------------------------------------------
+[ 2019-07-28T20:32:17+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义数组索引: receive_time[D:\wamp\www\lmeriPro\newLmeri\source\application\store\model\Order.php:83]
+---------------------------------------------------------------
+[ 2019-07-28T20:33:09+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [8]未定义变量: detail[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\5302d0dec78f5e15095a03ab25121e44.php:190]
+---------------------------------------------------------------
+[ 2019-07-28T20:54:51+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [8]未定义数组索引: payment_time[D:\wamp\www\lmeriPro\newLmeri\source\application\store\model\Order.php:82]
+---------------------------------------------------------------
+[ 2019-07-28T20:57:15+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [8]未定义数组索引: payment_time[D:\wamp\www\lmeriPro\newLmeri\source\application\store\model\Order.php:82]
+---------------------------------------------------------------
+[ 2019-07-28T21:20:14+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [2]Illegal string offset 'id'[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\2e1204e5d2826cecb26b0b7fba377a8f.php:266]
+---------------------------------------------------------------
+[ 2019-07-28T21:32:29+08:00 ] 0.0.0.0 POST localhost/lmeriPro/newLmeri/web/index.php?s=/store/goods/state
+[ error ] [0]很抱歉，没有访问权限[D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\Controller.php:85]

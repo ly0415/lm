@@ -1,0 +1,16 @@
+---------------------------------------------------------------
+[ 2019-06-07T20:33:15+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/all_list
+[ sql ] [ DB ] CONNECT:[ UseTime:0.093761s ] mysql:host=127.0.0.1;port=3306;dbname=yoshop_pro;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `yoshop_store_user` [ RunTime:0.074457s ]
+[ sql ] [ SQL ] SELECT * FROM `yoshop_store_user` WHERE  `yoshop_store_user`.`wxapp_id` = 10001  AND `is_delete` = 0  AND `store_user_id` = 10001 LIMIT 1 [ RunTime:0.003433s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `yoshop_order` [ RunTime:0.001701s ]
+[ sql ] [ SQL ] SELECT `order_id` FROM `yoshop_order` WHERE  ( `yoshop_order`.`wxapp_id` = 10001 AND `yoshop_order`.`wxapp_id` = 10001 )  AND `pay_status` = 10  AND `order_status` = 10  AND `create_time` < 1559651595 [ RunTime:0.000959s ]
+[ sql ] [ SQL ] SELECT `order_id` FROM `yoshop_order` WHERE  `yoshop_order`.`wxapp_id` = 10001  AND `pay_status` = 20  AND `delivery_status` = 20  AND `receipt_status` = 10  AND `delivery_time` < 1559046795 [ RunTime:0.000388s ]
+[ sql ] [ SQL ] UPDATE `yoshop_order`  SET `receipt_status`=20,`receipt_time`=1559910795,`order_status`=30,`update_time`=1559910795  WHERE  `order_id` IN ('') [ RunTime:0.001986s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `yoshop_user` [ RunTime:0.001517s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `yoshop_express` [ RunTime:0.001390s ]
+[ sql ] [ SQL ] SELECT * FROM `yoshop_order` WHERE  `yoshop_order`.`wxapp_id` = 10001  AND `order_id` IN ('')  AND `is_delete` = 0 [ RunTime:0.000547s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `yoshop_order` `order` INNER JOIN `yoshop_user` `user` ON `user`.`user_id`=`order`.`user_id` WHERE  `order`.`wxapp_id` = 10001  AND `order`.`is_delete` = 0 LIMIT 1 [ RunTime:0.014389s ]
+[ sql ] [ SQL ] SELECT `order`.* FROM `yoshop_order` `order` INNER JOIN `yoshop_user` `user` ON `user`.`user_id`=`order`.`user_id` WHERE  `order`.`wxapp_id` = 10001  AND `order`.`is_delete` = 0 ORDER BY `order`.`create_time` DESC LIMIT 0,10 [ RunTime:0.000585s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `yoshop_store_shop` [ RunTime:0.001431s ]
+[ sql ] [ SQL ] SELECT * FROM `yoshop_store_shop` WHERE  `yoshop_store_shop`.`wxapp_id` = 10001  AND `is_delete` = 0 ORDER BY `sort` ASC,`create_time` DESC [ RunTime:0.000578s ]

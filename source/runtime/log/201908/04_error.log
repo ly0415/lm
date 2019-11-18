@@ -1,0 +1,42 @@
+---------------------------------------------------------------
+[ 2019-08-04T09:33:16+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause'[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-08-04T09:33:52+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [8]未定义数组下标: 0[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Goods.php:22]
+---------------------------------------------------------------
+[ 2019-08-04T12:28:19+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [4]语法错误: unexpected 'echo' (T_ECHO)[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\GoodsModelSpec.php:22]
+---------------------------------------------------------------
+[ 2019-08-04T12:34:27+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [1]Class 'app\api\model\Config' not found[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\GoodsModelSpec.php:24]
+---------------------------------------------------------------
+[ 2019-08-04T12:34:49+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [1]Class 'app\api\model\Db' not found[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\GoodsModelSpec.php:26]
+---------------------------------------------------------------
+[ 2019-08-04T12:39:52+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [10501]SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':) item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (?,?,?,?)  AND `' at line 1[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-08-04T12:40:49+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [10501]SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'separator :) item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (?,?,?' at line 1[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-08-04T12:41:01+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [10501]SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'separator '_') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (?,?' at line 1[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-08-04T12:49:57+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [1]Unsupported operand types[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:41]
+---------------------------------------------------------------
+[ 2019-08-04T12:51:08+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [8]未定义数组索引: total_goods_num[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:41]
+---------------------------------------------------------------
+[ 2019-08-04T22:16:05+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [1]Class 'app\api\model\FxUser' not found[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:40]
+---------------------------------------------------------------
+[ 2019-08-04T22:21:05+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [0]method not exist:think\db\Query->getBeloneFxUser[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Query.php:103]
+---------------------------------------------------------------
+[ 2019-08-04T22:21:39+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [0]method not exist:think\db\Query->getBeloneFxUser[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Query.php:103]
+---------------------------------------------------------------
+[ 2019-08-04T22:35:34+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [0]method not exist:think\db\Query->fxUserAccount[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Query.php:103]

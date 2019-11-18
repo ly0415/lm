@@ -1,0 +1,1061 @@
+---------------------------------------------------------------
+[ 2019-08-02T11:04:00+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php
+[运行时间：0.606077s] [吞吐率：1.65req/s] [内存消耗：1,840.40kb] [文件加载：43]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => '',
+    1 => NULL,
+    2 => NULL,
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.011836s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => '',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:04:01+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/passport/login
+[运行时间：0.509546s] [吞吐率：1.96req/s] [内存消耗：3,237.95kb] [文件加载：53]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'store',
+    1 => 'passport',
+    2 => 'login',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000305s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => '',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\store\controller\Passport->login[ D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\Passport.php ]
+[ info ] [ VIEW ] D:\wamp\www\lmeriPro\newLmeri\web/../source/application/store\view\passport\login.php [ array (
+  0 => 'version',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:07:39+08:00 ] 0.0.0.0 POST localhost/lmeriPro/newLmeri/web/index.php?s=/store/passport/login
+[运行时间：0.477662s] [吞吐率：2.09req/s] [内存消耗：3,250.49kb] [文件加载：53]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'store',
+    1 => 'passport',
+    2 => 'login',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'content-length' => '53',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://localhost',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'referer' => 'http://localhost/lmeriPro/newLmeri/web/index.php?s=/store/passport/login',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'User' => 
+  array (
+    'user_name' => 'luffy',
+    'password' => 'luffy521',
+  ),
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000353s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => '',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\store\controller\Passport->login[ D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\Passport.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:07:42+08:00 ] 0.0.0.0 POST localhost/lmeriPro/newLmeri/web/index.php?s=/store/passport/login
+[运行时间：0.270785s] [吞吐率：3.69req/s] [内存消耗：3,533.85kb] [文件加载：60]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'store',
+    1 => 'passport',
+    2 => 'login',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'content-length' => '51',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'origin' => 'http://localhost',
+  'x-requested-with' => 'XMLHttpRequest',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'referer' => 'http://localhost/lmeriPro/newLmeri/web/index.php?s=/store/passport/login',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'User' => 
+  array (
+    'user_name' => 'luffy',
+    'password' => '123456',
+  ),
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000258s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => '',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\store\controller\Passport->login[ D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\Passport.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:07:45+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/index/index
+[运行时间：0.784497s] [吞吐率：1.27req/s] [内存消耗：4,116.33kb] [文件加载：65]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'store',
+    1 => 'index',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://localhost/lmeriPro/newLmeri/web/index.php?s=/store/passport/login',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000429s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => '',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\store\controller\Index->index[ D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\Index.php ]
+[ info ] [ VIEW ] D:\wamp\www\lmeriPro\newLmeri\web/../source/application/store\view\index\index.php [ array (
+  0 => 'base_url',
+  1 => 'store_url',
+  2 => 'group',
+  3 => 'menus',
+  4 => 'store',
+  5 => 'request',
+  6 => 'version',
+  7 => 'data',
+  8 => 'storeList',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:08:01+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[运行时间：0.693474s] [吞吐率：1.44req/s] [内存消耗：4,165.01kb] [文件加载：65]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'store',
+    1 => 'order',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://localhost/lmeriPro/newLmeri/web/index.php?s=/store/index/index',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000211s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => '',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\store\controller\Order->index[ D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\Order.php ]
+[ info ] [ VIEW ] D:\wamp\www\lmeriPro\newLmeri\web/../source/application/store\view\order\index.php [ array (
+  0 => 'base_url',
+  1 => 'store_url',
+  2 => 'group',
+  3 => 'menus',
+  4 => 'store',
+  5 => 'request',
+  6 => 'version',
+  7 => 'orderList',
+  8 => 'storeList',
+  9 => 'deliveryType',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:08:03+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/shop.user/index
+[运行时间：0.348559s] [吞吐率：2.87req/s] [内存消耗：4,487.34kb] [文件加载：73]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'store',
+    1 => 'shop.user',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000267s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => '',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\store\controller\shop\User->index[ D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\shop\User.php ]
+[ info ] [ VIEW ] D:\wamp\www\lmeriPro\newLmeri\web/../source/application/store\view\shop\user\index.php [ array (
+  0 => 'base_url',
+  1 => 'store_url',
+  2 => 'group',
+  3 => 'menus',
+  4 => 'store',
+  5 => 'request',
+  6 => 'version',
+  7 => 'username',
+  8 => 'store_id',
+  9 => 'store_id_option',
+  10 => 'list',
+  11 => 'shopList',
+  12 => 'where',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:08:04+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[运行时间：0.097480s] [吞吐率：10.26req/s] [内存消耗：4,165.00kb] [文件加载：65]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'store',
+    1 => 'order',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://localhost/lmeriPro/newLmeri/web/index.php?s=/store/shop.user/index',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000256s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => '',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\store\controller\Order->index[ D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\Order.php ]
+[ info ] [ VIEW ] D:\wamp\www\lmeriPro\newLmeri\web/../source/application/store\view\order\index.php [ array (
+  0 => 'base_url',
+  1 => 'store_url',
+  2 => 'group',
+  3 => 'menus',
+  4 => 'store',
+  5 => 'request',
+  6 => 'version',
+  7 => 'orderList',
+  8 => 'storeList',
+  9 => 'deliveryType',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:08:05+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/store.user/index
+[运行时间：0.285672s] [吞吐率：3.50req/s] [内存消耗：4,261.18kb] [文件加载：71]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'store',
+    1 => 'store.user',
+    2 => 'index',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'referer' => 'http://localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000256s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => '',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ DB ] INIT mysql
+[ info ] [ RUN ] app\store\controller\store\User->index[ D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\store\User.php ]
+[ info ] [ VIEW ] D:\wamp\www\lmeriPro\newLmeri\web/../source/application/store\view\store\user\index.php [ array (
+  0 => 'base_url',
+  1 => 'store_url',
+  2 => 'group',
+  3 => 'menus',
+  4 => 'store',
+  5 => 'request',
+  6 => 'version',
+  7 => 'list',
+) ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:08:54+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow
+[运行时间：0.464736s] [吞吐率：2.15req/s] [内存消耗：1,799.16kb] [文件加载：40]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000342s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:09:04+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.369228s] [吞吐率：2.71req/s] [内存消耗：3,431.25kb] [文件加载：60]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000194s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:44:22+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.100307s] [吞吐率：9.97req/s] [内存消耗：3,463.94kb] [文件加载：61]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000294s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:44:25+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.063579s] [吞吐率：15.73req/s] [内存消耗：3,330.14kb] [文件加载：54]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000302s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:52:55+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.043534s] [吞吐率：22.97req/s] [内存消耗：3,330.13kb] [文件加载：54]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000335s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:53:54+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.125806s] [吞吐率：7.95req/s] [内存消耗：3,495.47kb] [文件加载：61]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000317s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T11:56:31+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.070036s] [吞吐率：14.28req/s] [内存消耗：3,495.47kb] [文件加载：61]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000327s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:13:26+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.049927s] [吞吐率：20.03req/s] [内存消耗：3,495.47kb] [文件加载：61]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000456s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:13:45+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.075511s] [吞吐率：13.24req/s] [内存消耗：3,318.63kb] [文件加载：56]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000333s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:14:02+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.051726s] [吞吐率：19.33req/s] [内存消耗：3,330.77kb] [文件加载：54]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000255s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:14:41+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.059708s] [吞吐率：16.75req/s] [内存消耗：3,495.52kb] [文件加载：61]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000217s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:15:19+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.061561s] [吞吐率：16.24req/s] [内存消耗：3,495.52kb] [文件加载：61]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.004394s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:15:29+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.075103s] [吞吐率：13.32req/s] [内存消耗：3,495.52kb] [文件加载：61]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000197s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:21:53+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.156387s] [吞吐率：6.39req/s] [内存消耗：3,442.98kb] [文件加载：56]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000663s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:22:06+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.061429s] [吞吐率：16.28req/s] [内存消耗：3,442.99kb] [文件加载：56]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000302s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:23:27+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.051695s] [吞吐率：19.34req/s] [内存消耗：3,442.98kb] [文件加载：56]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000192s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:23:38+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.205730s] [吞吐率：4.86req/s] [内存消耗：3,566.91kb] [文件加载：64]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000198s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:30:33+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.047339s] [吞吐率：21.12req/s] [内存消耗：3,408.50kb] [文件加载：56]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000330s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:32:06+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.052254s] [吞吐率：19.14req/s] [内存消耗：3,407.96kb] [文件加载：56]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000320s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2019-08-02T12:34:25+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[运行时间：0.070003s] [吞吐率：14.29req/s] [内存消耗：3,407.45kb] [文件加载：56]
+[ info ] [ LANG ] D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'api',
+    1 => 'order',
+    2 => 'submitOrderShow',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'host' => 'localhost',
+  'connection' => 'keep-alive',
+  'cache-control' => 'max-age=0',
+  'upgrade-insecure-requests' => '1',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+  'accept-encoding' => 'gzip, deflate, br',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'cookie' => 'ECS[visit_times]=40; PHPSESSID=k3kjmmc8afv5j0acc27ghk1cs0',
+)
+[ info ] [ PARAM ] array (
+  'user_id' => '1',
+  'cart_ids' => '72123,72125,72126',
+)
+[ info ] [ BEHAVIOR ] Run app\common\behavior\App @app_begin [ RunTime:0.000328s ]
+[ info ] [ RUN ] app\api\controller\Order->submitOrderShow[ D:\wamp\www\lmeriPro\newLmeri\source\application\api\controller\Order.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ CACHE ] INIT File
+[ info ] [ LOG ] INIT File

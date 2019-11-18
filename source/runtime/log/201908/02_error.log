@@ -1,0 +1,30 @@
+---------------------------------------------------------------
+[ 2019-08-02T11:09:04+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [2]print_r() expects at least 1 parameter, 0 given[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:40]
+---------------------------------------------------------------
+[ 2019-08-02T11:44:22+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [2]print_r() expects at least 1 parameter, 0 given[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:38]
+---------------------------------------------------------------
+[ 2019-08-02T11:53:54+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [1]Class 'app\api\model\StoreGoods' not found[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:37]
+---------------------------------------------------------------
+[ 2019-08-02T11:56:31+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [1]Class 'app\api\model\StoreGoods' not found[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:37]
+---------------------------------------------------------------
+[ 2019-08-02T12:13:26+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [1]Class 'app\api\model\StoreGoods' not found[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:37]
+---------------------------------------------------------------
+[ 2019-08-02T12:13:45+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [1]Class 'app\api\model\StoreGoods' not found[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:35]
+---------------------------------------------------------------
+[ 2019-08-02T12:14:41+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [1]Class 'app\api\model\StoreGoods' not found[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:36]
+---------------------------------------------------------------
+[ 2019-08-02T12:15:19+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [1]Class 'app\api\model\StoreGoods' not found[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:36]
+---------------------------------------------------------------
+[ 2019-08-02T12:15:29+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [1]Class 'app\api\model\StoreGoods' not found[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:36]
+---------------------------------------------------------------
+[ 2019-08-02T12:23:38+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'fields' in 'where clause'[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]

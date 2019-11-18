@@ -1,0 +1,4 @@
+---------------------------------------------------------------
+[ 2019-06-02T12:56:13+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/all_list
+[ yoshop-info ] behavior Order --close --close_days 3 --deadline_time 1559192172 --orderIds []
+[ yoshop-info ] behavior Order --receive --receive_days 10 --deadline_time 1558587372 --orderIds []

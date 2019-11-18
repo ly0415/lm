@@ -1,0 +1,248 @@
+---------------------------------------------------------------
+[ 2019-08-02T11:04:01+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/passport/login
+[ sql ] [ DB ] CONNECT:[ UseTime:0.093249s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_user` [ RunTime:0.136175s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `mark` = 1  AND `id` = 0 LIMIT 1 [ RunTime:0.022982s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:07:39+08:00 ] 0.0.0.0 POST localhost/lmeriPro/newLmeri/web/index.php?s=/store/passport/login
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011078s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_user` [ RunTime:0.001362s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `mark` = 1  AND `id` = 0 LIMIT 1 [ RunTime:0.000563s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `user_name` = 'luffy'  AND `password` = '1315871850ede99d8cbd8e191d6c070c'  AND `mark` = 1 LIMIT 1 [ RunTime:0.400933s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:07:42+08:00 ] 0.0.0.0 POST localhost/lmeriPro/newLmeri/web/index.php?s=/store/passport/login
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010266s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_user` [ RunTime:0.001190s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `mark` = 1  AND `id` = 0 LIMIT 1 [ RunTime:0.000556s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `user_name` = 'luffy'  AND `password` = 'e10adc3949ba59abbe56e057f20f883e'  AND `mark` = 1 LIMIT 1 [ RunTime:0.000561s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `id` = 52 LIMIT 1 [ RunTime:0.001403s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store` [ RunTime:0.045168s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store` WHERE  `id` = 58 [ RunTime:0.002215s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:07:45+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/index/index
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010664s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_user` [ RunTime:0.001492s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `mark` = 1  AND `id` = 52 LIMIT 1 [ RunTime:0.000662s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store` [ RunTime:0.001240s ]
+[ sql ] [ SQL ] SELECT `id`,`store_name` FROM `bs_store` WHERE  `lang_id` = 29  AND `is_open` = 1 [ RunTime:0.000636s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_goods` [ RunTime:0.002358s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `bs_store_goods` WHERE  `store_id` = 58  AND `mark` = 1 LIMIT 1 [ RunTime:0.156910s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `bs_store_goods` WHERE  `is_on_sale` = 1  AND `store_id` = 58  AND `mark` = 1 LIMIT 1 [ RunTime:0.021332s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `bs_store_goods` WHERE  `is_on_sale` = 2  AND `store_id` = 58  AND `mark` = 1 LIMIT 1 [ RunTime:0.022030s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_order_58` [ RunTime:0.012438s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.026939s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  ( `a`.`order_state` >= 20 AND `a`.`order_state` <= 50 )  AND `mark` = 1  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.001767s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 60  AND `mark` = 1  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000861s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` = 0  AND `mark` = 1  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.001189s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `mark` = 0  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000862s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_balance_recharge_coupon` [ RunTime:0.010965s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`money` FROM `bs_balance_recharge_coupon` `a` LEFT JOIN `bs_store_user` `b` ON `a`.`store_user`=`b`.`id` WHERE  `b`.`store_id` = 58  AND `a`.`mark` = 1  AND `a`.`is_use` = 2 ORDER BY `a`.`add_time` DESC [ RunTime:0.033336s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` WHERE  `store_id` = 58  AND `mark` = 1  AND `order_state` >= 20 [ RunTime:0.000914s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564675200 AND `b`.`payment_time` <= 1564761599 ) [ RunTime:0.002826s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564588800 AND `b`.`payment_time` <= 1564675199 ) [ RunTime:0.001323s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564675200 AND `b`.`payment_time` <= 1564761599 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.001125s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564588800 AND `b`.`payment_time` <= 1564675199 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000953s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_order` [ RunTime:0.002214s ]
+[ sql ] [ SQL ] SELECT DISTINCT  `a`.`buyer_id` FROM `bs_order` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND `a`.`order_state` >= 20  AND ( `b`.`payment_time` >= 1564675200 AND `b`.`payment_time` <= 1564761599 ) [ RunTime:0.001109s ]
+[ sql ] [ SQL ] SELECT DISTINCT  `a`.`buyer_id` FROM `bs_order` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND `a`.`order_state` >= 20  AND ( `b`.`payment_time` >= 1564588800 AND `b`.`payment_time` <= 1564675199 ) [ RunTime:0.000555s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564156800 AND `b`.`payment_time` <= 1564243199 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.001051s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564243200 AND `b`.`payment_time` <= 1564329599 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000949s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564329600 AND `b`.`payment_time` <= 1564415999 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000949s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564416000 AND `b`.`payment_time` <= 1564502399 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000967s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564502400 AND `b`.`payment_time` <= 1564588799 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000951s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564588800 AND `b`.`payment_time` <= 1564675199 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.001379s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564675200 AND `b`.`payment_time` <= 1564761599 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000928s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564156800 AND `b`.`payment_time` <= 1564243199 ) [ RunTime:0.001339s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564243200 AND `b`.`payment_time` <= 1564329599 ) [ RunTime:0.001764s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564329600 AND `b`.`payment_time` <= 1564415999 ) [ RunTime:0.001326s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564416000 AND `b`.`payment_time` <= 1564502399 ) [ RunTime:0.001283s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564502400 AND `b`.`payment_time` <= 1564588799 ) [ RunTime:0.001416s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564588800 AND `b`.`payment_time` <= 1564675199 ) [ RunTime:0.001213s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564675200 AND `b`.`payment_time` <= 1564761599 ) [ RunTime:0.001204s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:08:01+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011660s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_user` [ RunTime:0.007054s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `mark` = 1  AND `id` = 52 LIMIT 1 [ RunTime:0.000626s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_order_58` [ RunTime:0.006489s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `bs_order_58` `a` INNER JOIN `bs_order_relation_58` `b` ON `b`.`order_sn`=`a`.`order_sn` INNER JOIN `bs_user` `d` ON `d`.`id`=`a`.`buyer_id` WHERE  `a`.`mark` = 1 LIMIT 1 [ RunTime:0.116000s ]
+[ sql ] [ SQL ] SELECT `a`.`order_sn`,`a`.`add_time`,`a`.`sendout`,`a`.`buyer_id`,`a`.`order_state`,`a`.`order_amount`,`b`.`payment_type`,`d`.`username` FROM `bs_order_58` `a` INNER JOIN `bs_order_relation_58` `b` ON `b`.`order_sn`=`a`.`order_sn` INNER JOIN `bs_user` `d` ON `d`.`id`=`a`.`buyer_id` WHERE  `a`.`mark` = 1 ORDER BY `a`.`id` DESC LIMIT 0,15 [ RunTime:0.001691s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_order_goods` [ RunTime:0.016864s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907192028156532' [ RunTime:0.051236s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907191751021424' [ RunTime:0.004130s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907171654001759' [ RunTime:0.011180s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907171602567412' [ RunTime:0.001704s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907171504329865' [ RunTime:0.002802s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907171448533780' [ RunTime:0.001245s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201903211350509491' [ RunTime:0.016935s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201901191633537027' [ RunTime:0.020482s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201812181451085977' [ RunTime:0.002256s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201812081049432133' [ RunTime:0.009379s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201812081024119617' [ RunTime:0.001043s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201811300845483102' [ RunTime:0.003649s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201810221453522250' [ RunTime:0.009911s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201809121520124501' [ RunTime:0.019870s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201809121509263817' [ RunTime:0.001119s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store` [ RunTime:0.003590s ]
+[ sql ] [ SQL ] SELECT `id`,`store_name` FROM `bs_store` WHERE  `lang_id` = 29  AND `is_open` = 1 [ RunTime:0.001358s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:08:03+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/shop.user/index
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011424s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_user` [ RunTime:0.001100s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `mark` = 1  AND `id` = 52 LIMIT 1 [ RunTime:0.000494s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store` [ RunTime:0.001345s ]
+[ sql ] [ SQL ] SELECT `id`,`store_name` FROM `bs_store` WHERE  `lang_id` = 29  AND `is_open` = 1 [ RunTime:0.000527s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `bs_store_user` `u` LEFT JOIN `bs_store` `s` ON `u`.`store_id`=`s`.`id` WHERE  `u`.`mark` = 1 LIMIT 1 [ RunTime:0.000900s ]
+[ sql ] [ SQL ] SELECT `u`.*,s.id as sid,`s`.`store_type` FROM `bs_store_user` `u` LEFT JOIN `bs_store` `s` ON `u`.`store_id`=`s`.`id` WHERE  `u`.`mark` = 1 ORDER BY `create_time` DESC LIMIT 0,15 [ RunTime:0.001241s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store` WHERE  `id` IN (93,59,58,72,100,76,78,94,82,92) [ RunTime:0.001065s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_user_role` [ RunTime:0.000953s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user_role` WHERE  `store_user_id` IN (307,306,305,304,303,302,301,300,299,298,297,296,295,294,293) [ RunTime:0.016363s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_role` [ RunTime:0.002531s ]
+[ sql ] [ SQL ] SELECT `bs_store_role`.*,pivot.id AS pivot__id,pivot.store_user_id AS pivot__store_user_id,pivot.role_id AS pivot__role_id,pivot.create_time AS pivot__create_time FROM `bs_store_role` INNER JOIN `bs_store_user_role` `pivot` ON `pivot`.`role_id`=`bs_store_role`.`role_id` WHERE  `pivot`.`store_user_id` IN (307,306,305,304,303,302,301,300,299,298,297,296,295,294,293) [ RunTime:0.012850s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:08:04+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011269s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_user` [ RunTime:0.001205s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `mark` = 1  AND `id` = 52 LIMIT 1 [ RunTime:0.000527s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_order_58` [ RunTime:0.002600s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `bs_order_58` `a` INNER JOIN `bs_order_relation_58` `b` ON `b`.`order_sn`=`a`.`order_sn` INNER JOIN `bs_user` `d` ON `d`.`id`=`a`.`buyer_id` WHERE  `a`.`mark` = 1 LIMIT 1 [ RunTime:0.002173s ]
+[ sql ] [ SQL ] SELECT `a`.`order_sn`,`a`.`add_time`,`a`.`sendout`,`a`.`buyer_id`,`a`.`order_state`,`a`.`order_amount`,`b`.`payment_type`,`d`.`username` FROM `bs_order_58` `a` INNER JOIN `bs_order_relation_58` `b` ON `b`.`order_sn`=`a`.`order_sn` INNER JOIN `bs_user` `d` ON `d`.`id`=`a`.`buyer_id` WHERE  `a`.`mark` = 1 ORDER BY `a`.`id` DESC LIMIT 0,15 [ RunTime:0.000545s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_order_goods` [ RunTime:0.000954s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907192028156532' [ RunTime:0.000465s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907191751021424' [ RunTime:0.000411s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907171654001759' [ RunTime:0.000367s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907171602567412' [ RunTime:0.000395s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907171504329865' [ RunTime:0.000597s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201907171448533780' [ RunTime:0.000624s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201903211350509491' [ RunTime:0.000399s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201901191633537027' [ RunTime:0.000438s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201812181451085977' [ RunTime:0.000382s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201812081049432133' [ RunTime:0.000370s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201812081024119617' [ RunTime:0.000382s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201811300845483102' [ RunTime:0.000378s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201810221453522250' [ RunTime:0.000394s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201809121520124501' [ RunTime:0.000378s ]
+[ sql ] [ SQL ] SELECT `c`.`goods_image`,`c`.`goods_name`,`c`.`spec_key_name`,`c`.`goods_price`,`c`.`goods_num` FROM `bs_order_goods` `c` WHERE  `order_id` = '201809121509263817' [ RunTime:0.000386s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store` [ RunTime:0.001078s ]
+[ sql ] [ SQL ] SELECT `id`,`store_name` FROM `bs_store` WHERE  `lang_id` = 29  AND `is_open` = 1 [ RunTime:0.000422s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:08:05+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/store.user/index
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010964s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_user` [ RunTime:0.001121s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `mark` = 1  AND `id` = 52 LIMIT 1 [ RunTime:0.000437s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `bs_store_user` `u` LEFT JOIN `bs_store` `s` ON `u`.`store_id`=`s`.`id` WHERE  `s`.`store_type` = 1  AND `u`.`mark` = 1 LIMIT 1 [ RunTime:0.001149s ]
+[ sql ] [ SQL ] SELECT `u`.*,s.id as sid,`s`.`store_type` FROM `bs_store_user` `u` LEFT JOIN `bs_store` `s` ON `u`.`store_id`=`s`.`id` WHERE  `s`.`store_type` = 1  AND `u`.`mark` = 1 ORDER BY `create_time` DESC LIMIT 0,15 [ RunTime:0.000886s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store` [ RunTime:0.000975s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store` WHERE  `id` IN (58,61,60,64) [ RunTime:0.000622s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_user_role` [ RunTime:0.001035s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user_role` WHERE  `store_user_id` IN (305,253,208,190,171,154,146,145,75,55,54,52,51) [ RunTime:0.000613s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_role` [ RunTime:0.000877s ]
+[ sql ] [ SQL ] SELECT `bs_store_role`.*,pivot.id AS pivot__id,pivot.store_user_id AS pivot__store_user_id,pivot.role_id AS pivot__role_id,pivot.create_time AS pivot__create_time FROM `bs_store_role` INNER JOIN `bs_store_user_role` `pivot` ON `pivot`.`role_id`=`bs_store_role`.`role_id` WHERE  `pivot`.`store_user_id` IN (305,253,208,190,171,154,146,145,75,55,54,52,51) [ RunTime:0.000544s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:09:04+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.012146s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.004215s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.002552s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:44:22+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001440s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001091s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000579s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:44:25+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010567s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001354s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000590s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:52:55+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001254s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001095s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000582s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:53:54+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010932s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001181s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000594s ]
+---------------------------------------------------------------
+[ 2019-08-02T11:56:31+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010512s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001493s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000550s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:13:26+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001243s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001023s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000516s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:13:45+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011012s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000978s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000501s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:14:02+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011069s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001180s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000560s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:14:41+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010776s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.006181s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000658s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:15:19+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011160s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001012s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000516s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:15:29+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002265s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.005522s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000676s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:21:52+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001115s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000972s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000567s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_goods` [ RunTime:0.000951s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_goods` WHERE  `id` = 20801 LIMIT 1 [ RunTime:0.109354s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:22:06+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010850s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000957s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000497s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_goods` [ RunTime:0.001002s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_goods` WHERE  `id` = 20801 LIMIT 1 [ RunTime:0.000721s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:23:27+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010287s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.002184s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000625s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_goods` [ RunTime:0.001096s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_goods` WHERE  `id` = 20801 LIMIT 1 [ RunTime:0.000584s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:23:38+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011662s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001192s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.001243s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_goods` [ RunTime:0.001069s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:30:33+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001476s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000889s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000581s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_goods` [ RunTime:0.002350s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_store_goods` WHERE  `id` = 20801 [ RunTime:0.000390s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:32:06+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011094s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000976s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000513s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_goods` [ RunTime:0.001019s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_store_goods` WHERE  `id` = 20801 [ RunTime:0.000391s ]
+---------------------------------------------------------------
+[ 2019-08-02T12:34:25+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010605s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000867s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000495s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_goods` [ RunTime:0.001178s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_store_goods` WHERE  `id` = 20801 [ RunTime:0.000515s ]

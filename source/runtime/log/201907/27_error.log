@@ -1,0 +1,18 @@
+---------------------------------------------------------------
+[ 2019-07-27T10:36:53+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [2]Illegal string offset 'id'[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\2e1204e5d2826cecb26b0b7fba377a8f.php:326]
+---------------------------------------------------------------
+[ 2019-07-27T11:37:08+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [8]未定义数组索引: order_id[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\2e1204e5d2826cecb26b0b7fba377a8f.php:325]
+---------------------------------------------------------------
+[ 2019-07-27T11:37:12+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [8]未定义数组索引: order_id[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\2e1204e5d2826cecb26b0b7fba377a8f.php:325]
+---------------------------------------------------------------
+[ 2019-07-27T11:37:46+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [8]未定义数组索引: order_id[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\2e1204e5d2826cecb26b0b7fba377a8f.php:325]
+---------------------------------------------------------------
+[ 2019-07-27T11:37:51+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [8]未定义数组索引: order_id[D:\wamp\www\lmeriPro\newLmeri\source\runtime\temp\2e1204e5d2826cecb26b0b7fba377a8f.php:325]
+---------------------------------------------------------------
+[ 2019-07-27T11:42:44+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/detail/order_sn/201907262136239573
+[ error ] [0]方法参数错误:order_id[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\App.php:431]

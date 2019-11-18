@@ -1,0 +1,57 @@
+---------------------------------------------------------------
+[ 2019-11-07T08:57:31+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [4]语法错误: unexpected '}'[D:\phpStudy\WWW\lmeriPro\source\application\store\model\RoomCategory.php:28]
+---------------------------------------------------------------
+[ 2019-11-07T09:01:11+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [4]语法错误: unexpected '}'[D:\phpStudy\WWW\lmeriPro\source\application\store\model\RoomCategory.php:28]
+---------------------------------------------------------------
+[ 2019-11-07T09:12:59+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [1]Using $this when not in object context[D:\phpStudy\WWW\lmeriPro\source\application\store\model\RoomCategory.php:26]
+---------------------------------------------------------------
+[ 2019-11-07T09:28:57+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.category_id' in 'where clause'[D:\phpStudy\WWW\lmeriPro\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-11-07T09:32:20+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.category_id' in 'where clause'[D:\phpStudy\WWW\lmeriPro\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-11-07T09:34:30+08:00 ] 127.0.0.1 GET www.phpstudy.net/index.php?s=/api/user_comment/getList
+[ error ] [10501]SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-15,15' at line 1[D:\phpStudy\WWW\lmeriPro\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-11-07T09:36:29+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.category_id' in 'where clause'[D:\phpStudy\WWW\lmeriPro\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-11-07T09:37:27+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.category_id' in 'where clause'[D:\phpStudy\WWW\lmeriPro\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-11-07T09:37:39+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.category_id' in 'where clause'[D:\phpStudy\WWW\lmeriPro\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-11-07T09:38:21+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'a.category_id' in 'where clause'[D:\phpStudy\WWW\lmeriPro\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-11-07T09:39:44+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [8192]Non-static method app\store\model\RoomCategory::getRoomTypeNameByCategoryId() should not be called statically, assuming $this from incompatible context[D:\phpStudy\WWW\lmeriPro\source\application\store\controller\store\Business.php:92]
+---------------------------------------------------------------
+[ 2019-11-07T09:41:06+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [8192]Non-static method app\store\model\RoomCategory::getRoomTypeNameByCategoryId() should not be called statically, assuming $this from incompatible context[D:\phpStudy\WWW\lmeriPro\source\application\store\controller\store\Business.php:92]
+---------------------------------------------------------------
+[ 2019-11-07T09:42:13+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/get_room_name.html
+[ error ] [64]Cannot make static method app\common\model\RoomCategory::getRoomTypeNameByCategoryId() non static in class app\store\model\RoomCategory[D:\phpStudy\WWW\lmeriPro\source\application\store\model\RoomCategory.php:15]
+---------------------------------------------------------------
+[ 2019-11-07T09:45:37+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/getcategoryid.html
+[ error ] [8192]Non-static method app\store\model\RoomCategory::getCategoryId() should not be called statically, assuming $this from incompatible context[D:\phpStudy\WWW\lmeriPro\source\application\store\controller\store\Business.php:107]
+---------------------------------------------------------------
+[ 2019-11-07T09:47:19+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/getcategoryid.html
+[ error ] [8192]Non-static method app\store\model\RoomCategory::getCategoryId() should not be called statically, assuming $this from incompatible context[D:\phpStudy\WWW\lmeriPro\source\application\store\controller\store\Business.php:107]
+---------------------------------------------------------------
+[ 2019-11-07T09:50:55+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.business/getcategoryid.html
+[ error ] [8192]Non-static method app\store\model\RoomCategory::getCategoryId() should not be called statically, assuming $this from incompatible context[D:\phpStudy\WWW\lmeriPro\source\application\store\controller\store\Business.php:107]
+---------------------------------------------------------------
+[ 2019-11-07T10:31:16+08:00 ] 127.0.0.1 GET www.phpstudy.net/index.php?s=/store/goods/edit/goods_id/29725.html
+[ error ] [4]语法错误: unexpected '}', expecting variable (T_VARIABLE) or '$'[D:\phpStudy\WWW\lmeriPro\source\application\store\model\StoreGoods.php:210]
+---------------------------------------------------------------
+[ 2019-11-07T10:31:27+08:00 ] 127.0.0.1 GET www.phpstudy.net/index.php?s=/store/goods/edit/goods_id/29725.html
+[ error ] [4]语法错误: unexpected '}', expecting variable (T_VARIABLE) or '$'[D:\phpStudy\WWW\lmeriPro\source\application\store\model\StoreGoods.php:210]
+---------------------------------------------------------------
+[ 2019-11-07T10:40:10+08:00 ] 127.0.0.1 GET www.phpstudy.net/index.php?s=/store/goods/index.html
+[ error ] [64]Cannot use [] for reading[D:\phpStudy\WWW\lmeriPro\source\application\store\model\StoreGoods.php:211]

@@ -1,0 +1,6 @@
+---------------------------------------------------------------
+[ 2019-11-18T11:42:24+08:00 ] 127.0.0.1 GET www.phpstudy.net/index.php?s=/store/store.shop/edit/store_id/195.html
+[ error ] [8]未定义数组下标: 195[D:\phpStudy\WWW\lmeriPro\source\application\store\model\store\Shop.php:51]
+---------------------------------------------------------------
+[ 2019-11-18T11:42:57+08:00 ] 127.0.0.1 GET www.phpstudy.net/index.php?s=/store/store.shop/edit/store_id/98.html
+[ error ] [8]未定义数组索引: business_id[D:\phpStudy\WWW\lmeriPro\source\runtime\temp\7bfd3e067ee53ddd7a4246d0bb169316.php:268]

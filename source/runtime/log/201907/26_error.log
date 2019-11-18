@@ -1,0 +1,60 @@
+---------------------------------------------------------------
+[ 2019-07-26T20:50:50+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/passport/login
+[ error ] [1045]SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:295]
+---------------------------------------------------------------
+[ 2019-07-26T21:15:07+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=%2Fstore%2Forder%2Findex&page=2
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bspm711.bs_store_user' doesn't exist[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T21:25:21+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=%2Fstore%2Forder%2Findex&page=2
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bspm711.bs_store_user' doesn't exist[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T21:55:15+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=%2Fstore%2Forder%2Findex&page=2
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bspm711.bs_store_user' doesn't exist[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T21:58:15+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=%2Fstore%2Forder%2Findex&page=2
+[ error ] [0]很抱歉，没有访问权限[D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\Controller.php:85]
+---------------------------------------------------------------
+[ 2019-07-26T22:00:46+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=%2Fstore%2Forder%2Findex&page=2
+[ error ] [1045]SQLSTATE[HY000] [1045] Access denied for user 'root'@'183.206.10.252' (using password: YES)[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:295]
+---------------------------------------------------------------
+[ 2019-07-26T22:01:38+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=%2Fstore%2Forder%2Findex&page=2
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bspm711.bs_store_user' doesn't exist[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T22:04:00+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=%2Fstore%2Forder%2Findex&page=2
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bspm711.bs_store_user' doesn't exist[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T22:09:13+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=%2Fstore%2Forder%2Findex&page=2
+[ error ] [0]很抱歉，没有访问权限[D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\Controller.php:85]
+---------------------------------------------------------------
+[ 2019-07-26T22:09:16+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [0]很抱歉，没有访问权限[D:\wamp\www\lmeriPro\newLmeri\source\application\store\controller\Controller.php:85]
+---------------------------------------------------------------
+[ 2019-07-26T22:09:17+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/index/index
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bspm711.bs_order_relation_82' doesn't exist[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T22:09:22+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bspm711.bs_order_relation_82' doesn't exist[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T22:21:19+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bspm711.bs_order_goods' doesn't exist[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T22:21:25+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bspm711.bs_order_goods' doesn't exist[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T22:40:24+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.goods_image' in 'field list'[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T22:40:57+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.goods_image' in 'field list'[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T22:41:01+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [10501]SQLSTATE[42S22]: Column not found: 1054 Unknown column 'c.goods_image' in 'field list'[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T22:41:22+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/order/index
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bspm711.bs_order_goods' doesn't exist[D:\wamp\www\lmeriPro\newLmeri\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-07-26T22:50:58+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=%2Fstore%2Forder%2Findex&page=5
+[ error ] [8]未定义数组下标: 0[D:\wamp\www\lmeriPro\newLmeri\source\application\store\model\Order.php:49]
+---------------------------------------------------------------
+[ 2019-07-26T22:51:04+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=%2Fstore%2Forder%2Findex&page=8
+[ error ] [8]未定义数组下标: 0[D:\wamp\www\lmeriPro\newLmeri\source\application\store\model\Order.php:49]

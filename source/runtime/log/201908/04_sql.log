@@ -1,0 +1,528 @@
+---------------------------------------------------------------
+[ 2019-08-04T09:30:37+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/store/index/index
+[ sql ] [ DB ] CONNECT:[ UseTime:0.004910s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_user` [ RunTime:0.016685s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_store_user` WHERE  `mark` = 1  AND `id` = 52 LIMIT 1 [ RunTime:0.006327s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store` [ RunTime:0.006538s ]
+[ sql ] [ SQL ] SELECT `id`,`store_name` FROM `bs_store` WHERE  `lang_id` = 29  AND `is_open` = 1 [ RunTime:0.002607s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_goods` [ RunTime:0.005675s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `bs_store_goods` WHERE  `store_id` = 58  AND `mark` = 1 LIMIT 1 [ RunTime:0.208225s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `bs_store_goods` WHERE  `is_on_sale` = 1  AND `store_id` = 58  AND `mark` = 1 LIMIT 1 [ RunTime:0.029950s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `bs_store_goods` WHERE  `is_on_sale` = 2  AND `store_id` = 58  AND `mark` = 1 LIMIT 1 [ RunTime:0.021936s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_order_58` [ RunTime:0.002012s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.005495s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  ( `a`.`order_state` >= 20 AND `a`.`order_state` <= 50 )  AND `mark` = 1  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000830s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 60  AND `mark` = 1  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000664s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` = 0  AND `mark` = 1  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000619s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `mark` = 0  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000457s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_balance_recharge_coupon` [ RunTime:0.000769s ]
+[ sql ] [ SQL ] SELECT `a`.`id`,`a`.`money` FROM `bs_balance_recharge_coupon` `a` LEFT JOIN `bs_store_user` `b` ON `a`.`store_user`=`b`.`id` WHERE  `b`.`store_id` = 58  AND `a`.`mark` = 1  AND `a`.`is_use` = 2 ORDER BY `a`.`add_time` DESC [ RunTime:0.009790s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` WHERE  `store_id` = 58  AND `mark` = 1  AND `order_state` >= 20 [ RunTime:0.000880s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564848000 AND `b`.`payment_time` <= 1564934399 ) [ RunTime:0.007445s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564761600 AND `b`.`payment_time` <= 1564847999 ) [ RunTime:0.001409s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564848000 AND `b`.`payment_time` <= 1564934399 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000920s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564761600 AND `b`.`payment_time` <= 1564847999 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.001074s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_order` [ RunTime:0.001821s ]
+[ sql ] [ SQL ] SELECT DISTINCT  `a`.`buyer_id` FROM `bs_order` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND `a`.`order_state` >= 20  AND ( `b`.`payment_time` >= 1564848000 AND `b`.`payment_time` <= 1564934399 ) [ RunTime:0.000564s ]
+[ sql ] [ SQL ] SELECT DISTINCT  `a`.`buyer_id` FROM `bs_order` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND `a`.`order_state` >= 20  AND ( `b`.`payment_time` >= 1564761600 AND `b`.`payment_time` <= 1564847999 ) [ RunTime:0.000543s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564329600 AND `b`.`payment_time` <= 1564415999 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000987s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564416000 AND `b`.`payment_time` <= 1564502399 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.001112s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564502400 AND `b`.`payment_time` <= 1564588799 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000910s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564588800 AND `b`.`payment_time` <= 1564675199 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.001062s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564675200 AND `b`.`payment_time` <= 1564761599 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000916s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564761600 AND `b`.`payment_time` <= 1564847999 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000904s ]
+[ sql ] [ SQL ] SELECT COUNT(a.order_sn) AS tp_count FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`order_state` >= 20  AND `mark` = 1  AND ( `b`.`payment_time` >= 1564848000 AND `b`.`payment_time` <= 1564934399 )  AND `a`.`store_id` = 58 LIMIT 1 [ RunTime:0.000902s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564329600 AND `b`.`payment_time` <= 1564415999 ) [ RunTime:0.001261s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564416000 AND `b`.`payment_time` <= 1564502399 ) [ RunTime:0.001555s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564502400 AND `b`.`payment_time` <= 1564588799 ) [ RunTime:0.001282s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564588800 AND `b`.`payment_time` <= 1564675199 ) [ RunTime:0.001243s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564675200 AND `b`.`payment_time` <= 1564761599 ) [ RunTime:0.001325s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564761600 AND `b`.`payment_time` <= 1564847999 ) [ RunTime:0.001437s ]
+[ sql ] [ SQL ] SELECT `order_amount` FROM `bs_order_58` `a` LEFT JOIN `bs_order_relation_58` `b` ON `a`.`order_sn`=`b`.`order_sn` WHERE  `a`.`store_id` = 58  AND ( `b`.`payment_time` >= 1564848000 AND `b`.`payment_time` <= 1564934399 ) [ RunTime:0.001691s ]
+---------------------------------------------------------------
+[ 2019-08-04T09:30:54+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011575s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.002482s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.010357s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_store_goods` [ RunTime:0.002309s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_store_goods` WHERE  `id` = 20801 [ RunTime:0.000760s ]
+---------------------------------------------------------------
+[ 2019-08-04T09:33:16+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010980s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001017s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000806s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001239s ]
+---------------------------------------------------------------
+[ 2019-08-04T09:33:52+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010341s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000976s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000565s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.006011s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 20801 [ RunTime:0.000466s ]
+---------------------------------------------------------------
+[ 2019-08-04T09:34:15+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011662s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001051s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000602s ]
+---------------------------------------------------------------
+[ 2019-08-04T10:03:16+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001083s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001749s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000891s ]
+---------------------------------------------------------------
+[ 2019-08-04T10:03:50+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000997s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.002375s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000570s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001096s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000512s ]
+---------------------------------------------------------------
+[ 2019-08-04T11:39:51+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.009618s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.011907s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.001232s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.006590s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000669s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:16:55+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001326s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001604s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000620s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000981s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000406s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:28:19+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001021s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001702s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000549s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001393s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000363s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:28:25+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011058s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001287s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.001058s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000830s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000417s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:33:26+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001942s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.002148s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000776s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001021s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000400s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:34:04+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010667s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001338s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000653s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001939s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000504s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:34:27+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000897s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001863s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000539s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000991s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000423s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:34:49+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000901s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001544s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000681s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001237s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000535s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:35:13+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.009724s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001693s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000754s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001237s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000424s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000653s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 [ RunTime:0.001176s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:36:19+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000779s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000938s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000502s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000987s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000454s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.001759s ]
+[ sql ] [ SQL ] SELECT `item_name` FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 [ RunTime:0.001304s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:37:11+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011030s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001978s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000593s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001310s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000404s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.001854s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name) FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 [ RunTime:0.002726s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:37:29+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011030s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000986s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000533s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000974s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000366s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:37:40+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010475s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001264s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000670s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001112s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000441s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000829s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name) FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001248s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:37:47+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011481s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001064s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000526s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001055s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000509s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000703s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name) FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001216s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:37:57+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000796s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000928s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000607s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000938s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000443s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000633s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name) FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001459s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:37:58+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010724s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001441s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000707s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001699s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000374s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000941s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name) FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001168s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:38:02+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011188s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001267s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000563s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001251s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000357s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000721s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name) FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001333s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:38:11+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010144s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000824s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000618s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000966s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000463s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000837s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name) item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001162s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:38:53+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011178s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001381s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000670s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001137s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000567s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000922s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name) item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001342s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:39:52+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010535s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001158s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000818s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001356s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000415s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000585s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:40:05+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010347s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001637s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000548s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000962s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000444s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000757s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name, ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001490s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:40:49+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011068s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001057s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000622s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000869s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000449s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.001390s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:41:01+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010053s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000872s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000526s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001074s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000601s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000799s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:41:10+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010132s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000963s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000555s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000939s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000400s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000792s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name,  '_') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001260s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:41:34+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.009863s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000913s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000571s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000907s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000374s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000636s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator '_') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001213s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:41:49+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010555s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000859s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000597s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001099s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000417s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.001108s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001395s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:42:05+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010227s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001162s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000580s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000960s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000388s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.001083s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001292s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:42:22+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010054s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000862s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000566s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000989s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000439s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.001850s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001289s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:49:57+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001061s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.000918s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000574s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000839s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000544s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:50:22+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010805s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001214s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000598s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.001126s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000458s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000580s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001194s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000365s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2146,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001105s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 2642 [ RunTime:0.015431s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2107)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001480s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:51:08+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010784s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001008s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000527s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000867s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.001258s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:51:24+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010284s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001867s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000895s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000878s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000453s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000603s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001230s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000755s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2146,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001214s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 2642 [ RunTime:0.000322s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2107)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001128s ]
+---------------------------------------------------------------
+[ 2019-08-04T12:53:10+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010951s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001345s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000603s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000986s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000772s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000613s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001166s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000386s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2146,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001321s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 2642 [ RunTime:0.000388s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2107)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001177s ]
+---------------------------------------------------------------
+[ 2019-08-04T13:00:04+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.000974s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001489s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000671s ]
+---------------------------------------------------------------
+[ 2019-08-04T13:00:13+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011137s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001452s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000619s ]
+---------------------------------------------------------------
+[ 2019-08-04T13:00:58+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010099s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001426s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000527s ]
+---------------------------------------------------------------
+[ 2019-08-04T13:02:14+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010890s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.002339s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000749s ]
+---------------------------------------------------------------
+[ 2019-08-04T13:02:53+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011213s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001760s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000546s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000953s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000430s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000680s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001336s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000532s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2146,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001282s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 2642 [ RunTime:0.000685s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2107)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.002686s ]
+---------------------------------------------------------------
+[ 2019-08-04T13:05:25+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011389s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001542s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000671s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.000913s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000376s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.000561s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001182s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000469s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2146,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001194s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 2642 [ RunTime:0.000900s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2107)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001192s ]
+---------------------------------------------------------------
+[ 2019-08-04T22:16:05+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.049453s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.016427s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.003705s ]
+---------------------------------------------------------------
+[ 2019-08-04T22:21:05+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001803s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.002785s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000646s ]
+---------------------------------------------------------------
+[ 2019-08-04T22:21:39+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011153s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.002985s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000537s ]
+---------------------------------------------------------------
+[ 2019-08-04T22:22:19+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010013s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.007518s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000593s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user_account` [ RunTime:0.003335s ]
+[ sql ] [ SQL ] SELECT `fx_user_id` FROM `bs_fx_user_account` WHERE  `user_id` = 29667 [ RunTime:0.162987s ]
+---------------------------------------------------------------
+[ 2019-08-04T22:35:34+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002362s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.010112s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.002644s ]
+---------------------------------------------------------------
+[ 2019-08-04T22:43:42+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001439s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.008025s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000702s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user` [ RunTime:0.004636s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_fx_user` `a` INNER JOIN `bs_fx_user_account` `b` ON `a`.`id`=`b`.`fx_user_id` WHERE  `b`.`user_id` = 29667 LIMIT 1 [ RunTime:0.051156s ]
+---------------------------------------------------------------
+[ 2019-08-04T22:45:08+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011250s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.002242s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.001202s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user` [ RunTime:0.003890s ]
+[ sql ] [ SQL ] SELECT `fx_code` FROM `bs_fx_user` `a` INNER JOIN `bs_fx_user_account` `b` ON `a`.`id`=`b`.`fx_user_id` WHERE  `b`.`user_id` = 29667 [ RunTime:0.008688s ]
+---------------------------------------------------------------
+[ 2019-08-04T22:53:34+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.002593s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.004420s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000921s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user` [ RunTime:0.006098s ]
+[ sql ] [ SQL ] SELECT `fx_code`,`discount` FROM `bs_fx_user` `a` INNER JOIN `bs_fx_user_account` `b` ON `a`.`id`=`b`.`fx_user_id` WHERE  `b`.`user_id` = 29667 [ RunTime:0.010490s ]
+---------------------------------------------------------------
+[ 2019-08-04T22:54:07+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011650s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.002450s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.001258s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user` [ RunTime:0.002770s ]
+[ sql ] [ SQL ] SELECT `fx_code`,`discount` FROM `bs_fx_user` `a` INNER JOIN `bs_fx_user_account` `b` ON `a`.`id`=`b`.`fx_user_id` WHERE  `b`.`user_id` = 29667 LIMIT 1 [ RunTime:0.010634s ]
+---------------------------------------------------------------
+[ 2019-08-04T22:54:25+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011354s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001347s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000845s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user` [ RunTime:0.001876s ]
+[ sql ] [ SQL ] SELECT `fx_code`,`discount` FROM `bs_fx_user` `a` INNER JOIN `bs_fx_user_account` `b` ON `a`.`id`=`b`.`fx_user_id` WHERE  `b`.`user_id` = 29667 LIMIT 1 [ RunTime:0.009007s ]
+---------------------------------------------------------------
+[ 2019-08-04T22:56:20+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011282s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.006830s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.001100s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user` [ RunTime:0.002737s ]
+[ sql ] [ SQL ] SELECT `fx_code`,`discount` FROM `bs_fx_user` `a` INNER JOIN `bs_fx_user_account` `b` ON `a`.`id`=`b`.`fx_user_id` WHERE  `b`.`user_id` = 29667 LIMIT 1 [ RunTime:0.033932s ]
+---------------------------------------------------------------
+[ 2019-08-04T23:07:48+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.006445s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001431s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.001132s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user` [ RunTime:0.001145s ]
+[ sql ] [ SQL ] SELECT `fx_code`,`discount` FROM `bs_fx_user` `a` INNER JOIN `bs_fx_user_account` `b` ON `a`.`id`=`b`.`fx_user_id` WHERE  `b`.`user_id` = 29667 LIMIT 1 [ RunTime:0.018483s ]
+---------------------------------------------------------------
+[ 2019-08-04T23:08:01+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.010963s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.001696s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000991s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user` [ RunTime:0.002487s ]
+[ sql ] [ SQL ] SELECT `fx_code`,`discount` FROM `bs_fx_user` `a` INNER JOIN `bs_fx_user_account` `b` ON `a`.`id`=`b`.`fx_user_id` WHERE  `b`.`user_id` = 29667 LIMIT 1 [ RunTime:0.017635s ]
+---------------------------------------------------------------
+[ 2019-08-04T23:08:18+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011022s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.007255s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.001309s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user` [ RunTime:0.002887s ]
+[ sql ] [ SQL ] SELECT `fx_code`,`discount` FROM `bs_fx_user` `a` INNER JOIN `bs_fx_user_account` `b` ON `a`.`id`=`b`.`fx_user_id` WHERE  `b`.`user_id` = 29667 LIMIT 1 [ RunTime:0.009507s ]
+---------------------------------------------------------------
+[ 2019-08-04T23:08:32+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.001527s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.007090s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.001021s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user` [ RunTime:0.002430s ]
+[ sql ] [ SQL ] SELECT `fx_code`,`discount` FROM `bs_fx_user` `a` INNER JOIN `bs_fx_user_account` `b` ON `a`.`id`=`b`.`fx_user_id` WHERE  `b`.`user_id` = 29667 LIMIT 1 [ RunTime:0.011538s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.010568s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.003162s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.005119s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.024026s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.001481s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2146,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.005634s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 2642 [ RunTime:0.001559s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2107)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.005107s ]
+---------------------------------------------------------------
+[ 2019-08-04T23:09:55+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
+[ sql ] [ DB ] CONNECT:[ UseTime:0.011043s ] mysql:host=127.0.0.1;port=3306;dbname=bspm711;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_cart` [ RunTime:0.002027s ]
+[ sql ] [ SQL ] SELECT * FROM `bs_cart` WHERE  `id` IN (72123,72125,72126) [ RunTime:0.000983s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_fx_user` [ RunTime:0.007820s ]
+[ sql ] [ SQL ] SELECT `fx_code`,`discount` FROM `bs_fx_user` `a` INNER JOIN `bs_fx_user_account` `b` ON `a`.`id`=`b`.`fx_user_id` WHERE  `b`.`user_id` = 29667 LIMIT 1 [ RunTime:0.029115s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods` [ RunTime:0.003708s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000995s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `bs_goods_spec_item_lang` [ RunTime:0.002340s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2145,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.003720s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 947 [ RunTime:0.000636s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2074,2146,2149,2188)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.002164s ]
+[ sql ] [ SQL ] SELECT `original_img` FROM `bs_goods` WHERE  `goods_id` = 2642 [ RunTime:0.000483s ]
+[ sql ] [ SQL ] SELECT group_concat(item_name separator ':') item_name FROM `bs_goods_spec_item_lang` WHERE  `item_id` IN (2107)  AND `lang_id` = 29 LIMIT 1 [ RunTime:0.001604s ]
