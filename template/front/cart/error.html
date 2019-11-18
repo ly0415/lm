@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>404</title>
+	<meta charset="utf-8" />
+	{include file="public/header.html"}
+</head>
+<body>
+	<!-- header -->
+	{include file="public/daohang.html"}
+	
+	<div class="error1-wrap tc mt40">
+		<img src="{$STATIC_URL}/front/images/error1.png">
+		<div class="text">
+			<p class="red mt20 font18">你的页面不存在！<span class="ml30">倒计时：<span class="time">5</span> 秒</span></p>
+			<a href="##" class="btn btn-o mt20 font16">立即返回</a>
+		</div>
+	</div>
+	{include file="public/footer.html"}
+
+<script type="text/javascript">
+	var t=5;
+	setInterval("refer()",1000);
+	function refer(){ 
+		if(t==0){ 
+		location="http://www.baidu.com";
+		}else{
+			$('.time').text(t);
+			t--; 
+		} 
+		
+	} 
+	
+</script>
+</body>
+</html>

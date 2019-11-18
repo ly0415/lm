@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title> {if $webtitle} {$webtitle}{else}{$langdata.category}{/if}</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link href="{$STATIC_URL}/wx/mobiscroll.custom-2.17.1.min.css"  rel="stylesheet" type="text/css"/>
+    <link href="{$STATIC_URL}/wx/base.css?_t={$web_redis_time}"  rel="stylesheet" type="text/css"/>
+    <link href="{$STATIC_URL}/wx/swiper.min.css?_t={$web_redis_time}"  rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{$STATIC_URL}/wx/layui/css/layui.css"/>
+    {if $viewCss}
+    <link rel="stylesheet" href="{$viewCss}" type="text/css"/>
+    {/if}

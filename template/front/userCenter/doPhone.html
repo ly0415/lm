@@ -1,0 +1,76 @@
+<form class="form-layer" action="?app=userCenter&act=doPhone" data-type="ajax" style="margin-top: -50px;">
+    <input type="hidden" name="storeid"  value="{$storeid}"/>
+    <input type="hidden" name="lang"  value="{$lang}"/>
+    <div class="login-box ">
+        <div class="login-content">
+            <p>
+                <input type="text" name="phone" placeholder="{$langdata.enter_number}" class="text">
+            <div class="error" style="display: none;" id="phone_error"></div>
+            </p>
+            <p>
+                <input type="text" name="code" placeholder="{$langdata.Input_verificationcode}" class="text inblock" style="width: 50%">
+                <a href="javascript:;" class="btn-sub inblock fr getval" style="width: 45%">{$langdata.Obtain_validation}</a>
+            <div class="error" style="display: none;" id="code_error"></div>
+            </p>
+            <p>
+            <div class="item">
+                <button type="submit" class="btn-sub inblock" id="validateBtn" style="width: 40%">确认重置</button>
+                <button type="button"  class="btn-sub inblock fr" id="cancleBtn" style="width: 40%">取消</button>
+            </div>
+            </p>
+        </div>
+    </div>
+</form>
+<script>
+    $('#cancleBtn').click(function() {
+        layer.closeAll();
+//window.location.reload();
+    });
+</script>
+{literal}
+<script type="text/javascript">
+    $(function() {
+        //发送验证码
+        var validCode = true;
+        $(".getval").click(function() {
+            //发送短信验证吗
+            $('#phone_error').css('display', 'none');
+            var phone = $('input[name="phone"]').val();
+            var reg = /^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/;
+            //验证
+            if (phone.length == 0) {
+                $('#phone_error').css('display', 'block');
+                $('#phone_error').text('手机号码必填！');
+                return false;
+            }
+
+            if (!reg.test(phone)) {
+                $('#phone_error').css('display', 'block');
+                $('#phone_error').text('手机号码格式错误！');
+                return false;
+            }
+            //
+            $.post('index.php?app=sms&act=sendSms', {'phone': phone}, function(data) {
+
+            });
+            //倒计时
+            var time = 60;
+            var code = $(this);
+            code.addClass('active');
+            if (validCode) {
+                validCode = false;
+                var t = setInterval(function() {
+                    time--;
+                    code.html("已发送" + time + "秒");
+                    if (time == 0) {
+                        clearInterval(t);
+                        code.removeClass('active');
+                        code.html("重新获取");
+                        validCode = true;
+                    }
+                }, 1000)
+            }
+        })
+    });
+</script>
+{/literal}

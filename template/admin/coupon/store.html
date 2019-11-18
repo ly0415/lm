@@ -1,0 +1,103 @@
+
+<div class="height">
+    <div class="new-table-responsive">
+        <div class="box-body table-responsive no-padding ">
+            <div class="box-header">
+                <div class="form-inline col-sm-10 col-md-11 no-padding">
+                    <div class="form-group form-group-sm form-mar">
+                    <small class="control-label sm">{$language2->store_name}：</small>
+                    <input type="text"  name="storeName" class="form-control storeName"  value=""  placeholder="{$language1->fill_store_name}">
+                    </div>
+                    <div class="form-group form-group-sm form-mar">
+                        <button type="button" class="btn btn-default btn-sm" id="submit1">
+                            {$language2->search} <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden"  name="totalpage"  value="{$totalpage}" >
+            <table class="table tc-box">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>{$language2->store_name}</th>
+                </tr>
+                </thead>
+                <tbody  id="content" >
+                {foreach from=$data item=item}
+                <tr>
+                    <td><input class="radio-name" type="checkbox" name="radio" data-name="{$item.store_name}" data-id="{$item.id}" /></td>
+                    <td>{$item.store_name}</td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <div class="page-box">
+                <ul id="page" class="pagination" >
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{literal}
+<script  type="text/javascript" >
+    /*分页*/
+    $(function() {
+        var is_firsttime = true;
+        var totalpage = $('input[name="totalpage"]').val();
+        totalpage = parseInt(totalpage);
+        $('#page').jqPaginator({
+            totalPages: totalpage,
+            visiblePages: 7,
+            currentPage: 1,
+            first: '<li class="prev"><a href="javascript:;">首页</a></li>',
+            prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+            next: '<li class="next"><a href="javascript:;">下一页</a></li>',
+            page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+            last: '<li class="prev"><a href="javascript:;">尾页</a></li>',
+            onPageChange: function(num, type) {
+                if (is_firsttime) {
+                    is_firsttime = false;
+                } else {
+                    //ajax获取
+                    var url = '?app=coupon&act=getStoreList&p=' + num;
+                    $.get(url, function(res) {
+                        $('#content').html(res);
+                    });
+                }
+            }
+        });
+
+    });
+    /*搜索*/
+    $('#submit1').click(function() {
+        var storeName = $('.storeName').val();
+        totalPage(storeName);
+    });
+    function totalPage(storeName) {
+        var url = '?app=coupon&act=storePages&storeName=' + storeName;
+
+        $.get(url, function(res) {
+            var obj = jQuery.parseJSON(res);
+            var r = obj.total;
+            $('#page').jqPaginator({
+                totalPages: r,
+                visiblePages: 7,
+                currentPage: 1,
+                first: '<li class="prev"><a href="javascript:;">首页</a></li>',
+                prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+                next: '<li class="next"><a href="javascript:;">下一页</a></li>',
+                page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                last: '<li class="prev"><a href="javascript:;">尾页</a></li>',
+                onPageChange: function(num,type) {
+                    var url = '?app=coupon&act=getStoreList&p=' + num + '&storeName=' + storeName;
+                    $.get(url, function(res) {
+                        $('#content').html(res);
+                    });
+                }
+            });
+        });
+    }
+</script>
+{/literal}
+

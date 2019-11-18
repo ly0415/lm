@@ -1,0 +1,316 @@
+{include file="public/wx_header.html"}
+<link rel="stylesheet" href="{$STATIC_URL}/wx/rolldate.css"/>
+</head>
+<body>
+<div class="sureorder-wrap">
+<!--	<div class="sureorder-address">
+&lt;!&ndash;		&lt;!&ndash; 无地址时样式 &ndash;&gt;
+		{if !$userAddress}
+		<a href="##" class="btn-add-address">添加地址</a>
+		&lt;!&ndash; 有地址时样式 &ndash;&gt;
+		{else}
+		 <a href="?app=userCenter&act=myAddress&address={$address}" class="clearfix">
+			<i class="ico ico-address fl"></i>
+			<div class="mid fl">
+				<div class="clearfix sureOrderTop">
+					<span class="fl">收货人：{$userAddress.name}</span>
+					<span class="fr">{$userAddress.phone}</span>
+				</div>
+				<p class="addr">收货地址：{$userAddress.address}</p>
+			</div>
+			<i class="ico ico-right fr"></i>
+		</a>
+		{/if}&ndash;&gt;
+		{if $flag ==1}
+		&lt;!&ndash; 无地址时样式 &ndash;&gt;
+		<a href="wx.php?app=userCenter&act=addAddress1&id={$userAddress.id}&name={$userAddress.name}&mp={$userAddress.app}&address={$userAddress.pays}&phone={$userAddress.phone}&postal={$userAddress.postal_code}&storeid={$store_id}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&nowlatlon={$nowlatlon}&url={$referer}" class="btn-add-address">添加地址</a>&lt;!&ndash;添加地址&ndash;&gt;
+		{else}
+		&lt;!&ndash; 有地址时样式 &ndash;&gt;
+		<a href="wx.php?app=userCenter&act=myAddress&item_id=249&id={$userAddress.id}&name={$userAddress.name}&mp={$userAddress.app}&address={$city}&phone={$userAddress.phone}&postal={$userAddress.postal_code}&storeid={$store_id}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&nowlatlon={$nowlatlon}&returnUrl={$referer}" class="clearfix">
+			<i class="ico ico-address fl"></i>
+			<div class="mid fl">
+				<div class="clearfix">
+					<span class="fl">收货人：{$userAddress.name}</span>&lt;!&ndash;收货人&ndash;&gt;
+					<span class="fr">{$userAddress.phone}</span>
+				</div>
+				<p class="addr">
+				收货地址： {$address1}
+				</p>&lt;!&ndash;收货地址&ndash;&gt;
+			</div>
+			<i class="ico ico-right fr"></i>
+		</a>
+		{/if}
+	</div>-->
+<!--
+	<div class="sureOrderLine">
+		<img src="{$STATIC_URL}/wx/orderList/index/images/sureOrder1.jpg"/>
+	</div>
+-->
+
+	<div class="myorderstate-list">
+		<div class="shop">
+			<a href="##">
+				<i class="ico ico-shop"></i>
+				<span>{$storeName}</span>
+				<!--<i class="ico ico-rg"></i>-->
+			</a>
+		</div>
+		<ul class="itemListContent">
+            {foreach from=$userGoods item=v}
+			<li class="itembox" data-room="{$v.room_type_id}" data-price="{$v.goods_price}" data-key="{$v.spec_key}" data-room-parent="{$v.room_parent_id}" data-goodsid="{$v.goods_id}" data-room-type="{$v.auxiliary_type}" data-goodsnum="{$v.goods_num}">
+				<a href="##" class="clearfix">
+					<div class="pro-logo fl">
+						<img src="{$v.origin_img}" width="100%" height="100%">
+					</div>
+					<div class="pro-info fl">
+						<h3 class="pro-name"><span class="ellipsis titleName">{$v.goods_name}</span>{if $v.isFreeShipping == 1}<span class="noPost">包邮</span>{/if}</h3>
+						<p class="pro-tags">
+							<span>{$v.spec_key_name}</span>
+						</p>
+					<!--	<div class="SureOrderfreeChange">
+							&lt;!&ndash;{$STATIC_URL}/wx/orderList/index/images/sureOrder2.jpg&ndash;&gt;
+							&lt;!&ndash;<span>免费兑换</span><img src="{$STATIC_URL}/wx/orderList/index/images/sureOrder5.jpg"/>&ndash;&gt;
+						</div>-->
+						<div class="pro-right clearfix">
+							<!--<p class="xprice fl">￥{$v.goods_price}</p>-->
+							<p class="xprice fl"><span>￥{$v.goods_price}</span><span><del class="delClass">￥{$v.market_price}</del></span></p>
+							<p class="num fr">X{$v.goods_num}</p>
+						</div>
+
+					</div>
+
+				</a>
+			</li>
+			{if !$sendoutDisplay}
+			<div class="otherbox">
+			<ul>
+				<li class="sentType sentTypeLi">
+					<span>配送方式</span>
+					<span class="fr">
+						<!--<input type="text" class="choosePSFS" value="" placeholder="请选择" readonly=""/>-->
+						<!--已经选择了的样式样式-->
+						<input type="text" class="choosePSFS" value="" placeholder="{$v.sendoutValue}" readonly="" data-storegoodsid="{$v.goods_id}" data-id="{$v.sendoutIndex}" data-typeid="sendout_{$v.goods_id}_{$v.spec_key}"/>
+						<img src="{$STATIC_URL}/wx/orderList/index/images/sureOrder3.jpg"/>
+					</span>
+				</li>
+			</ul>
+			</div>
+			{/if}
+            {/foreach}
+		</ul>
+
+		<div class="otherbox">
+
+
+
+			<div class="totalbox">
+				<span>共{$goodsNum}件商品</span>
+				<span class="ml20">合计：<span class="priceColor totalMoney">￥{$totalMoney}</span></span>
+			<!--	<span class="ml20">（含运费￥0.00）</span>-->
+			</div>
+
+		</div>
+	</div>
+	<!--顶部公共要求-->
+	<div class="publiRequireBox">
+		<div class="otherbox">
+			<ul>
+			<!--	<li class="sentTime">
+					<span>自提时间:</span>
+					<span class="fr"><input readonly type="text" class="dataTime" placeholder="00:00"></span>
+				</li>-->
+					{if $sendoutDisplay}
+					<li class="sentType">
+						<span>配送方式</span>
+						<span class="fr">
+						<!--<input type="text" class="choosePSFS" value="" placeholder="请选择" readonly=""/>-->
+							<!--已经选择了的样式样式-->
+						<input type="text" class="choosePSFS" value="" placeholder="{$userGoods.0.sendoutValue}" readonly="" data-storeGoodsId="{$userGoods.0.goods_id}" data-id="{$userGoods.0.sendoutIndex}" data-typeid="psfsId"/>
+							<!--<input type="text" class="choosePSFS" value="" placeholder="自提"  readonly="true"   data-id="1" data-typeid="psfsId"/>-->
+						<img src="{$STATIC_URL}/wx/orderList/index/images/sureOrder3.jpg"/>
+					</span>
+					</li>
+					{/if}
+					<li>
+						<span>买家留言</span>
+						<span class="fr"><input type="text" value="" name="seller_msg" placeholder=""/></span>
+					</li>
+
+					<!--<li>
+                        <span>使用分销手机号</span>
+                        <span class="fr"><input type="text" placeholder="请输入" /></span>
+                    </li>
+                    <li>
+                        <span>优惠金额</span>
+                        <span class="fr red">0.00</span>
+                    </li>-->
+				<li>
+					<span>优惠码:</span>
+					<span class="fr"><input type="text" value="{$fxData.fxCode}"  name="fxCode"  placeholder="请输入优惠码"/></span>
+				</li>
+				<li>
+					<span>优惠码金额:</span>
+					<span class="fr priceColor" id="fxDiscount">￥{$fxData.fxDiscount}</span>
+				</li>	
+				<li class="discountPaper">
+					<span>优惠券:</span>
+					<span class="fr">
+						<input type="text" class="chooseYHQ" value="" placeholder="请选择" readonly=""/>
+						<!--已经选择了兑换券样式-->
+						<!--<input type="text" class="chooseYHQ" value="" placeholder="已选:满20抵扣5元/封顶20元兑换券" readonly=""/>-->
+						<img src="{$STATIC_URL}/wx/orderList/index/images/sureOrder3.jpg"/>
+					</span>
+				</li>	
+				<li class="ruiDiscount">
+					<span>可使用{$pointData.maxPoint}睿积分抵扣{$pointData.maxAccount}元</span>
+					<span class="fr ruiCheck"><span class=""></span></span>
+				</li>	
+				<li class="ruiDiscount">
+					<span>配送费:</span>
+					<span class="fr priceColor" id="pei">￥0.00</span>
+				</li>					
+			</ul>
+		</div>
+	</div>
+	<div class="tj-order clearfix ">
+		<div class="left fl tc">
+		    <p class="price">小计：<span class="pri priceColor" id="totalMoney">￥{$discountMoney}</span> <!-- <span>(含运费￥0.00)</span>--></p>
+		</div>
+		<a href="##" class="btn-settle fr">提交订单</a>
+	</div>
+</div>
+	<!--优惠券弹窗-->
+    <div class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div style=" padding: 0.2rem 0.3rem;padding-top: 0.3rem;overflow: hidden;font-size: 0.4rem;background-color: #fff">
+                    <span style="float: left;font-size: 0.3rem;">优惠券</span>
+                    <span style="float: right;color: #999999; font-size: 0.3rem;" id="cha">×</span>
+                </div>
+                <div class="">
+                    <div class="">
+                        <div class="discounttitle clearfix">
+                            <a href="##"><span class="activespan">优惠券</span></a>
+                            <a href="##"><span>兑换券</span></a>
+                        </div>
+                    <div class="showdiscount">
+                        <ul class="discountMain activeul">
+							{foreach from=$couponData item=val}
+                        	<li data-money="{$val.money}" data-discount="{$val.discount}" data-expire="{$val.usetype}"  data-id="{$val.id}" data-userCouponId="{$val.user_coupon_id}" data-type="{$val.type}">
+                        		<div class="yhqTop">
+                        			<div class="yhqTopLeft">
+                        				<div class="content">
+                        					<p class="yhqItem1">{$val.discount}元抵扣券</p>
+                        					<p class="yhqItem2"><span class="small">满</span>{$val.money}元<span class="small">使用</span></p>
+                        					<p class="useGuide"><span>使用须知</span><img src="{$STATIC_URL}/wx/orderList/index/images/sureOrder11.png"/></p>
+                        				</div>
+                        			</div>
+                        			<div class="yhqTopRight">
+                        				<div class="content">
+                        					<p class="title">副券</p>
+                        					<p class="time">{$val.start_time|date_format:'%Y.%m.%d'}</p>
+                        					<p class="time">{$val.end_time|date_format:'%Y.%m.%d'}</p>
+                        					<!--<p class="buttonBox"><button>立即使用</button></p>-->
+											{if $val.usetype==1}
+											<p class="buttonBox"><button>立即使用</button></p>
+											{else}
+											<p class="buttonBox disbuttonBox"><button class="disButton">不可用</button></p>
+											{/if}
+                        				</div>
+                        			</div>                        			
+                        		</div>
+                        		<div class="hiddenBox">
+                        			<div class="hiddenContainer">
+                        				<p class="range"><span>使用范围：</span><span>限<span class="textRed">{$val.store_names}.</span>使用</span></p>
+                        				<p class="times"><span>使用次数：</span><span>一天<span class="textRed">{$val.day_times}</span>次</span></p>
+                        			</div>
+                        		</div>
+                        		<img class="selectImg" src="{$STATIC_URL}/wx/orderList/index/images/sureOrder12.png"/>
+                        	</li>
+							{/foreach}
+                        </ul>
+                        <!--兑换券-->
+                        <ul class="discountMain">
+							{foreach from=$voucherData item=val}
+                        	<li data-money="{$val.money}"  data-expire="{$val.usetype}"  data-id="{$val.id}" data-userCouponId="{$val.user_coupon_id}" data-type="{$val.type}" data-roomTypeId="{$val.room_type_id}">
+                        		<div class="yhqTop">
+                        			<div class="yhqTopLeft">
+                        				<div class="content">
+                        					<p class="yhqItem1 dhqItem1">兑换券</p>
+                        					<p class="yhqItem2"><span class="small">限</span>{$val.money}元<span class="small">内使用</span></p>
+                        					<p class="useGuide dhquseGuide"><span>使用须知</span><img src="{$STATIC_URL}/wx/orderList/index/images/sureOrder11.png"/></p>
+                        				</div>
+                        			</div>
+                        			<div class="yhqTopRight">
+                        				<div class="content">
+                        					<p class="title">副券</p>
+											<p class="time">{$val.start_time|date_format:'%Y.%m.%d'}</p>
+											<p class="time">{$val.end_time|date_format:'%Y.%m.%d'}</p>
+                        					<!--<p class="buttonBox"><button>立即使用</button></p>-->
+											{if $val.usetype==1}
+											<p class="buttonBox"><button>立即使用</button></p>
+											{else}
+											<p class="buttonBox disbuttonBox"><button class="disButton">不可用</button></p>
+                        					{/if}
+                        				</div>
+                        			</div>                        			
+                        		</div>
+                        		<div class="hiddenBox hiddenBox2">
+                        			<div class="hiddenContainer">
+                        				<p class="range"><span>使用范围：</span><span>限<span class="textRed">{$val.type_name}</span>使用</span></p>
+                        			</div>
+                        		</div>
+                        		<img class="selectImg" src="{$STATIC_URL}/wx/orderList/index/images/sureOrder12.png"/>
+                        	</li>
+							{/foreach}
+                        </ul>
+                    </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--配送方式弹窗-->
+<div class="sendTypeModal">
+	<div class="sendTypeModalDia">
+		<div class="modal-content">
+			<div class="topTitle">
+				<p>配送方式</p>
+			</div>
+			<div class="mainContent">
+				<ul class="sendout">
+
+				</ul>
+			</div>
+			<div class="bottomClose">
+				<p>关 闭</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!--隐藏域-->
+<input type="hidden" name="totalMoney" value="{$totalMoney}">
+<input type="hidden" name="maxAccount" value="{$pointData.maxAccount}">
+<input type="hidden" name="maxPoint" value="{$pointData.maxPoint}">
+<input type="hidden" name="fxDiscount" value="{$fxData.fxDiscount}">
+<input type="hidden" name="langId" value="{$langId}">
+<input type="hidden" name="storeId" value="{$storeId}">
+<input type="hidden" name="symbol" value="{$symbol}">
+<input type="hidden" name="fxUserId" value="{$fxData.fxUserId}">
+<input type="hidden" name="cartIds" value="{$cartIds}">
+<input type="hidden" value="{$userAddress['id']}" name="user_address">
+<input type="hidden" name="discountRate" value="{$fxData.discountRate}" >
+<input type="hidden" name="ruleId" value="{$fxData.ruleId}" >
+<input type="hidden" name="latlon" value="{$latlon}">
+<input type="hidden" name="addr_id" value="{$addr_id}">
+<input type="hidden" name="shippingfee" >
+<script src="{$STATIC_URL}/wx/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/wx/common.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/layer/layer.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/wx/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/wx/rolldate.js" type="text/javascript"></script>
+{if $viewJs}
+<script src="{$viewJs}" type="text/javascript"></script>
+{/if}
+</body>
+</html>

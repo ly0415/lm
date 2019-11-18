@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html style="background-color:#fff;font-size: 50px;">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{$langdata.index_home}</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css"  rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{$STATIC_URL}/phone/css/swiper.min.css"/>
+    <link rel="stylesheet" href="{$STATIC_URL}/phone/css/style.css?_t=123456"/>
+    <link rel="stylesheet" href="{$STATIC_URL}/phone/css/dropload1.css"/>
+    <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js"></script>
+    <script src="{$STATIC_URL}/phone/js/swiper.min.js"></script>
+    <script src="{$STATIC_URL}/phone/js/dropload.min.js"></script>
+    <style>
+        div.swiper-container img{
+            width:100%;
+        }
+        div.swiper-slide{
+            padding:0;
+        }
+        .swiper-container-horizontal>.swiper-pagination-bullets{
+            top:auto;
+        }
+        div.iconName{
+            display: block;
+            min-height: 0.4rem;
+            font-size: 0.22rem;
+            color: #838383;
+            margin-top:0.1rem;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body >
+{include file="public/header.html"}
+    <div class="banner">
+        <div class="swiper-container swiper-container-horizontal" style="height:auto">
+            <div class="swiper-wrapper">
+                {foreach  from=$banner  item=val }
+                <div class="swiper-slide"><a href="wx.php?app=goods&act=goodInfo&storeid={$storeid}&gid={$val.goods_id}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}"><img src="{$val.ad_code}" /></div>
+                {/foreach}
+            </div>
+            <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets">
+                <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 1"></span>
+                <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span>
+                <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 3"></span>
+                <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span>
+                <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 5"></span>
+            </div>
+        </div>
+        <div class="cate_box">
+            <div class="swiper-container" style="height:auto;padding: 0.2rem;
+    box-sizing: border-box;">
+                <div class="swiper-wrapper">
+                    {foreach from=$naicha item=val}
+                    <div class="swiper-slide">
+                        <a href="#content" style="display:block;width:100%"  >
+                            <div class="imgIcon">
+                                <img src="{$val.room_img}" alt="">
+                                <input type="hidden" name="rtid" value="{$val.id}">
+                            </div>
+                            <div class="iconName">
+                                <span>{$val.type_name}</span>
+                            </div>
+
+                        </a>
+                    </div>
+                    {/foreach}
+                    {foreach from=$roomtype item=val}
+                    <div class="swiper-slide">
+                        <a href="#content" style="display:block;width:100%" >
+                            <div class="imgIcon ">
+                                <img src="{$val.room_img}" alt="">
+                                <input type="hidden" name="rtid" value="{$val.id}">
+                            </div>
+                            <div class="iconName">
+                                <span>{$val.type_name}</span>
+                            </div>
+
+                        </a>
+                    </div>
+                    {/foreach}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="virtuals">
+            <span class="artcle">{$langdata.article}</span>
+            <a href="#"><span class="tuijian">{$langdata.recom}</span></a>
+                <div class="notice-con">
+                    <ul class="notice-txt">
+                        {foreach from=$articledata item=val}
+                        <li><a  href="wx.php?app=article&act=detail&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&artid={$val.id}&latlon={$latlon}" class="notice-new">{$val.title}</a></li>
+                        {/foreach}
+                    </ul>
+                </div>
+            </a>
+            <a href="wx.php?app=article&act=index&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}"><span class="more">{$langdata.more}</span></a>
+        </div>
+    </div>
+    <div class="main main1">
+        <div class="top">
+            <span class="title">{$langdata.youhui}</span>
+            <span class="more"><a href="wx.php?app=default&act=typeIndex&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&by=5&latlon={$latlon}">{$langdata.more}&nbsp;></a></span>
+        </div>
+        <div class="discount">
+            <div class="swiper-container" style="height:auto">
+                <div class="swiper-wrapper">
+                    {foreach from = $prom_arr item=val}
+                    {if $val}
+                    <div class="swiper-slide">
+                        <a href="{$val.url}">
+                            <div class="img">
+                                <img src="{$val.goods_img}" alt="">
+                                <div class="modal">{$val.goods_name}</div>
+                            </div>
+                            <div class="price">
+                                <span class="new">{$symbol}{$val.price}</span>
+                                <s>{$symbol}{$val.o_price}</s>
+                            </div>
+                        </a>
+                    </div>
+                    {/if}
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+        </div>
+    <div class="main main2">
+        <div class="top">
+            <span class="title">{$langdata.yourecom}</span>
+            <span class="more"><a href="wx.php?app=default&act=typeIndex&storeid={$storeid}&lang={$lang}&auxiliary=0&recom=1&latlon={$latlon}">{$langdata.more}&nbsp;></a></span>
+        </div>
+        <!--为您推荐-->
+        <div class="show-box">
+            {foreach  from=$recommYou item=val  }
+            <div class="show-img">
+                <a href="wx.php?app=goods&act=goodInfo&storeid={$storeid}&gid={$val.id}&lang={$lang}&auxiliary=0&latlon={$latlon}&source=&cid=">
+                    <div class="img-box">
+                        <img src="{$val.original_img}" alt=""/>
+                    </div>
+                </a>
+                    <div class="intro">
+                        <a href="wx.php?app=goods&act=goodInfo&storeid={$storeid}&gid={$val.id}&lang={$lang}&auxiliary=0&latlon={$latlon}&source=&cid=">
+                            <p>{$val.goods_name}</p>
+                        </a>
+                        <div class="price">
+                            <span>{$symbol}{$val.shop_price}</span>
+                            {if  $val.type == 1 }
+                            <span  class="star2 star1"  id="{$val.id}" data-id="{$val.goods_id}"></span>
+                            {else}
+                            <span  class="star2 star"  id="{$val.id}" data-id="{$val.goods_id}"></span>
+                            {/if}
+                        </div>
+
+                    </div>
+
+            </div>
+            {/foreach}
+        </div>
+        <div class="main main3">
+        <div class="top">
+            <span class="title">{$langdata.store}</span>
+            <span class="more"><a href="wx.php?app=store&act=index&latlon={$latlon}&lang={$lang}&auxiliary=0&latlon={$latlon}">{$langdata.more}&nbsp;></a></span>
+        </div>
+        <div class="range">
+            <span class="text" id="sort">{$langdata.distance}</span>
+            <span class="style style1" id="service">{$langdata.type}</span>
+        </div>
+        <div class="modal" id="modal">
+            <ul>
+                {foreach from=$roomtypea item=val key=k}
+                <li data-id="{$val.id}" >{$val.type_name}</li>
+                {/foreach}
+            </ul>
+            <div class="button">{$langdata.complete}</div>
+        </div>
+        <div id="content">
+    <!-- {foreach from=$sData item=val}
+        <div class="main3-detail">
+            <div class="main-left">
+                <a href="wx.php?app=goodList&act=index&storeid={$val.id}&lang={$lang}&auxiliary={$auxiliary}&rtid={$val.b_id}&latlon={$latlon}&order=1">
+                    {if $val.logo}
+                    <img src="{$val.logo}" alt=""/>
+                    {else}
+                    <img src="{$STATIC_URL}/phone/images/index1/logoImg.png" alt=""/>
+                    {/if}
+                </a>
+            </div>
+            <div class="main-right">
+                <div class="line1">
+                    <a href="wx.php?app=goodList&act=index&storeid={$val.id}&lang={$lang}&auxiliary={$auxiliary}&rtid={$val.b_id}&latlon={$latlon}&order=1"> <span class="pname">{$val.sltore_name}</span></a>
+                    <div id="distance">{$val.dis}km</div>
+                    {if  $val.type == 1 }
+                    <span  class="star2 star1"  id="{$val.id}"></span>
+                    {else}
+                    <span  class="star2 star"  id="{$val.id}"></span>
+                    {/if}
+                </div>
+                <div class="line3">
+                    <div class="shopHours">
+                        <span class="s1">营业时间:</span>
+                        <span class="s2">{$val.store_start_time}-{$val.store_end_time}</span>
+                    </div>
+                    <div class="storePhone">
+                        <span class="s1">店铺电话:</span>
+                        <span class="s2">{$val.store_mobile}</span>
+                    </div>
+                </div>
+                <div class="line2">
+                    <div class="starbg starbg5"></div>
+                    <span class="num">5.0</span>
+                    <span class="sale">{$langdata.order_num}:{$val.order_num}</span>
+                </div>
+                <div class="line4">
+                    <span>公告</span>
+                    <p>{$val.store_notice}</p>
+                </div>
+            </div>
+        </div>
+        {/foreach}-->
+        </div>
+        <input type="hidden" name="latlon" value="{$latlon}" >
+            <input type="hidden" name="txlatlon" value="" >
+        <input type="hidden" name="lat" value="{$lat}">
+        <input type="hidden" name="lng" value="{$lng}">
+        <input type="hidden" name="storeid" value="{$storeid}">
+        <input type="hidden" name="ordernum" value="{$langdata.order_num}">
+        <input type="hidden" name="userId" value="{$userId}"/>
+        <input type="hidden" name="lang" value="{$lang}">
+        <input type="hidden" name="auxiliary" value="{$auxiliary}">
+        <input type="hidden" name="address" value="{$location}">
+        <div id="allmap"></div>
+
+        {include file="public/footer1.html"}
+
+
+
+
+
+
+<!--  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=CmfcOlGRQE7OztyHtDGLoiiNGYUu37Te"></script>
+        <script type="text/javascript">
+            // 百度地图API功能var map = new BMap.Map("allmap");
+            var point = new BMap.Point(116.331398,39.897445);
+            map.centerAndZoom(point,12);
+            var geoc = new BMap.Geocoder();
+            var lat=parseFloat($("input[name='lat']").val());
+            var lng=parseFloat($("input[name='lng']").val());
+            var pt =new BMap.Point(lng,lat) ;
+            var address=$('input[name=address]').val();
+            geoc.getLocation(pt, function(rs){
+                    var addComp = rs.addressComponents;
+                    if(address==''){
+                        $('#address').text(addComp.street  + addComp.streetNumber);
+                    }else{
+                        $('#address').text(address);
+                    }
+                });
+        </script>-->
+        {literal}
+        <script>
+            var  flag = true;
+            $('.button').click(function(){
+                counter=0;
+                var latlon=$("input[name='latlon']").val();
+                var storeid=$("input[name='storeid']").val();
+                var userid=$("input[name='userId']").val();
+                var lang=$("input[name='lang']").val();
+                var auxiliary=$("input[name='auxiliary']").val();
+                var ordernum=$("input[name='ordernum']").val();
+                var bussId=[];
+                var str='';
+                var src='';
+                $("#modal").find("li[class='active']").each(function(){
+                    bussId.push($(this).attr('data-id'));
+                })
+                $(this).parent().hide();
+                flag = true;
+                $(this).parent().prev().find("#service").addClass("style1");
+                $.ajax({
+                    url:"wx.php?app=default&act=store",
+                    data:{bussId:bussId,storeid:storeid,latlon:latlon,userid:userid},
+                    type: 'post',
+                    aysnc:false,
+                    error:function(){
+                        alert('错误');
+                    },
+                    success:function(data){
+                        var data = eval("(" + data + ")");
+                        $("#content").html('');
+                        if(data&& data.info &&data.info.length==0){
+                            $(".dropload-refresh").html("暂无数据");
+                        }else if(data&& data.info &&data.info.length<4){
+                            $(".dropload-refresh").html("全部加载完成");
+                        }
+                        $.each(data.info,function(n,value){
+                            src="wx.php?app=goodList&act=index&storeid="+value.id+"&lang="+lang+"&auxiliary="+auxiliary+"&latlon="+latlon+"&rtid="+value.b_id+"&order=1";
+                            str +=' <div class="main3-detail"> <div class="main-left"><a href='+src+'>';
+                            if(value.logo){
+                                str +='<img src='+value.logo+' />';
+                            }else{
+                                str +='<img src="{$STATIC_URL}/phone/images/index1/logoImg.png" alt=""/>';
+                            }
+                            str+='</a></div><div class="main-right"><div class="line1"><a href='+src+'><span class="pname">'+value.sltore_name+'</span></a>';
+                            str +='<div id="distance">'+value.dis+'km'+'</div>';
+                            if(value.type==1){
+                                str +='<span  class="star2 star1"  id='+value.id+'></span>';
+                            }else{
+                                str +='<span  class="star2 star"  id='+value.id+'></span>';
+                            }
+                            str +='</div><div class="line3"><div class="line2"><div class="shopHours"><span class="s1">营业时间:</span><span class="s2">'+value.store_start_time+'-'+value.store_end_time+'</span></div>' +
+                                '<div class="storePhone"><span class="s1">店铺电话:</span><span class="s2">'+value.store_mobile+'</span></div></div>'+
+                                '<div class="line2"><div class="starbg starbg5"></div><span class="num">5.0</span><span class="sale">'+ordernum+':'+value.order_num+'</span></div>'+
+                                '<div class="line4"><span>公告:</span><p>'+value.store_notice+'</p></div></div></div>';
+                            $("#content").append(str);
+                            str = '';
+                            src='';
+                        })
+                    }
+                })
+            })
+        </script>
+        {/literal}
+        <script>
+            $(function(){
+                var swiper = new Swiper('.banner>.swiper-container', {
+                spaceBetween: 30,
+                centeredSlides: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true
+                }
+            });
+                var swiper = new Swiper({
+                el: '.cate_box>.swiper-container',
+                slidesPerView:5,
+                spaceBetween: 15,
+                keyboard: {
+                    enabled: true
+                }
+            });
+                var swiper = new Swiper({
+                el: '.main .swiper-container',
+                slidesPerView: 3,
+                spaceBetween: 15,
+                keyboard: {
+                    enabled: true
+                }
+            });
+                //模态框显示和隐藏
+            $("#service").click(function(){
+                if(flag){
+                    $("#modal").css("display","block");
+                    $(this).removeClass("style1").addClass("style");
+                    flag=false;
+                }else if(!flag){
+                    $("#modal").css("display","none");
+                    $(this).removeClass("style").addClass("style1");
+                    flag=true;
+                }
+            })
+                $("div.modal").on("click","li",function(){
+                if($(this).hasClass("active")){
+                    $(this).removeClass("active")
+                }else{
+                    $(this).addClass("active")
+                }
+            })
+            })
+        </script>
+        {literal}
+        <script>
+            $(function () {
+                $('.line1 .star2').on('click', function () {
+                    var type = $(this).hasClass('star1');
+                    var store_id = $(this).attr('id');
+                    var latlon=$("input[name='latlon']").val();
+                    var userid=$("input[name='userId']").val();
+                    if (userid == '') {
+                        setTimeout(function () {
+                            window.location.href = 'wx.php?app=default&act=index&tp=1&latlon='+latlon;
+                        }, 1000);
+                    } else {
+                        $.ajax({
+                            url: 'wx.php?app=article&act=docollectionStore',
+                            type: 'POST',
+                            data: { type: type, store_id: store_id,latlon:latlon},
+                            dataType: 'json',
+                            aysnc:false,
+                            success: function (res) {
+                                if (res.statu) {
+                                    $('.line1 .star2[id=' + res.id + ']').toggleClass('star1').removeClass('star');
+                                } else {
+                                    $('.line1 .star2[id=' + res.id + ']').toggleClass('star').removeClass('star1');
+                                }
+                            }
+                        })
+                    }
+                })
+            });
+        </script>
+        {/literal}
+
+        {literal}
+        <script>
+            $(function () {
+                $('.price .star2').on('click', function () {
+                    var type = $(this).hasClass('star1');
+                    var store_id =$("input[name='storeid']").val();
+                    var userid=$("input[name='userId']").val();
+                    var latlon=$("input[name='latlon']").val();
+                    var id=$(this).attr('id');
+                    var good_id=$(this).attr('data-id');
+                    if (userid == '') {
+                        setTimeout(function () {
+                            window.location.href = 'wx.php?app=default&act=index&tp=1&latlon='+latlon;
+                        }, 1000);
+                    } else {
+                        $.ajax({
+                            url: 'wx.php?app=article&act=docollectionGoods',
+                            type: 'POST',
+                            data: { type: type, store_id: store_id,latlon:latlon,id:id,good_id:good_id},
+                            dataType: 'json',
+                            aysnc:false,
+                            success: function (res) {
+                                if (res.statu) {
+                                    $('.price .star2[id=' + res.id + ']').toggleClass('star1').removeClass('star');
+                                } else {
+                                    $('.price .star2[id=' + res.id + ']').toggleClass('star').removeClass('star1');
+                                }
+                            }
+                        })
+                    }
+                })
+            });
+        </script>
+        {/literal}
+        {literal}
+        <script>
+function notice(ul){
+    var li = ul.find('li').eq(0).html();
+    if(!li){
+        return false;
+    }
+    var liHeight = ul.find("li").eq(0).height();
+    ul.append('<li>'+li+'</li>');
+    var num = 0;
+    setInterval(function(){
+        num ++;
+        if(num == ul.find('li').length){
+            num = 1;
+            ul.css({
+                marginTop:0
+            });
+        }
+        $('.notice-txt').animate({
+            //marginTop:-14 * num
+            //marginTop:-0.28 * num+"rem"
+            marginTop:-liHeight * num
+        },400);
+    },2000);
+}
+
+notice($('.notice-txt'));
+        </script>
+        {/literal}
+        {literal}
+    <script>
+        $(function(){
+            var active=false;
+            var counter = 0;
+            // 每页展示4个
+            var num =4;
+            var pageStart = 0,pageEnd = 0;
+            $('.imgIcon').click(function(){
+                counter=0;
+                $("#content").html('');
+                var rtid=$(this).find('input[name=rtid]').val();
+                $('li').removeClass('active');
+                $("li[data-id="+rtid+"]").addClass('active');
+                var latlon=$("input[name='latlon']").val();
+                var storeid=$("input[name='storeid']").val();
+                var userid=$("input[name='userId']").val();
+                var lang=$("input[name='lang']").val();
+                var auxiliary=$("input[name='auxiliary']").val();
+                var ordernum=$("input[name='ordernum']").val();
+                var bussId=[];
+                var str='';
+                var src='';
+                $("#modal").find("li[class='active']").each(function(){
+                    bussId.push($(this).attr('data-id'));
+                })
+                flag = true;
+                $(this).parent().prev().find("#service").addClass("style1");
+                if(active){
+                    $.ajax({
+                        url:"wx.php?app=default&act=store",
+                        data:{bussId:bussId,storeid:storeid,latlon:latlon,userid:userid},
+                        type: 'post',
+                        aysnc:false,
+                        error:function(){
+                            alert('错误');
+                        },
+                        success:function(data){
+                            console.log("筛选---------"+data);
+                            var data = eval("(" + data + ")");
+                            var info=data.info;
+                            console.log(info);
+                            console.log("length------",info.length);
+                            if(info.length==0){
+                                $(".dropload-refresh").html("暂无数据");
+                            }else if(info.length<num){
+                                $(".dropload-refresh").html("全部加载完成");
+                            }
+                            $("#content").html('');
+                            $.each(data.info,function(n,value){
+                                src="wx.php?app=goodList&act=index&storeid="+value.id+"&lang="+lang+"&auxiliary="+auxiliary+"&latlon="+latlon+"&rtid="+value.b_id+"&order=1";
+                                str +=' <div class="main3-detail"> <div class="main-left"><a href='+src+'>';
+                                if(value.logo){
+                                    str +='<img src='+value.logo+' />';
+                                }else{
+                                    str +='<img src="{$STATIC_URL}/phone/images/index1/logoImg.png" alt=""/>';
+                                }
+                                str+='</a></div><div class="main-right"><div class="line1"><a href='+src+'><span class="pname">'+value.sltore_name+'</span></a>';
+                                str +='<div id="distance">'+value.dis+'km'+'</div>';
+                                if(value.type==1){
+                                    str +='<span  class="star2 star1"  id='+value.id+'></span>';
+                                }else{
+                                    str +='<span  class="star2 star"  id='+value.id+'></span>';
+                                }
+                                str +='</div><div class="line3"><div class="line2"><div class="shopHours"><span class="s1">营业时间:</span><span class="s2">'+value.store_start_time+'-'+value.store_end_time+'</span></div>' +
+                                    '<div class="storePhone"><span class="s1">店铺电话:</span><span class="s2">'+value.store_mobile+'</span></div></div>'+
+                                    '<div class="line2"><div class="starbg starbg5"></div><span class="num">5.0</span><span class="sale">'+ordernum+':'+value.order_num+'</span></div>'+
+                                    '<div class="line4"><span>公告:</span><p>'+value.store_notice+'</p></div></div></div>';
+                                $("#content").append(str);
+                                str = '';
+                                src='';
+                            })
+                        }
+                    })
+                }
+            })
+            $('.main3').dropload({
+                scrollArea : window,
+                domDown : {
+                    domClass   : 'dropload-down',
+                    domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中</div>',
+                    domNoData  : '<div class="dropload-noData">全部加载完成</div>'
+                },
+                loadDownFn : function(me){
+                    var latlon=$("input[name='latlon']").val();
+                    var storeid=$("input[name='storeid']").val();
+                    var userid=$("input[name='userId']").val();
+                    var lang=$("input[name='lang']").val();
+                    var auxiliary=$("input[name='auxiliary']").val();
+                    var ordernum=$("input[name='ordernum']").val();
+                    var bussId=[];
+                    var str='';
+                    var src='';
+                    $("#modal").find("li[class='active']").each(function(){
+                        bussId.push($(this).attr('data-id'));
+                    })
+                    $(this).parent().hide();
+                    $.ajax({
+                        url:"wx.php?app=default&act=store",
+                        data:{bussId:bussId,storeid:storeid,latlon:latlon,userid:userid},
+                        type: 'post',
+                        aysnc:false,
+                        success: function(data){
+                            var data = eval("(" + data + ")");
+                            if(data && data.info && data.info.length>num ||$('#content').html().trim() =="") {
+                                var result = "";
+                                counter++;
+                                pageEnd = num * counter;
+                                pageStart = pageEnd - num;
+                                console.log(pageStart);
+                                console.log(pageEnd);
+                                for (var i = pageStart; i < pageEnd; i++) {
+
+                                    src = "wx.php?app=goodList&act=index&storeid=" + data.info[i].id + "&lang=" + lang + "&auxiliary=" + auxiliary + "&rtid=" + data.info[i].b_id + "&latlon=" + latlon + "&order=1";
+                                    /*  src="wx.php?storeid="+data.info[i].id+"&lang="+lang+"&auxiliary="+auxiliary+"&latlon="+latlon;*/
+                                    result += '<div> <div class="main3-detail"> <div class="main-left"><a href=' + src + '>';
+                                    if (data.info[i].logo) {
+                                        result += '<img src=' + data.info[i].logo + ' />';
+                                    } else {
+                                        result += '<img src="{$STATIC_URL}/phone/images/index1/logoImg.png" alt=""/>';
+                                    }
+                                    result += '</a></div><div class="main-right"><div class="line1"><a href=' + src + '><span class="pname">' + data.info[i].sltore_name + '</span></a>';
+                                    result += '<div id="distance">' + data.info[i].dis + 'km' + '</div>';
+                                    if (data.info[i].type == 1) {
+                                        result += '<span  class="star2 star1"  id=' + data.info[i].id + '></span>';
+                                    } else {
+                                        result += '<span  class="star2 star"  id=' + data.info[i].id + '></span>';
+                                    }
+                                    result += '</div><div class="line3"><div class="line2"><div class="shopHours"><span class="s1">营业时间:</span><span class="s2">' + data.info[i].store_start_time + '-' + data.info[i].store_end_time + '</span></div>' +
+                                        '<div class="storePhone"><span class="s1">店铺电话:</span><span class="s2">' + data.info[i].store_mobile + '</span></div></div>' +
+                                        '<div class="line2"><div class="starbg starbg5"></div><span class="num">5.0</span><span class="sale">' + ordernum + ':' + data.info[i].order_num + '</span></div>' +
+                                        '<div class="line4"><span>公告:</span><p>' + data.info[i].store_notice + '</p></div></div></div></div>';
+                                    if ((i + 1) >= data.info.length) {
+                                        // 锁定
+                                        me.lock();
+                                        // 无数据
+                                        me.noData();
+                                        break;
+                                    }
+                                }
+                                active = true;
+                                // 为了测试，延迟1秒加载
+                                setTimeout(function () {
+                                    if (data && data.info && data.info.length > num || $('#content').html().trim() == "") {
+                                        $('#content').append(result);
+                                    }
+                                    // 每次数据加载完，必须重置
+                                    me.resetload();
+                                });
+                            }else{
+                                me.resetload();
+                                if(data&& data.info &&data.info.length==0){
+                                    $(".dropload-refresh").html("暂无数据");
+                                }else {
+                                    $(".dropload-refresh").html("全部加载完成");
+                                }
+                            }
+
+                        },
+                        error: function(xhr, type){
+                            alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                },
+                threshold : 50
+            });
+        });
+    </script>
+        {/literal}
+</body>
+</html>

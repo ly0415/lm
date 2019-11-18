@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        {include file="public/header.html"}
+
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            {if $lang_id ==1}
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        Distribution and presentation
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="store.php?app=default&act=index&lang_id={$lang_id}"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active">Distribution management</li>
+                        <li class="active">Distribution and presentation</li>
+                    </ol>
+
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <!-- right column -->
+                        <div class="col-xs-12">
+                            <!-- Horizontal Form -->
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title"></h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form class="form-horizontal" action="?app=fxcash&act=doCash"  data-type="ajax" method="post">
+                                    <div class="box-body">
+                                        <input type="hidden" value="{$lang_id}" name="lang_id" />
+                                        <input type="hidden"  name="id" value="{$data.id}" >
+                                        <input type="hidden"  name="mid" value="{$data.mid}" >
+                                        <input type="hidden"  name="apply_money"  value="{$data.apply_money}" >
+                                        <input type="hidden"  name="money"  value="{$data.money}" >
+                                        <input type="hidden"  name="user_id"  value="{$data.user_id}" >
+                                        <input type="hidden"  name="method"  value="{$data.method}" >
+                                        <input type="hidden"  name="p"  value="{$p}" >
+                                        <input type="hidden"  name="store_id"  value="{$store_id}" >
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> Real name：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="real_name"  value="{$data.real_name}"  readonly >
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> Phone number：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="telephone" value="{$data.telephone}"  readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> Account opening bank：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="bank_name"  value="{$data.bank_name}"  readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> Bank account：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="bank_account"  value="{$data.bank_account}"  readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> Total account：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name=""  value="{$symbol}{$data.money}"  readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> Application for cash：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name=""  value="{$symbol}{$data.apply_money}" readonly>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <div class="form-group">
+                                            <div class="col-sm-6 col-sm-offset-4 col-md-5 col-md-offset-2 col-lg-4 col-lg-offset-2">
+                                                <a href="store.php?app=fxcash&act=cashlist&lang_id={$lang_id}&p={$p}" class="btn btn-default"><i class="fa fa-times-circle"></i> Close</a>
+                                                {if $data.method ==2}
+                                                <button class="btn btn-primary pull-right" id="submit"><i class="fa fa-save"></i>Under line</button>
+                                                {else}
+                                                <button class="btn btn-primary pull-right" id="submit"><i class="fa fa-save"></i>on line</button>
+                                                {/if}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- /.box -->
+                                <!-- general form elements disabled -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!--/.col (right) -->
+                    </div>
+                    <!-- /.row -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            {include file="public/footer.html"}
+            {else}
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        分销提现
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="store.php?app=default&act=index&lang_id={$lang_id}"><i class="fa fa-dashboard"></i> 首页</a></li>
+                        <li class="active">分销管理</li>
+                        <li class="active">分销提现</li>
+                    </ol>
+
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <!-- right column -->
+                        <div class="col-xs-12">
+                            <!-- Horizontal Form -->
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title"></h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form class="form-horizontal" action="?app=fxcash&act=doCash"  data-type="ajax" method="post">
+                                    <div class="box-body">
+                                        <input type="hidden" value="{$lang_id}" name="lang_id" />
+                                        <input type="hidden"  name="id" value="{$data.id}" >
+                                        <input type="hidden"  name="mid" value="{$data.mid}" >
+                                        <input type="hidden"  name="apply_money"  value="{$data.apply_money}" >
+                                        <input type="hidden"  name="money"  value="{$data.money}" >
+                                        <input type="hidden"  name="user_id"  value="{$data.user_id}" >
+                                        <input type="hidden"  name="method"  value="{$data.method}" >
+                                        <input type="hidden"  name="p"  value="{$p}" >
+                                        <input type="hidden"  name="store_id"  value="{$store_id}" >
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 真实姓名：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="real_name"  value="{$data.real_name}"  readonly >
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 手机号码：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="telephone" value="{$data.telephone}"  readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 开户银行：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="bank_name"  value="{$data.bank_name}"  readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 银行帐号：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="bank_account"  value="{$data.bank_account}"  readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 账户总额：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name=""  value="{$symbol}{$data.money}"  readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 申请提现金额：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name=""  value="{$symbol}{$data.apply_money}" readonly>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <div class="form-group">
+                                            <div class="col-sm-6 col-sm-offset-4 col-md-5 col-md-offset-2 col-lg-4 col-lg-offset-2">
+                                                <a href="store.php?app=fxcash&act=cashlist&lang_id={$lang_id}&p={$p}" class="btn btn-default"><i class="fa fa-times-circle"></i> 关 闭</a>
+                                                {if $data.method ==2}
+                                                <button class="btn btn-primary pull-right" id="submit"><i class="fa fa-save"></i>线下打款</button>
+                                                {else}
+                                                <button class="btn btn-primary pull-right" id="submit"><i class="fa fa-save"></i>微信体现</button>
+                                                {/if}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- /.box -->
+                                <!-- general form elements disabled -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!--/.col (right) -->
+                    </div>
+                    <!-- /.row -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            {include file="public/footer.html"}
+
+            {/if}
+        </div>
+    </body>
+</html>
+
+

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Generator" content="EditPlus®">
+        <meta name="Author" content="">
+        <meta name="Keywords" content="">
+        <meta name="Description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>规格打印</title>
+        <style media="print">
+        </style>
+        <style type="text/css" >
+            /*公用base*/
+            body{ background:#fff; font-size:12px; font-family:'Microsoft YaHei',"宋体",Verdana, Arial; margin:0; padding:0; color:#000; }
+            h1,h2,h3,h4,h5,h6,ul,li,dl,dt,dd,form,img,p{
+                margin:0; padding:0; border:none; list-style-type:none;
+            }
+            a{ text-decoration: none;color:#000;cursor: pointer; }
+            a:hover{ color: #e32a2f; }
+            .f-fl{ float:left; }
+            .f-fr{ float:right; }
+            .tl{ text-align:left; }
+            .tc{ text-align:center; }
+            .tr{ text-align:right; }
+            .none{ display:none; }
+            .inblock{ display: inline-block; }
+            .clearfix:after{
+                content:"."; display:block; height:0; clear:both;
+                visibility:hidden;
+            }
+            *html .clearfix{
+                height:1%;
+            }
+            *+html .clearfix{
+                height:1%;
+            }
+            .appointment-sucess{ width: 198px;padding:0 15px 15px 15px;font-size: 12px; }
+            .info-box ul li{ margin-bottom: 20px; }
+            .info-box ul li p{ margin-top: 5px; }
+            .info-box .right{ font-weight: bold; }
+            .er-box img { width: 198px;height: 198px; margin-top: -8px; }
+            .er-box p{ color: red;margin: 16px 0; }
+            .color-r{ color: red; }
+            .btn-print{ color: #fff;background-color: #2086ee;border-radius: 6px;border: none;width: 70px;height: 25px;line-height: 25px;cursor: pointer; }
+            .noprint{ display: none; }
+        </style>
+    </head>
+    <body>
+        <div id="printpage">
+            <div class="noprint">此处不打印</div>
+            <!-- sucess-box -->
+            <div class="appointment-sucess">
+                <!-- er-box left-->
+                <!-- info-box -->
+                <div class="info-box">
+                    <ul >
+                        {foreach from=$info['goods_list'] item=good}
+                        {foreach from=$good['good_num'] item=val}
+                        <li class="clearfix">
+                            <h3>外带</h3>
+
+                            <div class="left fl ">
+                                <div class="content fl">
+                                    <span>({$info.store_name})&nbsp;&nbsp;&nbsp;</span>
+                                    <span>0570-90909090</span>
+                                    <p><h2>{$good['goods_name']}</h2></p>
+                                    <p style="text-align:right"><span style="font-size:16px;font-weight:bold;">&nbsp;&nbsp;&nbsp;{$symbol}{$good.goods_pay_price}</span></p>
+                                    <p>&nbsp;&nbsp;&nbsp;({$good['spec_key_name']})</p>
+                                    <p><span>{$info.store_mobile}</span> <span class="f-fr right">{$info.payment_time|date_format:"%Y-%m-%d"}</span></p>
+                                </div>
+                            </div>
+                        </li>
+                        {/foreach}
+                        {/foreach}
+                        {foreach from=$info['gift'] item=gift }
+                        <li class="clearfix">
+                            <h3>外带#{$info.number_order}</h3>
+                            <span class="f-fr right">{$gift['gift_num']}/{$gift['gift_num']}</span><br>
+                            <div class="left fl ">
+                                <div class="content fl">
+                                    <p><h2> {$gift['goods_name']}</h2></p>
+                                    <p>&nbsp;&nbsp;&nbsp;({$gift['goods_key_name']})</p>
+                                    <!--                                    <p align="right">{$langdata.order_Number} X <span class="count">{$good.goods_num}</span></p>-->
+                                    <br>
+                                    <p><span>R&B亓茶({$info.store_name})</span>&nbsp;&nbsp;&nbsp;<span class="color-r">&nbsp;&nbsp;&nbsp;&nbsp;买赠活动</span></p>
+                                    <p><span>{$info.store_mobile}</span> <span class="f-fr right">{$info.payment_time|date_format:"%Y-%m-%d"}</span></p>
+                                </div>
+                            </div>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="width: 208px;">
+           {if $info.sendout ==1}
+<!--            <input type="button" value="打印"  onclick="javascrtpt:window.location.href = 'store.php?app=customerOrder&act=index&lang_id=0?type=printSpec_{$info.order_id}'" class="btn-print f-fr">-->
+            <input type="button" value="打印"  onclick="javascrtpt:window.location.href = 'store.php?app=order&act=index&lang_id=0?type=printSpec_{$info.order_id}'" class="btn-print f-fr">
+           {else}
+           <input type="button" value="打印"  onclick="javascrtpt:window.location.href = 'store.php?app=orderList&act=index&lang_id=0?type=printSpec_{$info.order_id}'" class="btn-print f-fr">
+           {/if}
+            <!--             <button onclick="printdiv('printpage');" class="btn-print f-fr">打印</button>-->
+        </div>
+    </body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                {$language1->redis_manage}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="admin.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->index}</a></li>
+                <li class="active">{$language1->redis_manage}</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <form class="form-inline col-sm-9 col-md-9 no-padding">
+                                <div class="form-group form-group-sm form-mar">
+                                    <input type='hidden' name='app' value='systemRedis'>
+                                    <input type='hidden' name='act' value='index'>
+                                    <input type="hidden" name = "delAll"  value="drop">
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <small class="control-label">{$language1->table_description}：</small>
+                                    <input type="text" class="form-control" name="commit" value="{$commit}">
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <small class="control-label">{$language1->table_name}：</small>
+                                    <input type="text" class="form-control" name="name" value="{$name}">
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        {$language2->search} <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                            <!--<div class="col-sm-3 col-md-3 no-padding text-right">-->
+                                <!--<a class="btn btn-warning btn-sm" href="javascript:void(0)" onclick="resetAll();" role="button"><i class="fa fa-refresh"></i> 重置缓存</a>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="new-table-responsive">
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th width="10%">{$language2->serial_number}</th>
+                                        <th width="20%">{$language1->table_description}</th>
+                                        <th width="20%">{$language1->table_name}</th>
+                                        <th width="20%">{$language1->total_count}</th>
+                                        <th width="15%">{$language1->total_cache}</th>
+                                        <th width="15%">{$language2->control}</th>
+                                    </tr>
+                                    </thead>
+                                    {foreach from=$listTables item=item key=key}
+                                    <tr>
+                                        <td>{$key+1}</td>
+                                        <td>{$item.commit}</td>
+                                        <td>{$item.name}</td>
+                                        <td>{$item.num}</td>
+                                        <td>{$item.redisNum}</td>
+                                        <td class="cz">
+                                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-warning edit-table" style="overflow: hidden; position: relative;" onclick="reset('{$item.name}','{$lang_num}');"  data-original-title="{$language1->reset_cache}">{$language1->reset_cache}</a>
+                                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  onclick="drop('{$item.name}','{$lang_num}');"  data-original-title="{$language1->clear_cache}">{$language1->clear_cache}</a>
+                                        </td>
+                                    </tr>
+                                    {/foreach}
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    {include file="public/footer.html"}
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    /*重置缓存*/
+    function reset(name, lang_num) {
+        $.confirm({
+            title: '{$language2->tips}',
+            closeIcon: true,
+            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>{$language1->sure_clear}",
+            type: 'blue',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-blue',
+                    text:'{$language2->enter}',
+                    action: function () {
+                        $.ajax({
+                            type: "POST",
+                            url: '?app=systemRedis&act=reset&lang_id='+lang_num+'&name=' + name,
+                            success: function(obj){
+                                var res = eval("("+obj+")");
+                                var msg = res.message;
+                                if(res.status == 1){
+                                    var d=$.dialog({
+                                        content: '<div class="text-center">'+msg+'</div>',
+                                        title: false, // hides the title.
+                                        closeIcon: false, // hides the close icon.
+                                        columnClass: 'xsmall',
+                                        onOpen: function(){
+                                            setTimeout(function(){
+                                                d.close();
+                                            }, 1000);
+                                        }
+                                    });
+                                    setTimeout(function(){
+                                        window.location.reload();
+                                    },1000);
+                                }else{
+                                    var d=$.dialog({
+                                        content: '<div class="text-center">'+msg+'</div>',
+                                        title: false, // hides the title.
+                                        closeIcon: false, // hides the close icon.
+                                        columnClass: 'xsmall',
+                                        onOpen: function(){
+                                            setTimeout(function(){
+                                                d.close();
+                                            }, 1000);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-default', // multiple classes.
+                    text:'{$language2->cancel}'
+                }
+            }
+        });
+    };
+
+    /*清空缓存*/
+    function drop(name, lang_num) {
+        deletes('?app=systemRedis&act=drop&lang_id='+lang_num+'&name=' + name);
+    }
+
+    /*重置所有缓存*/
+    function resetAll() {
+        $.confirm({
+            title: '{$language2->tips}',
+            closeIcon: true,
+            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>{$language1->sure_clear}",
+            type: 'blue',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-blue',
+                    text:'{$language2->enter}',
+                    action: function () {
+                        $.ajax({
+                            type: "POST",
+                            url: '?app=systemRedis&act=resetAll',
+                            success: function(obj){
+                                console.log(obj)
+                                var res = eval("("+obj+")");
+                                var msg = res.message;
+                                if(res.status == 1){
+                                    var d=$.dialog({
+                                        content: '<div class="text-center">'+msg+'</div>',
+                                        title: false, // hides the title.
+                                        closeIcon: false, // hides the close icon.
+                                        columnClass: 'xsmall',
+                                        onOpen: function(){
+                                            setTimeout(function(){
+                                                d.close();
+                                            }, 1000);
+                                        }
+                                    });
+                                    setTimeout(function(){
+                                        window.location.reload();
+                                    },1000);
+                                }else{
+                                    var d=$.dialog({
+                                        content: '<div class="text-center">'+msg+'</div>',
+                                        title: false, // hides the title.
+                                        closeIcon: false, // hides the close icon.
+                                        columnClass: 'xsmall',
+                                        onOpen: function(){
+                                            setTimeout(function(){
+                                                d.close();
+                                            }, 1000);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-default', // multiple classes.
+                    text:'{$language2->cancel}'
+                }
+            }
+        });
+    };
+</script>

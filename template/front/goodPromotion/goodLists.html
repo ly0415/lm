@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$langdata.good_list}</title>
+        <meta charset="utf-8" />
+        {include file="public/header.html"}
+    </head>
+    <body>
+        <!-- header -->
+        {include file="public/daohang.html"}
+        <!-- navs-box end -->
+        <div class="border"></div>
+        <!-- navs -->
+        <div class="active-menu">
+            <div class="container">
+                <a href="?app=combined&act=c_index&storeid={$storeid}&lang={$lang_id}&auxiliary={$auxiliary}">{$langdata.Sale}</a>
+                <a href="index.php?app=seckill&act=goodslist&storeid={$storeid}&lang={$lang_id}&auxiliary={$auxiliary}" >{$langdata.Seckill}</a>
+                <a href="?app=goodPromotion&act=index&storeid={$store_id}&lang={$lang_id}&auxiliary={$auxiliary}" class="active">{$langdata.Promotion}</a>
+                <a href="index.php?app=groupbuy&act=goodslist&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Group}</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="miaosha-wrap mt60">
+                <div class="active-box">
+                    <ul class="clearfix">
+                        {foreach from=$list item=vo}
+                        {if $vo.status ==1}
+                        <li>
+                            <a href="?app=goodPromotion&act=goodDetail&lang={$lang_id}&storeid={$store_id}&auxiliary={$auxiliary}&path={$vo.path}">
+                                <div class="img">
+                                    <img src="{$vo.goods_img}">
+                                    <span class="ji-start">{$langdata.prom_start}</span>
+                                    <span class="name">{$vo.prom_name}</span>
+                                </div>
+                                <div class="cont">
+                                    <p class="ellipsis mb5" title="">{$vo.goods_name}</p>
+                                    <p class="mb5 tag">{if $vo.goods_key_name}<span>{$vo.goods_key_name}</span>{/if}</p>
+                                    <div class="red">
+                                        <i class="ico ico-clock1"></i>
+                                        <span>{$langdata.prom_Sale}：</span>
+                                        <span>{$vo.start_time} - {$vo.end_time}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        {else}
+                        <li>
+                            <a href="?app=goodPromotion&act=goodDetail&lang={$lang_id}&storeid={$store_id}&auxiliary={$auxiliary}&path={$vo.path}">
+                                <div class="img">
+                                    <img src="{$vo.goods_img}">
+                                    <span class="name">{$vo.prom_name}</span>
+                                </div>
+                                <div class="cont">
+                                    <p class="ellipsis mb5" title="">{$vo.goods_name}</p>
+                                    <p class="mb5 tag">{if $vo.goods_key_name}<span>{$vo.goods_key_name}</span>{/if}</p>
+                                    <div class="red">
+                                        <i class="ico ico-clock2"></i>
+                                        <span>{$langdata.prom_Time}：</span>
+                                        <input type="hidden" value="{$vo.countDown}" />
+                                        <span class="clock"></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        {/if}
+                        {/foreach}
+                    </ul>
+                </div>
+                {if $langguages =='ZH'}
+                 <div class="more">
+                    <img src="{$STATIC_URL}/front/images/m-more.png" width="1200" height="240">
+                </div>
+                {else}
+                <div class="more">
+                    <img src="{$STATIC_URL}/front/images/m-more-en.png" width="1200" height="240">
+                </div>
+                {/if}
+
+            </div>
+            <!--<div class="pages-box tc mt40">-->
+            <!--<a href="##" class="back-first ico"></a>-->
+            <!--&lt;!&ndash; <a href="##" class="back ico"></a> &ndash;&gt;-->
+            <!--<a href="##">1</a>-->
+            <!--<a href="##">2</a>-->
+            <!--<a href="##">3</a>-->
+            <!--<a href="##">4</a>-->
+            <!--<a href="##" class="go ico"></a>-->
+            <!--</div>-->
+
+            <!-- paypal -->
+            <div class="payoptions">
+                <h2><span>{$langdata.Lately}</span></h2>
+                <div class="img">
+                    <img src="{$STATIC_URL}/front/images/zhifu.png">
+                    <img src="{$STATIC_URL}/front/images/paypal.png">
+                    <img src="{$STATIC_URL}/front/images/weixin.png">
+                </div>
+            </div>
+        </div>
+        {include file="public/footer.html"}
+
+        <div class="to-top tc">
+            <img src="{$STATIC_URL}/front/images/gotop.png" width="28" height="28">
+            <p class="mt5">{$langdata.prom_Return}</p>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('.active-menu a').click(function () {
+                    $('.active-menu a').removeClass('active');
+                    $(this).addClass('active');
+                })
+
+                //var twoDaysFromNow = new Date().valueOf() + 2 * 24 * 60 * 60 * 1000;
+                var clock = $('.clock');
+                for (var i = 0; i < clock.length; i++) {
+                    var twoDaysFromNow = $(clock[i]).prev().val();
+                    var nowTime = new Date().valueOf();
+                    var countDown = (nowTime + twoDaysFromNow * 1000);
+                    $(clock[i]).countdown(countDown, function (event) {
+                        $(this).html(event.strftime('%D 天 %H 小时 %M 分钟 %S 秒'));
+                    });
+                }
+                //		var twoDaysFromNow = $('.clock').prev().val();
+                //		var nowTime = new Date().valueOf();
+                //		var countDown = (nowTime + twoDaysFromNow*1000);
+                //		$('.clock').countdown(countDown, function(event) {
+                //		  $(this).html(event.strftime('%D 天 %H 小时 %M 分钟 %S 秒'));
+                //		});
+
+            })
+        </script>
+    </body>
+</html>

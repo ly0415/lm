@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+    <style>
+        .coupon_name input{
+            border: none;
+            background: none;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                余额充值券
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="admin.php?app=default&act=index"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li class="active">会员管理</li>
+                <li class="active">余额充值券</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <form class="form-inline col-sm-11 col-md-11 no-padding">
+                                <div class="form-group form-group-sm form-mar">
+                                    <input type='hidden' name='app' value='balanceRechargeCoupon'>
+                                    <input type='hidden' name='act' value='index'>
+                                    <input type="hidden" name = "delAll"  value="drop">
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <small class="control-label">券码：</small>
+                                    <input type="text" class="form-control" name="sn" value="{$sn}">
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <small class="control-label">状态：</small>
+                                    <select class="form-control w160 j_select select-user" name="is_use" >
+                                        <option value="0">请选择</option>
+                                        <option value="1" {if $isUse == 1} selected {/if}>未使用</option>
+                                        <option value="2" {if $isUse == 2} selected {/if}>已使用</option>
+                                        <option value="3" {if $isUse == 3} selected {/if}>已删除</option>
+                                    </select>
+                                </div>
+                                <div class="form-group form-group-sm form-mar" >
+                                    <small class="control-label" >店员：</small>
+                                    <select class="form-control w160 j_store service-select1" name="service_area_id">
+                                        <option value='0'>--请选择区域--</option>
+                                        {foreach $service_area_data as $k => $v}
+                                        <option value="{$v.id}" {if $v.id == $service_area_id} selected {/if}>{$v.name}</option>
+                                        {/foreach}
+                                    </select>
+                                    <select class="form-control w160 j_store service-select2" name="service_store_id">
+                                        <option value='0'>--请选择店铺--</option>
+                                        {foreach $service_store_data as $k => $v}
+                                        <option value="{$v.id}" {if $v.id == $service_store_id} selected {/if}>{$v.name}</option>
+                                        {/foreach}
+                                    </select>
+                                    <select class="form-control w160 j_store service-select3" name="service_user_id">
+                                        <option value='0'>--请选择店员--</option>
+                                        {foreach $service_user_data as $k => $v}
+                                        <option value="{$v.id}" {if $v.id == $service_user_id} selected {/if}>{$v.name}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <small class="control-label">操作时间：</small>
+                                    <input type="text" class="form-control" id="datepicker" name="start_time" value="{$startTime}" readonly>
+                                    --
+                                    <input type="text" class="form-control" id="datepicker2" name="end_time" value="{$endTime}" readonly>
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <button type='submit' class="btn btn-default btn-sm" id="search">
+                                        搜索 <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <button class="btn btn-default btn-sm" id="export">
+                                        导出
+                                    </button>
+                                </div >
+                                <a href="?app=balanceRechargeCoupon&act=count"><img src="{$STATIC_URL}/admin/images/count.png" alt="" style="width: 50px;margin-bottom: 10px;"></a>
+                            </form>
+
+                            <div class="col-sm-1  col-md-1 no-padding text-right">
+                                <a class="btn btn-primary btn-sm mr5" href="javascript:;" id="add-coupon" ><i class="fa fa-plus"></i> 添加</a>
+                            </div>
+                        </div>
+                        <div class="new-table-responsive">
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th width="5%"><input type="checkbox" name="" id="all"/></th>
+                                        <th>序号</th>
+                                        <th>券码</th>
+                                        <th>金额</th>
+                                        <th>状态</th>
+                                        <th>使用来源</th>
+                                        <th>用户名</th>
+                                        <th>手机号</th>
+                                        <th>指派人员</th>
+                                        <th>操作人员</th>
+                                        <th>操作时间</th>
+                                        <th>充值时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+
+                                    {foreach from=$list item=item key=key}
+                                    <tr>
+                                        <td><input type="checkbox" name="check-name" value="{$item.id}" /></td>
+                                        <td>{$key+1}</td>
+                                        <td>{$item.sn}</td>
+                                        <td>{$item.money}</td>
+                                        <td>{if $item.is_use == 2}已使用{else}未使用{/if}</td>
+                                        <td>
+                                            {if $item.use_source == 1}
+                                                公众号
+                                            {elseif $item.use_source == 2}
+                                                小程序
+                                            {else}
+                                            ---
+                                            {/if}
+                                        </td>
+                                        <td>{if $item.username}{$item.username}{else}---{/if}</td>
+                                        <td>{if $item.phone}{$item.phone}{else}---{/if}</td>
+                                        <td>{if $item.store_user_name}{$item.store_user_name}{else}---{/if}</td>
+                                        <td>{$item.account_name}</td>
+                                        <td>{$item.add_time|date_format:"%Y-%m-%d %H:%M"}</td>
+                                        <td>{if $item.use_time}{$item.use_time|date_format:"%Y-%m-%d %H:%M"}{else}---{/if}</td>
+                                        <td class="cz">
+                                            {if $item.mark == 1}
+                                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  onclick="drop('{$item.id}');"  data-original-title="删除">
+                                                <i class="fa fa-times"></i></a>
+                                            {if $item.is_use == 1}
+                                            <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-success" style="overflow: hidden; position: relative;"  onclick="assign('{$item.id}');"  data-original-title="指派">
+                                                <i class="fa fa-send"></i></a>
+                                            {/if}
+                                            {else}
+                                            ---
+                                            {/if}
+                                        </td>
+
+                                    </tr>
+                                    {/foreach}
+                                </table>
+                            </div>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <a href="#" class="btn btn-primary btn-sm delete-all"><i class="fa fa-trash-o"></i> 批量删除</a>
+                            <a href="#" class="btn btn-primary btn-sm send-all"><i class="fa fa-send"></i> 批量指派</a>
+                            {$page_html}
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    {include file="public/footer.html"}
+
+</div>
+
+<script src="{$STATIC_URL}/admin/js/storeUsersSelect.js"></script>
+<script type="text/javascript">
+    $(function() {
+        //Date picker
+        $('#datepicker').datepicker({
+            autoclose: true,
+            clearBtn: true,
+            format: 'yyyy-mm-dd'
+
+        });
+        $('#datepicker2').datepicker({
+            autoclose: true,
+            clearBtn: true,
+            format: 'yyyy-mm-dd'
+
+        });
+    });
+
+    // 导出
+    $('#export').click(function () {
+        var sn = $('input[name=sn]').val();
+        var is_use = $('.select-user option:selected').val();
+        var start_time = $('input[name=start_time]').val();
+        var end_time = $('input[name=end_time]').val();
+        var service_user_id = $('.service-select3 option:selected').val();
+        // alert(is_use);return;
+        location.href = '?app=balanceRechargeCoupon&act=index&export=1&sn=' + sn + '&is_use=' + is_use + '&start_time=' + start_time + '&end_time=' + end_time + '&service_user_id=' + service_user_id;
+        return false;
+    });
+
+    $('body').on('click', '.send-all', function () {
+        var arr = new Array();
+        var checks = $('table tr td').find('input[name="check-name"]:checked');
+
+        for (var i = 0; i < checks.length; i++) {
+            arr[i] = checks[i].defaultValue;
+        }
+        var ids = arr.join(",");
+
+        if (checks.length <= 0) {
+            $.alert({
+                title: '提示',
+                type: 'blue',
+                closeIcon: true,
+                content: "<i class='fa fa-info-circle text-light-blue' style='font-size:38px;vertical-align: middle'></i> 您未选择要操作的数据！",
+                buttons: {
+                    ok: {
+                        text: '确定',
+                        btnClass: 'btn-blue'
+                    }
+                }
+            });
+        } else {
+            assign(ids);
+        }
+    });
+
+    /*添加*/
+    $('#add-coupon').click(function () {
+        dialog_form('?app=balanceRechargeCoupon&act=add', '添加');
+    });
+
+    /*指派*/
+    function assign(coupon_id) {
+        dialog_form('?app=balanceRechargeCoupon&act=assignStoreUser&coupon_id=' + coupon_id, '指派');
+    }
+
+    /*删除*/
+    function drop(id) {
+        deletes('?app=balanceRechargeCoupon&act=drop&id=' + id);
+    }
+</script>
+
+</body>
+</html>

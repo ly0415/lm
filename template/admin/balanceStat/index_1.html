@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+        <style>
+            .balanceBox{
+                width:98%;
+                background:#fff;
+                padding:1rem;
+                margin:0 auto;
+            }
+            .balanceBox .selectBox{
+                width:70%;
+                float:right;
+            }
+            .balanceBox .selectBox .year{
+                float:right;
+                overflow:hidden;
+                margin-right:1rem;
+            }
+            .balanceBox .selectBox .year small{
+                float:left;
+                margin-top:1rem;
+            }
+            .balanceBox .selectBox .year input{
+                float:left;
+                width:12rem;
+            }
+            .balanceBox .selectBox .country{
+                float:right;
+                overflow:hidden;
+                margin-right:1rem;
+            }
+             .balanceBox .selectBox .country small{
+                float:left;
+                margin-right:1rem;
+                margin-top:1rem;
+            }
+             .balanceBox .selectBox .country select{
+                float:left;
+                margin-right:1rem;
+            }
+            .balanceBox .selectBox .city{
+                float:right;
+            }
+             .balanceBox .selectBox .city small {
+                float:left;
+                margin-top:1rem;
+            }
+             .balanceBox .selectBox .city select {
+                float:left;
+           }
+            .balanceCate{
+                margin:1rem auto;
+                width:98%;
+            }
+            .balanceCate{
+                display:flex;
+                justify-content:space-between;
+            }
+            .balanceCate .cateItem{
+                background:#fff;
+                width:24%;
+                display:flex;
+                padding:1.5rem 0;
+                justify-content:center;
+            }
+            .balanceCate .cateItem>div{
+                display:flex;
+                align-items:center;
+            }
+            .itemContent .pBox{
+                margin-left:0.5rem;
+            }
+            .balanceCate .cateItem .img{
+                width:5rem;
+                height:5rem;
+            }
+            .balanceCate .cateItem img{
+                width:100%;
+                height:100%;
+            }
+            .balanceCate .cateItem .price{
+                margin-bottom:0.5rem;
+            }
+            .balanceCate .cateItem .price span{
+                color:#3c8dbc;
+                font-size:2rem;
+            }
+            .balanceCate .cateItem .pBox .txt{
+                color:#9AA7AE;
+            }
+            .chartBox{
+                width:98%;
+                margin:0 auto;
+                background:#fff;
+            }
+            .chartTop{
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                padding:0.5rem 2rem;
+                border-bottom:1px solid #ddd;
+                outline:none;
+            }
+            .chartTop button{
+                background:#fff;
+                border:1px solid #ddd;
+                padding:0.5rem 1rem;
+                border-radius:5px;
+                font-size:1.2rem;
+                margin-left:0.5rem;
+                outline:none;
+            }
+            .chartBox2{
+                width:98%;
+                margin:0 auto;
+                margin-top:2rem;
+                display:flex;
+                justify-content:space-between;
+            }
+            .chartBox2>div{
+                width:49%;
+                background:#fff;
+                height:40rem;
+            }
+            #lineChart{
+                width:100%;
+                height:30rem;
+            }
+            #pieChart{
+                width:100%;
+                height:30rem;
+            }
+            #barChart{
+                width:100%;
+                height:40rem;
+            }
+        </style>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        &nbsp;&nbsp;&nbsp;{$language1->balance_statistics}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="admin.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->statistics_manage}</a></li>
+                        <li class="active">{$language1->statistics_manage}</li>
+                        <li class="active">{$language1->balance_statistics}</li>
+                    </ol>
+
+                </section>
+
+                <section class="content">
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="balanceBox">
+                                <div class="selectBox j-pic1-sousuo">
+<!--                                    <div class="city">
+                                        <small class="control-label">{$language2->regional_store}：</small>
+                                    <select class="form-control w160 j_select j-store">
+                                        <option value="0">{$language2->all}</option>
+                                        {$storeOption}
+                                    </select>
+                                    <input type="hidden" class="j-store-v" value="{$store_id}">
+                                    </div>-->
+                                    <div class="country">
+                                    <small class="control-label">{$language1->area_countroy}：</small>
+                                    <select class="form-control w160 j_select j-area">
+                                        <option value="0">{$language2->all}</option>
+                                        {$areaOption}
+                                    </select>
+                                    <input type="hidden" class="j-area-v" value="{$area_id}">
+                                    </div>
+                                    <div class="year">
+                                       <small class="control-label">{$language1->select_year}：</small>
+                                      <input type="text" class="form-control" id="datepicker11" name="start_time" value="{$start_time}" readonly="readonly">
+                                    </div>
+                                    <div style="clear:both"></div>
+                                </div>
+                                <div style="clear:both"></div>
+                            </div>
+                            <div class="balanceCate">
+                                <div class="cateItem">
+                                    <div class="itemContent">
+                                         <div class="img">
+                                            <img src="{$STATIC_URL}/admin/dist/img/balance1.png" alt=""/>
+                                        </div>
+                                        <div class="pBox">
+                                            <div class="price">
+                                                <span>{if $baseD.chongZhi == ''}0{else}{$baseD.chongZhi}{/if}</span>
+                                                  {$language2->yuan}
+                                            </div>
+                                            <div class="txt">充值总额</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cateItem">
+                                    <div class="itemContent">
+                                         <div class="img">
+                                        <img src="{$STATIC_URL}/admin/dist/img/balance2.png" alt=""/>
+                                    </div>
+                                    <div class="pBox">
+                                        <div class="price">
+                                            <span>{$baseD.zengSong}</span>
+                                              {$language2->yuan}
+                                        </div>
+                                        <div class="txt">赠送总额</div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="cateItem">
+                                    <div class="itemContent">
+                                        <div class="img">
+                                            <img src="{$STATIC_URL}/admin/dist/img/balance3.png" alt=""/>
+                                        </div>
+                                        <div class="pBox">
+                                            <div class="price">
+                                                <span>{$baseD.xiaoFei}</span>
+                                                {$language2->yuan}
+                                            </div>
+                                            <div class="txt">消费总额</div>
+                                        </div>
+                                   </div>
+                                </div>
+                                <div class="cateItem">
+                                    <div  class="itemContent">
+                                         <div class="img">
+                                            <img src="{$STATIC_URL}/admin/dist/img/balance4.png" alt=""/>
+                                         </div>
+                                        <div class="pBox">
+                                            <div class="price">
+                                                <span>{$baseD.new_money}</span>
+                                                {$language2->yuan}
+                                            </div>
+                                            <div class="txt">剩余总额</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="chartBox">
+                                <div class="chartTop">
+                                    <div>余额统计柱状图</div>
+                                    <div class="btns j-pic3">
+                                        <span type="submit" class="btn btn-primary btn-sm ch-btn active" name="week" cla="week">{$language2->current_week}</span>
+                                        <span type="submit" class="btn btn-primary btn-sm ch-btn" name="month" cla="month">{$language2->current_month}</span>
+                                        <span type="submit" class="btn btn-primary btn-sm ch-btn" name="year" cla="year">{$language2->current_year}</span>
+                                    </div>
+                                </div>
+                                 <div id="main3" style="width: 1200px;height:400px;">
+                                     
+                                 </div>
+                            </div>
+                            
+                            <div class="chartBox">
+                                <div class="chartTop">
+<!--                                    <div>余额统计柱状图</div>
+                                    <div class="btns j-pic3">
+                                        <span type="submit" class="btn btn-primary btn-sm ch-btn active" name="week" cla="week">{$language2->current_week}</span>
+                                        <span type="submit" class="btn btn-primary btn-sm ch-btn" name="month" cla="month">{$language2->current_month}</span>
+                                        <span type="submit" class="btn btn-primary btn-sm ch-btn" name="year" cla="year">{$language2->current_year}</span>
+                                    </div>-->
+                                </div>
+<!--                                <div id="barChart">
+
+                                </div>-->
+                            </div>
+                            <div class="chartBox2">
+                                <div class="lineChart">
+                                    <div class="chartTop">
+                                        <div>余额统计折线图</div>
+                                        <div class="btns j-pic2">
+                                            <span type="submit" class="btn btn-primary btn-sm ch-btn active" name="week" cla="week">{$language2->current_week}</span>
+                                            <span type="submit" class="btn btn-primary btn-sm ch-btn" name="month" cla="month">{$language2->current_month}</span>
+                                            <span type="submit" class="btn btn-primary btn-sm ch-btn" name="year" cla="year">{$language2->current_year}</span>
+                                        </div>
+                                    </div>
+                                    <div id="lineChart">
+
+                                    </div>
+                                    <input type="hidden"  value="{$zxInfo_a}" name="zxInfo_a">
+                                    <input type="hidden"  value="{$zxInfo_b}" name="zxInfo_b">
+                                    <input type="hidden"  value="{$zxInfo_c}" name="zxInfo_c">
+                                    <input type="hidden"  value="{$zxInfo_d}" name="zxInfo_d">
+                                    <input type="hidden"  value="{$zxInfo_xAxis}" name="zxInfo_xAxis">
+                                </div>
+                                <div class="pieChart">
+                                    <div class="chartTop">
+                                        <div>余额统计饼状图</div>
+                                        <div class="btns j-pic1">
+                                            <span  type="submit" class="btn btn-primary btn-sm ch-btn active" name="week" cla="week">{$language2->current_week}</span>
+                                            <span  type="submit" class="btn btn-primary btn-sm ch-btn" name="month" cla="month">{$language2->current_month}</span>
+                                            <span  type="submit" class="btn btn-primary btn-sm ch-btn" name="year" cla="year">{$language2->current_year}</span>
+                                        </div>
+                                    </div>
+                                    <div id="pieChart">
+
+                                    </div>
+                                    <input type="hidden"  value="{$trendInfo_a}" name="trendInfo_a">
+                                    <input type="hidden"  value="{$trendInfo_b}" name="trendInfo_b">
+                                    <input type="hidden"  value="{$trendInfo_c}" name="trendInfo_c">
+                                    <input type="hidden"  value="{$trendInfo_d}" name="trendInfo_d">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- /.content -->
+            </div>
+            {include file="public/footer.html"}
+        </div>
+    </body>
+</html>
+
+<script>
+          $('.j-area').change(function(){
+                var area_id = $(this).val();
+                var startTime = $('#datepicker11').val();
+                var url = "admin.php?app=balanceStat&act=index&start_time="+startTime+"&area_id="+area_id;
+                location.href = url;
+                 });
+                $('.j-store').change(function(){
+                var startTime = $('#datepicker11').val();
+//                var store_id = $(this).val();
+                var area_id = $('.j-area-v').val();
+                var url = "admin.php?app=balanceStat&act=index&start_time="+startTime+"&area_id="+area_id;
+                location.href = url;
+                });
+                $('#datepicker11').change(function(){
+                var startTime = $('#datepicker11').val();
+                var area_id = $('.j-area-v').val();
+//                var store_id = $('.j-store-v').val();
+                var url = "?app=balanceStat&act=index&start_time="+startTime+"&area_id=" + area_id;
+                location.href = url;
+                });
+       // 使用刚指定的配置项和数据显示图表。
+        $('#datepicker11').datepicker({
+                autoclose: true,
+                format: 'yyyy',
+                clearBtn: true,
+                startView: 2,
+                minViewMode: 2,
+                maxViewMode: 2
+
+            });
+            
+             //会员统计
+    var myChart3 = echarts.init(document.getElementById('main3'));
+    var zxInfo_a =$('input[name=zxInfo_a]').val();
+    var arr1=zxInfo_a.split(",");
+    var zxInfo_b =$('input[name=zxInfo_b]').val();
+    var arr2=zxInfo_b.split(",");
+    var zxInfo_c =$('input[name=zxInfo_c]').val();
+    var arr3=zxInfo_c.split(",");
+    var zxInfo_d =$('input[name=zxInfo_d]').val();
+    var arr4=zxInfo_d.split(",");
+    var zxInfo_xAxis =$('input[name=zxInfo_xAxis]').val();
+    var arr5=zxInfo_xAxis.split(",");
+    // 指定图表的配置项和数据
+    option3 = {
+        color: ['#3398DB'],
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : arr5,
+                axisTick: {
+                    alignWithLabel: true
+                }
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+         series : [
+              {
+                name:'充值金额',
+                type:'bar',
+                barWidth: '20%',
+                itemStyle:{
+                    normal:{
+                        color:'green',
+                    }
+                },
+                data:arr1
+            },
+             {
+                name:'赠送金额',
+                type:'bar',
+                barWidth: '20%',
+                itemStyle:{
+                    normal:{
+                        color:'yellow',
+                    }
+                },
+                data:arr2
+            },
+            {
+                name:'消费金额',
+                type:'bar',
+                barWidth: '20%',
+                itemStyle:{
+                    normal:{
+                        color:'red',
+                    }
+                },
+                data:arr3
+            },
+            {
+                name:'剩余金额',
+                type:'bar',
+                barWidth: '20%',
+                itemStyle:{
+                    normal:{
+                        color:'#3398DB',
+                    }
+                },
+                data:arr4
+            },
+        ]
+    };
+    
+    // 使用刚指定的配置项和数据显示图表。
+    myChart3.setOption(option3);
+            
+            
+</script>
+{literal}
+<script>
+//    //柱状
+//    var myChart = echarts.init(document.getElementById("barChart"));
+//    var app = {};
+//    var zxInfo_a =$('input[name=zxInfo_a]').val();
+//    var arr1=zxInfo_a.split(",");
+//    var zxInfo_b =$('input[name=zxInfo_b]').val();
+//    var arr2=zxInfo_b.split(",");
+//    var zxInfo_c =$('input[name=zxInfo_c]').val();
+//    var arr3=zxInfo_c.split(",");
+//    var zxInfo_d =$('input[name=zxInfo_d]').val();
+//    var arr4=zxInfo_d.split(",");
+//    var zxInfo_xAxis =$('input[name=zxInfo_xAxis]').val();
+//    var arr5=zxInfo_xAxis.split(",");
+//    option = null;
+//    app.title = '柱状图框选';
+//
+//    var xAxisData = arr5;//这个是x轴显示的数据
+//    var data1 = [];
+//    var data2 = [];
+//    var data3 = [];
+//    var data4 = [];//这四个分别对应四中类别的值
+//
+//    for (var i = 0; i < 10; i++) {
+//        //xAxisData.push('Class' + i);
+//        data1.push((Math.random() * 20).toFixed(2));
+//        data2.push(-Math.random() .toFixed(2));
+//        data3.push((Math.random() * 50).toFixed(2));
+//        data4.push((Math.random() + 10).toFixed(2));//这块是系统自己模拟的数据   到时候 这些数据是通过接口获取的
+//    }
+//
+//    var itemStyle = {//这个应该是柱状图的样式  具体看下api
+//        normal: {
+//        },
+//        emphasis: {
+//            barBorderWidth: 1,
+//            shadowBlur: 10,
+//            shadowOffsetX: 0,
+//            shadowOffsetY: 0,
+//            shadowColor: 'rgba(0,0,0,0.5)'
+//        }
+//    };
+//
+//    option = {
+//        backgroundColor: '#fff',
+//        legend: {
+//            align: 'left',
+//            left: 10
+//        },
+//        tooltip: {},
+//        xAxis: {
+//            data: xAxisData,//设置x轴数据
+//            name: 'X Axis',
+//            silent: false,
+//            axisLine: {onZero: true},
+//            splitLine: {show: false},
+//            splitArea: {show: false}
+//        },
+//        yAxis: {//设置y轴数据
+//            inverse: true,
+//            splitArea: {show: false}
+//        },
+//        grid: {
+//            left: 150
+//        },
+//        visualMap: {//左侧 滑块部分
+//            type: 'continuous',
+//            dimension: 1,
+//            text: ['High', 'Low'],
+//            inverse: true,
+//            itemHeight: 200,
+//            calculable: true,
+//            min: -2,
+//            max: 6,
+//            top: 60,
+//            left: 10,
+//            inRange: {
+//                colorLightness: [0.4, 0.8]
+//            },
+//            outOfRange: {
+//                color: '#bbb'
+//            },
+//            controller: {
+//                inRange: {
+//                    color: '#2f4554'
+//                }
+//            }
+//        },
+//        series: [//这块设置每个柱状图数据的部分
+//            {
+//                name: '消费金额',
+//                type: 'bar',
+//                stack: 'one',
+//                itemStyle: itemStyle,
+//                data: arr3
+//            },
+//            {
+//                name: '充值金额',
+//                type: 'bar',
+//                stack: 'one',
+//                itemStyle: itemStyle,
+//                data: arr1
+//            },
+//            {
+//                name: '剩余金额',
+//                type: 'bar',
+//                stack: 'two',
+//                itemStyle: itemStyle,
+//                data: arr4
+//            },
+//            {
+//                name: '赠送金额',
+//                type: 'bar',
+//                stack: 'two',
+//                itemStyle: itemStyle,
+//                data: arr2
+//            }
+//        ]
+//    };
+//    if (option && typeof option === "object") {
+//        myChart.setOption(option, true);//将配置的option数据   用到echarts上
+//    }
+//折现
+    var myChart1 = echarts.init(document.getElementById("lineChart"));
+    var zxInfo_a =$('input[name=zxInfo_a]').val();
+    var arr1=zxInfo_a.split(",");
+    var zxInfo_b =$('input[name=zxInfo_b]').val();
+    var arr2=zxInfo_b.split(",");
+    var zxInfo_c =$('input[name=zxInfo_c]').val();
+    var arr3=zxInfo_c.split(",");
+    var zxInfo_d =$('input[name=zxInfo_d]').val();
+    var arr4=zxInfo_d.split(",");
+    var zxInfo_xAxis =$('input[name=zxInfo_xAxis]').val();
+    var arr5=zxInfo_xAxis.split(",");
+    console.log(zxInfo_a);
+    var option1  = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: arr5
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name:'充值金额',
+                type:'line',
+                stack: '总量',
+                data:arr1
+            },
+            {
+                name:'赠送金额',
+                type:'line',
+                stack: '总量',
+                data:arr2
+            },
+            {
+                name:'消费金额',
+                type:'line',
+                stack: '总量',
+                data:arr3
+            },
+            {
+                name:'剩余金额',
+                type:'line',
+                stack: '总量',
+                data:arr4
+            },
+            
+        ]
+    };
+    if (option1 && typeof option1 === "object") {
+        myChart1.setOption(option1, true);//将配置的option数据   用到echarts上
+    }
+
+
+    //饼状
+    var myChart2= echarts.init(document.getElementById("pieChart"));
+    var trendInfo_a =$('input[name=trendInfo_a]').val();
+    var trendInfo_b =$('input[name=trendInfo_b]').val();
+    var trendInfo_c =$('input[name=trendInfo_c]').val();
+    var trendInfo_d =$('input[name=trendInfo_d]').val();
+    var option2 = {
+        tooltip : {
+            trigger: 'item',
+            formatter: "{b} : {c}元 ({d}%)"
+        },
+        legend: {
+            bottom: 10,
+            left: 'center',
+            data: ['充值金额', '赠送金额','消费金额','剩余金额']
+        },
+        series : [
+            {
+                type: 'pie',
+                radius : '65%',
+                center: ['50%', '50%'],
+                selectedMode: 'single',
+                data:[
+                    {value:trendInfo_d, name: '剩余金额'},
+                    {value:trendInfo_c, name: '消费金额'},
+                    {value:trendInfo_b, name: '赠送金额'},
+                    {value:trendInfo_a, name: '充值金额'}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    if (option2 && typeof option2=== "object") {
+        myChart2.setOption(option2, true);//将配置的option数据   用到echarts上
+    }
+    
+     $('.chartTop .j-pic1 span').click(function() {
+                var area_id = $('.j-area-v').val();
+                var store_id = $('.j-store-v').val();
+                $('.chartTop .j-pic1 span').removeClass('active');
+                $(this).addClass('active');
+                var cla = $(this).attr('cla');
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "?app=balanceStat&act=index&jyInfo=" + cla + "&area_id=" + area_id + '&store_id=' + store_id,
+                        success: function (obj) {
+                            var __info = obj.info.trendInfo;
+
+                            // 基于准备好的dom，初始化echarts实例
+                            option2=({        //加载数据图表
+                                  tooltip : {
+                                            trigger: 'item',
+                                            formatter: "{b} : {c} ({d}%)"
+                                        },
+                                    legend: {
+                                            bottom: 10,
+                                            left: 'center',
+                                            data: ['充值金额', '赠送金额','消费金额','剩余金额']
+                                        },
+                                 series : [
+                                            {
+                                                type: 'pie',
+                                                radius : '65%',
+                                                center: ['50%', '50%'],
+                                                selectedMode: 'single',
+                                                    data:[
+                                                        {value:__info.d, name: '剩余金额'},
+                                                        {value:__info.c, name: '消费金额'},
+                                                        {value:__info.b, name: '赠送金额'},
+                                                        {value:__info.a, name: '充值金额'}
+                                                        ],
+                                        itemStyle: {
+                                                emphasis: {
+                                                    shadowBlur: 10,
+                                                    shadowOffsetX: 0,
+                                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                });
+                            myChart2.setOption(option2);
+                        }
+                    });
+            })
+
+      $('.chartTop .j-pic2 span').click(function() {
+                var area_id = $('.j-area-v').val();
+                var store_id = $('.j-store-v').val();
+                $('.chartTop .j-pic2 span').removeClass('active');
+                $(this).addClass('active');
+                var cla = $(this).attr('cla');
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "?app=balanceStat&act=index&zxInfo=" + cla + "&area_id=" + area_id + '&store_id=' + store_id,
+                        success: function (obj) {
+                        var __info = obj.info.trendInfo;
+                        var zxInfo_a =__info.a;
+                        var arr_a=zxInfo_a.split(",");
+                        var zxInfo_b =__info.b;
+                        var arr_b=zxInfo_b.split(",");
+                        var zxInfo_c =__info.c;
+                        var arr_c=zxInfo_c.split(",");
+                        var zxInfo_d =__info.d;
+                        var arr_d=zxInfo_d.split(",");
+                            //折现
+                        var myChart1 = echarts.init(document.getElementById("lineChart"));
+                        var option1  = {
+                                tooltip: {
+                                    trigger: 'axis'
+                                },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                                },
+                            xAxis: {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: __info.xAxis
+                                },
+                            yAxis: {
+                                type: 'value'
+                                },
+                            series: [
+                                {
+                                name:'充值金额',
+                                type:'line',
+                                stack: '总量',
+                                data:arr_a
+                                 },
+                                {
+                                    name:'赠送金额',
+                                    type:'line',
+                                    stack: '总量',
+                                    data:arr_b
+                                },
+                               
+                                {
+                                    name:'消费金额',
+                                    type:'line',
+                                    stack: '总量',
+                                    data:arr_c
+                                }, 
+                                {
+                                    name:'剩余金额',
+                                    type:'line',
+                                    stack: '总量',
+                                    data:arr_d
+                                }
+                            ]
+                        };
+                        myChart1.setOption(option1);
+                        }
+                    });
+            })
+            
+            $('.chartTop .j-pic3 span').click(function() {
+                var area_id = $('.j-area-v').val();
+                var store_id = $('.j-store-v').val();
+                $('.chartTop .j-pic3 span').removeClass('active');
+                $(this).addClass('active');
+                var cla = $(this).attr('cla');
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "?app=balanceStat&act=index&zxInfo=" + cla + "&area_id=" + area_id + '&store_id=' + store_id,
+                        success: function (obj) {
+                        var __info = obj.info.trendInfo;
+                        var zxInfo_a =__info.a;
+                        var arr_a=zxInfo_a.split(",");
+                        var zxInfo_b =__info.b;
+                        var arr_b=zxInfo_b.split(",");
+                        var zxInfo_c =__info.c;
+                        var arr_c=zxInfo_c.split(",");
+                        var zxInfo_d =__info.d;
+                        var arr_d=zxInfo_d.split(",");
+                        
+                        
+                            //会员统计
+    var myChart3 = echarts.init(document.getElementById('main3'));
+    // 指定图表的配置项和数据
+    option3 = {
+        color: ['#3398DB'],
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : __info.xAxis,
+                axisTick: {
+                    alignWithLabel: true
+                }
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+         series : [
+              {
+                name:'充值金额',
+                type:'bar',
+                barWidth: '20%',
+                itemStyle:{
+                    normal:{
+                        color:'green',
+                    }
+                },
+                data:arr_a
+            },
+             {
+                name:'赠送金额',
+                type:'bar',
+                barWidth: '20%',
+                itemStyle:{
+                    normal:{
+                        color:'yellow',
+                    }
+                },
+                data:arr_b
+            },
+            {
+                name:'消费金额',
+                type:'bar',
+                barWidth: '20%',
+                itemStyle:{
+                    normal:{
+                        color:'red',
+                    }
+                },
+                data:arr_c
+            },
+            {
+                name:'剩余金额',
+                type:'bar',
+                barWidth: '20%',
+                itemStyle:{
+                    normal:{
+                        color:'#3398DB',
+                    }
+                },
+                data:arr_d
+            },
+        ]
+    };
+    
+    // 使用刚指定的配置项和数据显示图表。
+    myChart3.setOption(option3);               
+                        }
+                    });
+                 })
+    
+</script>
+ {/literal}

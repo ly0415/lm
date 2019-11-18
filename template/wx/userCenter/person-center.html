@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>{$langdata.myCenter_personal}</title>
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <meta content="email=no" name="format-detection">
+        <link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css"  rel="stylesheet" type="text/css"/>
+        <link href="{$STATIC_URL}/phone/css/style.css"  rel="stylesheet" type="text/css"/>
+        <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+    </head>
+    <body style="padding-bottom: 1.6rem;">
+        <div class="pcenter-wrap">
+            <div class="pcenter-head" style="position: relative">
+                <div class="head-operate" style="height:30px;">
+                </div>
+                <div style="position: absolute;bottom:0;right:0;">      
+                    <div class="head-img"><img style="border: 2px solid #fff;" src="{$headimg}"></div>
+                    <div class="head-name tr"  style="color:#FFFFFF;">{$nickname}</div>
+                </div>
+            </div>
+            <ul class="pcenter-menus">
+                <li>
+                    <a href="wx.php?app=order&act=orderPayment&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter1">{if $dfkOrder ==''}{else}<em>{$dfkOrder}</em>{/if}</i>
+                        <span>{$langdata.myCenter_Payment}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=order&act=orderHair&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter2">{if $dfhOrder ==''}{else}<em>{$dfhOrder}</em>{/if}</i>
+                        <span>{$langdata.myCenter_Hair}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=order&act=orderCollect&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter3"> {if $dshOrder ==''}{else}<em>{$dshOrder}</em>{/if}</i>
+                        <span>{$langdata.myCenter_Collect}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=order&act=orderEvaluate&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter4">{if $dpjOrder ==''}{else}<em>{$dpjOrder}</em>{/if}</i>
+                        <span>{$langdata.myCenter_Evaluate}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=order&act=orderRefund&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter5">{if $dtkOrder ==''}{else}<em>{$dtkOrder}</em>{/if}</i>
+                        <span>{$langdata.myCenter_Refund}</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="pcenter-list">
+                <li>
+                    <a href="wx.php?app=order&act=orderindex&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter6"></i>
+                        <span>{$langdata.myCenter_order}</span>
+                        <span class="fr more">{$langdata.myCenter_details}<i class="ico ico-right fr"></i></span>
+                    </a>
+                </li> 
+<!--                我的二维码-->
+<!--<!-                <li  class="mt30">
+                    <a href="wx.php?app=userCenter&act=qrCode&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter50"></i>
+                        <span>{$langdata.myCenter_QRcode}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>-->
+                 <li  class="mt30">
+                    <a href="wx.php?app=userCenter&act=Codecard&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter50"></i>
+                        <span>{$langdata.myacc_ionalcode}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+                 <li>
+                    <a href="wx.php?app=default&act=myShare&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter50"></i>
+                        <span>{$langdata.myacc_mycode}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=userCenter&act=userInfo&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter11"></i>
+                        <span>{$langdata.myCenter_information}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=userCenter&act=personAddress&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter10"></i>
+                        <span>{$langdata.myCenter_receipt}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=userCenter&act=articleCollect&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter7"></i>
+                        <span>{$langdata.myCenter_articleCollect}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=userCenter&act=storeCollect&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter7"></i>
+                        <span>{$langdata.myCenter_storeCollect}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=userCenter&act=collectionGoods&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter7"></i>
+                        <span>{$langdata.myCenter_Collection}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=userCenter&act=myRecommendation&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter7"></i>
+                        <span>{$langdata.myCenter_myRecommendation}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=userCenter&act=coupon&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter7"></i>
+                        <span>{$langdata.use_wdyhq}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=userCenter&act=footPrint&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter8"></i>
+                        <span>{$langdata.myCenter_footprint}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=userCenter&act=pointLog&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter8-1"></i>
+                        <span>{$langdata.myCenter_point}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="wx.php?app=easyDis&act=index&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter8-1"></i>
+                        <span>{$langdata.myCenter_fx}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="wx.php?app=userCenter&act=accountSafe&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter12"></i>
+                        <span>{$langdata.myCenter_core}</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="wx.php?app=rechargeAmount&act=index&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                        <i class="ico ico-pcenter12"></i>
+                        <span>余额充值</span>
+                        <i class="ico ico-right fr"></i>
+                    </a>
+                </li>
+
+                <li>
+<!--                    <a href="wx.php?app=user&act=loginout&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">-->
+                   <a href="wx.php?app=userCenter&act=Untie&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                            <i class="ico ico-pcenter13"></i>
+                            <span>切换账号</span>
+                            <i class="ico ico-right fr"></i>
+                        </a>
+                </li>
+            </ul>
+            <input type="hidden" name="userId"  value="{$userId}">
+            {include file="public/footer1.html"}
+        </div>   
+        <script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/layer/layer.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+        {include file="public/wxjs.html"}
+        <script type="text/javascript">
+        </script>
+        <script type="text/javascript">
+            var share_title = "艾美睿邀您入会。";
+            var share_desc = "快点加入吧";
+            var share_image = "xxx.jpg";
+            var userId = $('input[name=userId]').val();
+            var share_link = "http://www.711home.net/wx.php?app=user&act=quickLogin&userId=" + userId;
+//            var share_link = "http://www.njbsds.cn/bspm711/wx.php?app=default&act=myShare&userId="+userId;
+            wx.ready(function () {
+                // 在这里调用 API
+                wx.onMenuShareAppMessage({
+                    title: share_title, // 分享标题
+                    desc: share_desc, // 分享描述
+                    link: share_link, // 分享链接
+                    imgUrl: share_image, // 分享图标
+                    type: '', // 分享类型,music、video或link，不填默认为link
+                    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+                wx.onMenuShareTimeline({
+                    title: share_title, // 分享标题
+                    link: share_link, // 分享链接
+                    imgUrl: share_image, // 分享图标
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

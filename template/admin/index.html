@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+
+            <div class="content-wrapper">
+
+                <!-- Main content -->
+                <section class="content index">
+                    <div class="row indexbox1">
+                        <div class="col-xs-12 ">
+                            <div class="form-inline">
+                                <div class="form-group form-group-sm form-mar">
+                                    <small class="control-label">{$language1->area_countroy}：</small>
+                                    <select class="form-control w160 j_select j-area">
+                                        <option value="0">{$language2->all}</option>
+                                        {$areaOption}
+                                    </select>
+                                    <input type="hidden" class="j-area-v" value="{$area_id}">
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <small class="control-label">{$language2->regional_store}：</small>
+                                    <select class="form-control w160 j_select j-store">
+                                        <option value="0">{$language2->all}</option>
+                                        {$storeOption}
+                                    </select>
+                                    <input type="hidden" class="j-store-v" value="{$store_id}">
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <small class="control-label">{$language2->switch_language}：</small>
+                                    <select class="form-control" id='chang_lang' >
+                                        <option value="ZH" {if $shorthand == 'ZH'}selected{/if}>--{$language2->chinese}--</option>
+                                        <option value="EN" {if $shorthand == 'EN'}selected{/if}>--English--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="item mt30">
+                                <h3 class="mt30">{$language1->to_do_list}：</h3>
+                                <div class="col-md-offset-1 clearfix">
+                                    <div class="col-md-4">
+                                        <div class="it clearfix" style="background-color: #00c0ef;">
+                                            <div class="left pull-left">
+                                                <p class="name">{$language1->pending_payment_count}</p>
+                                                <p class="text-center">{$backlogDaFuCount}{$language2->sum}</p>
+                                            </div>
+                                            <div class="right pull-right">
+                                                <i class="ico ico-1"></i>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="it clearfix" style="background-color: #638ccc;">
+                                            <div class="left pull-left">
+                                                <p class="name">{$language1->wait_ship_count}</p>
+                                                <p class="text-center">{$backlogDaFaCount}{$language2->sum}</p>
+                                            </div>
+                                            <div class="right pull-right">
+                                                <i class="ico ico-2"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="it clearfix" style="background-color: #de8f11;">
+                                            <div class="left pull-left">
+                                                <p class="name">{$language1->wait_return_count}</p>
+                                                <p class="text-center">{$backlogDaTuiCount}{$language2->sum}</p>
+                                            </div>
+                                            <div class="right pull-right">
+                                                <i class="ico ico-3"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item mt30">
+                                <h3 class="mt30">{$language1->item_information}：</h3>
+                                <div class="col-md-offset-1 clearfix">
+                                    <div class="col-md-4">
+                                        <div class="it clearfix" style="background-color: #fea6b0;">
+                                            <div class="left pull-left">
+                                                <p class="name">{$language1->sold_item_count}</p>
+                                                <p class="text-center">{$onSaleGoodsCount}{$language2->pair}</p>
+                                            </div>
+                                            <div class="right pull-right">
+                                                <i class="ico ico-4"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="it clearfix" style="background-color: #f17d2e;">
+                                            <div class="left pull-left">
+                                                <p class="name">{$language1->recommended_item}</p>
+                                                <p class="text-center">{$recommendGoodsCount}{$language2->pair}</p>
+                                            </div>
+                                            <div class="right pull-right">
+                                                <i class="ico ico-5"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs clearfix mt30">
+                                <h3 class="pull-left left" style="margin-top: 0;">{$language1->trading_status}</h3>
+                                <div class="pull-right right">
+                                    <span {if !$setting}class="active"{/if} cla="day">{$language2->today}</span>
+                                    <span cla="yes">{$language2->yesterday}</span>
+                                    <span cla="week">{$language2->current_week}</span>
+                                    <span cla="month">{$language2->current_month}</span>
+                                    <span cla="year">{$language2->current_year}</span>
+                                    <span {if $setting}class="active"{/if}>{$language1->customize}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="tabsbox" style="display: block">
+                                    <div class="clearfix sousuo" style="display: none">
+                                        <form class="form-inline  col-md-8 col-md-offset-1">
+                                            <input type="hidden" name="setting" value="setting">
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label">{$language2->start_time}：</small>
+                                                <input type="text" class="form-control" id="datepicker1" name="start_time" value="{$startTime}" autocomplete="off">
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label">{$language2->end_time}：</small>
+                                                <input type="text" class="form-control" id="datepicker2" name="end_time" value="{$endTime}" autocomplete="off">
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <a class="btn btn-primary btn-sm" id="search">
+                                                    {$language2->search} <i class="fa fa-search"></i>
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="item mt30">
+                                        <h3 class="mt30">{$language1->order_information}：</h3>
+                                        <div class="col-md-offset-1 clearfix">
+                                            <div class="col-md-5">
+                                                <i class="ico-1 ic"></i><span class="show-1">{$language1->number_of_orders}：{$upOrderInfo['upOrderNum']}{$language2->sum}</span>
+                                                <span class="nu"><span class="show-2">({$language1->compare_with_previous}{if $upOrderInfo['upOrderNumSort']}{$upOrderInfo['upOrderNumSort']}{/if} {$upOrderInfo['upOrderNumPercent']})</span></span>
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <i class="ico-1 ic"></i><span class="show-3">{$language1->number_of_order_people}：{$upOrderInfo['upOrderMem']}{$language2->people}</span>
+                                                <span class="nu"><span class="show-4">({$language1->compare_with_previous}{if $upOrderInfo['upOrderMemSort']}{$upOrderInfo['upOrderMemSort']}{/if} {$upOrderInfo['upOrderMemPercent']})</span></span>
+                                            </div>
+                                            <div class="col-md-5 mt30">
+                                                <i class="ico-1 ic"></i><span class="show-5">{$language1->order_amount}：{$upOrderInfo['upOrderAmount']}{$language2->yuan}</span>
+                                                <span class="nu"><span class="show-6">({$language1->compare_with_previous}{if $upOrderInfo['upOrderAmountSort']}{$upOrderInfo['upOrderAmountSort']}{/if} {$upOrderInfo['upOrderAmountPercent']})</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item mt30">
+                                        <h3 class="mt30">{$language1->payment_info}：</h3>
+                                        <div class="col-md-offset-1 clearfix">
+                                            <div class="col-md-5">
+                                                <i class="ico-1 ic"></i><span class="show-7">{$language1->number_of_payments}：{$payOrderInfo['upOrderNum']}{$language2->sum}</span>
+                                                <span class="nu"><span class="show-8">({$language1->compare_with_previous}{if $payOrderInfo['upOrderNumSort']}{$payOrderInfo['upOrderNumSort']}{/if} {$payOrderInfo['upOrderNumPercent']})</span></span>
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <i class="ico-1 ic"></i><span class="show-9">{$language1->number_of_payers}：{$payOrderInfo['upOrderMem']}{$language2->people}</span>
+                                                <span class="nu"><span class="show-10"><span class="show-12">({$language1->compare_with_previous}{if $payOrderInfo['upOrderMemSort']}{$payOrderInfo['upOrderMemSort']}{/if} {$payOrderInfo['upOrderMemPercent']})</span></span>
+                                            </div>
+                                            <div class="col-md-5 mt30">
+                                                <i class="ico-1 ic"></i><span class="show-11">{$language1->payment_amount}：{$payOrderInfo['upOrderAmount']}{$language2->yuan}</span>
+                                                <span class="nu"><span class="show-14">({$language1->compare_with_previous}{if $payOrderInfo['upOrderAmountSort']}{$payOrderInfo['upOrderAmountSort']}{/if} {$payOrderInfo['upOrderAmountPercent']})</span></span>
+                                            </div>
+                                            <div class="col-md-2 mt30">
+                                            </div>
+                                            <div class="col-md-5 mt30">
+                                                <i class="ico-1 ic"></i><span class="show-13">{$language1->payment_count}：{$payOrderInfo['totalGoodsNum']}{$language2->pair}</span>
+                                                <span class="nu">({$language1->compare_with_previous}{if $payOrderInfo['totalGoodsNumSort']}{$payOrderInfo['totalGoodsNumSort']}{/if} {$payOrderInfo['totalGoodsNumPercent']})</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row indexbox2">
+                        <div class="col-xs-12">
+                            <h3 style="margin-top: 0;" class="j-pic1">{$language1->transaction_trend_analysis}：
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn active" name="day"  cla="day">{$language2->today}</span>
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn" name="yes" cla="yes">{$language2->yesterday}</span>
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn" name="week" cla="week">{$language2->current_week}</span>
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn" name="month" cla="month">{$language2->current_month}</span>
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn" name="year" cla="year">{$language2->current_year}</span>
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn" cla="setting">{$language1->customize}</span>
+                            </h3>
+                            <div class="clearfix j-pic1-sousuo" style="display: none">
+                                <form class="form-inline  col-md-8 col-md-offset-1">
+                                    <input type="hidden" name="setting" value="setting">
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label">{$language2->start_time}：</small>
+                                        <input type="text" class="form-control" id="datepicker11" name="start_time" value="{$startTime}">
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label">{$language2->end_time}：</small>
+                                        <input type="text" class="form-control" id="datepicker22" name="end_time" value="{$endTime}">
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar">
+                                        <a class="btn btn-primary btn-sm" id="search1">
+                                            {$language2->search} <i class="fa fa-search"></i>
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                            <div id="main1" style="width: 1000px;height:400px;"></div>
+
+                            <h3 class="mt60 j-pic2">{$language1->product_top10}：
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn active" name="day"  cla="day">{$language2->today}</span>
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn" name="yes" cla="yes">{$language2->yesterday}</span>
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn" name="week" cla="week">{$language2->current_week}</span>
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn" name="month" cla="month">{$language2->current_month}</span>
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn" name="year" cla="year">{$language2->current_year}</span>
+                                <span type="submit" class="btn btn-primary btn-sm ch-btn" cla="setting">{$language1->customize}</span>
+                            </h3>
+                            <div class="clearfix j-pic2-sousuo" style="display: none">
+                                <form class="form-inline  col-md-8 col-md-offset-1">
+                                    <input type="hidden" name="setting" value="setting">
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label">{$language2->start_time}：</small>
+                                        <input type="text" class="form-control" id="datepicker111" name="start_time" value="{$startTime}">
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label">{$language2->end_time}：</small>
+                                        <input type="text" class="form-control" id="datepicker222" name="end_time" value="{$endTime}">
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar">
+                                        <a class="btn btn-primary btn-sm" id="search2">
+                                            {$language2->search} <i class="fa fa-search"></i>
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                            <div id="main2" style="width: 1000px;height:400px;"></div>
+                            <table class="table table-bordered look-table" >
+                                <tr style="text-align: left">
+                                    <td width="15"><label>{$language1->ranking}</label></td>
+                                    <td width="15%"><label>{$language1->product_picture}</label></td>
+                                    <td width="40%"><label>{$language1->product_name}</label></td>
+                                    <td width="15%"><label>{$language1->proportion_of_top10}</label></td>
+                                    <td width="15%"><label>{$language1->proportion_of_all_goods}</label></td>
+                                </tr>
+                                {if $top10['goodsData']}
+                                    {foreach from=$top10['goodsData'] key=key item=item}
+                                        <tr>
+                                            <td>{$key+1}</td>
+                                            <td><img src="{$item.original_img}" style="width: 60px!important;height: 60px"></td>
+                                            <td>{$item.goods_name}</td>
+                                            <td>{$item.percent_1}</td>
+                                            <td>{$item.percent_2}</td>
+                                        </tr>
+                                    {/foreach}
+                                {else}
+                                    <td>1</td>
+                                    <td colspan="2" style="text-align: center"><label>{$language2->no_data}</label></td>
+                                    <td>0.00%</td>
+                                    <td>0.00%</td>
+                                {/if}
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+        </div>
+        <!-- ./wrapper -->
+        {include file="public/footer.html"}
+        <script>
+            $('.j-area').change(function(){
+                var area_id = $(this).val();
+                var url = "admin.php?app=default&act=index&area_id="+area_id;
+                location.href = url;
+            })
+            $('.j-store').change(function(){
+                var store_id = $(this).val();
+                var area_id = $('.j-area-v').val();
+                var url = "admin.php?app=default&act=index&area_id="+area_id+"&store_id="+store_id;
+                location.href = url;
+            })
+
+            $('.tabs .right span').click(function() {
+                var area_id = $('.j-area-v').val();
+                var store_id = $('.j-store-v').val();
+//                var __this = $('.tabsbox').eq($(this).index());
+                if( $(this).index() == 5 ){
+                    $('.sousuo').show();
+                } else {
+                    $('.sousuo').hide();
+                }
+//                __this.show().siblings().hide();
+                $('.tabs .right span').removeClass('active');
+                $(this).addClass('active');
+                var cla = $(this).attr('cla');
+                if( $(this).index() != 5 ) {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "?app=default&act=index&opInfo=" + cla + "&area_id=" + area_id + '&store_id=' + store_id,
+                        success: function (obj) {
+                            var __up = obj.info.upOrderInfo;
+                            var __pay = obj.info.payOrderInfo;
+                            toReplace(__up, __pay);
+                        }
+                    });
+                }
+            })
+
+            $('#datepicker1').datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                clearBtn: true
+
+            });
+
+            $('#datepicker2').datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                clearBtn: true
+
+            });
+
+            $('#datepicker11').datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                clearBtn: true
+            });
+
+            $('#datepicker22').datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                clearBtn: true
+            });
+
+            $('#datepicker111').datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                clearBtn: true
+            });
+
+            $('#datepicker222').datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                clearBtn: true
+            });
+
+            $('#search').click(function(){
+                var startTime = $('#datepicker1').val();
+                var endTime   = $('#datepicker2').val();
+                if( startTime > endTime ){
+                    return false;
+                }
+                if( !startTime || !endTime ){
+                    return false;
+                }
+                var area_id = $('.j-area-v').val();
+                var store_id = $('.j-store-v').val();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "?app=default&act=index&opInfo=setting&start_time="+startTime+"&end_time="+endTime+"&area_id=" + area_id + '&store_id=' + store_id,
+                    success: function (obj) {
+                        var __up = obj.info.upOrderInfo;
+                        var __pay = obj.info.payOrderInfo;
+                        toReplace(__up, __pay);
+                    }
+                });
+            });
+
+            function toReplace(__up, __pay){
+                $('.show-1').html('{$language1->number_of_orders}：' + __up.upOrderNum + '{$language1->sum}');
+                $('.show-2').html('({$language1->compare_with_previous}' + __up.upOrderNumSort + ' ' + __up.upOrderNumPercent + ')');
+                $('.show-3').html('{$language1->number_of_order_people}：' + __up.upOrderMem + '{$language2->people}');
+                $('.show-4').html('({$language1->compare_with_previous}' + __up.upOrderMemSort + ' ' + __up.upOrderMemPercent + ')');
+                $('.show-5').html('{$language1->order_amount}：' + __up.upOrderAmount + '{$language2->yuan}');
+                $('.show-6').html('({$language1->compare_with_previous}' + __up.upOrderAmountSort + ' ' + __up.upOrderAmountPercent + ')');
+
+                $('.show-7').html('{$language1->number_of_payments}：' + __pay.upOrderNum + '{$language1->sum}');
+                $('.show-8').html('({$language1->compare_with_previous}' + __pay.upOrderNumSort + ' ' + __pay.upOrderNumPercent + ')');
+                $('.show-9').html('{$language1->number_of_payers}：' + __pay.upOrderMem + '{$language2->people}');
+                $('.show-10').html('({$language1->compare_with_previous}' + __pay.upOrderMemSort + ' ' + __pay.upOrderMemPercent + ')');
+                $('.show-11').html('{$language1->payment_amount}：' + __pay.upOrderAmount + '{$language2->yuan}');
+                $('.show-12').html('({$language1->compare_with_previous}' + __pay.upOrderAmountSort + ' ' + __pay.upOrderAmountPercent + ')');
+                $('.show-13').html('{$language1->payment_count}：' + __pay.totalGoodsNum + '{$language2->pair}');
+                $('.show-14').html('({$language1->compare_with_previous}' + __pay.totalGoodsNumSort + ' ' + __pay.totalGoodsNumPercent + ')');
+            }
+
+            // 基于准备好的dom，初始化echarts实例
+            var myChart1 = echarts.init(document.getElementById('main1'));
+            // 指定图表的配置项和数据
+            option1 = {
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['{$language1->number_of_orders}', '{$language1->number_of_order_people}', '{$language1->order_amount}', '{$language1->number_of_payments}', '{$language1->number_of_payers}', '{$language1->payment_amount}', '{$language1->payment_count}']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: [{$trendInfo['xAxis']}]
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        name: '{$language1->number_of_orders}',
+                        type: 'line',
+                        stack: '{$language1->total_amount}',
+                        data: [{$trendInfo['a']}]
+                    },
+                    {
+                        name: '{$language1->number_of_order_people}',
+                        type: 'line',
+                        stack: '{$language1->total_amount}',
+                        data: [{$trendInfo['b']}]
+                    },
+                    {
+                        name: '{$language1->order_amount}',
+                        type: 'line',
+                        stack: '{$language1->total_amount}',
+                        data: [{$trendInfo['c']}]
+                    },
+                    {
+                        name: '{$language1->number_of_payments}',
+                        type: 'line',
+                        stack: '{$language1->total_amount}',
+                        data: [{$trendInfo['d']}]
+                    },
+                    {
+                        name: '{$language1->number_of_payers}',
+                        type: 'line',
+                        stack: '{$language1->total_amount}',
+                        data: [{$trendInfo['e']}]
+                    }
+                    ,
+                    {
+                        name: '{$language1->payment_amount}',
+                        type: 'line',
+                        stack: '{$language1->total_amount}',
+                        data: [{$trendInfo['f']}]
+                    }
+                    ,
+                    {
+                        name: '{$language1->payment_count}',
+                        type: 'line',
+                        stack: '{$language1->total_amount}',
+                        data: [{$trendInfo['g']}]
+                    }
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart1.setOption(option1);
+
+            $('.indexbox2 .j-pic1 span').click(function() {
+                var area_id = $('.j-area-v').val();
+                var store_id = $('.j-store-v').val();
+                if( $(this).index() == 5 ){
+                    $('.j-pic1-sousuo').show();
+                } else {
+                    $('.j-pic1-sousuo').hide();
+                }
+                $('.indexbox2 .j-pic1 span').removeClass('active');
+                $(this).addClass('active');
+                var cla = $(this).attr('cla');
+                if( $(this).index() != 5 ) {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "?app=default&act=index&jyInfo=" + cla + "&area_id=" + area_id + '&store_id=' + store_id,
+                        success: function (obj) {
+                            var __info = obj.info.trendInfo;
+
+                            // 基于准备好的dom，初始化echarts实例
+                            option3=({        //加载数据图表
+                                xAxis: {
+                                    data:__info.xAxis,
+                                },
+                                series: [
+                                    {
+                                        // 根据名字对应到相应的系列
+                                        name: '{$language1->number_of_orders}',
+                                        data: __info.a
+                                    },
+                                    {
+                                        name: '{$language1->number_of_order_people}',
+                                        data: __info.b
+                                    },
+                                    {
+                                        name: '{$language1->order_amount}',
+                                        data: __info.c
+                                    },
+                                    {
+                                        name: '{$language1->number_of_payments}',
+                                        data: __info.d
+                                    },
+                                    {
+                                        name: '{$language1->number_of_payers}',
+                                        data: __info.e
+                                    },
+                                    {
+                                        name: '{$language1->payment_amount}',
+                                        data: __info.f
+                                    },
+                                    {
+                                        name: '{$language1->payment_count}',
+                                        data: __info.g
+                                    }
+                                ]
+                            });
+                            myChart1.setOption(option3);
+                        }
+                    });
+                }
+            })
+
+            $('#search1').click(function(){
+                var startTime = $('#datepicker11').val();
+                var endTime   = $('#datepicker22').val();
+                if( startTime > endTime ){
+                    return false;
+                }
+                if( !startTime || !endTime ){
+                    return false;
+                }
+                var area_id = $('.j-area-v').val();
+                var store_id = $('.j-store-v').val();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "?app=default&act=index&jyInfo=setting&start_time="+startTime+"&end_time="+endTime+"&area_id=" + area_id + '&store_id=' + store_id,
+                    success: function (obj) {
+                        var __info = obj.info.trendInfo;
+
+                        // 基于准备好的dom，初始化echarts实例
+                        option3=({        //加载数据图表
+                            xAxis: {
+                                data:__info.xAxis,
+                            },
+                            series: [
+                                {
+                                    // 根据名字对应到相应的系列
+                                    name: '{$language1->number_of_orders}',
+                                    data: __info.a
+                                },
+                                {
+                                    name: '{$language1->number_of_order_people}',
+                                    data: __info.b
+                                },
+                                {
+                                    name: '{$language1->order_amount}',
+                                    data: __info.c
+                                },
+                                {
+                                    name: '{$language1->number_of_payments}',
+                                    data: __info.d
+                                },
+                                {
+                                    name: '{$language1->number_of_payers}',
+                                    data: __info.e
+                                },
+                                {
+                                    name: '{$language1->payment_amount}',
+                                    data: __info.f
+                                },
+                                {
+                                    name: '{$language1->payment_count}',
+                                    data: __info.g
+                                }
+                            ]
+                        });
+                        myChart1.setOption(option3);
+                    }
+                });
+            });
+
+            var myChart3 = echarts.init(document.getElementById('main2'));
+            // 指定图表的配置项和数据
+            option3 = {
+                title : {
+                    text: ' ',
+                    subtext: '',
+                    x:'center'
+                },
+                color: ['#3398DB'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '10%',
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : [{$top10['xAxis']}],
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'{$language1->order_quantity}',
+                        type:'bar',
+                        barWidth: '40%',
+                        data:[{$top10['goods_num']}]
+                    }
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart3.setOption(option3);
+
+            $('.indexbox2 .j-pic2 span').click(function() {
+                var area_id = $('.j-area-v').val();
+                var store_id = $('.j-store-v').val();
+                if( $(this).index() == 5 ){
+                    $('.j-pic2-sousuo').show();
+                } else {
+                    $('.j-pic2-sousuo').hide();
+                }
+                $('.indexbox2 .j-pic2 span').removeClass('active');
+                $(this).addClass('active');
+                var cla = $(this).attr('cla');
+                if( $(this).index() != 5 ) {
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "?app=default&act=index&gdInfo=" + cla + "&area_id=" + area_id + '&store_id=' + store_id,
+                        success: function (obj) {
+                            var __info = obj.info.topInfo;
+
+                            // 指定图表的配置项和数据
+                            option3 = {
+                                title : {
+                                    text: ' ',
+                                    subtext: '',
+                                    x:'center'
+                                },
+                                color: ['#3398DB'],
+                                tooltip : {
+                                    trigger: 'axis',
+                                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                    }
+                                },
+                                grid: {
+                                    left: '3%',
+                                    right: '4%',
+                                    bottom: '3%',
+                                    containLabel: true
+                                },
+
+                                xAxis : [
+                                    {
+                                        type : 'category',
+                                        data : __info.xAxis,
+                                        axisTick: {
+                                            alignWithLabel: true
+                                        },
+                                        axisLabel: {
+                                            interval:0
+                                        }
+                                    }
+                                ],
+                                yAxis : [
+                                    {
+                                        type : 'value'
+                                    }
+                                ],
+                                series : [
+                                    {
+                                        name:'{$language1->order_quantity}',
+                                        type:'bar',
+                                        barWidth: '40%',
+                                        data:__info.goods_num
+                                    }
+                                ]
+                            };
+                            // 使用刚指定的配置项和数据显示图表。
+                            myChart3.setOption(option3);
+
+                            var text = '';
+                            console.log();
+                            if( __info.goodsData ){
+                                $.each(__info.goodsData, function(i, val) {
+                                    text = text+'<tr><td>'+(i+1)+'</td><td><img src="'+val.original_img+'" style="width: 60px!important;height: 60px"></td><td>'+val.goods_name+'</td><td>'+val.percent_1+'</td><td>'+val.percent_2+'</td></tr>';
+                                });
+                            } else {
+                                text = '<tr><td>1</td><td colspan="2" style="text-align: center"><label>{$language2->no_data}</label></td><td>0.00%</td><td>0.00%</td></tr>';
+                            }
+                            //表格替换
+                            var newTable = '<tr style="text-align: left"><td width="15"><label>{$language1->ranking}</label></td><td width="15%"><label>{$language1->product_picture}</label></td><td width="40%"><label>{$language1->product_name}</label></td><td width="15%"><label>{$language1->proportion_of_top10}</label></td> <td width="15%"><label>{$language1->proportion_of_all_goods}</label></td></tr>'+ text;
+                            $('.look-table').html(newTable);
+                        }
+                    });
+                }
+            })
+
+            $('#search2').click(function(){
+                var startTime = $('#datepicker111').val();
+                var endTime   = $('#datepicker222').val();
+                if( startTime > endTime ){
+                    return false;
+                }
+                if( !startTime || !endTime ){
+                    return false;
+                }
+                var area_id = $('.j-area-v').val();
+                var store_id = $('.j-store-v').val();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "?app=default&act=index&gdInfo=setting&start_time="+startTime+"&end_time="+endTime+"&area_id=" + area_id + '&store_id=' + store_id,
+                    success: function (obj) {
+                        var __info = obj.info.topInfo;
+
+                        // 指定图表的配置项和数据
+                        option3 = {
+                            title : {
+                                text: ' ',
+                                subtext: '',
+                                x:'center'
+                            },
+                            color: ['#3398DB'],
+                            tooltip : {
+                                trigger: 'axis',
+                                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis : [
+                                {
+                                    type : 'category',
+                                    data : __info.xAxis,
+                                    axisTick: {
+                                        alignWithLabel: true
+                                    }
+                                }
+                            ],
+                            yAxis : [
+                                {
+                                    type : 'value'
+                                }
+                            ],
+                            series : [
+                                {
+                                    name:'{$language1->order_quantity}',
+                                    type:'bar',
+                                    barWidth: '40%',
+                                    data:__info.goods_num
+                                }
+                            ]
+                        };
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart3.setOption(option3);
+
+                        var text = '';
+                        if( __info.goodsData ){
+                            $.each(__info.goodsData, function(i, val) {
+                                text = text+'<tr><td>'+(i+1)+'</td><td><img src="'+val.original_img+'" style="width: 60px!important;height: 60px"></td><td>'+val.goods_name+'</td><td>'+val.percent_1+'</td><td>'+val.percent_2+'</td></tr>';
+                            });
+                        } else {
+                            text = '<tr><td>1</td><td colspan="2" style="text-align: center"><label>{$language2->no_data}</label></td><td>0.00%</td><td>0.00%</td></tr>';
+                        }
+                        //表格替换
+                        var newTable = '<tr style="text-align: left"><td width="15"><label>{$language2->ranking}</label></td><td width="15%"><label>{$language1->product_picture}</label></td><td width="40%"><label>{$language1->product_name}</label></td><td width="15%"><label>{$language1->proportion_of_top10}</label></td> <td width="15%"><label>{$language1->proportion_of_all_goods}</label></td></tr>'+ text;
+                        $('.look-table').html(newTable);
+                    }
+                });
+            });
+        </script>
+        <script>
+            $('#chang_lang').change(function() {
+                var shorthand = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "?app=api&act=chang_lang&shorthand="+shorthand,
+                    success: function (obj) {
+                        window.location.reload();
+                    }
+                });
+            })
+        </script>
+    </body>
+</html>

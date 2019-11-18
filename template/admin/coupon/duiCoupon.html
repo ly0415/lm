@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+    <style>
+        .form-inline .form-mar .zm{
+            text-align: left;
+        }
+        .coupon_name input{
+            border: none;
+            background: none;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                {$language1->electronic_coupon}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="store.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->index}</a></li>
+                <li class="active">{$language1->electronic_coupon}</li>
+                <li class="active">兑换券列表</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <ul id="myTab" class="nav nav-tabs">
+                <li>
+                    <a href="?app=coupon&act=index">
+                        {$language1->deduction_coupon}
+                    </a>
+                </li>
+                <li class="active"><a href="#home" data-toggle="tab">兑换券</a></li>
+                <!--<li><a href="?app=coupon&act=index&op=discount">折扣卷</a></li>-->
+            </ul>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header" >
+                            <form class="form-inline">
+                                <input type="hidden" name="app" value="coupon" />
+                                <input type="hidden" name="act" value="index" />
+                                <input type="hidden" name="op" value="dui">
+                                <!--<input type="hidden" name = "delAll" value="dele">-->
+                                <input type="hidden" name="lang_id" value="{$lang_id}" />
+                                <input type="hidden"  name="user_name" id="user_name" value="" >
+                                <input type="hidden"  name="user_id" id="user_id" value="" >
+                                <div class="form-group form-group-sm form-mar" >
+                                    <small class="control-label zm" >{$language1->site_country}：</small>
+                                    <select class="form-control w160 j_store service-select1" name="service_area_id">
+                                        <option value='0'>--{$language2->please_select}--</option>
+                                        {foreach $service_area_data as $k => $v}
+                                        <option value="{$v.id}" {if $v.id == $service_area_id} selected {/if}>{$v.name}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                                <div class="form-group form-group-sm form-mar" >
+                                    <select class="form-control w160 j_store service-select2" name="service_store_id">
+                                        <option value='0'>--{$language2->please_select}--</option>
+                                        {foreach $service_store_data as $k => $v}
+                                        <option value="{$v.id}" {if $v.id == $service_store_id} selected {/if}>{$v.name}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                                <div class="form-group form-group-sm form-mar" >
+                                    <small class="control-label zm" >{$language1->business_type}：</small>
+                                    <select class="form-control w160 j_store service-select3" name="service_top_id">
+                                        <option value='0'>--{$language2->please_select}--</option>
+                                        {foreach $service_top_data as $k => $v}
+                                        <option value="{$v.id}" {if $v.id == $service_top_id} selected {/if}>{$v.name}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                                <div class="form-group form-group-sm form-mar" >
+                                    <select class="form-control w160 j_store service-select4" name="service_second_id">
+                                        <option value='0'>--{$language2->please_select}--</option>
+                                        {foreach $service_second_data as $k => $v}
+                                        <option value="{$v.id}" {if $v.id == $service_second_id} selected {/if}>{$v.name}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                                <!--<div class="form-group form-group-sm form-mar" >-->
+                                    <!--<small class="control-label zm" >区域店铺：</small>-->
+                                    <!--<select class="form-control w160 j_store" name="store" id="store">-->
+                                        <!--<option value='0'>&#45;&#45;请选择店铺&#45;&#45;</option>-->
+                                        <!--{foreach from=$storeInfo item=item }-->
+                                        <!--<option value="{$item.id}" {if $item.id == $store}selected{/if}>{$item.sltore_name}</option>-->
+                                        <!--{/foreach}-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                                <!--<div class="form-group form-group-sm form-mar">-->
+                                    <!--<small class="control-label zm" style="width: 100px;">业务类型：</small>-->
+                                    <!--<select class="form-control w160 j_store" name="top_id" id="top">-->
+                                        <!--<option value='0'>&#45;&#45;请选择一级业务类型&#45;&#45;</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                                <!--<div class="form-group form-group-sm form-mar">-->
+                                    <!--<select class="form-control w160 j_store" name="second_id" id="second">-->
+                                        <!--<option value='0'>&#45;&#45;请选择二级业务类型&#45;&#45;</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                                <div class="form-group form-group-sm form-mar" style="margin-left: 20px">
+                                    <button type="submit" class="btn btn-default btn-sm">
+                                        {$language2->search} <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                                <div class="col-sm-2  col-md-1 no-padding" style="float: right">
+                                    <a class="btn btn-primary pull-right btn-sm" href="?app=coupon&act=addDuiCoupon&p={$p}"   role="button"><i class="fa fa-plus"></i> 添加兑换券</a>
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <div class="new-table-responsive">
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>{$language2->serial_number}</th>
+                                        <th>兑换券名称</th>
+                                        <th>使用范围({$language1->business_type})</th>
+                                       <!-- <th>开始时间</th>
+                                        <th>结束时间</th>-->
+                                        <th>{$language1->satisfy_amount}</th>
+                                        <th>{$language1->valid_date}</th>
+                                        <th>{$language2->add_time}</th>
+                                        <th>{$language2->control}</th>
+                                    </tr>
+                                    </thead>
+                                    {foreach from=$list item=item}
+                                    <tr>
+                                        <td>{$item.sort_id}</td>
+                                        <td class="coupon_name" data-id="{$item.id}"><input type="text" name="" id="" value="{$item.coupon_name}"></td>
+                                        <td>{$item.type_name}</td>
+                                      <!--  <td>{$item.start_time|date_format:"%Y-%m-%d"}</td>
+                                        <td>{$item.end_time|date_format:"%Y-%m-%d"}</td>-->
+                                        <td>{$item.money}</td>
+                                        <td>{$item.limit_times}</td>
+
+                                        <td>{$item.add_time}</td>
+                                        <td>
+                                            <!--<a href="?app=coupon&act=editDui&id={$item.id}&lang_id={$lang_id}&p={$p}"  data-toggle="tooltip" class="btn btn-xs btn-success "   style="overflow: hidden; position: relative;">编辑</a>-->
+                                            <a href="javascript:;" data-toggle="tooltip" class="btn btn-xs btn-success paison useradd " id="{$item.id}"  data-id="{$item.id}"  style="overflow: hidden; position: relative;">{$language2->sent}</a>
+                                            <a href="javascript:;" data-toggle="tooltip" class="btn btn-xs btn-danger shanchu"  data-id="{$item.id}"  style="overflow: hidden; position: relative;">{$language2->drop}</a>
+                                        </td>
+                                    </tr>
+                                    {/foreach}
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="box-footer clearfix">
+                            {$page_html}
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <input type="hidden" name="lang" value="{$lang}">
+    <!--<input type="hidden" name="store_id" value="{$store_id}">-->
+    <input type="hidden" name="p" value="{$p}">
+
+    {include file="public/footer.html"}
+</div>
+<script src="{$STATIC_URL}/admin/js/serviceSelect.js"></script>
+{literal}
+<script type="text/javascript">
+    /*删除*/
+/*    var type_name='';
+    $(".shanchu").on('click',function () {
+        var id = $(this).attr('data-id');
+        var lang = $('input[name=lang]').val();
+        $.ajax({
+            url:"?app=coupon&act=getRoomType",
+            data:{id:id,lang:lang},
+            type:'POST',
+            dataType:"json",
+            async:false,
+            success:function (data) {
+                if (data.status==1){
+                    type_name = data.info[0].type_name;
+                    layer.open({
+                        className: 'layer-confirm'
+                        , content: "删除此兑换券会导致"+type_name+"业务类型活动失效，请谨慎操作!"
+                        , btn: ['确定', '取消']
+                        , yes: function (index) {*/
+    $(".coupon_name input").blur(function () {
+        var text = $(this).val();
+        var id = $(this).parent().attr('data-id');
+        var p = $("input[name=p]").val();
+        $.ajax({
+            url:"?app=coupon&act=editDuiCouponName",
+            type:"POST",
+            dataType:'json',
+            data:{'text':text,'id':id,'p':p},
+            success:function (res) {
+                if (res.status == 1){
+                    window.location.href = res.info.url;
+                }
+            }
+        })
+    });
+    $(".shanchu").on('click',function () {
+        var id = $(this).attr('data-id');
+        $.ajax({
+            url: '?app=coupon&act=deleteDui',
+            data: {'id': id},
+            type: "Post",
+            dataType: "json",
+            success: function (data) {
+//                    alert(JSON.stringify(data));
+                if (data.status == '1') {
+                    var d = $.dialog({
+                        content: '<div class="text-center">' + data.message + '</div>',
+                        title: false, // hides the title.
+                        closeIcon: false, // hides the close icon.
+                        columnClass: 'xsmall',
+                        onOpen: function () {
+                            setTimeout(function () {
+                                d.close();
+                            }, 1000);
+                        }
+                    });
+                    setTimeout(function () {
+                        window.location.reload()
+                    }, 1000);
+
+                } else {
+                    var d = $.dialog({
+                        content: '<div class="text-center">' + data.message + '</div>',
+                        title: false, // hides the title.
+                        closeIcon: false, // hides the close icon.
+                        columnClass: 'xsmall',
+                        onOpen: function () {
+                            setTimeout(function () {
+                                d.close();
+                            }, 1000);
+                        }
+                    });
+                    return false;
+                }
+
+            },
+            error: function (data) {
+                $.messager.alert('错误', data.msg);
+            }
+        });
+    })
+                     /*       setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                        }
+                    });
+                }else {
+                    layer.open({
+                        className: 'layer-confirm'
+                        , content: "请确认后再执行删除操作！"
+                        , btn: ['确定', '取消']
+                        , yes: function (index) {
+                            $.ajax({
+                                url: '?app=coupon&act=deleteDui',
+                                data:{'id':id},
+                                type: "Post",
+                                dataType: "json",
+                                success: function (data) {
+//                    alert(JSON.stringify(data));
+                                    if (data.status == '1') {
+                                        var d = $.dialog({
+                                            content: '<div class="text-center">' + data.message + '</div>',
+                                            title: false, // hides the title.
+                                            closeIcon: false, // hides the close icon.
+                                            columnClass: 'xsmall',
+                                            onOpen: function () {
+                                                setTimeout(function () {
+                                                    d.close();
+                                                }, 1000);
+                                            }
+                                        });
+                                        return false;
+                                    } else {
+                                        var d = $.dialog({
+                                            content: '<div class="text-center">' + data.message + '</div>',
+                                            title: false, // hides the title.
+                                            closeIcon: false, // hides the close icon.
+                                            columnClass: 'xsmall',
+                                            onOpen: function () {
+                                                setTimeout(function () {
+                                                    d.close();
+                                                }, 1000);
+                                            }
+                                        });
+                                        return false;
+                                    }
+
+                                },
+                                error: function (data) {
+                                    $.messager.alert('错误', data.msg);
+                                }
+                            });
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 500);
+                        }
+                    });
+                }
+            }
+        });
+
+    })*/
+        // deletes('?app=coupon&act=deleteDui&lang_id={$lang_id}&id=' + id);
+
+</script>
+
+<script type="text/javascript">
+    //选择用户
+    $('.useradd').click(function() {
+        var user_id = $('input[name="user_id"]').val();
+        var user_name = $('input[name="name"]').val();
+        var coupon_id =$(this).attr('id');
+        if (user_id) {
+            var file_url = '?app=coupon&act=selectUser&user_id='+user_id+'&user_name='+user_name;
+        } else {
+            var file_url = '?app=coupon&act=selectUser';
+        }
+        var title = '选择用户';
+        $.get(file_url, function(data) {
+            $.confirm({
+                boxWidth: '50%',
+                useBootstrap: false,
+                title: title,
+                content: data,
+                animationBounce: 1.5,
+                type: 'blue',
+                buttons: {
+                    confirm: {
+                        btnClass: 'btn-blue',
+                        text: '保存',
+                        action: function() {
+                            var id = $('#user_id').val();
+
+                            var user_name = $('#user_name').val();
+                            $('input[name="name"]').val(user_name);
+                            $('input[name="user_id"]').val(id);
+                            var data = {'id':id,'couponId':coupon_id};
+                            $.ajax({
+                                url:'?app=coupon&act=sendDuiCoupon',
+                                type:'POST',
+                                data:data,
+                                dataType:'json',
+                                success:function (data) {
+                                    if (data.status == 1){
+                                        var d = $.dialog({
+                                            content: '<div class="text-center">' + data.message + '</div>',
+                                            title: false, // hides the title.
+                                            closeIcon: false, // hides the close icon.
+                                            columnClass: 'xsmall',
+                                            onOpen: function () {
+                                                setTimeout(function () {
+                                                    d.close();
+                                                }, 1000);
+                                                window.location.href = data.info.url;
+                                            }
+                                        });
+                                        return false;
+                                    }else{
+                                        var d = $.dialog({
+                                            content: '<div class="text-center">' + data.message + '</div>',
+                                            title: false, // hides the title.
+                                            closeIcon: false, // hides the close icon.
+                                            columnClass: 'xsmall',
+                                            onOpen: function () {
+                                                setTimeout(function () {
+                                                    d.close();
+                                                }, 1000);
+                                            }
+                                        });
+                                        return false;
+                                    }
+                                }
+                            })
+                        }
+                    },
+                    cancel: {
+                        btnClass: 'btn-default', // multiple classes.
+                        text: '取消'
+                    }
+                }
+            });
+
+        })
+    });
+</script>
+
+{/literal}
+
+
+</body>
+</html>

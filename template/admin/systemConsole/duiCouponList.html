@@ -1,0 +1,12 @@
+{foreach from=$data item=item key=k}
+
+<tr>
+    <td style="text-align: center"><input class="radio-name" style="cursor: pointer"  type="radio" name="radio" data-name="{$item.coupon_name}" data-id="{$item.id}" {if $voucher_id[0]['voucher_id'] == $item.id}checked{/if}></td>
+    <td style="text-align: center">{$k+1}</td>
+    <!--<td>{$item.id}</td>-->
+    <td style="text-align: center">{$item.coupon_name}</td>
+    <td style="text-align: center">{$item.money}</td>
+    <td style="text-align: center">{$item.limit_times}</td>
+</tr>
+
+{/foreach}

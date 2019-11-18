@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>充值记录</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$STATIC_URL}/phone/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="rechargerecord">
+    <div class="ss-nav">
+        <a href="javascript:window.history.back(-1);" class="ss-nav-back backimg"></a>
+        <div class="ss-nav-title">充值记录</div>
+    </div>
+    <div class="height123"></div>
+    <!--订单列表-->
+    <div class="rechargelist">
+        <ul>
+            <!--余额扣除-->
+            {foreach from=$amountLogData item=item}
+            {if  $item.type==2}
+            <li>
+                <div class="rechargeContent clearfix">
+                    <img src="{$STATIC_URL}/phone/images/balancededuce.png" alt="" class="fl"/>
+                    <div class="rechargeMain fl">
+                        <p>余额扣除</p>
+                        <span>{$item.add_time|date_format:'%Y-%m-%d %H:%M:%S'} </span>
+                    </div>
+                    <p class="fr payprice">￥{$item.c_money}</p>
+                </div>
+            </li>
+            {elseif $item.type == 5}
+            <li>
+                <div class="rechargeContent clearfix">
+                    <img src="{$STATIC_URL}/wx/rechargeAmount/payment/images/coupon.png" alt="" class="fl"/>
+                    <div class="rechargeMain fl">
+                        <p>券码充值</p>
+                        <span>{$item.add_time|date_format:'%Y-%m-%d %H:%M:%S'} </span>
+                    </div>
+                    <p class="fr payprice">￥{$item.c_money}</p>
+                </div>
+            </li>
+            {else}
+            <!--微信充值-->
+            <li>
+                <div class="rechargeContent clearfix" style="position: relative">
+                    <img src="{$STATIC_URL}/phone/images/recharge.png" alt="" class="fl"/>
+                    <div class="rechargeMain fl">
+                        {if $item.type==1}
+                        <p>微信充值</p>
+                        {elseif $item.type==4}
+                        <p>线下付款</p>
+                        {elseif $item.type==3}
+                         <p>注册赠送</p>
+                        {elseif $item.type==6}
+                         <p>订单退款</p>
+                        {/if}
+                        <span>{$item.add_time|date_format:'%Y-%m-%d %H:%M:%S'}</span>
+                        {if $item.type==1}
+                             {if $item.status==1}
+                              <span style='color:red;margin-left: .5rem' >待支付</span>
+                             {elseif  $item.status==2}
+                              <span style='color:#77d17a;margin-left: .5rem'>已支付</span>
+                             {else}
+                              <span style='color:red;margin-left: .5rem'>支付失败</span>
+                             {/if}
+                        {else if $item.type==4}
+                             {if $item.status==1}
+                              <span style='color:red;margin-left: .5rem'>待审核</span>
+                             {elseif  $item.status==2}
+                              <span style='color:#77d17a;margin-left: .5rem'>审核成功</span>
+                             {else}
+                             <span style='color:red;margin-left: .5rem'>审核不通过</span>
+                             {/if} 
+                        {else if $item.type==3}
+                            <span style='color:#77d17a;margin-left: .5rem'>已赠送</span>
+                        {else if $item.type==6}
+                            <span style='color:#77d17a;margin-left: .5rem'>已退款</span>
+                        {/if}
+                    </div>
+                    <p class="fr payprice" style="position: absolute;right: .3rem;">￥{$item.c_money}</p>
+                </div>
+                 {if $item.type==3}
+                  <p class="rechargeNum">注册赠送{$item.c_money}元</p>
+                 {elseif $item.type==6}
+                 <p class="rechargeNum">订单退款{$item.c_money}元</p>
+                 {elseif in_array($item.type, array(1, 4))}
+                  <p class="rechargeNum">充值规则：送￥{$item.s_money}；还送{$item.integral}积分，还获得{$item.percent}%积分抵扣比例。</p>
+                 {/if}
+            </li>
+            {/if}
+            {/foreach}
+
+        </ul>
+    </div>
+</div>
+    {include file="public/footer1.html"}
+<script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/front/plus/layer/layer.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+</body>
+</html>

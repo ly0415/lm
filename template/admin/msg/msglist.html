@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        {$language1->chat_list}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="admin.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->index}</a></li>
+                        <li class="active">{$language1->im_chat_manage}</li>
+                        <li class="active">{$language1->chat_list}</li>
+                    </ol>
+
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <form class="form-inline col-sm-10 col-md-11 no-padding">
+                                        <input type='hidden' name='app' value='msg'>
+                                        <input type='hidden' name='act' value='msgList'>
+                                        <input type='hidden' name='uid' value='{$uid}'>
+
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">{$language1->select_service}：</small>
+                                            <select class="form-control" name="kefu_id">
+                                                <option value="0" >--{$language2->please_select}--</option>
+                                                {foreach from = $kfList item=val}
+                                                <option value="{$val.id}" {if $kfid == $val.id} selected {/if}>{$val.kf_name}</option>
+                                                {/foreach}
+                                            </select>
+                                        </div>
+
+
+                                        <div class="form-group form-group-sm form-mar">
+                                            <button type="submit" class="btn btn-default btn-sm">
+                                                {$language2->search} <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                    <div class="col-sm-2  col-md-1 no-padding">
+                                        <a class="btn btn-primary pull-right btn-sm" href="?app=msg&act=index&p={$p}" > {$language2->back}</a>
+                                    </div>
+
+                                </div>
+                                <div class="new-table-responsive">
+                                    <div class="box-body table-responsive no-padding">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>{$language2->serial_number}</th>
+                                                    <th>{$language1->chat_content}</th>
+                                                    <th>To</th>
+                                                    <th>From</th>
+                                                    <th>{$language2->add_time}</th>
+
+                                                </tr>
+                                            </thead>
+
+                                            {foreach from=$list key=key item=item}
+                                            <tr>
+                                                <td>{$key+1}</td>
+                                                <td>{$item.content}</td>
+                                                <td>{if $item.tis_kefu } {$item.tkf_name}  {else} {$item.tu_name} {/if}</td>
+                                                <td>{if $item.fis_kefu } {$item.fkf_name}  {else} {$item.fu_name} {/if}</td>
+                                                <td>{$item.add_time|date_format:"%Y-%m-%d %H:%M:%S" }</td>
+                                            </tr>
+                                            {/foreach}
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="box-footer clearfix">
+                                    {$page}
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            {include file="public/footer.html"}
+        </div>
+    </body>
+</html>

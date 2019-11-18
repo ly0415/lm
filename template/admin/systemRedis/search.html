@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+    <link rel="stylesheet" href="{$STATIC_URL}/admin/css/bootstrap-select.css">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/title.html"}
+    {include file="public/menu.html"}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {include file="public/headtab.html"}
+        <!-- Content Header (Page header) -->
+        {include file="public/crumbs.html"}
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- right column -->
+                <div class="col-xs-12">
+                    <!-- Horizontal Form -->
+                    <div class="box box-primary pt30">
+                        <div class="nav-tabs-custom tabs-new">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#basic" data-toggle="tab">{$language1->cache_search}</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="basic">
+                                    <table class="table table-bordered look-table" >
+                                        <tr>
+                                            <td width="25%"><label>{$language1->cache_table}：</label></td>
+                                            <td width="75%">
+                                                <select id="j-tableName" class="selectpicker" data-live-search="true" data-live-search-placeholder="" data-actions-box="false">
+                                                    <option value="" >{$language1->select_table}</option>
+                                                    {foreach from=$listTables item=item}
+                                                    <option value="{$item.name}" >{$item.name}</option>
+                                                    {/foreach}
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%"><label>{$language1->data_id}：</label></td>
+                                            <td width="75%">
+                                                <input type="text" class="form-control" style="width: 30%" id="j-id" >
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="25%"><label>{$language1->cache_data}：</label></td>
+                                            <td width="75%" id="j-redisVal"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <!-- /.box-body -->
+                                <div class="box-footer text-center">
+                                    <a href="?app=systemRedis&act=index" class="btn btn-default"><i class="fa fa-times-circle"></i> {$language2->back}</a>
+                                </div>
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                    </div>
+                </div>
+                <!--/.col (right) -->
+            </div>
+
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    {include file="public/footer.html"}
+    <!-- Control Sidebar -->
+</div>
+<!--select组件-->
+<script src="{$STATIC_URL}/admin/js/bootstrap-select.min.js"></script>
+<!-- ./wrapper -->
+<script type="text/javascript">
+    $(function(){
+        //点击事件
+        $('#j-tableName').on('hidden.bs.select', function (e) {
+            var _tableVal = $(this).val();
+            var _idVal = $("#j-id").val();
+            if(_idVal && _tableVal){
+                getRedisInfo(_idVal, _tableVal);
+            }
+        });
+
+        $("#j-id").change(function(){
+            var _idVal = $(this).val();
+            var _tableVal = $("#j-tableName").val();
+            if(_idVal && _tableVal){
+                getRedisInfo(_idVal, _tableVal);
+            }
+        });
+    });
+
+    //查询缓存
+    function getRedisInfo(id, name){
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '?app=api&act=getRedisInfo&id='+id+'&name='+name,
+            success: function (obj) {
+                var json_to_string = JSON.stringify(obj.info);
+                $('#j-redisVal').html(json_to_string);
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

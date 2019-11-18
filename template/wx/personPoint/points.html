@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" href="{$STATIC_URL}/phone/css/lyz.calendar.css"/>
+
+    <link rel="stylesheet" href="{$STATIC_URL}/phone/layui/css/layui.css"/>
+
+    <link rel="stylesheet" href="{$STATIC_URL}/phone/css/style.css"/>
+    <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js"></script>
+    <script src="{$STATIC_URL}/phone/js/lyz.calendar.min.js"></script>
+
+    <script src="{$STATIC_URL}/phone/layui/layui.all.js"></script>
+
+    <style>
+        html{
+            background-color:#63AEFF;
+            font-size:50px;
+        }
+        .layui-layer-title {
+            background: #63AEFF;
+            color: #fff;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="point">
+        <div class="count">
+            <div>{$langdata.person_rui}</div>
+            <div>{$point}</div>
+        </div>
+    </div>
+    <div class="point-section">
+        <div class="point_title">
+            <span class="record">{$langdata.point_log}</span>
+         <!--   <a href="wx.php?app=order&act=pointOrder&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                <span class="pay">{$langdata.recharge}>></span>
+            </a>-->
+            {if $console_status == 1}
+                <a href="wx.php?app=userCenter&act=giveUserPoint&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                    <span class="pay">{$langdata.to_give}>></span>
+                </a>
+            {/if}
+        </div>
+        <form>
+            <input type='hidden' name='app' value='userCenter'>
+            <input type='hidden' name='act' value='pointLog'>
+            <input type='hidden' name='storeid' value='{$storeid}'>
+            <input type="hidden" name = "lang" value="{$lang}">
+            <input type='hidden' name='auxiliary' value='{$auxiliary}'>
+            <input type='hidden' name='latlon' value='{$latlon}'>
+            <input type="hidden" name="infomation" value="{$langdata.more_infomation}">
+        <div class="point_time">
+            <span>{$langdata.time}：</span>
+            <input id="txtBeginDate" name="start_time" value="{$startTime}" readonly />
+            ~
+            <input id="txtEndDate" name="end_time" value="{$endTime}"  readonly />
+            <button type="submit">{$langdata.search}</button>
+        </div>
+        </form>
+        <div class="pointRecord">
+            <ul class="title">
+                <li>{$langdata.date}</li>
+                <li>{$langdata.deposit}</li>
+                <li>{$langdata.expend}</li>
+                <li>{$langdata.note}</li>
+            </ul>
+            {foreach from=$list item=item}
+            <ul class="detail" data-aid="{$item.id}">
+                <li>{$item.add_time|date_format:"%Y-%m-%d %H:%M:%S"}</li>
+                <li>{$item.deposit}</li>
+                <li>{$item.expend}</li>
+                <li>{$item.note}</li>
+            </ul>
+            {/foreach}
+        </div>
+    </div>
+    <!--弹出模态框-->
+    {foreach from=$list item=item}
+    <div id="modal{$item.id}" class="pointModal" style="display:none">
+        <div>
+            <span>{$langdata.date}:</span>
+            <span>{$item.add_time|date_format:"%Y-%m-%d %H:%M:%S"}</span>
+        </div>
+        <div>
+            <span>{$langdata.deposit}:</span>
+            <span>{$item.deposit}</span>
+        </div>
+        <div>
+            <span>{$langdata.expend}:</span>
+            <span>{$item.expend}</span>
+        </div>
+        <div>
+            <span>{$langdata.note}:</span>
+            <span>{$item.note}</span>
+        </div>
+    </div>
+    {/foreach}
+    <!--<div id="modal" style="display:none">-->
+        <!--<div>-->
+            <!--<span>日期:</span>-->
+            <!--<span>2018-5-18 16:09:54</span>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<span>存入:</span>-->
+            <!--<span>1000000</span>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<span>支出:</span>-->
+            <!--<span>1000000</span>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<span>支出:</span>-->
+            <!--<span>订单：11111111111111111111111111使用170000分</span>-->
+        <!--</div>-->
+    <!--</div>-->
+    {literal}
+    <script>
+        $(function(){
+            $("#txtBeginDate").calendar({
+
+                controlId: "divDate",                                 // 弹出的日期控件ID，默认: $(this).attr("id") + "Calendar"
+                speed: 200,                                           // 三种预定速度之一的字符串("slow", "normal", or "fast")或表示动画时长的毫秒数值(如：1000),默认：200
+                complement: true,                                     // 是否显示日期或年空白处的前后月的补充,默认：true
+                readonly: true,                                       // 目标对象是否设为只读，默认：true
+                upperLimit: new Date(),                               // 日期上限，默认：NaN(不限制)
+                lowerLimit: new Date("1900/01/01")                // 日期下限，默认：NaN(不限制)
+            });
+            $("#txtEndDate").calendar();
+
+
+
+            $("ul.detail").click(function(){
+                var id = $(this).attr("data-aid");
+                var info=$("input[name='infomation']").val();
+                layer.open({
+                    type:1,
+                    title:info,
+                    skin: 'demo-class', //样式类名
+                    area: '5rem',
+                    closeBtn:1, //显示关闭按钮
+                    anim: 2,
+                    shadeClose: false, //开启遮罩关闭
+                    content: $("#modal"+id),
+                    cancel: function(){
+                        $("#modal"+id).css("display","none");
+                    }
+                    //btn: ['yes', 'no']
+                });
+            });
+        });
+    </script>
+    {/literal}
+
+</body>
+</html>

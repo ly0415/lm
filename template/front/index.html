@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--<title>{$langdata.index}</title>-->
+        <title>{$webconf.store_title.value}</title>
+        <meta charset="utf-8" />
+        {include file="public/header.html"}
+    </head>
+    <body class="index">
+
+        {include file="public/daohang.html"}
+        <!-- navs-box end -->
+        <!-- slider -->
+        <div id="slideBox" class="index_flash">
+            <div class="bd">
+                <ul>
+                    {if  $banner }
+                    {foreach  from=$banner  item=val }
+                    <li>
+                        <a href="index.php?app=goods&act=goodInfo&storeid={$storeid}&lang={$langid}&gid={$val.goods_id}" >
+                            <img  alt="{$val.ad_name}"  src="{$val.ad_code}"/>
+                        </a>
+                    </li>
+                    {/foreach}
+                    {else}
+                    <li>
+                        <a href="##"  >
+                            <img  src="{$STATIC_URL}/front/images/slider1.png" />
+                        </a>
+                    </li>
+                    {/if}
+                </ul>
+            </div>
+            <div class="hd">
+                {if  $banner }
+                <ul>
+                    {foreach  from=$banner  item=val }
+                    <li></li>
+                    {/foreach}
+                </ul>
+                {else}
+                <ul><li></li></ul>
+                {/if}
+            </div>
+        </div>
+        <!-- slider end -->
+        <!-- shopcart -->
+        {if $cart_count!=0}
+        <div class="container">
+            <h2 class="tit-box">{$langdata.index_cart}</h2>
+            <div class="floor clearfix">
+                <div class="img fl">
+                    <img src="http://upmallfiles.yonyouup.com/photo/products/402/20170710/f2da85d4-9c8a-45b3-a02e-00b10cbd1218.jpg!PLM" width="200" height="150">
+                </div>
+                <div class="info fl">
+                    <p>{$langdata.index_zJi}<span class="total">{$symbol} {$cart_total}</span></p>
+                    <p>{$langdata.index_Gwuche} {$cart_count} {$langdata.index_Spin}</p>
+                </div>
+                <div class="buy fl">
+                    <a href="?app=cart&act=index&storeid={$storeid}&lang={$langid}" class="btn btn-buy">{$langdata.index_Liji}</a>
+                </div>
+            </div>
+        </div>
+        {/if}
+        <!-- shopcart end -->
+
+        <!-- shopcate -->
+        <div class="container">
+            <h2 class="tit-box">{$langdata.index_shopctg}</h2>
+            <div class="floor-1">
+                <ul class="clearfix">
+                    {foreach  from=$ctglev1 item=val  }
+                    <li>
+                        <a href="index.php?app=ctgPage&act=index&storeid={$storeid}&lang={$langid}&cid={$val.id}"  >
+                            <div class="img">
+                                <img src="{$val.image}" width="150" height="150">
+                            </div>
+                            <div class="title ellipsis1" title="">
+                                {$val.category_name}
+                            </div>
+                        </a>
+                    </li>
+                    {/foreach}
+
+                </ul>
+            </div>
+        </div>
+        <!-- shopcate end -->
+
+        <!-- banner -->
+        <div class="container">
+            <div class="floor-2">
+                {if  $rowadv1.ad_code }
+                <a href="index.php?app=goods&act=goodInfo&storeid={$storeid}&lang={$langid}&gid={$rowadv1.goods_id}"   ><img    src="{$rowadv1.ad_code}"  alt="{$rowadv1.ad_name}"  ></a>
+                {else}
+                <a href="##"><img src="{$STATIC_URL}/front/images/banner1.png"></a>
+                {/if}
+            </div>
+        </div>
+        <!-- banner end -->
+
+        <!-- recommend -->
+        {if $recomGoods}
+        <div class="container">
+            <div class="floor-3">
+                <h2 class="tit-box">{$langdata.index_recommend}</h2>
+                <div class="picScroll-left">
+                    <div class="bd">
+                        <a class="next"></a>
+                        <ul class="clearfix">
+
+                            {foreach  from=$recomGoods item=val  }
+
+                            <li>
+                                <div class="pic">
+                                    <a href="index.php?app=goods&act=goodInfo&storeid={$storeid}&lang={$langid}&gid={$val.id}"  >
+                                        <div class="img">
+                                            <img src="{$val.original_img}" width="250" height="250"/>
+                                        </div>
+                                        <div class="bg">
+                                            <div class="title">
+                                                <p class="tit ellipsis" title="{$val.goods_name}">{$val.goods_name}</p>
+                                                <p class="price">{$symbol}{$val.shop_price}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                </div>
+
+                            </li>
+
+                            {/foreach}
+
+                        </ul>
+                        <a class="prev"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- recommend end -->
+        {/if}
+        <!-- litime -->
+        <div class="container">
+            <div class="floor-4">
+                <h2 class="tit-box">{$langdata.index_Discount}</h2>
+                <ul class="clearfix">
+                    {foreach from = $prom_arr item=val}
+                    {if $val}
+                    <li>
+                        <a href="{$val.url}">
+                            <div class="img">
+                                <img src="{$val.goods_img}" width="590" height="450">
+                                <span class="flag">{$val.prom_name}</span>
+                            </div>
+                            <div class="content">
+                                <p class="tit ellipsis" title="">{$val.goods_name}</p>
+                                <p class="time">{if $val.end_time}{$val.end_time|date_format:"%Y-%m-%d"} {$langdata.discount_end}{else}--{/if}</p>
+                            </div>
+                        </a>
+                    </li>
+                    {/if}
+                    {/foreach}
+                </ul>
+            </div>	
+        </div>
+        <!-- litime end -->
+
+        <!--recomd  -->
+        <div class="container">
+            <div class="floor-5">
+                <h2 class="tit-box">{$langdata.index_recommyou}</h2>
+                <div class="picScroll-left">
+                    <div class="bd">
+                        <a class="next"></a>
+                        <ul class="clearfix">
+
+                            {foreach  from=$recommYou item=val  }
+
+                            <li>
+                                <div class="pic">
+                                    <a href="index.php?app=goods&act=goodInfo&storeid={$storeid}&lang={$langid}&gid={$val.id}" >
+                                        <div class="img">
+                                            <img src="{$val.original_img}" width="250" height="250"/>
+                                        </div>
+                                        <div class="bg">
+                                            <div class="title">
+                                                <p class="tit ellipsis" title="">{$val.goods_name}</p>
+                                                <p class="price">{$symbol}{$val.shop_price}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    {if  $val.type==1 }
+                                    <i name='clicki' class="sc ico sc-active" id="{$val.id}" title="{$langdata.index_qx}"></i>
+                                    {else}
+                                    <i name='clicki' class="sc ico " id="{$val.id}" title="{$langdata.index_sc}"></i>
+                                    {/if}
+                                    <input type="hidden" name="store_id" value="{$storeid}"/>
+                                    <input type="hidden" name="user_id" value="{$user_id}"/>
+                                    <input type="hidden" name="store_good_id" value="{$val.goods_id}"/>
+                                </div>
+                            </li>
+                            {/foreach}
+                        </ul>
+                        <a class="prev"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--recomd end -->
+
+        <!-- banner -->
+        <div class="container">
+            <div class="floor-6">
+                {if  $rowadv1.ad_code }
+                <a href="index.php?app=goods&act=goodInfo&storeid={$storeid}&lang={$langid}&gid={$rowadv2.goods_id}" ><img  src="{$rowadv2.ad_code}"  alt="{$rowadv2.ad_name}"  ></a>
+                {else}
+                <a href="##"><img src="{$STATIC_URL}/front/images/banner1.png"></a>
+                {/if}
+            </div>
+        </div>
+        <!-- banner end -->
+
+        <!-- shop by style -->
+
+        <!-- form our editor -->
+        <div class="container">
+            <div class="floor-8">
+                <h2 class="tit-box">{$langdata.index_article}</h2>
+                <ul class="clearfix">
+
+                    {foreach from=$articles  item=val}
+                    <li>
+                        <a  href="index.php?app=articlePage&act=detail&storeid={$storeid}&lang={$langid}&artid={$val.id}">
+                            <div class="img">
+                                <img src="{$val.image}"  >
+                            </div>
+                            <div class="content">
+                                
+                                <p class="tit ellipsis" title="{$val.title}">{$val.title}</p>
+                           
+                            </div>
+                        </a>
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+
+        <!-- footer -->
+        {include file="public/footer.html"}
+        <!-- footer end -->
+        {literal}
+        <script type="text/javascript">
+            //首页菜单栏分类
+            $(function () {
+                $('.navs-list .tit1').eq(0).addClass("active");
+                $('.navs-list .item-box').eq(0).show();
+                $('.navs-list .tit1').mouseover(function () {
+                    $('.navs-list .tit1').removeClass('active');
+                    $(this).addClass('active');
+                    $('.navs-list .item-box').hide();
+                    $(this).next('.item-box').show();
+                })
+            });
+            // 首页轮播js
+            $(function () {
+                jQuery(".index_flash").slide({mainCell: ".bd ul", effect: "left", autoPlay: true});
+            });
+            // 左右切换的轮播
+            $(function () {
+                jQuery(".picScroll-left").slide({titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", pnLoop: 'false', autoPlay: false, vis: 4, trigger: "click"});
+            });
+//            //收藏
+//            $(function() {
+//                $('.floor-5 .sc').click(function() {
+//                    $(this).toggleClass('sc-active');
+//                })
+//            });
+            //收藏商品
+            $(function () {
+                $('.floor-5 .sc').on('click', function () {
+                    var type = $(this).hasClass('sc-active');
+                    var id = $(this).attr('id');
+                    var store_id = $('input[name=store_id]').val();
+                    var user_id = $('input[name=user_id]').val();
+                    var store_good_id = $('input[name=store_good_id]').val();
+                    if (user_id == '') {
+                        setTimeout(function () {
+                            window.location.href = 'index.php?app=user&act=login';
+                        }, 1000);
+                    } else {
+                        $.ajax({
+                            url: 'index.php?app=userCenter&act=docollectionGoods',
+                            type: 'GET',
+                            data: {id: id, type: type, store_id: store_id, store_good_id: store_good_id},
+                            dataType: 'json',
+                            success: function (res) {
+                                if (res.statu) {
+                                    $('.floor-5 .sc[id=' + res.id + ']').toggleClass('sc-active');
+                                } else {
+                                    $('.floor-5 .sc[id=' + res.id + ']').toggleClass('sc-active');
+                                }
+                            }
+                        })
+                    }
+//                    $(this).toggleClass('sc1-active');
+                })
+            });
+            // 兼容nth-child()
+            $(function () {
+                $('.floor-1 li:nth-child(6n),.floor-4 li:nth-child(2n)').css('margin-right', 0);
+                $('.floor-7 li:last-child,.floor-8 li:last-child,.footer li:last-child').css('margin-right', 0);
+            });
+        </script>
+        {/literal}
+    </body>
+</html>

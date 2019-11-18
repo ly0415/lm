@@ -1,0 +1,88 @@
+<ul class="discountMain ">
+    {foreach from=$data item=item}
+    {if $item.usetype==1}
+    <li>
+        <div class='discountShow ' data-coupon-money="{$item.discount}" data-coupon-id="{$item.id}" data-userCouponid = "{$item.user_coupon_id}">
+            <input type="hidden" class="coupon" name="coupon" value="">
+            <input type="hidden" class="cid"  name="cid" value="">
+            <input type="hidden" class="user_coupon_id" name="user_coupon_id" value="">
+            <div class="discountLeft" >
+                <p class="discountprice"><span style="font-size: 10px;">￥</span>{$item.discount}</p>
+                <p class="discountneed">满{$item.money}元使用</p>
+                <p class="discountvalue">{$item.discount}元优惠券</p>
+            </div>
+            <div class="discountRight">
+                <div class="discountinfo">
+                    <p class="discountdate">有效期：{$item.start_time|date_format:'%Y.%m.%d'}-{$item.end_time|date_format:'%Y.%m.%d'}</p>
+                    <p class="discountuse clearfix">
+                        <span class="limit">仅限。。</span>
+                        <a href="##">立即使用</a>
+                    </p>
+                </div>
+                <p class="usediscount">
+                    <span>使用须知</span>
+                    <img src="./assets/wx/arrowdown.png" alt="" />
+                </p>
+            </div>
+        </div>
+        <div class='discountHidden'>
+            <p>适用范围：限<span>{$item.store_names}</span>使用</p>
+            <p style="padding-top: 0;">使用次数：一天<span>{$item.day_times}</span>次，共<span>{$item.total_times}</span>次</p>
+        </div>
+    </li>
+    {/if}
+    {/foreach}
+</ul>
+<script>
+    //点击展开优惠券
+    $('.discountRight .usediscount').on('click', function() {
+        if($(this).parent().parent().next('.discountHidden').is(':hidden')) {
+            $(this).parent().parent().next('.discountHidden').show();
+        } else { //否则
+            $(this).parent().parent().next('.discountHidden').hide();
+        }
+    });
+    //选中
+    $('.discountMain li').on('click',function(){
+        if($(this).hasClass('activediv')){
+            $(this).removeClass('activediv');
+            $(this).find('.coupon').val('0');
+            $(this).find('.cid').val('');
+            $("input[name=coupon_amount]").val('0');
+            // $(this).find("input[name=coupon]").val('0');
+            // $(this).find("input[name=cid]").val('');
+            $("input[name=couponid]").val('0');
+            $('#point_check').prop('checked',false);
+            getPayment();
+        }else{
+            console.log(111);
+            $(this).addClass('activediv').siblings('li').removeClass('activediv');
+            var coupon_money =$(this).find('.discountShow').attr('data-coupon-money');
+            var coupon_money = parseFloat(coupon_money);
+            // alert(coupon_money);
+            var cid = $(this).find('.discountShow').attr('data-coupon-id');
+
+            var user_coupon_id = $(this).find('.discountShow').attr('data-userCouponid');
+            // alert(user_coupon_id);
+            $(this).find('.coupon').val(coupon_money);
+            $(this).find('.cid').val(cid);
+            $(this).find('.user_coupon_id').val(user_coupon_id);
+            $(this).siblings().find('.coupon').val('');
+            $(this).siblings().find('.cid').val('');
+            $(this).siblings().find('.user_coupon_id').val('');
+            $("input[name=coupon_amount]").val(coupon_money);
+            // $(this).find("input[name=coupon]").val(coupon_money);
+            // $(this).find("input[name=cid]").val(cid);
+
+            $("input[name=couponid]").val(cid);
+            $("input[name=usercouponid]").val(user_coupon_id);
+            $('#point_check').prop('checked',false);
+            getPayment();
+        }
+
+
+    });
+
+
+
+</script>

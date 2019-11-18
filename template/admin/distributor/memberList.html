@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+    <style>
+        div.tabContainer>div{
+            display:none;
+        }
+        div.tabContainer>div.active{
+            display:block;
+        }
+        .buttonGroup a{
+            margin-left: 10px;}
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                {$language2->distribution}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="admin.php?app=default&act=index&lang_id={$lang_id}"><i class="fa fa-dashboard"></i>{$language1->index}</a></li>
+                <li class="active">{$language1->fx_manage}</li>
+                <li class="active">{$language2->distribution}</li>
+            </ol>
+
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <div class="form-inline" style="display: inline">
+                                <div class="form-group form-group-sm form-mar">
+                                    <small class="control-label">{$language1->area_countroy}：</small>
+                                    <select class="form-control w160 j_select j-area">
+                                        <option value="0">{$language2->all}</option>
+                                        {$areaOption}
+                                    </select>
+                                    <input type="hidden" class="j-area-v" value="{$area_id}">
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <small class="control-label">{$language2->regional_store}：</small>
+                                    <select class="form-control w160 j_select j-store">
+                                        <option value="0">{$language2->all}</option>
+                                        {$storeOption}
+                                    </select>
+                                    <input type="hidden" class="j-store-v" value="{$store_id}">
+                                </div>
+                                <div class="form-group form-group-sm form-mar">
+                                    <small class="control-label">{$language2->account_resource}：</small>
+                                    <select class="form-control w160 j_select j-source" name="source">
+                                        <option value="0">{$language2->please_select}</option>
+                                        {foreach from=$sourceList  item=item key=key}
+                                            <option value='{$key}'  {if $key == $source} selected {/if}  >{$item}</option>
+                                        {/foreach}
+                                    </select>
+                                    <input type="hidden" class="j-source-v" value="{$source}">
+                                </div>
+                            </div>
+                            <div class="col-sm-4  col-md-3 no-padding buttonGroup" style="float: right">
+                                <a class="btn btn-primary pull-right btn-sm" href="?app=distributor&act=memberAdd"   role="button"><i class="fa fa-plus"></i> {$language1->addfx}</a>
+                                <a class="btn btn-primary pull-right btn-sm" href="?app=distributor&act=exportPerson" role="button"><i class="fa fa-plus"></i>{$language1->export_member}</a>
+                            </div>
+                        </div>
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" data-toggle="tab">{$language2->distribution}</a></li>
+                                <li role="presentation"><a href="#profile" data-toggle="tab">{$language1->distributor_audit}</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="home">
+                                    <div class="new-table-responsive">
+                                        <div class="box-body table-responsive no-padding ">
+                                            <table id="example-advanced" class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th style="width: 3%">id</th>
+                                                    <th style="width: 5%">{$language2->leaguer_name}</th>
+                                                    <th style="width: 3%">{$language2->fx_code}</th>
+                                                    <th style="width: 3%">{$language2->phone}</th>
+                                                    <th style="width: 15%">{$language1->regist_store}</th>
+                                                    <th style="width: 5%">{$language1->open_bank}</th>
+                                                    <th style="width: 5%">{$language1->bank_account}</th>
+                                                    <th style="width: 3%">{$language2->status}</th>
+                                                    <th style="width: 3%">{$language2->account_resource}</th>
+                                                    <th style="width: 5%">{$language2->add_time}</th>
+                                                    <th style="width: 10%">{$language2->control}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {foreach from=$res item=v}
+                                                <tr data-tt-id="{$v.id}" data-tt-parent-id="0">
+                                                    <td>{$v.user_id}</td>
+                                                    <td>
+                                                        {$v.real_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v.fx_code}
+                                                    </td>
+                                                    <td>
+                                                        {$v.phone}
+                                                    </td>
+                                                    <td>
+                                                        {$v.store_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v.bank_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v.bank_account}
+                                                    </td>
+                                                    <td>
+                                                        {if $v.status == 1 } <span class="bg-had">{$language1->normal}</span> {else} <span class="bg-fail">{$language1->frozen}</span> {/if}
+                                                    </td>
+                                                    <td>
+                                                        {$v.source_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v.add_time|date_format:"%Y-%m-%d %H:%M"}
+                                                    </td>
+                                                    <td>
+                                                        <a href="?app=distributor&act=show&lang_id={$lang_id}&user_id={$v.user_id}"  data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table withdraw">{$language2->withdraw}</a>
+                                                        <!--<a href="?app=distributor&act=replace&lang_id={$lang_id}&fx_id={$v.id}&store_id={$v.store_id}&area_id={$area_id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;"  >人员替换</a>-->
+                                                        <a href="?app=distributor&act=edit&lang_id={$lang_id}&id={$v.id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;"  >{$language2->edit}</a>
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  data-status = {$v.status}  onclick="dongjie(this, '{$v.id}');"  >  {if $v.status == 1 } {$language1->to_frozen}  {else}  {$language1->thaw}  {/if}   </a>
+                                                    </td>
+                                                </tr>
+                                                {foreach from=$v.childs item=vo}
+                                                {if $vo.is_check == 2}
+                                                <tr data-tt-id="{$vo.id}" data-tt-parent-id="{$v.id}">
+                                                    <td>{$vo.user_id}</td>
+                                                    <td>
+                                                        {$vo.real_name}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.fx_code}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.phone}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.store_name}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.bank_name}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.bank_account}
+                                                    </td>
+                                                    <td>
+                                                        {if $vo.status == 1 } <span class="bg-had">{$language1->normal}</span> {else} <span class="bg-fail">{$language1->frozen}</span> {/if}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.source_name}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.add_time|date_format:"%Y-%m-%d %H:%M"}
+                                                    </td>
+                                                    <td>
+                                                        <a href="?app=distributor&act=show&user_id={$vo.user_id}"  data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table withdraw">{$language2->withdraw}</a>
+                                                        <!--<a href="?app=distributor&act=levOne&fx_id={$vo.id}&store_id={$v.store_id}&area_id={$area_id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;" >升到一级</a>-->
+                                                        <!--<a href="?app=distributor&act=replaceTwo&fx_id={$vo.id}&store_id={$v.store_id}&area_id={$area_id}&parent_id={$vo.parent_id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;" >人员替换</a>-->
+                                                        <a href="?app=distributor&act=edit&id={$vo.id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;" >{$language2->edit}</a>
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  data-status = {$vo.status}  onclick="dongjie(this, '{$vo.id}');"  >  {if $vo.status == 1 } {$language1->to_frozen}  {else}  {$language1->thaw}  {/if}   </a>
+                                                    </td>
+                                                </tr>
+                                                {/if}
+                                                {foreach from=$vo.childs item=v1}
+                                                {if $v1.is_check == 2}
+                                                <tr data-tt-id="{$v1.id}" data-tt-parent-id="{$vo.id}">
+                                                    <td>{$v1.user_id}</td>
+                                                    <td>
+                                                        {$v1.real_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.fx_code}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.phone}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.store_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.bank_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.bank_account}
+                                                    </td>
+                                                    <td>
+                                                        {if $v1.status == 1 } <span class="bg-had">{$language1->normal}</span> {else} <span class="bg-fail">{$language1->frozen}</span> {/if}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.source_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.add_time|date_format:"%Y-%m-%d %H:%M"}
+                                                    </td>
+                                                    <td>
+                                                        <a href="?app=distributor&act=show&user_id={$v1.user_id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table withdraw">{$language2->withdraw}</a>
+                                                        <!--<a href="?app=distributor&act=replaceThree&fx_id={$v1.id}&parent_id={$v1.parent_id}&store_id={$v.store_id}&area_id={$area_id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;" >人员替换</a>-->
+                                                        <!--<a href="?app=distributor&act=upTwo&fx_id={$v1.id}&parent_id={$v1.parent_id}&store_id={$v.store_id}&area_id={$area_id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;" >升到二级</a>-->
+                                                        <a href="?app=distributor&act=edit&id={$v1.id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;" >{$language2->edit}</a>
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  data-status = {$v1.status}  onclick="dongjie(this, '{$v1.id}');"  > {if $v1.status == 1 } {$language1->to_frozen}  {else}  {$language1->thaw}  {/if}  </a>
+                                                    </td>
+                                                </tr>
+                                                {/if}
+                                                {/foreach}
+                                                {/foreach}
+                                                {/foreach}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="profile">
+                                    <div class="new-table-responsive">
+                                        <div class="box-body table-responsive no-padding ">
+                                            <table id="example-advanced" class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th style="width: 3%">id</th>
+                                                    <th style="width: 5%">{$language2->leaguer_name}</th> 
+                                                    <th style="width: 3%">{$language2->phone}</th>
+                                                    <th style="width: 3%">{$language1->fx_level}</th>
+                                                     <th style="width: 3%">{$language1->distributor_recommend}</th>
+                                                    <th style="width: 15%">{$language1->regist_store}</th>
+                                                    <th style="width: 5%">{$language1->open_bank}</th>
+                                                    <th style="width: 5%">{$language1->bank_account}</th>
+                                                    <th style="width: 3%">{$language2->account_resource}</th>
+                                                    <th style="width: 3%">{$language2->status}</th>
+                                                    <th style="width: 5%">{$language2->add_time}</th>
+                                                    <th style="width: 10%">{$language2->control}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {foreach from=$res item=v}
+                                                {foreach from=$v.childs item=vo}
+                                                {if $vo.is_check != 2}
+                                                <tr data-tt-id="{$vo.id}" data-tt-parent-id="{$v.id}">
+                                                    <td>{$vo.user_id}</td>
+                                                    <td  style="text-align:center">
+                                                        {$vo.real_name}
+                                                    </td>
+                                                     <td>
+                                                        {$vo.phone}
+                                                    </td>
+                                                    <td>
+                                                        {$language2->two_fx}
+                                                    </td>
+                                                    <td style="text-align:center">
+                                                        {if $vo.parent_id == $v.id}
+                                                        {$v.real_name}
+                                                        {/if}
+                                                    </td>
+                                                    <td>
+                                                        {$v.store_name}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.bank_name}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.bank_account}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.source_name}
+                                                    </td>
+                                                     <td>
+                                                        {if $vo.is_check == 1 } <span class="bg-had">{$language1->normal}</span> {else} <span class="bg-fail">{$language1->frozen}</span> {/if}
+                                                    </td>
+                                                    
+                                                    <td>
+                                                        {$vo.add_time|date_format:"%Y-%m-%d %H:%M"}
+                                                    </td>
+                                                    <td>
+                                                      {if $vo.is_check != 2}
+                                                        <a href="javascript:;"  data-toggle="tooltip" class="btn btn-xs btn-success "   onclick="auditef({$vo.id},{$vo.level});"   style="overflow: hidden; position: relative;"  >{$language2->examine}</a>
+                                                        {/if}
+                                                    </td>
+                                                </tr>
+                                                {/if}
+                                                {foreach from=$vo.childs item=v1}
+                                                 {if $v1.is_check != 2}
+                                                <tr data-tt-id="{$v1.id}" data-tt-parent-id="{$vo.id}">
+                                                    <td>{$v1.user_id}</td>
+                                                    <td style="text-align:center">
+                                                        {$v1.real_name}
+                                                    </td>
+                                                      <td>
+                                                        {$v1.phone}
+                                                    </td>
+                                                    <td>
+                                                        {$language1->three_fx}
+                                                    </td>
+                                                    <td style="text-align:center">
+                                                       {if $v1.parent_id == $vo.id}
+                                                         {$vo.real_name}
+                                                       {/if}
+                                                    </td>
+                                                    <td>
+                                                        {$v.store_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.bank_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.bank_account}
+                                                    </td> 
+                                                    <td>
+                                                        {$v1.source_name}
+                                                    </td>
+                                                      <td>
+                                                        {if $v1.is_check == 1 } <span class="bg-had">{$language2->pending_review}</span> {else} <span class="bg-fail">{$language2->dismissed}</span> {/if}
+                                                    </td>
+                                                   
+                                                    <td>
+                                                        {$v1.add_time|date_format:"%Y-%m-%d %H:%M"}
+                                                    </td>
+                                                    <td>
+                                                     {if $v1.is_check != 2}
+                                                        <a href="javascript:;"  data-toggle="tooltip" class="btn btn-xs btn-success "   onclick="audite({$v1.id},{$v1.level});"   style="overflow: hidden; position: relative;"  >{$language2->examine}</a>
+                                                     {/if}
+                                                    </td>
+                                                </tr>
+                                                 {/if}
+                                                {/foreach}
+                                                {/foreach}
+                                                {/foreach}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    {include file="public/footer.html"}
+</div>
+
+<script type="text/javascript">
+
+    $(function() {
+        $("#example-advanced").treetable({
+            expandable: true,
+            clickableNodeNames: true
+        });
+
+    });
+    //账户的冻结  1正常，2冻结
+    function dongjie(obj, uid) {
+
+        //提示js
+        $.confirm({
+            title: '{$language2->tips}',
+            closeIcon: true,
+            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>{$language1->enter_sure}",
+            type: 'blue',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-blue',
+                    text: '{$language2->enter}',
+                    action: function() {
+                        //
+                        var status = parseInt(obj.getAttribute('data-status'));
+                        if (status == 1) {
+                            // ajax
+                            var freeze = 2;
+                            var url = '?app=distributor&act=ajaxfreeze&uid=' + uid + '&freeze=' + freeze;
+                            $.get(url, function(res) {
+                                if (res.status) {
+                                    obj.text = '{$language1->thaw}';
+                                    obj.setAttribute('data-status', 2);
+                                    $(obj).parents('tr').find('td').eq(7).html('<span class="bg-fail">{$language1->frozen}</span>')
+
+                                }
+                            }, 'json');
+
+                        } else {
+                            // ajax
+                            var freeze = 1;
+                            var url = '?app=distributor&act=ajaxfreeze&uid=' + uid + '&freeze=' + freeze;
+                            $.get(url, function(res) {
+                                if (res.status) {
+                                    obj.text = '{$language1->to_frozen}';
+                                    obj.setAttribute('data-status', 1);
+                                    $(obj).parents('tr').find('td').eq(7).html('<span class="bg-had">{$language1->normal}</span>')
+
+                                }
+                            }, 'json');
+                        }
+                        //
+                    }
+                },
+                cancel: {
+                    btnClass: 'btn-default', // multiple classes.
+                    text: '{$language2->cancel}'
+                }
+            }
+        });
+
+    }
+    //审核
+     function auditef(id, level){
+            dialog_form('?app=distributor&act=audit&level=' + level + '&id=' + id, '{$language2->examine}');
+    }
+    function audite(id, level){
+        dialog_form('?app=distributor&act=audit&level=' + level + '&id=' + id, '{$language2->examine}');
+    }
+    // function show(id){
+    //     dialog_form('?app=distributor&act=show&id=' + id,'分销提现');
+    // }
+    //查询
+    $('.j-area').change(function(){
+        var area_id = $(this).val();
+        var url = "admin.php?app=distributor&act=memberList&area_id="+area_id;
+        location.href = url;
+    })
+    $('.j-store').change(function(){
+        var store_id = $(this).val();
+        var area_id = $('.j-area-v').val();
+        var url = "admin.php?app=distributor&act=memberList&area_id="+area_id+"&store_id="+store_id;
+        location.href = url;
+    })
+    $('.j-source').change(function(){
+        var source = $(this).val();
+        var area_id = $('.j-area-v').val();
+        var store_id = $('.j-store-v').val();
+        var url = "admin.php?app=distributor&act=memberList&area_id="+area_id+"&store_id="+store_id+'&source='+source;
+        location.href = url;
+    })
+</script>
+
+</body>
+</html>

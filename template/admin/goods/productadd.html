@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                {$language1->good_release}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>{$language1->management_center}</a></li>
+                <li><a href="#">{$language1->good_list}</a></li>
+                <li class="active">{$language1->good_release}</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <form class="" id="form-goodsedit" action="?app=goods&act=doAdd"  method="post" data-type="ajax">
+                            <div class="nav-tabs-custom tabs-new">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab_1" data-toggle="tab">{$language1->conventional}</a></li>
+                                    <li><a href="#tab_2" data-toggle="tab">{$language2->data}</a></li>
+                                    <li><a href="#tab_3" data-toggle="tab">{$language1->good_album}</a></li>
+                                    <li><a href="#tab_4" data-toggle="tab">{$language1->good_model}</a></li>
+                                    <!--<li><a href="#tab_4" data-toggle="tab">商品物流</a></li>-->
+                                    <!--<li><a href="#tab_5" data-toggle="tab">积分折扣</a></li>-->
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1">
+                                        <!-- 二级tab -->
+                                        <div class="pro-tabs-menu">
+                                            {foreach from=$lang_list item=item key=k}
+                                            <span {if $k == 0}class="active" {/if}><img src="{$item.logo}" width="16" height="11"><span>{$item.shorthand}</span></span>
+                                            {/foreach}
+                                        </div>
+
+                                        <div class="pro-tabs-box">
+                                            {foreach from=$lang_list item=item key=k}
+                                            <div class="tab-item" {if $k == 0} style="display: block;" {/if}>
+                                            <div class="box-body">
+                                                <div class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->product_name}：</label>
+                                                        <div class="col-sm-7 col-md-6 col-lg-5">
+                                                            <input type="hidden"  value="{$item.id}" name="langList[]" />
+                                                            <input type="text" class="form-control" name="lang[{$item.id}][goods_name]">
+                                                            <p class="text-red mb0">{$language1->good_name_required}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 col-md-2  col-lg-2 control-label"> {$language1->good_brief}：</label>
+                                                        <div class="col-sm-7 col-md-6 col-lg-5">
+                                                            <textarea  name="lang[{$item.id}][goods_remark]" rows="3" cols="44" class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 col-md-2  col-lg-2 control-label"> {$language1->good_keyword}：</label>
+                                                        <div class="col-sm-7 col-md-6 col-lg-5">
+                                                            <input type="text" class="form-control" name="lang[{$item.id}][keywords]">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-4 col-md-2 col-lg-2 control-label"> {$language1->good_description}：</label>
+                                                        <div class="col-sm-7 col-md-6 col-lg-5">
+                                                            <div class="editor">
+                                                                <textarea name="lang[{$item.id}][goods_content]" class="goods_content" style="width: 700px;height: 250px;"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div><!-- end -->
+                                        {/foreach}
+                                    </div>
+                                </div>
+                                <!-- 一级开始 -->
+                                <div class="tab-pane" id="tab_2">
+                                    <div class="box-body">
+                                        <div class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"> {$language1->good_code}：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <input type="text" class="form-control" name="goods_sn">
+                                                    <p class="text-green mb0">{$language1->auto_generate}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"> SPU：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <input type="text" class="form-control" name="spu">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"> SKU：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <input type="text" class="form-control" name="sku">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->stock_deduction}：</label>
+                                                <div class="col-sm-8 col-md-8 col-lg-6">
+                                                    <select class="form-control w160 j_select inblock " name="deduction">
+                                                        <option value="0">{$language1->select_deduction}</option>
+                                                        <option value="1" >{$language1->syn_deduction}</option>
+                                                        <option value="2">{$language1->separate_deduction}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->categories}：</label>
+                                                <div class="col-sm-8 col-md-8 col-lg-6">
+                                                    <select class="form-control w160 j_select inblock j-cate1" name="cat_1">
+                                                        <option>{$language1->select_classification}</option>
+                                                        {foreach from=$cat_list item=item}
+                                                        <option value="{$item.id}">{$item.name}</option>
+                                                        {/foreach}
+                                                    </select>
+                                                    <select class="form-control w160 j_select inblock j-cate2" name="cat_2" >
+                                                        <option>{$language1->select_classification}</option>
+                                                    </select>
+                                                    <select class="form-control w160 j_select inblock j-cate3" name="cat_id" >
+                                                        <option value="">{$language1->select_classification}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group j_room" style="display: none;">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"> {$language1->business_type}：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <select class="form-control j_select j-room" name="room_id">
+                                                        <option value="0">{$language1->select_type}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="en_dis" >
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red"></span> {$language1->auxiliary_classification}：</label>
+                                                <div class="col-sm-8 col-md-8 col-lg-7">
+                                                    <div>
+                                                        <div class="tags-box inblock" id="box1" >
+
+                                                        </div>
+                                                        <span class="btn btn-primary btn-sm j_add">{$language1->add_classify}</span>
+                                                        <span class="btn btn-primary btn-sm j_shou">{$language1->collapse}</span>
+                                                    </div>
+                                                    <input type="hidden" name="area_id" value=""/>
+                                                    <input type="hidden" name="auxiliary_type" value="{$auxiliary_type}"/>
+                                                    <div class="mt10 j_choosebox" style="display: none;">
+                                                        <select class="form-control w160 j_select inblock j-cate1_class" id="shen_id">
+                                                            <option value="0" data-name="{$language1->select_classification}">{$language1->select_classification}</option>
+                                                            {foreach from=$cat_list item=item}
+                                                            <option value="{$item.id}" data-name="{$item.name}">{$item.name}</option>
+                                                            {/foreach}
+                                                        </select>
+                                                        <select class="form-control w160 j_select inblock j-cate2_class" id="shi_id">
+                                                            <option value="0" data-name="{$language1->select_classification}">{$language1->select_classification}</option>
+                                                        </select>
+                                                        <select class="form-control w160 j_select inblock j-cate3_class"id="qu_id">
+                                                            <option value="0" data-name="{$language1->select_classification}">{$language1->select_classification}</option>
+                                                        </select>
+                                                        <select class="form-control w160 j_select inblock" id="type_id"  name="type_id" >
+                                                            <option value="0" data-name="{$language1->select_classification}">{$language1->select_classification}</option>
+                                                        </select>
+                                                        <span class="btn btn-primary vb j_sure">{$language2->enter}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->area_limit}：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <input name="is_limit" class="j-store" type="radio" value="1" checked>{$language2->no_limit}
+                                                    <input name="is_limit" class="j-store" type="radio" value="2">{$language2->limit}
+                                                </div>
+                                            </div>
+                                            <div class="form-group j_store_cate" style="display: none;">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span>  {$language1->area_countroy}：</label>
+                                                <div id="check-box">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"></label>
+                                                    <div class="col-sm-7 col-md-10 col-lg-9">
+                                                        {foreach from = $store_cate item=item}
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="store_cate[]" value="{$item.id}" class="check check1">{$item.cate_name}
+                                                        </label>
+                                                        {/foreach}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"> {$language1->good_brand}：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <select class="form-control j_select " name="brand_id">
+                                                        <option>{$language1->select_brand}</option>
+                                                        {foreach from=$brand_list item=item}
+                                                        <option value="{$item.id}">{$item.name}</option>
+                                                        {/foreach}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label">  {$language1->good_style}：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <select class="form-control j_select " name="style_id">
+                                                        <option>{$language1->select_style}</option>
+                                                        {foreach from=$style_list item=item}
+                                                        <option value="{$item.id}">{$item.style_name}</option>
+                                                        {/foreach}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label">{$language2->stock}：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <input type="text" class="form-control" name="goods_storage">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->shop_price}：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <input type="text" class="form-control" name="shop_price">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->market_price}：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <input type="text" class="form-control" name="market_price">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"> {$language1->cost_price}：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <input type="text" class="form-control" name="cost_price">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->cover_picture}：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <!-- <input type="file" class="form-control"> -->
+                                                    <div class="input-file-show">
+                                                        <!-- <span class="show">
+                                                            <a id="img_a" target="_blank" class="nyroModal" rel="gal" href="{$STATIC_URL}/front/images/6700e045-8899-42d9-a4cc-1b29537ccd3b.jpg">
+                                                                <i id="img_i" class="fa fa-picture-o" onmouseover="" onmouseout="layer.closeAll();"></i>
+                                                            </a>
+                                                        </span> -->
+                                                        <span class="type-file-box">
+                                                                        <input type="text" id="imagetext" name="original_img" value="" class="type-file-text">
+                                                                        <input type="button" name="button" id="button1" value="{$language1->select_picture}" class="type-file-button">
+                                                                        <input class="type-file-file" onclick="GetUploadify(1, 'imagetext', 'goods', 'img_call_back')" size="30" hidefocus="true" nc_type="{$language1->select_picture}">
+                                                                    </span>
+                                                    </div>
+                                                    <p class="text-green mb0">{$language1->image_size}</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 col-md-2 col-lg-2 control-label">配送属性：</label>
+                                                <div class="col-sm-3">
+                                                    <input name="attributes[]"  class="dispatchcheckbox" type="checkbox" value="1" checked/>到店自提&nbsp;&nbsp;
+                                                    <input name="attributes[]" id="delivery-fee" class="dispatchcheckbox" type="checkbox" value="2" />配送上门&nbsp;&nbsp;
+                                                    <input name="attributes[]"  class="dispatchcheckbox" id="emailcheck" type="checkbox" value="3" />邮寄托运&nbsp;&nbsp;
+                                                    <input name="attributes[]"  class="dispatchcheckbox" type="checkbox" value="4">海外代购&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                            <div class="form-group delivery-show" style="display: none">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label">  配送费用：</label>
+                                                <div class="col-sm-7 col-md-6 col-lg-5">
+                                                    <input type="text" class="form-control" name="delivery_fee" value="{$info.delivery_fee}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group postage" style='display: none'>
+                                                <label class="col-sm-4 col-md-2 col-lg-2 control-label">{$language1->free_ship}：</label>
+                                                <div class="col-sm-3">
+                                                    <input  type="checkbox" name="is_free_shipping" value="1" checked>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- form -->
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="tab_3">
+                                    <div class="box-body" id="tab_goods_images">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="goods_xc" style="width:100px; text-align:center; margin: 5px; display:inline-block;">
+                                                        <input type="hidden" name="goods_images[]" value="">
+                                                        <a href="##" onclick="GetUploadify(10, '', 'goods', 'call_back2');">
+                                                            <img src="{$STATIC_URL}/admin/dist/img/add-button.jpg" width="100" height="100">
+                                                        </a>
+                                                        <br>
+                                                        <a href="##">&nbsp;&nbsp;</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <p class="text-green mb0">{$language1->image_size}</p>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="tab_4">
+                                    <div class="box-body">
+                                        <!-- <div class="ncap-form-default tab_div_3"> -->
+                                        <dl class="row">
+                                            <div  id="tab_goods_spec">
+                                                <table class="table table-bordered" id="goods_spec_table">
+                                                    <tr>
+                                                        <td>{$language1->good_model}:</td>
+                                                        <td>
+                                                            <select name="goods_type" id="spec_type" class="form-control" style="width:250px;">
+                                                                <option value="0">{$language1->select_model}</option>
+                                                                {foreach from=$type_list item=item}
+                                                                <option value="{$item.id}">{$item.name}</option>
+                                                                {/foreach}
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <div class="row">
+                                                    <!-- ajax 返回规格-->
+                                                    <div id="ajax_spec_data" class="col-xs-8" style="padding-right: 0;" >
+                                                    </div>
+
+                                                    <div id="" class="col-xs-4" style="padding-left: 0;">
+                                                        <!--第一种样式这个是一进入页面返回的空页面 -->
+                                                        <table class="table table-bordered" id="goods_attr_table">
+                                                            <tr>
+                                                                <td><b>{$language1->good_attribute}</b>：</td>
+                                                            </tr>
+                                                        </table>
+
+
+                                                    </div>
+                                        </dl>
+                                        <!-- </div>  -->
+
+                                    </div><!-- box-body -->
+                                </div>
+                                <input  name="p" type="hidden" value="{$p}">
+                                <div class="box-footer">
+                                    <div class="form-group">
+                                        <div class="col-sm-6 col-sm-offset-4 col-md-5 col-md-offset-2 col-lg-4 col-lg-offset-2">
+                                            <a href="?app=goods&act=goodsIndex&p={$p}" class="btn btn-default"><i class="fa fa-times-circle"></i> {$language2->close}</a>
+                                            <button  id="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> {$language2->save}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.tab-content -->
+                    </div>
+
+                </div>
+                <!-- /.box -->
+            </div>
+            </form>
+    </div>
+    </section>
+    <!-- /.content -->
+</div>
+{include file="public/footer.html"}
+</div>
+
+<!-- /.content-wrapper -->
+<script type="text/javascript">
+    //配送属性选择
+    $('.dispatchcheckbox').click(function(){
+        if($('#emailcheck').is(':checked')){
+            $('.postage').css('display','block')
+        }else{
+            $('.postage').css('display','none')
+        }
+    })
+    $(function () {
+        $("[name='is_free_shipping']").bootstrapSwitch({
+            onText: "是",
+            offText: "否",
+            size: "small",
+            onSwitchChange: function (event, state) {
+                if (state == true) {
+                    $(this).val("1");
+                    $(".is_shipping").hide();
+                } else {
+                    $(this).val("2");
+                    $(".is_shipping").show();
+                }
+            }
+        });
+    })
+    $(function () {
+        var new_html_id;
+        $('.j_add').click(function () {
+            $('.j_choosebox').show();
+        });
+        $('.j_shou').click(function () {
+            $('.j_choosebox').hide();
+        });
+        //配送范围的选择
+        $('.j_choosebox').on('click', '.j_sure', function () {
+            var shen = $("#shen_id").find("option:selected").attr("data-name");
+            var shi = $("#shi_id").find("option:selected").attr("data-name");
+            var qu = $("#qu_id").find("option:selected").attr("data-name");
+            var type = $("#type_id").find("option:selected").attr("data-name");
+            var shen_id = $("#shen_id").find("option:selected").attr("value");
+            var shi_id = $("#shi_id").find("option:selected").attr("value");
+            var qu_id = $("#qu_id").find("option:selected").attr("value");
+            var type_id = $("#type_id").find("option:selected").attr("value");
+            var html;
+            var htmls;
+            if ((shen != '请选择分类')) {
+                html = shen;
+                if (shi != '请选择分类') {
+                    html += ',' + shi;
+                    if (qu != '请选择分类') {
+                        html += ',' + qu;
+                    }
+                }
+            }
+            var html_id = 0 + '_' + shen_id + '_' + shi_id + '_' + qu_id;
+            var area_id = $('input[name=area_id]').val();
+            var auxiliary_type = $('input[name=auxiliary_type]').val();
+            if (shen == '请选择分类') {
+                //console.log(html);
+
+                var d = $.dialog({
+                    content: '<div class="text-center">请选择顶级分类</div>',
+                    title: false, // hides the title.
+                    closeIcon: false, // hides the close icon.
+                    columnClass: 'xsmall',
+                    onOpen: function () {
+                        setTimeout(function () {
+                            d.close();
+                        }, 1000);
+                    }
+                });
+                return false;
+            } else if (shi == '请选择分类') {
+                //console.log(html);
+
+                var d = $.dialog({
+                    content: '<div class="text-center">请选择二级分类</div>',
+                    title: false, // hides the title.
+                    closeIcon: false, // hides the close icon.
+                    columnClass: 'xsmall',
+                    onOpen: function () {
+                        setTimeout(function () {
+                            d.close();
+                        }, 1000);
+                    }
+                });
+                return false;
+            } else if (qu == '请选择分类') {
+                //console.log(html);
+
+                var d = $.dialog({
+                    content: '<div class="text-center">请选择三级分类</div>',
+                    title: false, // hides the title.
+                    closeIcon: false, // hides the close icon.
+                    columnClass: 'xsmall',
+                    onOpen: function () {
+                        setTimeout(function () {
+                            d.close();
+                        }, 1000);
+                    }
+                });
+                return false;
+            } else if (type_id == 0) {
+                //console.log(html);
+
+                var d = $.dialog({
+                    content: '<div class="text-center">请选择业务类型</div>',
+                    title: false, // hides the title.
+                    closeIcon: false, // hides the close icon.
+                    columnClass: 'xsmall',
+                    onOpen: function () {
+                        setTimeout(function () {
+                            d.close();
+                        }, 1000);
+                    }
+                });
+                return false;
+            } else {
+                var str = '<span class="tag"><span value=' + html_id + '>' + html + '</span><em class="j_del">×</em></span>';
+                if (area_id == '') {
+                    new_html_id = html_id;
+                    new_type_id = type_id;
+                } else {
+                    new_html_id = area_id;
+                    new_type_id = auxiliary_type;
+                    var arrs = new_html_id.split(':');
+                    var type_arrs = new_type_id.split(',');
+                    var _exist_id = $.inArray(html_id, arrs);//从0开始
+                    var _type_exist_id = $.inArray(type_id, type_arrs);//从0开始
+                    if (_exist_id >= 0) {
+                        var d = $.dialog({
+                            content: '<div class="text-center">当前分类已存在！</div>',
+                            title: false, // hides the title.
+                            closeIcon: false, // hides the close icon.
+                            columnClass: 'xsmall',
+                            onOpen: function () {
+                                setTimeout(function () {
+                                    d.close();
+                                }, 1000);
+                            }
+                        });
+                        return false;
+                    }
+                    if (_type_exist_id >= 0) {
+                        var d = $.dialog({
+                            content: '<div class="text-center">当前分类已存在！</div>',
+                            title: false, // hides the title.
+                            closeIcon: false, // hides the close icon.
+                            columnClass: 'xsmall',
+                            onOpen: function () {
+                                setTimeout(function () {
+                                    d.close();
+                                }, 1000);
+                            }
+                        });
+                        return false;
+                    }
+                    new_html_id = area_id + ':' + html_id;
+                    new_type_id = auxiliary_type + ',' + type_id;
+                    $('input[name=auxiliary_type]').val(new_type_id);
+                }
+                //str +='<input type="hidden" name="area" value='+html+'/>';
+                $('#box1').append(str);
+                $('input[name=area_id]').val(new_html_id);
+                $('input[name=auxiliary_type]').val(new_type_id);
+                //<input type="hidden" name="area" value='"+str+"'/>
+            }
+        });
+
+        //中国的删除
+        $('#box1').on('click', '.j_del', function () {
+            var that = $(this);
+            $(this).parent().remove();
+            var obj = $('#box1').find('.tag').find('span');
+            var arr = [], arr_id = [];
+            obj.each(function () {
+                arr.push($(this).text());
+                arr_id.push($(this).attr('value'));
+            });
+            var str = arr.join(':');
+            var str_id = arr_id.join(':');
+            $('input[name=area]').val(str);
+            $('input[name=area_id]').val(str_id);
+        });
+
+        // 配送费用
+        if ($('#delivery-fee').attr('checked')) {
+            $('.delivery-show').show();
+        }
+
+        $('#delivery-fee').change(function () {
+            if ($('#delivery-fee').prop('checked')) {
+                $('.delivery-show').show();
+            } else {
+                $('.delivery-show').hide();
+            }
+        });
+    })
+</script>
+{literal}
+<script>
+
+    $(function () {
+        $('.pro-tabs-menu span').click(function () {
+            var boxs = $('.pro-tabs-box .tab-item');
+            var index = $(this).index();
+            $('.pro-tabs-menu span').removeClass('active');
+            $(this).addClass('active');
+            boxs.hide();
+            boxs.eq(index).show();
+        })
+    })
+    //区域国家判断
+    $(".j-store").on("click", function () {
+        var has = $(this).val();
+        if (has == 2) {
+            $('.j_store_cate').show();
+        } else {
+            $('.j_store_cate').hide();
+        }
+
+    });
+    //分类关联
+    $(".j-cate1").on("change", function () {
+        var r_options = '<option value="0">请选择业务类型</option>';
+        $('.j-room').html(r_options);
+        $('.j_room').hide();
+        var _this = $(this);
+        var id = $(this).find(":selected").val();
+        var url = "?app=goods&act=getCategory&parent_id=" + id;
+        if (id != 0) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (obj) {
+                    if (obj.status == 1) {
+                        var options = '<option value="0" >请选择分类</option>';
+                        $.each(obj.info, function (i, e) {
+                            options += '<option value="' + e.id + '">' + e.name + '</option>';
+                        });
+                        $('.j-cate2').html(options);
+
+                    } else {
+                        var options = '<option value="0">请选择分类</option>';
+                        $('.j-cate2').html(options);
+                        $('.j-cate3').html(options);
+                    }
+
+                }
+
+            });
+        }
+
+    });
+    $(".j-cate2").on("change", function () {
+        var r_options = '<option value="0">请选择业务类型</option>';
+        $('.j-room').html(r_options);
+        $('.j_room').hide();
+        var _this = $(this);
+        var id = $(this).find(":selected").val();
+        var url = "?app=goods&act=getCategory&parent_id=" + id;
+        if (id != 0) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (obj) {
+                    if (obj.status == 1) {
+                        var options = '<option value="0">请选择分类</option>';
+                        $.each(obj.info, function (i, e) {
+                            options += '<option value="' + e.id + '" >' + e.name + '</option>';
+                        });
+                        $('.j-cate3').html(options);
+
+                    } else {
+                        var options = '<option value="0" >请选择分类</option>';
+                        $('.j-cate3').html(options);
+                    }
+
+                }
+
+            });
+        }
+
+    });
+    $(".j-cate3").on("change", function () {
+        $('.j_room').show();
+        var _this = $(this);
+        var id = $(this).find(":selected").val();
+        var url = "?app=goods&act=getRooms&cate_id=" + id;
+        if (id != 0) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (obj) {
+                    if (obj.status == 1) {
+                        var options = '<option value="0">请选择业务类型</option>';
+                        $.each(obj.info, function (i, e) {
+                            options += '<option value="' + e.id + '">' + e.room_name + '</option>';
+                        });
+                        $('.j-room').html(options);
+
+                    }
+
+                }
+
+            });
+        }
+
+    });
+    //分类关联
+    $(".j-cate1_class").on("change", function () {
+        var id = $(this).find(":selected").val();
+        var url = "?app=goods&act=getCategory&parent_id=" + id;
+        if (id != 0) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (obj) {
+                    if (obj.status == 1) {
+                        var options = '<option value="0" data-name="请选择分类" >请选择分类</option>';
+                        $.each(obj.info, function (i, e) {
+                            options += '<option value="' + e.id + '" data-name="' + e.name + '">' + e.name + '</option>';
+                        });
+                        $('.j-cate2_class').html(options);
+                    } else {
+                        var options = '<option value="0" data-name="请选择分类">请选择分类</option>';
+                        $('.j-cate2_class').html(options);
+                    }
+
+                }
+
+            });
+        }
+
+    });
+    $(".j-cate2_class").on("change", function () {
+        var _this = $(this);
+        var id = $(this).find(":selected").val();
+        var url = "?app=goods&act=getCategory&parent_id=" + id;
+        if (id != 0) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (obj) {
+                    if (obj.status == 1) {
+                        var options = '<option value="0" data-name="请选择分类" >请选择分类</option>';
+                        $.each(obj.info, function (i, e) {
+                            options += '<option value="' + e.id + '" data-name="' + e.name + '">' + e.name + '</option>';
+                        });
+                        $('.j-cate3_class').html(options);
+
+                    }
+
+                }
+
+            });
+        }
+
+    });
+    $(".j-cate3_class").on("change", function () {
+        var _this = $(this);
+        var id = $(this).find(":selected").val();
+        var url = "?app=goods&act=getRooms&cate_id=" + id;
+        if (id != 0) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (obj) {
+                    if (obj.status == 1) {
+                        var options = '<option value="0">请选择业务类型</option>';
+                        $.each(obj.info, function (i, e) {
+                            options += '<option value="' + e.id + '">' + e.room_name + '</option>';
+                        });
+                        $('#type_id').html(options);
+                    } else {
+                        var options = '<option value="0">请选择业务类型</option>';
+                        $('#type_id').html(options);
+                    }
+
+                }
+
+            });
+        }
+    });
+    /*
+     * 上传图片 后台专用
+     * @access  public
+     * @null int 一次上传图片张图
+     * @elementid string 上传成功后返回路径插入指定ID元素内
+     * @path  string 指定上传保存文件夹,默认存在public/upload/temp/目录
+     * @callback string  回调函数(单张图片返回保存路径字符串，多张则为路径数组 )
+     */
+    function GetUploadify(num, elementid, path, callback)
+    {
+        // var upurl ='/index.php?m=Admin&c=Uploadify&a=upload&num='+num+'&input='+elementid+'&path='+path+'&func='+callback;
+        var upurl = 'admin.php?app=goods&act=upload&num=' + num + '&input=' + elementid + '&path=' + path + '&func=' + callback;
+        // console.log(upurl);
+        layer.open({
+            type: 2,
+            title: '上传图片',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['50%', '60%'],
+            content: upurl
+        });
+    }
+
+
+
+    function img_call_back(fileurl_tmp)
+    {
+        $("#imagetext").val(fileurl_tmp);
+        $("#img_a").attr('href', fileurl_tmp);
+        $("#img_i").attr('onmouseover', "layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+    }
+
+
+    $(function () {
+        $('.box-add').on('click', '.j_add', function () {
+            html = ' ';
+            html += '<div class="item mb10">';
+            html += '单次购买个数达到';
+            html += '&nbsp;<input type="text" class="form-control w160 inblock">';
+            html += '&nbsp;价格&nbsp;';
+            html += '<input type="text" class="form-control w160 inblock">&nbsp;';
+            html += '<i class="fa fa-minus mr10 j_del"></i>';
+            html += '</div>';
+            $('.box-add').append(html);
+        })
+        $('.box-add').on('click', '.j_del', function () {
+            $(this).parent().remove();
+        })
+    });
+
+    /*
+     * 以下是图片上传方法
+     */
+    // 上传商品图片成功回调函数
+    function call_back(fileurl_tmp) {
+        $("#original_img").val(fileurl_tmp);
+        $("#original_img2").attr('href', fileurl_tmp);
+    }
+
+    // 上传商品相册回调函数
+    function call_back2(paths) {
+        var last_div = $(".goods_xc:last").prop("outerHTML");
+        for (i = 0; i < paths.length; i++)
+        {
+            $(".goods_xc:eq(0)").before(last_div);  // 插入一个 新图片
+            $(".goods_xc:eq(0)").find('a:eq(0)').attr('href', paths[i]).attr('onclick', '').attr('target', "_blank");// 修改他的链接地址
+            $(".goods_xc:eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+            $(".goods_xc:eq(0)").find('a:eq(1)').attr('onclick', "ClearPicArr2(this,'" + paths[i] + "')").text('删除');
+            $(".goods_xc:eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
+        }
+    }
+    /*
+     * 上传之后删除组图input
+     * @access   public
+     * @val      string  删除的图片input
+     */
+    function ClearPicArr2(obj, path)
+    {
+        $.ajax({
+            type: 'GET',
+            url: "?app=goods&act=delUpload",
+            data: {action: "del", filename: path},
+            success: function () {
+                $(obj).parent().remove(); // 删除完服务器的, 再删除 html上的图片
+            }
+        });
+        // 删除数据库记录
+        //        $.ajax({
+        //            type:'GET',
+        //            url:"/index.php/Admin/Goods/del_goods_images",
+        //            data:{filename:path},
+        //            success:function(){
+        //                //
+        //            }
+        //        });
+    }
+    // 商品模型模块的js
+    /** 以下商品模型----商品属性相关 js*/
+    // 属性输入框的加减事件
+    function addAttr(a)
+    {
+        var attr = $(a).parent().parent().prop("outerHTML");
+        attr = attr.replace('addAttr', 'delAttr').replace('+', '-');
+        $(a).parent().parent().after(attr);
+    }
+    // 属性输入框的加减事件
+    function delAttr(a)
+    {
+        $(a).parent().parent().remove();
+    }
+
+    /** 以下下商品模型----商品规格相关 js*/
+    $(document).ready(function () {
+        // 商品模型切换时 ajax 调用  返回不同的属性输入框
+        $("#spec_type").change(function () {
+            var goods_id = '';
+            var spec_type = $(this).val();
+            $.ajax({
+                type: 'GET',
+                data: {goods_id: goods_id, spec_type: spec_type},
+                url: "?app=goods&act=ajaxGetSpecSelect",
+                success: function (data) {
+                    $("#ajax_spec_data").html('')
+                    $("#ajax_spec_data").append(data);
+                    ajaxGetSpecInput();  // 触发完  马上触发 规格输入框
+                }
+            });
+            //商品类型切换时 ajax 调用  返回不同的属性输入框
+            $.ajax({
+                type: 'GET',
+                data: {goods_id: goods_id, type_id: spec_type},
+                url: "?app=goods&act=ajaxGetAttrInput",
+                success: function (data) {
+                    $("#goods_attr_table tr:gt(0)").remove();
+                    $("#goods_attr_table").append(data);
+                }
+            });
+        });
+        // 触发商品规格
+        $("#spec_type").trigger('change');
+        $("input[name='exchange_integral']").blur(function () {
+            var shop_price = parseInt($("input[name='shop_price']").val());
+            var exchange_integral = parseInt($(this).val());
+            if (shop_price * 100 < exchange_integral) {
+
+            }
+        });
+    });
+
+    /** 以下是编辑时默认选中某个商品分类*/
+    $(document).ready(function () {
+
+
+        //  扩展分类
+
+    });
+
+    // 商品模型中商品规格页面带回来的js
+    // 上传规格图片
+    function GetUploadify3(k) {
+        cur_item_id = k; //当前规格图片id 声明成全局 供后面回调函数调用
+        GetUploadify(1, '', 'goods', 'call_back3');
+    }
+
+
+    // 上传规格图片成功回调函数
+    function call_back3(fileurl_tmp) {
+        $("#item_img_" + cur_item_id).attr('src', fileurl_tmp); //  修改图片的路径
+        $("input[name='item_img[" + cur_item_id + "]']").val(fileurl_tmp); // 输入框保存一下 方便提交
+    }
+
+
+    // 商品模型模块的js end
+
+
+
+</script>
+{/literal}
+
+<script>
+    //富文本编辑框
+
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[class="goods_content"]', {
+            afterBlur: function () {
+                this.sync();
+            }
+        });
+    });
+</script>
+</body>
+</html>

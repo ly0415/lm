@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>聊天窗口</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/front/css/base.css">
+    <link rel="stylesheet" href="{$STATIC_URL}/plugin/dialog/jquery-confirm.min.css">
+    <link rel="stylesheet" href="{$STATIC_URL}/admin/css/bootstrap.min.css">
+</head>
+<body class="grey1">
+<div class="chatmain chatmain1" style="overflow: hidden;">
+    <!-- 头部 -->
+    <div class="chatheader clearfix">
+        <div class="fl"><img src="{$STATIC_URL}/front/chat/imgs/chattop.png"/><span>711客服系统</span></div>
+         <a class="fr" href="javascript:;" id="B_logout">退出</a>
+    </div>
+    <div class="clearfix chatcontentmain" >
+        <!-- 左侧 -->
+        <div class="chatleft fl" style="height:38rem">
+            <ul class="chatlist">
+                {if !empty($user_data)}
+                {foreach from=$user_data item=item key=k}
+                <li {if $k == 0} class="active" {/if} data-id = "{$item.id}">
+                    <a href="kf.php?app=baseKf&act=kf_info&uid={$item.id}" class="clearfix" target="frame">
+                        <div class="img fl">
+                            {if $item.headimgurl}
+                            <img src="{$item.headimgurl}" width="44" height="44" style="border-radius:44px">
+                            {else}
+                            <img src="{$STATIC_URL}/front/chat/imgs/usr1.png" width="44" height="44">
+                            {/if}
+                        </div>
+                        <div class="fl cont">
+                            <p class="tit">{$item.username}</p>
+                        </div>
+                    </a>
+                </li>
+                {/foreach}
+                {else}
+                <li class="chatlistli" >
+                <a href="javascript:;" class="clearfix" target="frame">
+                    <div class="img fl">
+                        <img src="{$STATIC_URL}/front/chat/imgs/usr1.png" width="44" height="44">
+                    </div>
+                    <div class="fl cont">
+                        <p class="tit">暂无用户</p>
+                    </div>
+                </a>
+                </li>
+                {/if}
+            </ul>
+        </div>
+        <!-- 右侧 -->
+        <div class="chatright fl width68">
+            {if empty($user_data)}
+            <iframe name="frame" src="kf.php?app=baseKf&act=no_user" width="100%" height="540" frameborder="0"></iframe>
+            {else}
+            <iframe name="frame" src="kf.php?app=baseKf&act=kf_info&uid={$user_data[0].id}" width="100%" height="540" frameborder="0"></iframe>
+            {/if}
+        </div>
+    </div>
+   
+</div>
+<script src="{$STATIC_URL}/plugin/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{$STATIC_URL}/admin/js/bootstrap.js"></script>
+<!-- iCheck -->
+<script src="{$STATIC_URL}/plugin/iCheck/icheck.min.js"></script>
+<script src="{$STATIC_URL}/plugin/dialog/jquery-confirm.min.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/front/plus/layer/layer.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/front/chat/js/chat.js"></script>
+
+<script  type="text/javascript">
+    $(".chatlist li").click(function(){
+        $(this).addClass("active").siblings("li").removeClass("active");
+        $(this).find("div.newMsg").remove();
+    })
+</script>
+<script  type="text/javascript"  >
+    /*退出系统*/
+    $('#B_logout').click(function() {
+        var url = '?app=baseKf&act=logout';
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function(obj) {
+                var res = eval("(" + obj + ")");
+                if (res.status == 1) {
+                    var d = $.dialog({
+                        content: '<div class="text-center">退出系统成功！</div>',
+                        title: false, // hides the title.
+                        closeIcon: false, // hides the close icon.
+                        columnClass: 'xsmall',
+                        onOpen: function() {
+                            setTimeout(function() {
+                                d.close();
+                            }, 500);
+                        }
+                    });
+
+                    setTimeout(function() {
+                        window.location.href = res.info.url;
+                    }, 1000);
+
+
+                } else {
+                    var d = $.dialog({
+                        content: '<div class="text-center">退出系统失败！</div>',
+                        title: false, // hides the title.
+                        closeIcon: false, // hides the close icon.
+                        columnClass: 'xsmall',
+                        onOpen: function() {
+                            setTimeout(function() {
+                                d.close();
+                            }, 1000);
+                        }
+
+                    });
+
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

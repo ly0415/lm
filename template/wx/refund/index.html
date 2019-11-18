@@ -1,0 +1,199 @@
+{include file="public/wx_header.html"}
+    <link rel="stylesheet" href="{$STATIC_URL}/wx/refund/index/tinyImgUpload.css?_t={$web_redis_time}"/>
+    <link rel="stylesheet" href="{$STATIC_URL}/wx/refund/index/drawback.css?_t={$web_redis_time}"/>
+</head>
+<body>
+<div class="mycartSection">
+    <div class="cartList">
+        <!--店铺名称-->
+        <div class="store checkAll" >
+<!--            <label class="checkBox"><input id="chAll" class="storeCheck" type="checkbox"></label>-->
+            <div class="storeMsg">
+                <div class="storeIcon">
+                    <img src="{$storeImage}" alt=""/>
+                </div>
+                <span class="storeName">{$data[0]['store_name']}</span>
+            </div>
+        </div>
+        <!--店铺内的商品-->
+        {foreach from=$data[0]['goods_list'] item=v}
+        <div class="cartList-item">
+<!--            <label class="checkBox"><input name ="checks" type="checkbox" data-id="{$v.ogoods_id}" data-price="{$v.refund_price}"></label>-->
+            <div class="productMsg">
+                <div class="productLeft">
+                    <img src="{$v.goods_image}" alt=""/>
+                </div>
+                <div class="productRight">
+                    <div class="pname">
+                        <div class="txt">{$v.goods_name}</div>
+                        <div class="post">包邮</div>
+                    </div>
+                    <div class="pStyle">
+                        <span>规格:</span>
+                        <span>{$v.spec_key_name}</span>
+                    </div>
+                    <div class="pbox">
+                        <div class="d1">
+                            <span class="newP">¥{$v.goods_pay_price}</span>
+                            <span class="oldP">¥{$v.goods_price}</span>
+                        </div>
+                        <div class="d2">
+                            <span class="count">×{$v.goods_num}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/foreach}
+    </div>
+    <!--退款原因-->
+    <div class="backReason">
+        <div class="backTitle">退款原因:</div>
+        <div class="backArea">
+            <textarea name="" id="textarea" cols="30" rows="6" placeholder="请描述申请退款的具体原因(必填)"></textarea>
+        </div>
+        <div class="backTitle">上传凭证:</div>
+        <!--图片上传-->
+        <div id="upload">
+
+        </div>
+    </div>
+    <div class="backInfo">
+        <!--退款金额-->
+        <div class="infoItem">
+            <span>退款金额:</span>
+            <span class="money" id="moneys">¥{$money[0]['goods_amount']}</span>
+        </div>
+        <div class="actual">
+            <div class="actualTop">
+                <div class="amount">
+                    <span>实际退款金额</span>
+                    <span class="money" id="moneyss">(¥{$money[0]['order_amount']})</span>
+                </div>
+                <div class="icon" id="icon">
+
+                </div>
+            </div>
+            <div class="actualBottom">
+                <!--<div>-->
+                    <!--<span>抵扣券</span>-->
+                    <!--<span class="gray">+¥200</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>兑换券</span>-->
+                    <!--<span class="gray">封顶20元兑换券</span>-->
+                <!--</div>-->
+                <div>
+                    <span>抵扣券/兑换券</span>
+                    {if $orderData[0]['coupon_discount'] == 0.00}
+                    <span class="gray">￥0.00</span>
+                    {else}
+                    <span class="gray">-￥{$orderData[0]['coupon_discount']}</span>
+                    {/if}
+                </div>
+                <div>
+                    <span>睿积分</span>
+                    {if $orderData[0]['point_discount'] == 0.00}
+                    <span class="gray">￥0.00</span>
+                    {else}
+                    <span class="gray">-￥{$orderData[0]['point_discount']}</span>
+                    {/if}
+                </div>
+                <div>
+                    <span>优惠金额</span>
+                    {if $orderData[0]['discount'] == 0.00}
+                    <span class="gray">¥0.00</span>
+                    {else}
+                    <span class="gray">-￥{$orderData[0]['discount']}</span>
+                    {/if}
+                </div>
+            </div>
+        </div>
+
+        <!--退款路径-->
+        <div class="infoItem">
+            <span>退款路径:</span>
+            {if $payment[0]['payment_type'] == 1}
+            <span>支付宝</span>
+            {else if $payment[0]['payment_type'] == 2}
+            <span>微信</span>
+            {else if $payment[0]['payment_type'] == 3}
+            <span>余额</span>
+            {else if $payment[0]['payment_type'] == 4}
+            <span>线下</span>
+            {else if $payment[0]['payment_type'] == 5}
+            <span>免费兑换</span>
+            {/if}
+        </div>
+        <div class="backBtn">
+            <button id="submit">提交</button>
+        </div>
+    </div>
+</div>
+</body>
+<div id="content">
+    <div id="modal">
+        <div class="title1">冷静一下</div>
+        <div class="title2">您不在想要这个商品了?</div>
+        <div class="modalContent">
+            <div class="content">
+                <span>退款商品数量:</span>
+                <span class="goodsNum">{$goodsCount[0]['sums']}件</span>
+            </div>
+            <div class="content">
+                <span>退款路径:</span>
+                {if $payment[0]['payment_type'] == 1}
+                <span>支付宝</span>
+                {else if $payment[0]['payment_type'] == 2}
+                <span>微信</span>
+                {else if $payment[0]['payment_type'] == 3}
+                <span>余额</span>
+                {else if $payment[0]['payment_type'] == 4}
+                <span>线下</span>
+                {else if $payment[0]['payment_type'] == 5}
+                <span>免费兑换</span>
+                {/if}
+            </div>
+        </div>
+        <div class="modalFooter">
+            <div class="btn1">
+                <span>我再想想</span>
+            </div>
+            <div class="btn2">
+                <span>确认退款</span>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="order_id" value="{$order_sn}">
+<input type="hidden" name="store_goods_id" id="store_goods_id" value="{$str}">
+<input type="hidden" name="refund_amount" id="refund_amount" value="{$money[0]['order_amount']}">
+<script src="{$STATIC_URL}/wx/jquery-2.1.1.min.js?_t={$web_redis_time}"></script>
+<script src="{$STATIC_URL}/wx/layui/layui.all.js?_t={$web_redis_time}"></script>
+<script src="{$STATIC_URL}/wx/refund/index/tinyImgUpload.js?_t={$web_redis_time}"></script>
+<script src="{$STATIC_URL}/wx/refund/index/drawback.js?_t={$web_redis_time}"></script>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

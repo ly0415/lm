@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        {$language1->good_type_list}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="admin.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->index}</a></li>
+                        <li class="active">{$language1->good_manage}</li>
+                        <li class="active">{$language1->good_type_list}</li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <form class="form-inline col-sm-10 col-md-11 no-padding" action="">
+                                        <!--<input type='hidden' name='app' value='storeMang'>-->
+                                        <!--<input type='hidden' name='act' value='storeMangIndex'>-->
+                                        <!--<input type="hidden" name="delAll" value="dele">-->
+                                    </form>
+                                    <div class="col-sm-2  col-md-1 no-padding">
+                                        <a class="btn btn-primary pull-right btn-sm" href="admin.php?app=goodsClass&act=classAdd" role="button"><i class="fa fa-plus"></i>{$language1->classification_add}</a>
+                                    </div>
+
+                                </div>
+                                <div class="new-table-responsive">
+                                    <div class="box-body table-responsive no-padding ">
+                                        <table id="example-advanced" class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th style="padding-left: 25px !important;">{$language2->serial_number}</th>
+                                                    <th>{$language1->classification_name}</th>
+                                                    <th>{$language2->picture}</th>
+                                                    <th >{$language2->sort}</th>
+                                                    <th>{$language2->add_time}</th>
+                                                    <th>{$language2->control}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {foreach from=$res item=v}
+                                                <tr data-tt-id="{$v.id}" data-tt-parent-id="0">
+                                                    <td>{$v.id}</td>
+                                                    <td>
+                                                        {$v.category_name}
+                                                    </td>
+                                                    <td>
+                                                        <a href ="{$v.image}" target="_blank"> <img src="{$v.image}" width="40" height="30" /></a>
+                                                    </td>
+                                                    <td>
+                                                        {$v.sort_order}
+                                                    </td>
+                                                    <td>
+                                                        {$v.add_time}
+                                                    </td>
+                                                    <td>
+                                                        <a href="admin.php?app=goodsClass&act=classEdit&id={$v.id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;">{$language2->edit}</a>
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  onclick="shanchu('{$v.id}');">{$language2->drop}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                {foreach from=$v.childs item=vo}
+                                                <tr data-tt-id="{$vo.id}" data-tt-parent-id="{$v.id}">
+                                                    <td>{$vo.id}</td>
+                                                    <td>
+                                                        {$vo.category_name}
+                                                    </td>
+                                                    <td>
+                                                        <a href ="{$vo.image}" target="_blank"> <img src="{$vo.image}" width="40" height="30"/></a>
+                                                    </td>
+                                                    <td>
+                                                        {$vo.sort_order}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.add_time}
+                                                    </td>
+                                                    <td>
+                                                        <a href="admin.php?app=goodsClass&act=classEdit&id={$vo.id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;">{$language2->edit}</a>
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  onclick="shanchu('{$vo.id}');">{$language2->drop}
+                                                         </a>
+                                                    </td>
+                                                </tr>
+                                                {foreach from=$vo.childs item=v1}
+                                                <tr data-tt-id="{$v1.id}" data-tt-parent-id="{$vo.id}">
+                                                    <td>{$v1.id}</td>
+                                                    <td>
+                                                        {$v1.category_name}
+                                                    </td>
+                                                    <td>
+                                                        <a href ="{$v1.image}" target="_blank"> <img src="{$v1.image}" width="40" height="30"/></a>
+                                                    </td>
+                                                    <td>
+                                                        {$v1.sort_order}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.add_time}
+                                                    </td>
+                                                    <td>
+                                                        <a href="admin.php?app=goodsClass&act=classEdit&id={$v1.id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;">{$language2->edit}</a>
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  onclick="shanchu('{$v1.id}');">{$language2->drop}
+                                                         </a>
+                                                    </td>
+                                                </tr>
+                                                {/foreach}
+                                                {/foreach}
+                                                {/foreach}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            {include file="public/footer.html"}
+        </div>
+        <!-- ./wrapper -->
+      
+        <!-- jQuery 2.2.3 -->
+        <script type="text/javascript" >
+            /*删除*/
+            function shanchu(id) {
+                deletes('?app=goodsClass&act=dele&id=' + id);
+            }
+        </script>  
+        {literal}
+        <script>
+            $(function() {
+                //
+                $("#example-advanced").treetable({
+                    expandable: true,
+                    clickableNodeNames: true
+                });
+                //
+                $('body').on('click', '.j_click', function() {
+                    var val = 0;
+                    if ($(this).hasClass('yes')) {
+                        $(this).removeClass('yes');
+                        $(this).find('i').removeClass('fa-check-circle');
+                        $(this).addClass('no');
+                        $(this).find('i').addClass('fa-ban');
+                        $(this).html('<i class="fa fa-ban"></i> 否');
+                        val = 0;
+                    } else {
+                        $(this).removeClass('no');
+                        $(this).find('i').removeClass('fa-ban');
+                        $(this).addClass('yes');
+                        $(this).find('i').addClass('fa-check-circle');
+                        $(this).html('<i class="fa fa-check-circle"></i> 是');
+                        val = 1;
+                    }
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: url,
+                        data: {'val': val},
+                        success: function(obj) {
+
+                        },
+                        error: function(obj) {
+
+                        }
+                    })
+
+                    ////
+
+                })
+
+            });
+        </script>
+        {/literal}
+    </body>
+</html>

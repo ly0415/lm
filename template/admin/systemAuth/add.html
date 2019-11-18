@@ -1,0 +1,75 @@
+<form class="form-horizontal" id="form1"  action="admin.php?app=systemAuth&act=doAdd">
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span> {$language1->permission_cn_name} </label>
+        <div class="col-sm-7 col-md-7">
+            <input type="text" class="form-control"  placeholder="{$language1->permission_cn_name}"  name="title"  >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span> {$language1->permission_en_name} </label>
+        <div class="col-sm-7 col-md-7">
+            <input type="text" class="form-control"  placeholder="{$language1->permission_en_name}"  name="english_title"  >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span>{$language1->superior}</label>
+        <div class="col-sm-7 col-md-7">
+            <select class="form-control" name='parent_id'>
+                <option  value='0'>{$language1->top_classification}</option>
+                {foreach from=$columnData item=item}
+                <option value='{$item.id}' >{$item.title}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"> {$language1->module} </label>
+        <div class="col-sm-7 col-md-7">
+            <input type="input" class="form-control"  placeholder="{$language1->module}"  name="app-form" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"> {$language1->method} </label>
+        <div class="col-sm-7 col-md-7">
+            <input type="input" class="form-control"  placeholder="{$language2->control}"  name="act-form" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"> {$language1->parameter} </label>
+        <div class="col-sm-7 col-md-7">
+            <input type="input" class="form-control"  placeholder="{$language1->parameter}"  name="param-form" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label">{$language2->sort}</label>
+        <div class="col-sm-7 col-md-7">
+            <input type="input" class="form-control"  placeholder="{$language2->sort}"  name="sort" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label">{$language1->is_menu}</label>
+        <div class="col-sm-7 col-md-7">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="is_menu"  value="1">{$language2->yes}
+                </label>
+                <label>
+                    <input type="radio" name="is_menu"  value="0" checked>{$language2->no}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label">{$language1->is_public}</label>
+        <div class="col-sm-7 col-md-7">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="is_public"  value="1">{$language2->yes}
+                </label>
+                <label>
+                    <input type="radio" name="is_public"  value="0" checked>{$language2->no}
+                </label>
+            </div>
+        </div>
+    </div>
+</form>

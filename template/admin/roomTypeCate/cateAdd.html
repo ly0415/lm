@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        {include file="public/header.html"}
+
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        {$language1->add_classification}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="admin.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->index}</a></li>
+                        <li class="active">{$language1->good_manage}</li>
+                        <li class="active">{$language1->classification_list}</li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <!-- right column -->
+                        <div class="col-xs-12">
+                            <!-- Horizontal Form -->
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title"></h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form class="form-horizontal" action="?app=roomTypeCate&act=doAdd" data-type="ajax" method="post">
+                                    <div class="box-body">
+                                        <input type="hidden" value="{$p}" name="p" />
+                                        <input type="hidden" value="{$room_name}" name="name" />
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->business_name}：</label>
+                                            <div class="col-sm-2">
+                                                <select class="form-control w160 j_select" name="room_id" id="room_id" >
+                                                    {$options}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->categories}：</label>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" name="ctglev1"  id="ctglev1"  onchange="getctglist(this.id, 'ctglev2')"  >
+                                                    <option value="0">{$language1->top_classification}</option>
+                                                    {foreach from=$ctglev1 item=val}
+                                                    <option value='{$val.id}'>{$val.category_name}</option>
+                                                    {/foreach}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <select class="form-control" name="ctglev2"  id="ctglev2"  onchange="getctglist(this.id, 'ctglev3')">
+                                                    <option value="0" >{$language1->select_categories}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <select class="form-control" name="ctglev3"  id="ctglev3"  >
+                                                    <option value="0">{$language1->select_categories}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language2->sort}：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="sort">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <div class="form-group">
+                                            <div class="col-sm-6 col-sm-offset-4 col-md-5 col-md-offset-2 col-lg-4 col-lg-offset-2">
+                                                <a href="admin.php?app=roomTypeCate&act=roomTypeCateIndex&p={$p}" class="btn btn-default"><i class="fa fa-times-circle"></i> {$language2->close}</a>
+                                                <button class="btn btn-primary pull-right" id="submit"><i class="fa fa-save"></i> {$language2->save}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- /.box -->
+                                <!-- general form elements disabled -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!--/.col (right) -->
+                    </div>
+                    <!-- /.row -->
+                </section>
+                <input type="hidden" name = "language1_select_classification" value="{$language1->select_classification}"/>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            {include file="public/footer.html"}
+            <script src="{$STATIC_URL}/plugin/kindeditor/kindeditor.js"></script>
+            <script src="{$STATIC_URL}/plugin/kindeditor/lang/zh_CN.js"></script>
+            <script src="{$STATIC_URL}/plugin/ajaxfileupload/ajaxfileupload.js"></script>
+        </div>
+        {literal}
+        <script>
+                                                    /**
+                                                     * 三级联动
+                                                     * @param id
+                                                     * @param tag
+                                                     */
+                                                    function getctglist(id, tag) {
+                                                        var language1_select_classification=$('input[name=language1_select_classification]').val();//请选择分类
+                                                        var d = $('#' + id).find('option:selected').val();
+                                                        if (parseInt(d) > 0) {
+                                                            var url = '?app=roomTypeCate&act=getctglist&id=' + d;
+                                                            $.get(url, function (res) {
+                                                                console.log(res);
+                                                                var html = '';
+                                                                html += ' <option value="0">' + language1_select_classification + '</option>';
+                                                                $.each(res, function (i, n) {
+                                                                    html += '<option  value=' + n.id + ' >' + n.category_name + '</option>';
+                                                                });
+
+                                                                $('#' + tag).html(html);
+
+                                                            }, 'json');
+
+                                                        } else {
+                                                            $('#' + tag).html('<option value="0">' + language1_select_classification + '</option>');
+                                                            $('#ctglev3').html('<option value="0">' + language1_select_classification + '</option>');
+                                                        }
+
+                                                    }
+        </script>
+        {/literal}
+    </body>
+</html>
+
+

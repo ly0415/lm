@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        {include file="public/header.html"}
+
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        {$language1->comment_detail}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="admin.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->index}</a></li>
+                        <li class="active">{$language1->order_manage}</li>
+                        <li class="active">{$language1->comment_detail}</li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <!-- right column -->
+                        <div class="col-xs-12">
+                            <!-- Horizontal Form -->
+                            <div class="box box-primary pt30">
+                                <!-- <div class="box-header with-border">
+                                    <h3 class="box-title"></h3>
+                                </div> -->
+                                <!-- /.box-header -->
+                                <table class="table table-bordered look-table" >
+                                    <tr>
+                                        <td width="25%"><label>{$language1->user_name}：</label></td>
+                                        <td width="75%">{$data.username}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%"><label>{$language1->score}：</label></td>
+                                        <td width="75%">
+                                            <div class="showstar mb15">
+                                                <div class="atar_Show">
+                                                    <p tip="20" {$px}></p>
+                                                </div>
+                                                <!--<span>{$data.goods_rank}</span>-->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%"><label>{$language1->goods_detail}：</label></td>
+                                        <td width="75%">{$data.goods_name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="25%"><label>{$language2->belone_store}：</label></td>
+                                        <td width="75%">{$data.store_name}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td width="25%"><label>{$language1->comments}：</label></td>
+                                        <td width="75%">
+                                            <div class="editor">
+                                                <textarea  readonly style="width: 700px;height: 120px;">{$data.content}</textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td width="25%"><label>{$language2->picture}：</label></td>
+                                        <td width="75%">
+                                            {foreach from=$imgList item=val}
+                                            <a href="{$val}" target="_blank"><img src="{$val}" width="50" height="50"></a>
+                                            {/foreach}
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td width="25%"><label>{$language1->reply}：</label></td>
+                                        <td width="75%">
+                                            <div class="editor">
+                                                <textarea  readonly style="width: 700px;height: 120px;">{$data.revert}</textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                                <div class="box-footer text-center">
+                                    <a href="?app=goodsComment&act=commetList&p={$p}" class="btn btn-default"><i class="fa fa-times-circle"></i> {$language2->close}</a>
+                                </div>
+                                <!-- /.box -->
+                                <!-- general form elements disabled -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!--/.col (right) -->
+                    </div>
+                    <!-- /.row -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            {include file="public/footer.html"}
+        </div>
+    </body>
+</html>
+
+

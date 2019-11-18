@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+        <style>
+
+        </style>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        {$language2->withdraw}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="store.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->index}</a></li>
+                        <li class="active">{$language1->fx_manage}</li>
+                        <li class="active">{$language2->withdraw}</li>
+                    </ol>
+
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <form class="form-inline col-sm-10 col-md-11 no-padding">
+                                        <input type='hidden' name='app' value='distributor'>
+                                        <input type='hidden' name='act' value='cashlistLog'>
+
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">{$language2->real_name}：</small>
+                                            <input type="text" class="form-control" name="real_name" value="{$real_name}">
+                                        </div>
+
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">{$language2->withdraw_status}：</small>
+                                            <select class="form-control" name="status"  >
+                                                <option value="0" >{$language2->please_select}</option>
+                                                <option value="1" {if $status ==1}selected{/if} >--{$language2->unprocessed}--</option>
+                                                <option value="2" {if $status ==2}selected{/if} >--{$language2->withdraw_success}--</option>
+                                                <option value="3" {if $status ==3}selected{/if} >--{$language2->withdraw_fail}--</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">{$language2->withdraw_source}：</small>
+                                            <select class="form-control w160 j_select j-source" name="source">
+                                                <option value="0">{$language2->please_select}</option>
+                                                {foreach from=$sourceList  item=item key=key}
+                                                <option value='{$key}'  {if $key == $source} selected {/if}  >{$item}</option>
+                                                {/foreach}
+                                            </select>
+                                            <input type="hidden" class="j-source-v" value="{$source}">
+                                        </div>
+                                        <div class="form-group form-group-sm form-mar">
+                                            <button type="submit" class="btn btn-default btn-sm">
+                                                {$language2->search} <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div class="col-sm-2  col-md-1 no-padding">
+                                    </div>
+                                </div>
+
+                                <div class="new-table-responsive">
+                                    <div class="box-body table-responsive no-padding ">
+                                        <table id="example-advanced" class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>{$language2->serial_number}</th>
+                                                    <th>{$language2->member_id}</th>
+                                                    <th>{$language2->real_name}</th>
+                                                    <th>{$language2->phone}</th>
+                                                    <th>{$language1->open_bank}</th>
+                                                    <th>{$language1->bank_account}</th>
+                                                    <th>{$language1->apply_money}</th>
+                                                    <th>{$language2->status}</th>
+                                                    <th>{$language2->withdraw_source}</th>
+                                                    <th>{$language1->apply_time}</th>
+                                                    <th>{$language1->audit_time}</th>
+                                                    <th>{$language2->control}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {foreach from=$list item=v}
+                                                <tr>
+                                                    <td>{$v.sort_id}</td>
+                                                    <td>{$v.user_id}</td>
+                                                    <td>{$v.real_name}</td>
+                                                    <td>{$v.phone}</td>
+                                                    <td>{$v.bank_name}</td>
+                                                    <td>{$v.bank_account}</td>
+                                                    <td>{$symbol}{$v.apply_money}</td>
+                                                    <td>
+                                                        {if  $v.is_check == 1}
+                                                            <span class="bg-no">{$language1->processing}</span>
+                                                        {elseif  $v.is_check == 2 }
+                                                            <span class="bg-had">{$language2->withdraw_success}</span>
+                                                        {else $v.is_check == 3}
+                                                            <span class="bg-fail">{$language2->withdraw_fail}</span>
+                                                        {/if}
+                                                    </td>
+                                                    <td>{$v.source_name}</td>
+                                                    <td>
+                                                        {$v.add_time|date_format:"%Y-%m-%d %H:%M"}
+                                                    </td>
+                                                    <td>
+                                                        {if $v.check_time}{$v.check_time|date_format:"%Y-%m-%d %H:%M"}{else}---{/if}
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0)"  data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" onclick="check({$v.id})" style="overflow: hidden; position: relative;"  >{$language2->examine}</a>
+                                                    </td>
+                                                </tr>
+                                                {/foreach}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="box-footer clearfix">
+                                    {$page_html}
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            {include file="public/footer.html"}   
+        </div>
+
+
+        <script type="text/javascript">
+            /*审核*/
+            function  check(id) {
+                dialog_form('?app=distributor&act=cashCheck&lang_id={$lang_id}&id='+id, '{$language1->withdraw_audit}');
+            }
+            function  notcash(id) {
+
+                var url = '?app=fxcash&act=ajaxNotCash&id=' + id;
+                $.get(url, function(res) {
+
+                    if (res.status) {
+                        window.location.reload();
+                    } else {
+                        alert('{$language1->network_error}');
+                    }
+
+                }, 'json');
+            }
+
+
+        </script>
+
+
+    </body>
+</html>

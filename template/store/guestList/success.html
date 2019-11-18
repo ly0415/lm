@@ -1,0 +1,136 @@
+{if $lang_id ==1}
+
+<html>
+    <head>
+        <title>Payment success</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <div class="paymain" align="center">
+            <div class="pay-wrap" align="center">
+                <img src="{$STATIC_URL}/front/images/paysuccess.png" style="width: 500px;height: 500px">
+                <div class="paysuccess-text"><span>Payment success</span></div>
+                <!--                <a href="http://www.711home.net/store.php?app=customerOrder&act=index&lang_id={$lang_id}" class="pay-btn">Return to the guest list</a>-->
+                <a href="##" class="btn btn-primary changeState">Return to the guest list</a>
+                <input hidden="hidden" name="lang_id" value="{$lang_id}" />
+                <input hidden="hidden" name="id" value="{$id}" />
+            </div>
+        </div>
+        <!-- jQuery 2.2.3 -->
+        <script src="{$STATIC_URL}/plugin/jQuery/jquery-2.2.3.min.js"></script>
+        <!-- Bootstrap 3.3.6 -->
+        <script src="{$STATIC_URL}/admin/js/bootstrap.js"></script>
+        <script src="{$STATIC_URL}/admin/js/myFormValidate.js"></script>
+        <!-- Slimscroll -->
+        <script src="{$STATIC_URL}/plugin/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="{$STATIC_URL}/plugin/fastclick/fastclick.js"></script>
+        <!-- bootstrap datepicker -->
+        <script src="{$STATIC_URL}/plugin/datepicker/bootstrap-datepicker.js"></script>
+        <!-- AdminLTE App -->
+        <script src="{$STATIC_URL}/admin/dist/js/app.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="{$STATIC_URL}/admin/dist/js/demo.js"></script>
+        <script src="{$STATIC_URL}/plugin/dialog/jquery-confirm.min.js"></script>
+        <script src="{$STATIC_URL}/plugin/kindeditor1/kindeditor.js"></script>
+        <script src="{$STATIC_URL}/plugin/kindeditor1/lang/zh_CN.js"></script>
+        <script src="{$STATIC_URL}/plugin/ajaxfileupload/ajaxfileupload.js"></script>
+        <script src="{$STATIC_URL}/admin/js/echarts.js"></script>
+        <script src="{$STATIC_URL}/plugin/webuploader/webuploader.min.js"></script>
+        <script src="{$STATIC_URL}/plugin/layer/layer.js"></script>
+        <script src="{$STATIC_URL}/plugin/bootstrapswitch/bootstrap-switch.min.js"></script>
+        <script src="{$STATIC_URL}/plugin/simpletree/SimpleTree.js"></script>
+        <script src="{$STATIC_URL}/admin/dist/js/common.js"></script>
+        <script src="{$STATIC_URL}/plugin/treetable/jquery.treeTable.js"></script>
+        <script src="{$STATIC_URL}/plugin/simpletree/SimpleTree.js"></script>
+        <!--无刷新分页插件-->
+        <script src="{$STATIC_URL}/plugin/jqpage/jqPaginator.js"></script>
+        <!-- bootstrap datepicker -->
+        <script src="{$STATIC_URL}/plugin/datetimepicker/bootstrap-datetimepicker.js"></script>
+        <!--付款状态-->
+        <script type="text/javascript">
+            $('.changeState').click(function () {
+                var lang_id = $('input[name=lang_id]').val();
+                window.android.playSuccessSound();
+                // window.location.href = 'store.php?app=customerOrder&act=index&lang_id=' + lang_id;
+                window.location.href = 'store.php?app=order&act=index&lang_id=' + lang_id;
+                var id = $('input[name=id]').val();
+                window.android.printReceipt(id)
+                window.android.printTag(id)
+//                window.android.openMoneyBox();
+            })
+        </script>
+    </body>
+</html>
+{else}
+<html>
+    <head>
+        <title>支付成功</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <!-- header -->
+        <!--payend-->
+        <div class="paymain" align="center">
+            <div class="pay-wrap" align="center">
+                <img src="{$STATIC_URL}/front/images/paysuccess.png" style="width: 400px;height: 400px">
+                <div class="paysuccess-text"><span>付款成功</span></div><br>
+                <!--                <a href="http://www.711home.net/store.php?app=customerOrder&act=index&lang_id={$lang_id}" class="pay-btn">返回代客下单</a>-->
+                <a href="##" class="btn btn-primary changeState">返回代客下单</a>
+                <input hidden="hidden" name="lang_id" value="{$lang_id}" />
+                <input hidden="hidden" name="id" value="{$id}" />
+            </div>
+        </div>
+        <!-- jQuery 2.2.3 -->
+        <script src="{$STATIC_URL}/plugin/jQuery/jquery-2.2.3.min.js"></script>
+        <!-- Bootstrap 3.3.6 -->
+        <script src="{$STATIC_URL}/admin/js/bootstrap.js"></script>
+        <script src="{$STATIC_URL}/admin/js/myFormValidate.js"></script>
+        <!-- Slimscroll -->
+        <script src="{$STATIC_URL}/plugin/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="{$STATIC_URL}/plugin/fastclick/fastclick.js"></script>
+        <!-- bootstrap datepicker -->
+        <script src="{$STATIC_URL}/plugin/datepicker/bootstrap-datepicker.js"></script>
+        <!-- AdminLTE App -->
+        <script src="{$STATIC_URL}/admin/dist/js/app.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="{$STATIC_URL}/admin/dist/js/demo.js"></script>
+        <script src="{$STATIC_URL}/plugin/dialog/jquery-confirm.min.js"></script>
+        <script src="{$STATIC_URL}/plugin/kindeditor1/kindeditor.js"></script>
+        <script src="{$STATIC_URL}/plugin/kindeditor1/lang/zh_CN.js"></script>
+        <script src="{$STATIC_URL}/plugin/ajaxfileupload/ajaxfileupload.js"></script>
+        <script src="{$STATIC_URL}/admin/js/echarts.js"></script>
+        <script src="{$STATIC_URL}/plugin/webuploader/webuploader.min.js"></script>
+        <script src="{$STATIC_URL}/plugin/layer/layer.js"></script>
+        <script src="{$STATIC_URL}/plugin/bootstrapswitch/bootstrap-switch.min.js"></script>
+        <script src="{$STATIC_URL}/plugin/simpletree/SimpleTree.js"></script>
+        <script src="{$STATIC_URL}/admin/dist/js/common.js"></script>
+        <script src="{$STATIC_URL}/plugin/treetable/jquery.treeTable.js"></script>
+        <script src="{$STATIC_URL}/plugin/simpletree/SimpleTree.js"></script>
+        <!--无刷新分页插件-->
+        <script src="{$STATIC_URL}/plugin/jqpage/jqPaginator.js"></script>
+        <!-- bootstrap datepicker -->
+        <script src="{$STATIC_URL}/plugin/datetimepicker/bootstrap-datetimepicker.js"></script>
+        <!--付款状态-->
+        <script type="text/javascript">
+            $('.changeState').click(function () {
+                var lang_id = $('input[name=lang_id]').val();
+                // window.location.href = 'store.php?app=customerOrder&act=index&lang_id=' + lang_id;
+                window.location.href = 'store.php?app=order&act=index&lang_id=' + lang_id;
+                var u = navigator.userAgent, app = navigator.appVersion;
+             var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+             if (isAndroid) {  
+                window.android.playSuccessSound();
+                var id = $('input[name=id]').val();
+                window.android.printReceipt(id)
+                window.android.printTag(id)
+//                window.android.openMoneyBox();
+             }else{
+                 alert('windows');
+             }
+            })
+        </script>
+    </body>
+</html>
+{/if}

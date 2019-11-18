@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$langdata.comb}</title>
+        <meta charset="utf-8" />
+        {include file="public/header.html"}
+    </head>
+    <body>
+        <!-- header -->
+        {include file="public/daohang.html"}
+
+        <!-- navs -->
+        <div class="active-menu">
+            <div class="container">
+                <a class="active" href="?app=combined&act=c_index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Sale}</a>
+                <a href="index.php?app=seckill&act=goodslist&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Seckill}</a>
+                <a href="index.php?app=goodPromotion&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Promotion}</a>
+                <a href="index.php?app=groupbuy&act=goodslist&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Group}</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="zuhesale-wrap mt60">
+                <div class="active-box">
+                    <ul class="clearfix">
+                        {foreach from=$list item=val }
+                        <li class="it">
+                            <a href="index.php?app=combined&act=goods_list&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}&com_id={$val.id}">
+                                <div class="img">
+                                    <img src="{$val.main_img}">
+                                    <span class="buy">{$langdata.combined_Choose}</span>
+                                    <div class="picScroll-left">
+                                        <div class="bd">
+                                            <a class="next"></a>
+                                            <ul class="clearfix">
+                                                {foreach from=$val.child item=v }
+                                                <li>
+                                                    <div class="pic">
+                                                        <a href="index.php?app=combined&act=goods_list&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}&com_id={$val.id}" >
+                                                            <div class="img">
+                                                                <img src="{$v.goods_img}" />
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                                {/foreach}
+                                            </ul>
+                                            <a class="prev"></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </a>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+                {if $langguages =='ZH'}
+               <div class="more">
+                    <img src="{$STATIC_URL}/front/images/m-more.png" width="1200" height="240">
+                </div>
+                {else}
+                <div class="more">
+                    <img src="{$STATIC_URL}/front/images/m-more-en.png" width="1200" height="240">
+                </div>
+                {/if}
+
+            </div>
+            <div class="pages-box tc mt40">
+            </div>
+
+            <!-- paypal -->
+            <div class="payoptions">
+                <h2><span>{$langdata.Lately}</span></h2>
+                <div class="img">
+                    <img src="{$STATIC_URL}/front/images/zhifu.png">
+                    <img src="{$STATIC_URL}/front/images/paypal.png">
+                    <img src="{$STATIC_URL}/front/images/weixin.png">
+                </div>
+            </div>
+        </div>
+        {include file="public/footer.html"}
+
+        <div class="to-top tc">
+            <img src="{$STATIC_URL}/front/images/gotop.png" width="28" height="28">
+            <p class="mt5">{$langdata.prom_Return}</p>
+        </div>
+        {literal}
+        <script type="text/javascript">
+            $(function () {
+                jQuery(".zuhesale-wrap .picScroll-left").slide({titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", pnLoop: 'false', autoPlay: false, vis: 5, trigger: "click"});
+
+                $('.active-menu a').click(function () {
+                    $('.active-menu a').removeClass('active');
+                    $(this).addClass('active');
+                })
+
+                var twoDaysFromNow = new Date().valueOf() + 2 * 24 * 60 * 60 * 1000;
+                $('#clock').countdown(twoDaysFromNow, function (event) {
+                    $(this).html(event.strftime('%D 天 %H 小时 %M 分钟 %S 秒'));
+                });
+
+            })
+        </script>
+        {/literal}
+    </body>
+</html>

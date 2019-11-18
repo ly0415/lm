@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> {$language1->add_manager}</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    {include file="public/header.html"}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {include file="public/headtab.html"}
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                 {$language1->add_manager}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> {$language2->index}</a></li>
+                <li><a href="#">{$language1->regional_admin}</a></li>
+                <li class="active">{$language1->add_manager}</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- right column -->
+                <div class="col-xs-12">
+                    <!-- Horizontal Form -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form class="form-horizontal" action="?app=storeUser&act=doAdd" data-type="ajax">
+                            <div class="box-body">
+                                <input type="hidden" name = "p" value="{$p}">
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-2  col-lg-3 control-label"><span class="text-red">*</span> {$language1->site_name}：</label>
+                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                        <select class="form-control" name="store_id">
+                                            <option value="0">{$language1->please_select_site}</option>
+                                            {foreach from=$storeInfo item=v}
+                                            <option value="{$v.id}">{$v.store_name}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-2  col-lg-3 control-label"><span class="text-red">*</span> {$language1->manager_name}：</label>
+                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                        <input type="text" class="form-control"  placeholder="" name="username">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-2  col-lg-3 control-label"><span class="text-red"></span> {$language2->phone}：</label>
+                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                        <input type="text" class="form-control"  placeholder="" name="mobile">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-2  col-lg-3 control-label"><span class="text-red"></span> {$language2->email}：</label>
+                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                        <input type="email" class="form-control"  placeholder="" name="email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-2  col-lg-3 control-label"><span class="text-red"></span> QQ：</label>
+                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                        <input type="text" class="form-control"  placeholder="" name="QQ">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-2  col-lg-3 control-label"><span class="text-red">*</span> {$language1->login_account}：</label>
+                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                        <input type="text" class="form-control"  placeholder="" name="login_name">
+                                    </div>
+                                    <!--<label class="col-xs-2 control-label" style="font-weight: normal;" >-QZ001@711home</label>-->
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-2  col-lg-3 control-label"><span class="text-red">*</span> {$language1->login_password}：</label>
+                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                        <input type="password" class="form-control"  placeholder="" name="password">
+                                    </div>
+                                    <!--<label class="col-xs-2 control-label" style="font-weight: normal;" >-QZ001@711home</label>-->
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer" style="border-top: none;margin: 30px 0 50px 0;">
+                                <div class="form-group">
+                                    <div class="col-sm-6 col-sm-offset-4 col-md-5 col-md-offset-2 col-lg-4 col-lg-offset-2">
+                                        <a href="?app=storeUser&act=index&p={$p}" class="btn btn-default"><i class="fa fa-times-circle"></i> {$language2->close}</a>
+                                        <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> {$language2->save}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- /.box -->
+                        <!-- general form elements disabled -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    {include file="public/footer.html"}
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("[name='my-checkbox1']").bootstrapSwitch({
+            // onText:"是",
+            // offText:"否",
+            size:"mini",
+            onSwitchChange:function(event,state){
+                if(state==true){
+                    $(this).val("1");
+                }else{
+                    $(this).val("2");
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$langdata.comfirmOrder_head_title}</title>
+        <meta charset="utf-8" />
+        {include file="public/header.html"}
+        <style>
+            .cart-item1{
+                display:flex;
+                align-items:center;
+                padding: 25px 30px;
+                background-color: #fff;
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+            .cart-item1 b{
+                width:20px;
+                height:24px;
+                background:url({$STATIC_URL}/front/images/position.png) no-repeat;
+                margin-right:30px;
+            }
+            .cart-item1 .txt{
+                margin-right:30px;
+            }
+            .cart-item1 .btn{
+                color:#fff;
+                background:red;
+                border-radius:20px;
+                padding:2px 10px;
+                margin-right:30px;
+            }
+            .cart-item1 .uname{
+                color:#BEA58D;
+                margin-right:30px;
+            }
+            .cart-item1 .phone{
+                color:#BEA58D;
+                margin-right:30px;
+            }
+            .cart-item1 i{
+                display: inline-block;
+                position: relative;
+                top: 6px;
+                width: 20px;
+                height: 24px;
+                background: url({$STATIC_URL}/front/images/go2.png) right center no-repeat;
+                background-size: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- navs-box -->
+        {include file="public/daohang.html"}
+        <!-- navs-box end -->
+        <div class="border"></div>
+        <div class="container surebuy-box">
+            <h1 class="normal font24 mt30">{$langdata.comfirmOrder_head_address_title}</h1>
+            <div class="cart-item1 mt30">
+                <!--<span>{$langdata.address}：</span>-->
+                {if $flag ==2}
+                <!--<input type="radio" value="{$useraddress.id}" checked> <span class="or">{$useraddress.name} {$useraddress.phone}  {$address1}</span>-->
+                <!--<a href="index.php?app=userCenter&act=editAddress&storeid={$store_id}&lang={$lang}&auxiliary={$auxiliary}&id={$useraddress.id}" class="btn btn-o ml30">{$langdata.edit}</a>-->
+                <b></b>
+                <a href="index.php?app=userCenter&act=myAddress&storeid={$store_id}&lang={$lang}&auxiliary={$auxiliary}&pageUrl={$pageUrl}" >
+                <input type="radio" value="{$useraddress.id}" checked><span class="txt">收货地址：</span>
+                {if $useraddress.default_addr ==1}
+                <button class="btn">默认</button>
+                {/if}
+                <span class="uname">{$useraddress.name}</span>
+                <span class="phone">{$useraddress.phone}</span>
+                <span class="or">{$useraddress.pays}{$useraddress.app}</span>
+                <i></i> 
+                </a>
+                {else}
+                <input type="radio" value="0" checked>
+                <span class="or"> {$langdata.no_address} </span>
+                <a href="index.php?app=userCenter&act=addAddress&storeid={$store_id}&lang={$lang}&auxiliary={$auxiliary}&pageUrl={$pageUrl}" class="btn btn-o ml30">{$langdata.add}</a>
+                {/if}
+
+            </div>
+            <h1 class="normal font24 mt30 mb30">{$langdata.comfirmOrder_head_title} </h1>
+            <div class="title-box clearfix">
+                <div class="fl it1">{$langdata.commodity_attribute}</div>
+                <div class="fl it2">{$langdata.price}</div>
+                <div class="fl it3">{$langdata.quantity}</div>
+                <!--<div class="fl it4">{$langdata.preferential_way}</div>-->
+                <div class="fl it5 tr">{$langdata.subtotal}</div>
+            </div>
+            <div class="cart-container delete-allbox">
+                {foreach from =$userGoods item=vo}
+                <input type="hidden" name="cart_id" value="{$vo.id}" />
+                <div class="cart-item clearfix">
+                    <div class="shopname mb30">{$langdata.site}：{$vo.store_name}</div>
+                    <div class="cart-itemtop clearfix">
+                        <div class="it1 fl">
+                            <div class="img fl">
+                                <a href="index.php?app=goods&act=goodInfo&storeid={$store_id}&lang={$lang}&auxiliary={$auxiliary}&gid={$vo.goods_id}"><img src="{$vo.origin_img}" width="50" height="50"></a>
+                            </div>
+                            <div class="cont fl ml15">
+                                <a href="index.php?app=goods&act=goodInfo&storeid={$store_id}&lang={$lang}&auxiliary={$auxiliary}&gid={$vo.goods_id}">
+                                    <h2 class="font16 normal ellipsis" title="">{$vo.goods_name}</h2>
+                                </a>
+                                <p class="mt5">{$vo.spec_key_name}</p>
+                            </div>
+                        </div>
+                        <div class="it2 fl">
+                            <span class="price">{$symbol} {$vo.goods_price}</span>
+                        </div>
+                        <div class="it3 fl">
+                            <span class="num">{$vo.goods_num}</span>
+                        </div>
+                        <!--<div class="it4 fl">-->
+                        <!--<select class="select">-->
+                        <!--<option>{$langdata.save200}</option>-->
+                        <!--<option>{$langdata.save100}</option>-->
+                        <!--</select>-->
+                        <!--</div>-->
+                        <div class="it5 fl tr">
+                            <span class="price red">{$symbol} {$vo.totalMoney}</span>
+                        </div>
+                    </div>
+                    <!--                    <div class="service mb40 clearfix mt30">
+                                            <p class="fl">{$langdata.msg_seller}：<input type="text" name="seller_msg" class="liuyan" /></p>
+                                               <p class="fl ml30">{$langdata.delivery}：
+                       
+                                               </p>&lt;!&ndash;!--{$langdata.as}
+                                            <p class="fr red mr35">{$symbol} 0.00</p>
+                                        </div>-->
+                    <div class="shoptotal fr mr35">
+                        {$langdata.shipping_store} : <span class="red ml30">{$vo.shipping_store_name}</span>
+                    </div>
+                </div>
+                {/foreach}
+                <div class="cart-item clearfix">
+                    <div class="service mb40 clearfix mt30">
+                        <p class="fl">{$langdata.msg_seller}：<input type="text" name="seller_msg" class="liuyan" style="width: 400px;height: 30px;" /></p>
+                    </div>
+                </div>
+                {if $gift}
+                <div class="zgift mb40 mt20">
+                    {$langdata.gift}：
+                    <span class="ml15"> {$gift.goods_name} {$gift.goods_key_name} *{$gift.gift_num}</span>
+                    <!--<span class="ml15">艾美L'MERI266床头柜 绿色</span>-->
+                    <input type="hidden" value="{$gift.gift_id}" name="gift_id" />
+                    <!--<input type="hidden" value="{$vo.id}" name="gift_id" />-->
+                </div>
+                {/if}
+            </div>
+            <div class="clearfix mt40">
+                <div class="leftbox fl">
+                    <div class="freebox">
+                        <p>
+                            {$langdata.fx_phone}<br/>
+                            <input type="text"  name ="fxPhone" class="mt10" style="border-radius: 4px;outline: none;height: 32px;line-height: 28px;border: 1px solid #ddd;margin-top: 10px;padding-left: 15px;width: 50%;" />
+                            <a class="btn btn-o font18 ml15 valicate">{$langdata.fx_valicate}</a>
+                        </p>
+
+                    </div>
+                    <span class="btn btn-next mt20 phone"><i class="ico ico-ph"></i>{$langdata.Telephone} {$webconf.kefu_phone.value}</span>
+                    <div class="infobox">
+                        {$langdata.brief}
+                    </div>
+                </div>
+                <div class="rightbox fr">
+                    <div class="ordertotal">
+                        <div class="clearfix mb15">
+                            <span class="fl">{$langdata.delivery}:</span>
+                            <input type="radio" name="sendout" value="1"  checked="checked" />{$langdata.ziti_as}
+                            <input type="radio" name="sendout" value="2"/>{$langdata.as}
+                            <input type="radio" name="sendout" value="3"/>{$langdata.tuoyun_as}
+                        </div>
+                        <div class="clearfix mb15">
+                            <span class="fl">{$langdata.subtotal}:</span>
+                            <span class="fr red">{$symbol} {$total}</span>
+                        </div>
+                        <div class="clearfix  mb15">
+                            <span class="fl">{$langdata.shipping}:</span>
+
+                            <span class="fr pri1">{$symbol} 0.00</span>
+
+                        </div>
+                        <div class="clearfix  mb15">
+                            <span class="fl pt5 ">{$langdata.estimated_discount}:</span>
+                            <span class="fr font24 red  " id="discount">{$symbol} 0.00 </span>
+                        </div>
+                        <div class="border mt20 mb20"></div>
+                        <div class="clearfix  mb15" >
+                            <span class="fl pt5">{$langdata.estimated_total}:</span>
+                            <span class="fr font24 red pri " id = "aTotal"> {$symbol} {$totalMoney}</span>
+                        </div>
+                        <button class="btn btn-o mt30" id="check">{$langdata.form}</button>
+                        <input type="hidden" name="totalMoney" value="{$totalMoney}" />
+                        <input type="hidden" name="total" value="{$totalMoney}">
+                        <input type="hidden" name="storeCate" value="{$storeCate_1}" />
+                        <input type="hidden" name="symbol" value="{$symbol}" />
+                        <input type="hidden" name="storeid" value="{$storeid}" />
+                        <input type="hidden" name="lang" value="{$lang}" />
+                        <input type="hidden" name="auxiliary" value="{$auxiliary}" />
+                        <input type="hidden" name="item_ids" value="{$item_ids}" />
+                        <input type="hidden" name="discount_rate" value="" />
+                        <input type="hidden" name="shippingfee" >
+                        <input type="hidden" name="discount">
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- paypal -->
+            <div class="payoptions">
+                <h2><span>{$langdata.Lately}</span></h2>
+                <div class="img">
+                    <img src="{$STATIC_URL}/front/images/zhifu.png">
+                    <img src="{$STATIC_URL}/front/images/paypal.png">
+                    <img src="{$STATIC_URL}/front/images/weixin.png">
+                </div>
+            </div>
+        </div>
+
+        {include file="public/footer.html"}
+        {if $lang_id == 'ZH'}
+        {literal}
+        <script type="text/javascript">
+            $("input[name='sendout']").on("change", function (event) {
+                var a = $("input[name='sendout']:checked").val();
+//                alert("选中的radio的值是：" + a);
+            });
+        </script>
+        <script type="text/javascript">
+            $('.valicate').click(function () {
+                var fxPhone = $('input[name=fxPhone]').val(); // 三级分销人员的手机号，进行查找优惠率
+                var item_ids = $('input[name=item_ids]').val();
+                var symbol = $('input[name=symbol]').val();
+                var patten = /^1[34578]\d{9}$/;
+                var shippingfee = $('input[name=shippingfee]').val();
+                if (shippingfee == '') {
+                    shippingfee = 0;
+                }
+
+                if (!patten.test($.trim(fxPhone))) {
+                    layer.alert('手机号格式不正确！', {
+                        icon: 2,
+                        btn: false,
+                        title: false,
+                        closeBtn: 0,
+                        time: 2000,
+                        skin: 'alt-layer'
+                    });
+                    return false;
+                }
+                //console.log(fxPhone);
+                // 验证三级分销优惠
+                $.ajax({
+                    url: 'index.php?app=comfirmOrder&act=getFxDiscount',
+                    type: 'post',
+                    data: {'fxPhone': fxPhone, 'item_ids': item_ids, 'shippingfee': shippingfee},
+                    async: false, //默认为true 异步
+                    error: function () {
+                        alert('error');
+                    },
+                    success: function (data) {
+                        var data = eval("(" + data + ")");
+                        if (data.status == 1) {
+                            var discount = symbol + ' ' + data.info.discount.toFixed(2);
+                            var stotal = data.info.zMoney;
+                            $('#discount').html(discount);
+                            $('#aTotal').html(symbol + ' ' + stotal);
+                            $('input[name=discount_rate]').val(data.info.discount_rate);
+                            $('input[name=discount]').val(data.info.discount.toFixed(2));
+                        } else {
+                            $('#discount').html(data.message);
+                            $('#aTotal').html(symbol + ' ' + data.info.totalMoney.toFixed(2));
+                        }
+                    }
+                });
+
+            })
+        </script>
+        <script type="text/javascript">
+            $('input[type=radio][name=sendout]').change(function () {
+                var type = $('input:radio[name=sendout]:checked').val();
+                var item_ids = $('input[name=item_ids]').val();
+                var symbol = $('input[name=symbol]').val();
+                var total = $('input[name=total]').val();
+                total = delcommafy(total);
+                var discount = $('input[name=discount]').val();
+                if (discount == '') {
+                    discount = 0.00;
+                }
+                $.ajax({
+                    url: 'index.php?app=comfirmOrder&act=getMoney',
+                    type: 'POST',
+                    data: {
+                        'cart_ids': item_ids,
+                        'type': type,
+                        'total': total,
+                        'discount': discount,
+                    },
+                    async: false,
+                    error: function () {
+                        alert('error');
+                    },
+                    success: function (json) {
+                        var data = eval("(" + json + ")");
+                        var price = data.info.price;
+
+                        var totalMoney = data.info.totalMoney;
+                        $('.pri').html(symbol + ' ' + totalMoney);
+                        $(".pri1").html(symbol + ' ' + price);
+                        $('input[name=shippingfee]').val(price);
+                    }
+                });
+            });
+            function delcommafy(num) {
+                if ((num + "").trim() == "") {
+                    return"";
+                }
+                num = num.replace(/,/gi, '');
+                return num;
+            }
+            $('#check').click(function () {
+                var cart_ids = [];
+                var user_address = $("input[type='radio']:checked").val();
+                $("input[name='cart_id']").each(function () {
+                    cart_ids.push($(this).val());
+                });
+                cart_ids = cart_ids.join(',');
+                var seller_msg = $("input[name='seller_msg']").val();
+                var fxPhone = $('input[name=fxPhone]').val();
+                var storeid = $('input[name=storeid]').val();
+                var auxiliary = $('input[name=auxiliary]').val();
+                var lang = $('input[name=lang]').val();
+                var storeCate = $('input[name=storeCate]').val();
+                var discount_rate = $('input[name=discount_rate]').val();
+                var sendout = $("input[name='sendout']:checked").val();
+                var shippingfee = $('input[name=shippingfee]').val();
+                if (user_address == 0 && sendout !=="1") {
+                    layer.alert('收货地址不能为空！', {
+                        icon: 2,
+                        btn: false,
+                        title: false,
+                        closeBtn: 0,
+                        time: 2000,
+                        skin: 'alt-layer'
+                    });
+                    return false;
+                }
+                var gift_id = $('input[name=gift_id]').val();
+                if (gift_id == '') {
+                    gift_id = '';
+                }
+                $.ajax({
+                    url: 'index.php?app=comfirmOrder&act=comfirm',
+                    type: 'post',
+                    data: {'discount_rate': discount_rate, 'storeid': storeid, 'auxiliary': auxiliary, 'seller_msg': seller_msg, 'lang': lang, 'gift_id': gift_id, 'cart_ids': cart_ids, 'user_address': user_address, fxPhone: fxPhone, storeCate: storeCate, sendout: sendout, shippingfee: shippingfee},
+                    async: false, //默认为true 异步
+                    error: function () {
+                        alert('error');
+                    },
+                    success: function (data) {
+                        var data = eval("(" + data + ")");
+                        if (data.status == 1) {
+                            layer.alert(data.message, {
+                                icon: 6,
+                                btn: false,
+                                title: false,
+                                closeBtn: 0,
+                                time: 2000,
+                                skin: 'alt-layer'
+                            });
+                            setTimeout(function () {
+                                window.location.href = data.info.url;
+                            }, 1000);
+                        } else {
+                            layer.alert(data.message, {
+                                icon: 5,
+                                btn: false,
+                                title: false,
+                                closeBtn: 0,
+                                time: 2000,
+                                skin: 'alt-layer'
+                            });
+                        }
+                    }
+                });
+
+            });
+        </script>
+        {/literal}
+        {else}
+        {literal}
+        <script type="text/javascript">
+            $('.valicate').click(function () {
+                var fxPhone = $('input[name=fxPhone]').val(); // 三级分销人员的手机号，进行查找优惠率
+                var item_ids = $('input[name=item_ids]').val();
+                var symbol = $('input[name=symbol]').val();
+                var patten = /^1[34578]\d{9}$/;
+                if (!patten.test($.trim(fxPhone))) {
+                    layer.alert('The format of the phone number is not correct！', {
+                        icon: 2,
+                        btn: false,
+                        title: false,
+                        closeBtn: 0,
+                        time: 2000,
+                        skin: 'alt-layer'
+                    });
+                    return false;
+                }
+                //console.log(fxPhone);
+                // 验证三级分销优惠
+                $.ajax({
+                    url: 'index.php?app=comfirmOrder&act=getFxDiscount',
+                    type: 'post',
+                    data: {'fxPhone': fxPhone, 'item_ids': item_ids},
+                    async: false, //默认为true 异步
+                    error: function () {
+                        alert('error');
+                    },
+                    success: function (data) {
+                        var data = eval("(" + data + ")");
+                        if (data.status == 1) {
+                            var discount = symbol + ' ' + data.info.discount.toFixed(2);
+                            var stotal = data.info.zMoney;
+                            $('#discount').html(discount);
+                            $('#aTotal').html(symbol + ' ' + stotal);
+                            $('input[name=discount_rate]').val(data.info.discount_rate);
+                        } else {
+                            $('#discount').html(data.message);
+                            $('#aTotal').html(data.info.totalMoney.toFixed(2));
+                        }
+                    }
+                });
+
+            })
+        </script>
+        <script type="text/javascript">
+            $('input[type=radio][name=sendout]').change(function () {
+
+                var type = $('input:radio[name=sendout]:checked').val();
+
+                var item_ids = $('input[name=item_ids]').val();
+
+                var symbol = $('input[name=symbol]').val();
+                var total = $('input[name=total]').val();
+                total = delcommafy(total);
+                $.ajax({
+                    url: 'index.php?app=comfirmOrder&act=getMoney',
+                    type: 'POST',
+                    data: {
+                        'cart_ids': item_ids,
+                        'type': type,
+                        'total': total
+                    },
+                    async: false,
+                    error: function () {
+                        alert('error');
+                    },
+                    success: function (json) {
+                        var data = eval("(" + json + ")");
+                        var price = data.info.price;
+
+                        var totalMoney = data.info.totalMoney;
+                        $('.pri').html(symbol + '&nbsp;' + totalMoney);
+                        $(".pri1").html(symbol + '&nbsp;' + price);
+                        $('input[name=shippingfee]').val(price);
+                    }
+                });
+            });
+
+
+            function delcommafy(num) {
+                if ((num + "").trim() == "") {
+                    return"";
+                }
+                num = num.replace(/,/gi, '');
+                return num;
+            }
+            $('#check').click(function () {
+                var cart_ids = [];
+                var user_address = $("input[type='radio']:checked").val();
+                $("input[name='cart_id']").each(function () {
+                    cart_ids.push($(this).val());
+                });
+                cart_ids = cart_ids.join(',');
+                var seller_msg = $("input[name='seller_msg']").val();
+                var fxPhone = $('input[name=fxPhone]').val();
+                var storeid = $('input[name=storeid]').val();
+                var lang = $('input[name=lang]').val();
+                var storeCate = $('input[name=storeCate]').val();
+                var discount_rate = $('input[name=discount_rate]').val();
+                var sendout = $("input[name='sendout']:checked").val();
+                if (user_address == 0) {
+                    layer.alert('The receiving address can not be empty！', {
+                        icon: 2,
+                        btn: false,
+                        title: false,
+                        closeBtn: 0,
+                        time: 2000,
+                        skin: 'alt-layer'
+                    });
+                    return false;
+                }
+                var gift_id = $('input[name=gift_id]').val();
+                if (gift_id == '') {
+                    gift_id = '';
+                }
+                $.ajax({
+                    url: 'index.php?app=comfirmOrder&act=comfirm',
+                    type: 'post',
+                    data: {'discount_rate': discount_rate, 'storeid': storeid, 'lang': lang, 'gift_id': gift_id, 'seller_msg': seller_msg, 'cart_ids': cart_ids, 'user_address': user_address, fxPhone: fxPhone, storeCate: storeCate, sendout: sendout},
+                    async: false, //默认为true 异步
+                    error: function () {
+                        alert('error');
+                    },
+                    success: function (data) {
+                        var data = eval("(" + data + ")");
+                        if (data.status == 1) {
+                            layer.alert(data.message, {
+                                icon: 6,
+                                btn: false,
+                                title: false,
+                                closeBtn: 0,
+                                time: 2000,
+                                skin: 'alt-layer'
+                            });
+                            setTimeout(function () {
+                                window.location.href = data.info.url;
+                            }, 1000);
+                        } else {
+                            layer.alert(data.message, {
+                                icon: 5,
+                                btn: false,
+                                title: false,
+                                closeBtn: 0,
+                                time: 2000,
+                                skin: 'alt-layer'
+                            });
+                        }
+                    }
+                });
+
+            });
+        </script>
+        {/literal}
+        {/if}
+    </body>
+</html>

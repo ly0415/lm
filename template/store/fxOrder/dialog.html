@@ -1,0 +1,116 @@
+{if $lang_id ==1}
+<div class="height">
+    <div class="new-table-responsive">
+        <div class="box-body table-responsive no-padding ">
+            <input type="hidden"  name="totalpage"  value="{$totalpage}" >
+            <table class="table tc-box">
+                <thead>
+                    <tr>
+                        <th>Commodity picture</th>
+                        <th>Commodity name</th>
+                        <th>market price</th>
+                        <th>Selling price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {foreach from=$info item=vo}
+                    <tr>
+                        <td><img src="{$vo.goods_image}" width="60" height="50"></td>
+                        <td>{$vo.goods_name}({$vo.spec_key_name})</td>
+                        <td>{$symbol} {$vo.goods_price}</td>
+                        <td>{$symbol} {$vo.goods_pay_price}</td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+            <div class="page-box">
+                {$page}
+            </div>
+        </div>
+    </div>
+</div>
+{else}
+<div class="height">
+    <div class="new-table-responsive">
+        <div class="box-body table-responsive no-padding ">
+            <!--<div class="box-header">-->
+            <!--<div class="form-inline col-sm-10 col-md-11 no-padding">-->
+            <!--<div class="form-group form-group-sm form-mar">-->
+            <!--<small class="control-label sm">请选择：</small>-->
+            <!--<select class="form-control">-->
+            <!--<option>请选择</option>-->
+            <!--<option>商品类型</option>-->
+            <!--<option>商品分类</option>-->
+            <!--<option>商品品牌</option>-->
+            <!--</select>-->
+            <!--<input type="text" class="form-control"  value="" placeholder="请输入商品名称">-->
+            <!--</div>-->
+            <!--<div class="form-group form-group-sm form-mar">-->
+            <!--<button type="button" class="btn btn-default btn-sm" id="submit">-->
+            <!--搜索 <i class="fa fa-search"></i>-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <input type="hidden"  name="totalpage"  value="{$totalpage}" >
+            <table class="table tc-box">
+                <thead>
+                    <tr>
+                        <!--<th><input type="checkbox" name="" id="all"/></th>-->
+                        <th>商品图片</th>
+                        <th>商品名称</th>
+                        <th>市场价格</th>
+                        <th>销售价格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {foreach from=$info item=vo}
+                    <tr>
+                        <!--<td><input type="checkbox" name="check-name" data-name="{$item.goods_name}" data-id="{$item.id}" data-mprice="{$item.market_price}" data-sprice="{$item.shop_price}" data-url="{$item.original_img}"/></td>-->
+                        <td><img src="{$vo.goods_image}" width="60" height="50"></td>
+                        <td>{$vo.goods_name}({$vo.spec_key_name})</td>
+                        <td>{$symbol} {$vo.goods_price}</td>
+                        <td>{$symbol} {$vo.goods_pay_price}</td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+            <div class="page-box">
+                {$page}
+                <!--<ul id="page" class="pagination" >-->
+                <!--{}-->
+                <!--</ul>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+{/if}
+
+<script type="text/javascript">
+    // active样式选择
+    $(function() {
+        $('.ncbtn').click(function() {
+            $(this).toggleClass('active');
+        })
+    })
+    //属性的显示隐藏
+    $(function() {
+        $('.tc-box tbody tr:nth-child(even)').css('display', 'none');
+        $('#all').click(function() {
+            if ($(this).is(':checked')) {
+                $(this).parents('thead').next().find('tr:nth-child(even)').show();
+            } else {
+                $(this).parents('thead').next().find('tr:nth-child(even)').hide();
+            }
+        })
+        $('input[name="check-name"]').click(function() {
+            if ($(this).is(':checked')) {
+                $(this).parents('tr').next().show();
+            } else {
+                $(this).parents('tr').next().hide();
+            }
+        })
+    })
+
+</script>

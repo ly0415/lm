@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html style="font-size: 50px">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" href="{$STATIC_URL}/phone/css/style.css"/>
+    <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+{foreach from=$data item=v}
+<div class="distributionOrder">
+    <div class="orderTop">
+        <a href="wx.php?app=easyDis&act=detail&orderid={$v.order_id}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+        <div class="time">
+            <div>{$v.add_time|date_format:"%Y-%m-%d %H:%M "}</div>
+            <div class="money">
+                <span>金额:</span>
+                <span class="RMB">{$symbol}{$v.pay_money}</span>
+            </div>
+        </div>
+        <div class="orderBox">
+            <div>
+                <span>本单佣金:</span>
+                <span>{$symbol}{$v.fxmoney}</span>
+            </div>
+            <div class="discount1">
+                <span>本单优惠:</span>
+                <span>{$symbol}{$v.discount_money}</span>
+            </div>
+        </div>
+        </a>
+    </div>
+    <div class="orderBottom">
+        <div class="orderNum1">
+            <span>订单号:</span>
+            <span>{$v.order_sn}</span>
+        </div>
+        <div class="staus">
+            <span>状态:</span>
+            {if $v.order_state == 10}
+            <span class="account">未入账</span>
+            {else if $v.order_state == 20}
+            <span class="account">未入账</span>
+            {else if $v.order_state == 30}
+            <span class="account">未入账</span>
+            {else if $v.order_state == 40}
+            <span class="account">未入账</span>
+            {else if $v.order_state == 50}
+            <span class="unaccount">已入账</span>
+            {else if $v.order_state == 0}
+            <span class="account">订单已取消</span>
+            {else if $v.order_state == 0}
+            <span class="unaccount">未入账</span>
+            {/if}
+
+
+        </div>
+    </div>
+</div>
+{/foreach}
+
+</body>
+</html>

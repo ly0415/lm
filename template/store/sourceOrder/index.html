@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+{if $lang_id ==1}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Source order</title>
+        {include file="public/header.html"}
+        <style>
+            .input-number {
+                width: 80px;
+                padding: 0 12px;
+                vertical-align: top;
+                text-align: center;
+                outline: none;
+            }
+
+            .input-number,
+            .input-number-decrement,
+            .input-number-increment {
+                border: 1px solid #cccccc;
+                display: inline-block;
+                height: 40px;
+            }
+
+            .input-num{
+                user-select: none;
+                -moz-user-select: none;
+                -o-user-select: none;
+                -ms-user-select: none;
+                -webkit-user-select:none ;
+            }
+
+            .input-number-decrement,
+            .input-number-increment {
+                display: inline-block;
+                width: 30px;
+                line-height: 38px;
+                background: #f1f1f1;
+                color: #444444;
+                text-align: center;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .input-number-decrement:active,
+            .input-number-increment:active {
+                background: #dddddd;
+            }
+
+            .input-number-decrement {
+                /*border-right: none;*/
+                border-radius: 0px 0 0 0px;
+            }
+
+            .input-number-increment {
+                /*border-left: none;*/
+                border-radius: 0 0px 0px 0;
+            }
+            .no-paddsing {
+                padding: 22px !important;
+            }
+        </style>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <section class="content-header">
+                    <h1>
+                        Source order
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="?app=default&act=index&lang_id={$lang_id}"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li>Order management</li>
+                        <li class="active">Source order</li>
+                    </ol>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row --> 
+                    <div class="row">  
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="orderlist-box mt30"> <form class="form-inline" style="padding: 0 30px;">
+                                        <input type="hidden" name="app" value="sourceOrder" />
+                                        <input type="hidden" name="act" value="index" />
+                                        <input type="hidden" name="lang_id" value="{$lang_id}" />
+                                        <div class="">
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">Order number：</small>
+                                                <input class="form-control" type="text" name="order_sn" placeholder="Order number" value="{$order_sn}"/>
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">Commodity name：</small>
+                                                <input class="form-control" type="text" name="goods_name" placeholder="Commodity name" value="{$goods_name}"/>
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">Purchaser：</small>
+                                                <input class="form-control" type="text" name="buyer_email" placeholder="Buyer mailbox" value="{$buyer_email}">
+                                            </div>
+                                            <!--                                            {if $auth ==1}
+                                                                                        <div class="form-group form-group-sm form-mar">
+                                                                                            <small class="control-label zm">经销商：</small>
+                                                                                            <select class="form-control w160 j_select" name="store_id">
+                                                                                                <option value="0">--请选择站点--</option>
+                                                                                                {foreach from=$store item=v}
+                                                                                                <option value="{$v.id}" {if $store_id == $v.id} selected {/if}>{$v.store_name}</option>
+                                                                                                {/foreach}
+                                                                                            </select>
+                                                                                        </div>  
+                                                                                        {/if}-->
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">Commodity source：</small>
+                                                <select class="form-control w160 j_select" name="source_id">
+                                                    <option value="0">--Please choose the source of the goods--</option>
+                                                    {foreach from=$source item=v}
+                                                    <option value="{$v.id}" {if $source_id == $v.id} selected {/if}>{$v.name}</option>
+                                                    {/foreach}
+                                                </select>
+                                            </div> 
+                                            <div class="form-group form-group-sm form-mar">
+                                                <button type="submit" class="btn btn-default btn-sm">
+                                                    Search <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="box-header form-inline col-sm-10 col-md-7 no-paddsing">
+                                    <br>
+                                    <div class="form-group form-group-sm form-mar user_name" style="margin-right:0">
+                                        &nbsp;&nbsp;
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar" style="margin-right:0">
+                                        <a href="?app=sourceOrder&act=add&lang_id={$lang_id}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add source order</a>
+                                    </div>
+                                </div>
+                                <div class="zuhesale clearfix">
+                                    <div class="col-xs-12 header">
+                                        <div class="col-xs-8">Order list</div>
+                                    </div> 
+                                    <div class="col-xs-12">
+                                        <div class="new-table-responsive mb20">
+                                            <div class="box-body table-responsive no-padding ">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr class="trall">
+                                                            <!--                                                            <th></th>-->
+                                                            <th colspan="2" style="font-weight:800">Commodity information</th>
+                                                            <th style="font-weight:800">&nbsp;&nbsp;&nbsp;Number</th>
+                                                            <th style="font-weight:800">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Price</th>
+                                                            <th style="font-weight:800">&nbsp;&nbsp;&nbsp;Order source</th>
+                                                            <th></th>
+                                                            <!--                                                            <th></th>-->
+                                                        </tr>
+                                                    </thead>
+                                                    {foreach from=$data item=item}
+                                                    <tbody>
+                                                        <tr class="firsttr">
+                                                            <td></td>
+                                                            <td colspan="8">
+                                                                <div class="pull-left">
+                                                                    <span>Order number&nbsp;:&nbsp;</span><a href="##"> {$item.order_sn}</a>&nbsp;&nbsp;
+                                                                    <span>&nbsp;&nbsp;&nbsp;Order time：{$item.add_time|date_format:"%Y-%m-%d"}&nbsp;&nbsp;</span>
+                                                                </div>
+                                                                <div class="pull-right">
+                                                                    <!--                                                                    <a href="store.php?app=orderList&act=details&lang_id={$lang_id}&order_id={$item.order_id}&p={$p}" class="btn btn-primary btn-sm">订单详情</a>-->
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        {foreach $item['goods_list'] as  $good}
+                                                        <tr>
+                                                            <!--                                                            <td></td>-->
+                                                            <td width="70px">
+                                                                <img src="{$good.goods_image}" width="60" height="45">
+                                                            </td>
+                                                            <td>
+                                                                <div class="wts" style="width: 430px;">
+                                                                    <div class="tl">
+                                                                        {$good['goods_name']}
+                                                                    </div>
+                                                                    <div class="tl gy">
+                                                                        Product specifications:{$good['spec_key_name']}
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X{$good['goods_num']}</td>
+                                                            <td>
+                                                                <div class="rd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$symbol}{$good['goods_pay_price']}</div>
+                                                            </td> 
+                                                            <td>&nbsp;&nbsp;&nbsp;<img src="{$item.img}" width="80" height="30"></td>
+                                                        </tr>
+                                                        {/foreach}
+                                                        <tr class="" >
+                                                            <td></td>
+                                                            <td colspan="8" style="text-align: left">
+                                                                <span class="rd cart-span">Amount collected：{$symbol}{$item.order_amount}</span>
+                                                                <span class="cart-span">Consignee：{$item.buyer_name}</span>
+                                                                <span class="cart-span">Receiving telephone：{$item.buyer_phone}</span>
+                                                                {foreach $status as $key=>$val}
+                                                                {if $key == $item['order_state']}
+                                                                <span class="cart-span">Order status：{$val}</span>
+                                                                {/if}
+                                                                {/foreach}
+                                                            </td>
+                                                        </tr>                                     
+                                                    </tbody>
+                                                    {/foreach}
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer clearfix"> 
+                                    {$page_html}
+                                </div>
+                            </div> 
+                        </div>
+                    </div> 
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            {include file="public/footer.html"}
+        </div>
+    </body>
+</html>
+{else}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>来源订单</title>
+        {include file="public/header.html"}
+        <style>
+            .input-number {
+                width: 80px;
+                padding: 0 12px;
+                vertical-align: top;
+                text-align: center;
+                outline: none;
+            }
+
+            .input-number,
+            .input-number-decrement,
+            .input-number-increment {
+                border: 1px solid #cccccc;
+                display: inline-block;
+                height: 40px;
+            }
+
+            .input-num{
+                user-select: none;
+                -moz-user-select: none;
+                -o-user-select: none;
+                -ms-user-select: none;
+                -webkit-user-select:none ;
+            }
+
+            .input-number-decrement,
+            .input-number-increment {
+                display: inline-block;
+                width: 30px;
+                line-height: 38px;
+                background: #f1f1f1;
+                color: #444444;
+                text-align: center;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .input-number-decrement:active,
+            .input-number-increment:active {
+                background: #dddddd;
+            }
+
+            .input-number-decrement {
+                /*border-right: none;*/
+                border-radius: 0px 0 0 0px;
+            }
+
+            .input-number-increment {
+                /*border-left: none;*/
+                border-radius: 0 0px 0px 0;
+            }
+            .no-paddsing {
+                padding: 22px !important;
+            }
+        </style>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <section class="content-header">
+                    <h1>
+                        来源订单
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="?app=default&act=index&lang_id={$lang_id}"><i class="fa fa-dashboard"></i> 首页</a></li>
+                        <li>订单管理</li>
+                        <li class="active">来源订单</li>
+                    </ol>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row --> 
+                    <div class="row">  
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="orderlist-box mt30"> <form class="form-inline" style="padding: 0 30px;">
+                                        <input type="hidden" name="app" value="sourceOrder" />
+                                        <input type="hidden" name="act" value="index" />
+                                        <input type="hidden" name="lang_id" value="{$lang_id}" />
+                                        <div class="">
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">订单编号：</small>
+                                                <input class="form-control" type="text" name="order_sn" placeholder="订单编号" value="{$order_sn}"/>
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">商品名称：</small>
+                                                <input class="form-control" type="text" name="goods_name" placeholder="商品名称" value="{$goods_name}"/>
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">购买人：</small>
+                                                <input class="form-control" type="text" name="buyer_email" placeholder="购买人邮箱" value="{$buyer_email}">
+                                            </div>
+                                            <!--                                            {if $auth ==1}
+                                                                                        <div class="form-group form-group-sm form-mar">
+                                                                                            <small class="control-label zm">经销商：</small>
+                                                                                            <select class="form-control w160 j_select" name="store_id">
+                                                                                                <option value="0">--请选择站点--</option>
+                                                                                                {foreach from=$store item=v}
+                                                                                                <option value="{$v.id}" {if $store_id == $v.id} selected {/if}>{$v.store_name}</option>
+                                                                                                {/foreach}
+                                                                                            </select>
+                                                                                        </div>  
+                                                                                        {/if}-->
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">商品来源：</small>
+                                                <select class="form-control w160 j_select" name="source_id">
+                                                    <option value="0">--请选择商品来源--</option>
+                                                    {foreach from=$source item=v}
+                                                    <option value="{$v.id}" {if $source_id == $v.id} selected {/if}>{$v.name}</option>
+                                                    {/foreach}
+                                                </select>
+                                            </div> 
+                                            <div class="form-group form-group-sm form-mar">
+                                                <button type="submit" class="btn btn-default btn-sm">
+                                                    搜索 <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="box-header form-inline col-sm-10 col-md-7 no-paddsing">
+                                    <br>
+                                    <div class="form-group form-group-sm form-mar user_name" style="margin-right:0">
+                                        &nbsp;&nbsp;
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar" style="margin-right:0">
+                                        <a href="?app=sourceOrder&act=add&lang_id=0" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;&nbsp;添加来源订单</a>
+                                    </div>
+                                </div>
+                                <div class="zuhesale clearfix">
+                                    <div class="col-xs-12 header">
+                                        <div class="col-xs-8">订单列表</div>
+                                    </div> 
+                                    <div class="col-xs-12">
+                                        <div class="new-table-responsive mb20">
+                                            <div class="box-body table-responsive no-padding ">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr class="trall">
+                                                            <!--                                                            <th></th>-->
+                                                            <th colspan="2" style="font-weight:800">商品信息</th>
+                                                            <th style="font-weight:800">&nbsp;&nbsp;&nbsp;数量</th>
+                                                            <th style="font-weight:800">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价格</th>
+                                                            <th style="font-weight:800">&nbsp;&nbsp;&nbsp;订单来源</th>
+                                                            <th></th>
+                                                            <!--                                                            <th></th>-->
+                                                        </tr>
+                                                    </thead>
+                                                    {foreach from=$data item=item}
+                                                    <tbody>
+                                                        <tr class="firsttr">
+                                                            <td></td>
+                                                            <td colspan="8">
+                                                                <div class="pull-left">
+                                                                    <span>订单编号&nbsp;:&nbsp;</span><a href="##"> {$item.order_sn}</a>&nbsp;&nbsp;
+                                                                    <span>&nbsp;&nbsp;&nbsp;下单时间：{$item.add_time|date_format:"%Y-%m-%d"}&nbsp;&nbsp;</span>
+                                                                </div>
+                                                                <div class="pull-right">
+                                                                    <!--                                                                    <a href="store.php?app=orderList&act=details&lang_id={$lang_id}&order_id={$item.order_id}&p={$p}" class="btn btn-primary btn-sm">订单详情</a>-->
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        {foreach $item['goods_list'] as  $good}
+                                                        <tr>
+                                                            <!--                                                            <td></td>-->
+                                                            <td width="70px">
+                                                                <img src="{$good.goods_image}" width="60" height="45">
+                                                            </td>
+                                                            <td>
+                                                                <div class="wts" style="width: 430px;">
+                                                                    <div class="tl">
+                                                                        {$good['goods_name']}
+                                                                    </div>
+                                                                    <div class="tl gy">
+                                                                        产品规格:{$good['spec_key_name']}
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X{$good['goods_num']}</td>
+                                                            <td>
+                                                                <div class="rd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$symbol}{$good['goods_pay_price']}</div>
+                                                            </td> 
+                                                            <td>&nbsp;&nbsp;&nbsp;<img src="{$item.img}" width="80" height="30"></td>
+                                                        </tr>
+                                                        {/foreach}
+                                                        <tr class="" >
+                                                            <td></td>
+                                                            <td colspan="8" style="text-align: left">
+                                                                <span class="rd cart-span">实收金额：{$symbol}{$item.order_amount}</span>
+                                                                <span class="rd cart-span">优惠金额：{$symbol}{if $item.discount ==''}0.00{else}{$item.discount}{/if}</span>
+                                                                <span class="cart-span">收货人：{$item.buyer_name}</span>
+                                                                <span class="cart-span">收货电话：{$item.buyer_phone}</span>
+                                                                {foreach $status as $key=>$val}
+                                                                {if $key == $item['order_state']}
+                                                                <span class="cart-span">订单状态：{$val}</span>
+                                                                {/if}
+                                                                {/foreach}
+                                                            </td>
+                                                        </tr>                                     
+                                                    </tbody>
+                                                    {/foreach}
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer clearfix"> 
+                                    {$page_html}
+                                </div>
+                            </div> 
+                        </div>
+                    </div> 
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            {include file="public/footer.html"}
+        </div>
+    </body>
+</html>
+
+{/if}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>{$langdata.Personal_Center}</title>
+        <meta charset="utf-8" />
+        {include file="public/header.html"}
+    </head>
+    <body>
+        <!-- header -->
+        {include file="public/daohang.html"}
+
+        <div class="container distribution-mytearm">
+            <!-- bread-box -->
+            <div class="bread-box">
+                <a href="##">{$langdata.fx_Administration}</a>
+                <i>»</i>
+                <span class="or"> {$langdata.fx_team}</span>
+            </div>
+            <h1 class="font24 normal">{$langdata.fx_team}</h1>
+            <div class="mt30 mb30">
+                <!--<select class="select">-->
+                <!--<option>南京雨花客厅体验店</option>-->
+                <!--<option>北京体验店</option>-->
+                <!--</select>-->
+            </div>
+
+            <div class="">
+                <table id="example-advanced" class="m-tearmtable"> 
+                    <thead>
+                        <tr>
+                            <th width="25%">{$langdata.fx_name}</th>
+                            <th width="25%">{$langdata.fx_Grade}</th>
+                            <th width="25%">{$langdata.fx_phone}</th>
+                            <!--<th width="25%">{$langdata.fx_Proportion}</th>-->
+                        </tr>
+                    </thead> 
+                    <tbody>
+                    {if $flag == 1}
+                        {foreach from=$rs item=vo}
+                        <tr data-tt-id="{$vo.id}" data-tt-parent-id="0">
+                            <td>
+                                <span>{$vo.real_name}</span>
+                            </td>
+                            <td>
+                                {$langdata.fx_Class_A}
+                            </td>
+                            <td>
+                                {$vo.telephone}
+                            </td>
+                            <!--<td>-->
+                                <!--{$vo.lev1_prop}-->
+                            <!--</td>-->
+                        </tr>
+                        {foreach from =$vo.child item=v1}
+                        <tr data-tt-id="{$v1.id}" data-tt-parent-id="{$vo.id}">
+                            <td>
+                                <span>{$v1.real_name}</span>
+                            </td>
+                            <td>
+                                {$langdata.fx_Class_B}
+                            </td>
+                            <td>
+                                {$v1.telephone}
+                            </td>
+                            <!--<td>-->
+                                <!--{$v1.lev2_prop}-->
+                            <!--</td>-->
+                        </tr>
+                        {foreach from=$v1.child item=v2}
+                        <tr data-tt-id="{$v2.id}" data-tt-parent-id="{$v1.id}">
+                            <td>
+                                <span>{$v2.real_name}</span>
+                            </td>
+                            <td>
+                                {$langdata.fx_Class_C}
+                            </td>
+                            <td>
+                                {$v2.telephone}
+                            </td>
+                            <!--<td>-->
+                                <!--{$v2.lev3_prop}-->
+                            <!--</td>-->
+                        </tr>
+                        {/foreach}
+                        {/foreach}
+                        {/foreach}
+                    {elseif $flag == 2}
+                        {foreach from=$rs item=vo}
+                         <tr data-tt-id="{$vo.id}" data-tt-parent-id="0">
+                        <td>
+                            <span>{$vo.real_name}</span>
+                        </td>
+                        <td>
+                            {$langdata.fx_Class_B}
+                        </td>
+                        <td>
+                            {$vo.telephone}
+                        </td>
+                        <!--<td>-->
+                            <!--{$vo.lev2_prop}-->
+                        <!--</td>-->
+                    </tr>
+                        {foreach from =$vo.child item=v1}
+                        <tr data-tt-id="{$v1.id}" data-tt-parent-id="{$vo.id}">
+                        <td>
+                            <span>{$v1.real_name}</span>
+                        </td>
+                        <td>
+                            {$langdata.fx_Class_C}
+                        </td>
+                        <td>
+                            {$v1.telephone}
+                        </td>
+                        <!--<td>-->
+                            <!--{$v1.lev3_prop}-->
+                        <!--</td>-->
+                    </tr>
+                        {/foreach}
+                        {/foreach}
+                    {else}
+                        <tr data-tt-id="{$rs.id}" data-tt-parent-id="0">
+                        <td>
+                            <span>{$rs.real_name}</span>
+                        </td>
+                        <td>
+                            {$langdata.fx_Class_C}
+                        </td>
+                        <td>
+                            {$rs.telephone}
+                        </td>
+                        <!--<td>-->
+                            <!--{$rs.lev3_prop}-->
+                        <!--</td>-->
+                         </tr>
+                     {/if}
+                    </tbody> 
+                </table>  
+            </div>
+
+            <!-- paypal -->
+            <div class="payoptions">
+                <h2><span> {$langdata.myacc_Payment}</span></h2>
+                <div class="img">
+                    <img src="{$STATIC_URL}/front/images/zhifu.png">
+                    <img src="{$STATIC_URL}/front/images/paypal.png">
+                    <img src="{$STATIC_URL}/front/images/weixin.png">
+                </div>
+            </div>
+        </div>
+        {include file="public/footer.html"}
+
+        <script type="text/javascript">
+
+            $(function() {
+                $("#example-advanced").treetable({
+                    expandable: true,
+                    clickableNodeNames: true,
+                });
+            })
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+<form class="form-horizontal" id="form1" action="?app=storeMang&act=doCheck" data-type="ajax">
+    <div class="form-group">
+        <input type="hidden" value="{$id}" name="id" />
+        <input type="hidden" value="{$join_state}" name="join_state" />
+        <label class="col-sm-3 col-md-3  control-label"><span class="text-red">*</span> 审核通过?：</label>
+        <div class="col-sm-7 col-md-7">
+            <div class="radio">
+                <label>
+                    <input type="radio"  name="check_state"  value="1" checked >是
+                </label>
+                <label>
+                    <input type="radio"  name="check_state"  value="2" >否
+                </label>
+            </div>
+        </div>
+    </div>
+</form>

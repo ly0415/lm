@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>{$langdata.detail_detail}</title>
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <meta content="email=no" name="format-detection">
+        <link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css"  rel="stylesheet" type="text/css"/>
+        <link href="{$STATIC_URL}/phone/css/style.css"  rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="sureorder-wrap orderdetail-wrap">
+            <div class="sureorder-address">
+                <!-- 有地址时样式 -->
+                <a href="##" class="clearfix">
+                    <i class="ico ico-address fl"></i>
+                    <div class="mid fl">
+                        <div class="clearfix">
+                            <span class="fl">{$langdata.detail_Consignee}：{$info.buyer_name}</span>
+                            <span class="fr">{$info.buyer_phone}</span>
+                        </div>
+                         {if $info.sendout =='1'}
+                         <p class="addr">{$langdata.detail_address}：自提</p>
+                        {else}
+                        <p class="addr">{$langdata.detail_address}：{$info.buyer_address}</p>
+                        {/if}
+                        {if $info.seller_msg ==''}
+                        {else}
+                        <p class="addr">订单留言：{$info.seller_msg}</p>
+                       {/if}
+                    </div>
+                    <i class="ico ico-right fr"></i>
+                </a>
+            </div>
+            <div class="myorderstate-list mt20">
+                <div class="shop clearfix">
+                    <a href="##">
+                        <i class="ico ico-shop"></i>
+                        <span>{$info.store_name}</span>
+                        <i class="ico ico-rg"></i>
+                    </a>
+                    <span class="number fr">{$langdata.detail_number}：{$info.order_sn}</span>
+                </div>
+                <ul>
+                    {foreach $info['goods_list'] as  $good}
+                    <li class="itembox">
+                        <a href="wx.php?app=goods&act=goodInfo&storeid={$storeid}&gid={$good.ogoods_id}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}" class="clearfix">
+                            <div class="pro-logo fl">
+                                <img src="{$good.goods_image}" width="100%">
+                            </div>
+                            <div class="pro-info fl">
+                                <h3 class="pro-name ellipsis">{$good.goods_name}</h3>
+                                <div class="pro-right clearfix">
+                                    <p class="xprice fl">{$symbol}{$good.goods_pay_price}</p>
+                                    <p class="num fr">X{$good.goods_num}</p>
+                                </div>
+                                <p class="pro-tags">
+                                    <span>{$langdata.detail_Product}: {$good.spec_key_name}</span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    {/foreach}       
+                    {foreach $info['gift'] as  $gift}
+                    <li class="itembox">
+                        <a href="##" class="clearfix">
+                            <div class="pro-logo fl">
+                                <img src="{$gift.goods_img}" width="100%">
+                            </div>
+                            <div class="pro-info fl">
+                                <h3 class="pro-name ellipsis">{$gift.goods_name}</h3>
+                                <div class="pro-right clearfix">
+                                    <p class="xprice fl">{$langdata.Buy_agift}</p>
+                                    <p class="num fr">X{$gift.gift_num}</p>
+                                </div>
+                                <p class="pro-tags">
+                                    <span>{$langdata.detail_Product}: {$gift.goods_key_name}</span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    {/foreach}       
+                </ul>
+                <div class="otherbox">
+                    <ul>
+                        <li>
+                            <span>{$langdata.detail_mode}</span>
+                            <span class="fr">{$shippingMethod}</span>
+                        </li>
+                        {if $info.orplist_name!=''}
+                        <li>
+                            <span>{$langdata.detail_mode}</span>
+                            <span class="fr">{$info.orplist_name}</span>
+                        </li>
+                        <li>
+                            <span>{$langdata.detail_Logistics}</span>
+                            <span class="fr">{$info.shipping_code}</span>
+                        </li>
+                        {/if}
+                        <li>
+                            <span>{$langdata.order_goodsqian}</span>
+                            <span class="fr red">{$symbol}{$info.goods_amount}</span>
+                        </li>
+                        {if $info.fx_phone neq 0 }
+                        <li>
+                            <span>{$langdata.detail_phone}</span>
+                            <span class="fr">{$info.fx_phone}</span>
+                        </li>
+                        {/if}
+                        {if $info.discount neq 0 }
+                        {if $info.fx_phone neq 0 }
+                           <li>
+                            <span>分销优惠</span>
+                            <span class="fr red">{$symbol}{$info.discount}</span>
+                        </li>
+                        {else}
+                        <li>
+                            <span>{$langdata.detail_amount}</span>
+                            <span class="fr red">{$symbol}{$info.discount}</span>
+                        </li>
+                        {/if}
+                        {/if}
+                        {if $info.pd_amount neq 0 }
+                        <li>
+                            <span>{$langdata.Discount_rbyh}</span>
+                            <span class="fr">{$info.pd_amount}</span>
+                        </li>
+                        {/if}
+                        {if $info.cp_amount neq 0 }
+                        <li>
+                            <span>{$langdata.Discount_yhjyh}</span>
+                            <span class="fr">{$info.cp_amount}</span>
+                        </li>
+                        <li>
+                            <span>优惠劵码</span>
+                            <span class="fr">{$info.cid}</span>
+                        </li>
+                        {/if}
+
+                        <li>
+                            <span>{$langdata.order_prisong}</span>
+                            <span class="fr red">{$symbol}{$info.shipping_fee}</span>
+                        </li>
+                        {if $info.sendout==1}
+                        <li>
+                            <span>自提时间:</span>
+                            <span class="fr red">{$info.pei_time|date_format:"H:i"}</span>
+                        </li>
+                        {/if}
+                        {if $info.sendout==2}
+                        <li>
+                            <span>自提时间:</span>
+                            <span class="fr red">{$info.pei_time|date_format:"H:i"}</span>
+                        </li>
+                        {/if}
+                        <li>
+                            <span>{$langdata.detail_price}</span>
+                            <span class="fr red">{$symbol}{$info.order_amount}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--            <div class="orderdetail-btn clearfix ">
+                            <a href="##" class="btn-wu btn-ord">查看物流</a>
+                            <a href="##" class="btn-pin btn-ord">立即评价</a>
+                        </div>-->
+            <div class="height110"></div>
+        </div>   
+        <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/layer/layer.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+    </body>
+</html>

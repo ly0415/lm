@@ -1,0 +1,164 @@
+
+<html lang="zh-cn">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title>文件管理</title>
+        <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/plugin/webuploader/webuploader.css">
+        <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/plugin/webuploader/css/style.css">
+    </head>
+    <body>
+        <div class="upload-box">
+            <ul class="tabs">
+                <li class="checked" id="upload_tab">Local upload</li>
+            </ul>
+            <div class="container">
+                <div class="area upload-area area-checked" id="upload_area">
+                    <div id="uploader">
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress">
+                                <span class="text">0%</span>
+                                <span class="percentage"></span>
+                            </div><div class="info"></div>
+                            <div class="btns">
+                                <div id="filePicker2"></div><div class="uploadBtn">Start uploading</div>
+                                <div class="saveBtn">Confirm use</div>
+                            </div>
+                        </div>
+                        <div class="queueList">
+                            <div id="dndArea" class="placeholder">
+                                <div id="filePicker"></div>
+                                <p>Or drag the file here, this time the most optional{if $info.num ==1}{$info.num}{else}10{/if}individual</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="area manage-area" id="manage_area">
+                    <ul class="choose-btns">
+                        <li class="btn sure checked">Determine</li>
+                        <li class="btn cancel">cancel</li>
+                    </ul>
+                    <div class="file-list">
+                        <ul id="file_all_list">
+                            <!--<li class="checked">
+                                    <div class="img">
+                                            <img src="" />
+                                            <span class="icon"></span>
+                                    </div>
+                                    <div class="desc"></div>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+                <div class="area search-area" id="search_area">
+                    <ul class="choose-btns">
+                        <li class="search">
+                            <div class="search-condition">
+                                <input class="key" type="text" />
+                                <input class="submit" type="button" hidefocus="true" value="search" />
+                            </div>
+                        </li>
+                        <li class="btn sure checked">Determine</li>
+                        <li class="btn cancel">cancel</li>
+                    </ul>
+                    <div class="file-list">
+                        <ul id="file_search_list">
+                            <!--<li>
+                                    <div class="img">
+                                            <img src="" />
+                                            <span class="icon"></span>
+                                    </div>
+                                    <div class="desc"></div>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+                <div class="fileWarp" style="display:none;">
+                    <fieldset>
+                        <legend>list</legend>
+                        <ul>
+                        </ul>
+                    </fieldset>
+                </div>
+            </div>
+            <input type="hidden" name="num" value="{$info.num}"/>
+            <input type="hidden" name="callBack" value="{$info.func}"/>
+            <input type="hidden" name="element_id" value="{$info.input}"/>
+            <input type="hidden" name="flag" value="1">
+        </div>
+        <script src="{$STATIC_URL}/plugin/jQuery/jquery-2.2.3.min.js"></script>
+        <script type="text/javascript" src="{$STATIC_URL}/plugin/webuploader/webuploader.min.js"></script>
+        <script type="text/javascript" src="{$STATIC_URL}/plugin/webuploader/upload.js"></script>
+        {literal}
+        <script>
+            $(function() {
+                var fileNum = $('input[name=num]').val();
+                var file_num = fileNum == 1 ? 1 : 10;
+                var config = {
+                    "swf": "/assets/plugin/webuploader/Uploader.swf",
+                    "server": "admin.php?app=goods&act=uploadfy&lang_id =" + 1,
+                    "filelistPah": "/index.php/Admin/Uploadify/fileList/path/goods",
+                    "delPath": "?app=goods&act=delUpload",
+                    "chunked": false,
+                    "chunkSize": 524288,
+                    "fileNumLimit": file_num,
+                    "fileSizeLimit": 209715200,
+                    "fileSingleSizeLimit": 2097152,
+                    "fileVal": "file",
+                    "auto": true,
+                    "formData": {},
+                    "pick": {"id": "#filePicker", "label": "Click Select pictures", "name": "file"},
+        //            "accept": {
+        //               "title": 'Images',
+        //               "extensions": 'gif,jpg,jpeg,bmp,png,jpg!PM',
+        //               "mimeTypes": 'image/*'
+        //            },
+                    "thumb": {"width": 110, "height": 110, "quality": 70, "allowMagnify": true, "crop": true, "preserveHeaders": false, "type": "image\/jpeg"}
+                };
+                Manager.upload($.extend(config, {type: "Images"}));
+
+                /*点击保存按钮时
+                 *判断允许上传数，检测是单一文件上传还是组文件上传
+                 *如果是单一文件，上传结束后将地址存入$input元素
+                 *如果是组文件上传，则创建input样式，添加到$input后面
+                 *隐藏父框架，清空列队，移除已上传文件样式*/
+                $(".statusBar .saveBtn").click(function() {
+                    var callback = $('input[name=callBack]').val();
+                    var elem_id = $('input[name=element_id]').val();
+                    var num = $('input[name=num]').val();
+                    var flag = $('input[name=flag]').val();
+                    var fileurl_tmp = [];
+                    if (flag == 2 && num == '') {
+                        eval('window.parent.' + callback + '(fileurl_tmp)');
+                        window.parent.layer.closeAll();
+                    }
+                    if (callback != "undefined") {
+                        if (num > 1) {
+                            $("input[name^='fileurl_tmp']").each(function(index, dom) {
+                                fileurl_tmp[index] = dom.value;
+                            });
+                        } else {
+                            fileurl_tmp = $("input[name^='fileurl_tmp']").val();
+                        }
+                        eval('window.parent.' + callback + '(fileurl_tmp)');
+                        window.parent.layer.closeAll();
+                        return;
+                    }
+                    if (num > 1) {
+                        var fileurl_tmp = "";
+                        $("input[name^='fileurl_tmp']").each(function() {
+                            fileurl_tmp += '<li rel="' + this.value + '"><input class="input-text" type="text" name="[]" value="' + this.value + '" /><a href="javascript:void(0);" onclick="ClearPicArr(\'' + this.value + '\',\'\')">delete</a></li>';
+                        });
+                        $(window.parent.document).find('#' + elem_id).append(fileurl_tmp);
+                    } else {
+
+                        $(window.parent.document).find('#' + elem_id).val($("input[name^='fileurl_tmp']").val());
+
+                    }
+                    window.parent.layer.closeAll();
+                });
+
+            });
+        </script>
+        {/literal}
+    </body>
+</html>

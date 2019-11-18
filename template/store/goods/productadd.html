@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                商品发布
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>商家管理中心</a></li>
+                <li><a href="#">商品</a></li>
+                <li class="active">商品发布</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <form class="" id="form-goodsedit"  method="post">
+                            <div class="nav-tabs-custom tabs-new">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab_1" data-toggle="tab">通用信息</a></li>
+                                    <li><a href="#tab_2" data-toggle="tab">商品相册</a></li>
+                                    <li><a href="#tab_3" data-toggle="tab">商品模型</a></li>
+                                    <!--<li><a href="#tab_4" data-toggle="tab">商品物流</a></li>-->
+                                    <li><a href="#tab_5" data-toggle="tab">积分折扣</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1">
+                                        <div class="box-body">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 商品名称：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control" name="goods_name">
+                                                        <p class="text-red mb0">商品名称必填</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 商品简介：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <textarea  name="goods_remark" rows="3" cols="44" class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 商品货号：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control" name="goods_sn">
+                                                        <p class="text-green mb0">如果不填会自动生成</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> SPU：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control" name="spu">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> SKU：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control" name="sku">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 商品分类：</label>
+                                                    <div class="col-sm-8 col-md-8 col-lg-6">
+                                                        <select class="form-control w160 j_select inblock j-cate1" name="cat_1">
+                                                            <option>请选择分类</option>
+                                                            {foreach from=$cat_list item=item}
+                                                            <option value="{$item.id}">{$item.name}</option>
+                                                            {/foreach}
+                                                        </select>
+                                                        <select class="form-control w160 j_select inblock j-cate2" name="cat_2" >
+                                                            <option>请选择分类</option>
+                                                        </select>
+                                                        <select class="form-control w160 j_select inblock j-cate3" name="cat_id" >
+                                                            <option>请选择分类</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 扩展分类：</label>-->
+                                                    <!--<div class="col-sm-8 col-md-8 col-lg-6">-->
+                                                        <!--<select class="form-control w160 j_select inblock" name="">-->
+                                                            <!--<option>请选择分类</option>-->
+                                                            <!--<option>option 1</option>-->
+                                                            <!--<option>option 2</option>-->
+                                                        <!--</select>-->
+                                                        <!--<select class="form-control w160 j_select inblock" name="" >-->
+                                                            <!--<option>请选择分类</option>-->
+                                                            <!--<option>option 1</option>-->
+                                                            <!--<option>option 2</option>-->
+                                                        <!--</select>-->
+                                                        <!--<select class="form-control w160 j_select inblock" name="" >-->
+                                                            <!--<option>请选择分类</option>-->
+                                                            <!--<option>option 1</option>-->
+                                                            <!--<option>option 2</option>-->
+                                                        <!--</select>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"> 商品品牌：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <select class="form-control j_select " name="brand_id">
+                                                            <option>请选择品牌</option>
+                                                            {foreach from=$brand_list item=item}
+                                                            <option value="{$item.id}">{$item.name}</option>
+                                                            {/foreach}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"> 供应商：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <select class="form-control j_select " name="suppliers_id">
+                                                            <option>不指定供应商属于本店商品</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 本店售价：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control" name="shop_price">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 市场价：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control" name="market_price">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 成本价：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control" name="cost_price">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 佣金：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control" name="commission">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 图片上传：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <!-- <input type="file" class="form-control"> -->
+                                                        <div class="input-file-show">
+                                                        <span class="show">
+                                                            <a id="img_a" target="_blank" class="nyroModal" rel="gal" href="{$STATIC_URL}/front/images/6700e045-8899-42d9-a4cc-1b29537ccd3b.jpg">
+                                                                <i id="img_i" class="fa fa-picture-o" onmouseover="" onmouseout="layer.closeAll();"></i>
+                                                            </a>
+                                                        </span>
+                                                        <span class="type-file-box">
+                                                            <input type="text" id="imagetext" name="original_img" value="" class="type-file-text">
+                                                            <input type="button" name="button" id="button1" value="选择上传..." class="type-file-button">
+                                                            <input class="type-file-file" onclick="GetUploadify(1,'imagetext','goods','img_call_back')" size="30" hidefocus="true" nc_type="change_site_logo" title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+                                                        </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 商品重量：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control" name="weight">
+                                                        <p class="text-green mb0"> 务必设置商品重量, 用于计算物流费.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2 col-lg-2 control-label">是否包邮：</label>
+                                                    <div class="col-sm-6 col-md-6 col-lg-5">
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="is_free_shipping"  value="1" checked="">是
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="is_free_shipping"  value="2" checked="">否
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 总库存：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control" name="store_count">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 商品关键字：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control" name="keywords">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2 col-lg-2 control-label"> 商品详情描述：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <div class="editor">
+                                                            <textarea name="goods_content" style="width: 700px;height: 250px;"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- form -->
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="tab_2">
+                                        <div class="box-body" id="tab_goods_images">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="goods_xc" style="width:100px; text-align:center; margin: 5px; display:inline-block;">
+                                                            <input type="hidden" name="goods_images[]" value="">
+                                                            <a href="##" onclick="GetUploadify(10,'','goods','call_back2');">
+                                                                <img src="{$STATIC_URL}/admin/dist/img/add-button.jpg" width="100" height="100">
+                                                            </a>
+                                                            <br>
+                                                            <a href="##">&nbsp;&nbsp;</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="tab_3">
+                                        <div class="box-body">
+                                            <!-- <div class="ncap-form-default tab_div_3"> -->
+                                            <dl class="row">
+                                                <div  id="tab_goods_spec">
+                                                    <table class="table table-bordered" id="goods_spec_table">
+                                                        <tr>
+                                                            <td>商品模型:</td>
+                                                            <td>
+                                                                <select name="goods_type" id="spec_type" class="form-control" style="width:250px;">
+                                                                    <option value="0">选择商品模型</option>
+                                                                    {foreach from=$type_list item=item}
+                                                                    <option value="{$item.id}">{$item.name}</option>
+                                                                    {/foreach}
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <div class="row">
+                                                        <!-- ajax 返回规格-->
+                                                        <div id="ajax_spec_data" class="col-xs-8" style="padding-right: 0;" >
+                                                            <!--第一种样式这个是一进入页面返回的空页面
+                                                            <table class="table table-bordered" id="goods_spec_table1">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td colspan="2"><b>商品规格:</b></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div id="goods_spec_table2">
+                                                                <table class="table table-bordered" id="spec_input_tab">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td><b></b></td>
+                                                                            <td><b>价格</b></td>
+                                                                            <td><b>库存</b></td>
+                                                                            <td><b>SKU</b></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            -->
+                                                            <!-- 点击下拉款选择手机后返回的商品规格页 -->
+                                                </div>
+
+                                                        <div id="" class="col-xs-4" style="padding-left: 0;">
+                                                            <!--第一种样式这个是一进入页面返回的空页面 -->
+                                                            <table class="table table-bordered" id="goods_attr_table">
+                                                                <tr>
+                                                                    <td><b>商品属性</b>：</td>
+                                                                </tr>
+                                                            </table>
+
+
+                                                        </div>
+                                            </dl>
+                                            <!-- </div>  -->
+
+                                        </div><!-- box-body -->
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <!-- /.tab-pane -->
+                                    <!--<div class="tab-pane" id="tab_4">-->
+                                        <!--<div class="box-body">-->
+                                            <!--<div class="form-horizontal">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="col-sm-4 col-md-2  col-lg-2 control-label">物流配送：</label>-->
+                                                    <!--<div class="col-sm-7 col-md-10 col-lg-9">-->
+                                                        <!--<label class="checkbox-inline">-->
+                                                            <!--<input type="checkbox"  id="check-all">全选-->
+                                                        <!--</label>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div id="check-box">-->
+                                                    <!--<div class="form-group">-->
+                                                        <!--<label class="col-sm-4 col-md-2  col-lg-2 control-label">申通物流：</label>-->
+                                                        <!--<div class="col-sm-7 col-md-10 col-lg-9">-->
+                                                            <!--<label class="checkbox-inline">-->
+                                                                <!--<input type="checkbox" class="check" id="check-all1">全选-->
+                                                            <!--</label>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="form-group" id="check-box1">-->
+                                                        <!--<label class="col-sm-4 col-md-2  col-lg-2 control-label"></label>-->
+                                                        <!--<div class="col-sm-7 col-md-10 col-lg-9">-->
+                                                            <!--<label class="checkbox-inline">-->
+                                                                <!--<input type="checkbox" class="check check1">全国其他地区-->
+                                                            <!--</label>-->
+                                                            <!--<label class="checkbox-inline">-->
+                                                                <!--<input type="checkbox" class="check check1">珠三角地区地区-->
+                                                            <!--</label>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="form-group">-->
+                                                        <!--<label class="col-sm-4 col-md-2  col-lg-2 control-label">顺丰物流：</label>-->
+                                                        <!--<div class="col-sm-7 col-md-10 col-lg-9">-->
+                                                            <!--<label class="checkbox-inline">-->
+                                                                <!--<input type="checkbox" class="check" id="check-all2">全选-->
+                                                            <!--</label>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="form-group" id="check-box2">-->
+                                                        <!--<label class="col-sm-4 col-md-2  col-lg-2 control-label"></label>-->
+                                                        <!--<div class="col-sm-7 col-md-10 col-lg-9">-->
+                                                            <!--<label class="checkbox-inline">-->
+                                                                <!--<input type="checkbox" class="check check2">全国其他地区-->
+                                                            <!--</label>-->
+                                                            <!--<label class="checkbox-inline">-->
+                                                                <!--<input type="checkbox" class="check check2">珠三角地区-->
+                                                            <!--</label>-->
+                                                            <!--<label class="checkbox-inline">-->
+                                                                <!--<input type="checkbox" class="check check2">长三角地区-->
+                                                            <!--</label>-->
+                                                            <!--<label class="checkbox-inline">-->
+                                                                <!--<input type="checkbox" class="check check2">全国一线城市-->
+                                                            <!--</label>-->
+
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--&lt;!&ndash; form &ndash;&gt;-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!-- /.tab-pane -->
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="tab_5">
+                                        <div class="box-body">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 价格阶梯：</label>
+                                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                                        <div class="box-add">
+                                                            <div class="item mb10">
+                                                                单次购买个数达到
+                                                                <input type="text" class="form-control w160 inblock">
+                                                                价格
+                                                                <input type="text" class="form-control w160 inblock">
+                                                                <i class="fa fa-plus mr10 j_add"></i>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 赠送积分：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control">
+                                                        <p class="text-green mb0">订单完成后赠送积分</p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 兑换积分：</label>
+                                                    <div class="col-sm-7 col-md-6 col-lg-5">
+                                                        <input type="text" class="form-control">
+                                                        <p class="text-green mb0">如果设置0，则不支持积分抵扣</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- form -->
+                                        </div>
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="box-footer">
+                                        <div class="form-group">
+                                            <div class="col-sm-6 col-sm-offset-4 col-md-5 col-md-offset-2 col-lg-4 col-lg-offset-2">
+                                                <a href="?app=good&act=goodList" class="btn btn-default"><i class="fa fa-times-circle"></i> 关 闭</a>
+                                                <button type="button"  id="submit" class="btn btn-primary pull-right" onClick="ajax_submit_form('form-goodsedit','?app=good&act=doAdd');"><i class="fa fa-save"></i> 保 存
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    {include file="public/footer.html"}
+</div>
+{literal}
+<script>
+    //分类关联
+    $(".j-cate1").on("change", function() {
+        var _this = $(this);
+        var id = $(this).find(":selected").val();
+        var url="?app=good&act=getCategory&parent_id="+id;
+        if(id!=0){
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (obj) {
+                    if (obj.status == 1) {
+                        var options = '<option value="0">请选择分类</option>';
+                        $.each(obj.info, function(i,e){
+                            options += '<option value="' + e.id + '">' + e.name + '</option>';
+                        });
+                        $('.j-cate2').html(options);
+
+                    }else{
+                        var options = '<option value="0">请选择分类</option>';
+                        $('.j-cate2').html(options);
+                        $('.j-cate3').html(options);
+                    }
+
+                }
+
+            });
+        }
+
+    });
+    $(".j-cate2").on("change", function() {
+        var _this = $(this);
+        var id = $(this).find(":selected").val();
+        var url="?app=good&act=getCategory&parent_id="+id;
+        if(id!=0){
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (obj) {
+                    if (obj.status == 1) {
+                        var options = '<option value="0">请选择分类</option>';
+                        $.each(obj.info, function(i,e){
+                            options += '<option value="' + e.id + '">' + e.name + '</option>';
+                        });
+                        $('.j-cate3').html(options);
+
+                    }else{
+                        var options = '<option value="0">请选择分类</option>';
+                        $('.j-cate3').html(options);
+                    }
+
+                }
+
+            });
+        }
+
+    });
+
+    /*
+     * 上传图片 后台专用
+     * @access  public
+     * @null int 一次上传图片张图
+     * @elementid string 上传成功后返回路径插入指定ID元素内
+     * @path  string 指定上传保存文件夹,默认存在public/upload/temp/目录
+     * @callback string  回调函数(单张图片返回保存路径字符串，多张则为路径数组 )
+     */
+    function GetUploadify(num,elementid,path,callback)
+    {
+        // var upurl ='/index.php?m=Admin&c=Uploadify&a=upload&num='+num+'&input='+elementid+'&path='+path+'&func='+callback;
+        var upurl ='store.php?app=good&act=upload&num='+num+'&input='+elementid+'&path='+path+'&func='+callback;
+        console.log(upurl);
+        layer.open({
+            type: 2,
+            title: '上传图片',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['50%', '60%'],
+            content: upurl
+        });
+    }
+
+
+
+    function img_call_back(fileurl_tmp)
+    {
+        $("#imagetext").val(fileurl_tmp);
+        $("#img_a").attr('href', fileurl_tmp);
+        $("#img_i").attr('onmouseover', "layer.tips('<img src="+fileurl_tmp+">',this,{tips: [1, '#fff']});");
+    }
+
+
+    $(function(){
+        $('.box-add').on('click','.j_add',function(){
+            html=' ';
+            html+='<div class="item mb10">';
+            html+='单次购买个数达到';
+            html+='&nbsp;<input type="text" class="form-control w160 inblock">';
+            html+='&nbsp;价格&nbsp;';
+            html+='<input type="text" class="form-control w160 inblock">&nbsp;';
+            html+='<i class="fa fa-minus mr10 j_del"></i>';
+            html+='</div>';
+            $('.box-add').append(html);
+        })
+        $('.box-add').on('click','.j_del',function(){
+            $(this).parent().remove();
+        })
+    });
+
+    /*
+     * 以下是图片上传方法
+     */
+    // 上传商品图片成功回调函数
+    function call_back(fileurl_tmp){
+        $("#original_img").val(fileurl_tmp);
+        $("#original_img2").attr('href', fileurl_tmp);
+    }
+
+    // 上传商品相册回调函数
+    function call_back2(paths){
+        var  last_div = $(".goods_xc:last").prop("outerHTML");
+        for (i=0;i<paths.length ;i++ )
+        {
+            $(".goods_xc:eq(0)").before(last_div);  // 插入一个 新图片
+            $(".goods_xc:eq(0)").find('a:eq(0)').attr('href',paths[i]).attr('onclick','').attr('target', "_blank");// 修改他的链接地址
+            $(".goods_xc:eq(0)").find('img').attr('src',paths[i]);// 修改他的图片路径
+            $(".goods_xc:eq(0)").find('a:eq(1)').attr('onclick',"ClearPicArr2(this,'"+paths[i]+"')").text('删除');
+            $(".goods_xc:eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
+        }
+    }
+    /*
+     * 上传之后删除组图input
+     * @access   public
+     * @val      string  删除的图片input
+     */
+    function ClearPicArr2(obj,path)
+    {
+        $.ajax({
+            type:'GET',
+            url:"?app=good&act=delUpload",
+            data:{action:"del", filename:path},
+            success:function(){
+                $(obj).parent().remove(); // 删除完服务器的, 再删除 html上的图片
+            }
+        });
+        // 删除数据库记录
+//        $.ajax({
+//            type:'GET',
+//            url:"/index.php/Admin/Goods/del_goods_images",
+//            data:{filename:path},
+//            success:function(){
+//                //
+//            }
+//        });
+    }
+    // 商品模型模块的js
+    /** 以下商品模型----商品属性相关 js*/
+    // 属性输入框的加减事件
+    function addAttr(a)
+    {
+        var attr = $(a).parent().parent().prop("outerHTML");
+        attr = attr.replace('addAttr','delAttr').replace('+','-');
+        $(a).parent().parent().after(attr);
+    }
+    // 属性输入框的加减事件
+    function delAttr(a)
+    {
+        $(a).parent().parent().remove();
+    }
+
+    /** 以下下商品模型----商品规格相关 js*/
+    $(document).ready(function(){
+        // 商品模型切换时 ajax 调用  返回不同的属性输入框
+        $("#spec_type").change(function(){
+            var goods_id = '1';
+            var spec_type = $(this).val();
+            $.ajax({
+                type:'GET',
+                data:{goods_id:goods_id,spec_type:spec_type},
+                url:"?app=good&act=ajaxGetSpecSelect",
+                success:function(data){
+                    $("#ajax_spec_data").html('')
+                    $("#ajax_spec_data").append(data);
+                    ajaxGetSpecInput();  // 触发完  马上触发 规格输入框
+                }
+            });
+            //商品类型切换时 ajax 调用  返回不同的属性输入框
+            $.ajax({
+                type:'GET',
+                data:{goods_id:goods_id,type_id:spec_type},
+                url:"?app=good&act=ajaxGetAttrInput",
+                success:function(data){
+                    $("#goods_attr_table tr:gt(0)").remove();
+                    $("#goods_attr_table").append(data);
+                }
+            });
+        });
+        // 触发商品规格
+        $("#spec_type").trigger('change');
+
+        $("input[name='exchange_integral']").blur(function(){
+            var shop_price = parseInt($("input[name='shop_price']").val());
+            var exchange_integral = parseInt($(this).val());
+            if (shop_price * 100 < exchange_integral) {
+
+            }
+        });
+    });
+
+    /** 以下是编辑时默认选中某个商品分类*/
+    $(document).ready(function(){
+
+
+        //  扩展分类
+
+    });
+
+    // 商品模型中商品规格页面带回来的js
+    // 上传规格图片
+    function GetUploadify3(k){
+        cur_item_id = k; //当前规格图片id 声明成全局 供后面回调函数调用
+        GetUploadify(1,'','goods','call_back3');
+    }
+
+
+    // 上传规格图片成功回调函数
+    function call_back3(fileurl_tmp){
+        $("#item_img_"+cur_item_id).attr('src',fileurl_tmp); //  修改图片的路径
+        $("input[name='item_img["+cur_item_id+"]']").val(fileurl_tmp); // 输入框保存一下 方便提交
+    }
+
+
+    // 商品模型模块的js end
+
+    //富文本编辑框
+
+    KindEditor.ready(function(K) {
+        editor = K.create('textarea[name="goods_content"]', {
+            allowFileManager : true,
+            afterBlur: function(){
+                this.sync();
+            }
+        });
+    });
+
+</script>
+{/literal}
+</body>
+</html>

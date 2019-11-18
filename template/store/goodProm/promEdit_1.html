@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {include file="public/header.html"}
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <section class="content-header">
+                    <h1>
+                        Merchandising editor
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="?app=default&act=index&lang_id={$lang_id}"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="#">Promotion management</a></li>
+                        <li class="active">Merchandising editor</li>
+                    </ol>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary pb20">
+                                <div class="box-header">
+                                    <div class="col-sm-1 col-md-1 no-padding pull-right">
+                                        <a class="btn btn-primary pull-right btn-sm" href="?app=goodProm&act=index&lang={$lang_id}&p={$p}"><i class="fa fa-plus"></i> Return</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-horizontal">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <input type="hidden" name="prom_id" value="{$prom_id}"/>
+                                            <label class="col-sm-5 col-md-3  col-lg-3 control-label"><span class="text-red">*</span> Activity name：</label>
+                                            <div class="col-sm-7 col-md-6 col-lg-5">
+                                                <input type="text" class="form-control" placeholder="" name="prom_name" value="{$prom_main_info['prom_name']}"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-3  col-lg-3 control-label"><span class="text-red">*</span> start time：</label>
+                                            <div class="col-sm-7 col-md-6 col-lg-5">
+                                                <input type="text" class="form-control w174 inblock" placeholder="" id="datepicker1" name="start_time" value="{$prom_main_info['start_time']}" readonly />
+                                                <label class="">End time：</label>
+                                                <input type="text" class="form-control w174 inblock" placeholder="" id="datepicker2" name="end_time" value="{$prom_main_info['end_time']}" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="zuhesale clearfix">
+                                    <div class="col-xs-12 header">
+                                        <div class="col-xs-8">Please choose goods</div>
+                                        <div class="col-xs-4 text-right">
+                                            <a href="##" class="btn btn-primary j_add">Add goods</a>
+                                            <a href="##" class="btn btn-primary j_alldel">Clear all goods</a>
+                                        </div>
+                                    </div> 
+                                    <div class="col-xs-12 header-top ">
+                                        <div class="col-xs-8">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="optionsRadios"  value="1" class="j_discount" checked>discount
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="optionsRadios"  value="2" class="j_lessprice">Sale
+                                            </label>    
+                                            <input type="text" class="j_text form-control w100 inblock">
+                                            <button class="btn btn-primary ml60 j_edite">Batch modification</button>
+                                        </div>
+                                        <div class="col-xs-4 text-right">
+                                            <!-- <a href="##" class="btn btn-primary">抹角</a>
+                                            <a href="##" class="btn btn-primary">抹分</a> -->
+                                        </div>
+                                    </div> 
+                                    <div class="col-xs-12">
+                                        <div class="new-table-responsive mb20">
+                                            <div class="box-body table-responsive no-padding ">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>picture</th>
+                                                            <th>Commodity name</th>
+                                                            <th>Original price</th>
+                                                            <th>Discount</th>
+                                                            <th>Sale</th>
+                                                            <th>Discount price</th>
+                                                            <th>Home purchase restrictions</th>
+                                                            <th>operation</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="j_tbody">
+                                                        {foreach from=$prom_detail_info item=vo}
+                                                        <tr>
+                                                            <td>
+                                                                <input type="hidden" class="store_goods_id" value="{$vo.goods_id}">
+                                                                <input type="hidden" class="datakey" value="{$vo.goods_key}">
+                                                                <input type="hidden" class="dataattr" value="{$vo.goods_key_name}">
+                                                                <input type="hidden" class="dataurl" value="{$vo.goods_img}">
+                                                                <input type="hidden" class="datamprice" value="{$vo.goods_price}">
+                                                                <input type="hidden" class="hid" value="{$vo.hid}">
+                                                                <!--<input type="hidden" class="dataname" value="{$vo.goods_key_name}">-->
+                                                                <img src="{$vo.goods_img}" width="80" height="40">
+                                                            </td>
+                                                            <td>{$vo.goods_name}{if $vo.goods_key_name}{$vo.goods_key_name}{/if}</td>
+                                                            <td class="yprice">{$vo.goods_price}</td>
+                                                            <td><input type="text" value="{$vo.discount_rate}" class="form-control w70 discount" /></td>
+                                                            <td><input type="text" value="{$vo.reduce}"  class="form-control w100 lessprice" /></td>
+                                                            <td><input type="text" value="{$vo.discount_price}"  class="form-control w100 zprice"/></td>
+                                                            <td>
+                                                                Home purchase restrictions&nbsp;&nbsp;
+                                                                <select class="form-control inblock w120 j_select"  name="limit_amount">
+                                                                    <option value="0" {if $vo.limit_amount == 0}selected {/if}>Unlimited purchase</option>
+                                                                    <option value="1" {if $vo.limit_amount == 1}selected {/if}>One purchase limit</option>
+                                                                    <option value="2" {if $vo.limit_amount == 2}selected {/if}>Purchase two pieces</option>
+                                                                    <option value="3" {if $vo.limit_amount == 3}selected {/if}>Purchase three pieces</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <a href="javascript:void(0)" name="7" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table1" style="overflow: hidden; position: relative;" data-original-title="delete"><i class="fa fa-times"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        {/foreach}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="box-footer">
+                                    <div class="col-xs-5 col-xs-offset-3 ">
+                                        <a href="?app=goodProm&act=index&lang_id={$lang_id}&p={$p}" class="btn btn-default"><i class="fa fa-times-circle"></i> Close</a>
+                                        <button type="button" id="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> Preservation
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="store_id" value="{$store_id}" />
+                                <input type="hidden" name="lang_id" value="{$lang_id}" />
+                                <input type="hidden" name="p" value="{$p}" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            {include file="public/footer.html"}
+        </div>
+        {literal}
+        <!-- ./wrapper -->
+        <script type="text/javascript">
+            $(function () {
+                var newDate = new Date();
+                var t = newDate.toJSON();
+                $('#datepicker1').datetimepicker({
+                    autoclose: true,
+                    language: 'ch',
+                    format: "yyyy-mm-dd hh:ii",
+                    clearBtn: true,
+                    startDate: new Date(t),
+
+                });
+                $('#datepicker2').datetimepicker({
+                    autoclose: true,
+                    language: 'ch',
+                    format: "yyyy-mm-dd hh:ii",
+                    clearBtn: true,
+                    startDate: new Date(t),
+                });
+            })
+            //添加主商品
+            $(function () {
+                $('body').on('click', '.j_add_product', function (e) {
+                    setTimeout(function () {
+                        dialog_form_radio('?app=checkDialog&act=goodsDialog&lang_id=1', 'Add goods');
+                    }, 100);
+                })
+                function dialog_form_radio(file_url, title) {
+                    $.get(file_url, function (data) {
+                        $.confirm({
+                            boxWidth: '60%',
+                            useBootstrap: false,
+                            title: title,
+                            content: data,
+                            animationBounce: 1.5,
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: 'Preservation',
+                                    action: function () {
+                                        var obj = $('.tc-box tbody input[type="radio"]:checked');
+                                        dataurl = obj.attr('data-url');
+                                        dataname = obj.attr('data-name'); //商品名称
+                                        datasprice = obj.attr('data-sprice');
+                                        datamprice = obj.attr('data-mprice');
+                                        var a = obj.parents('tr').next().find('.att a');
+                                        var attr = obj.parents('tr').next().find('.active');
+                                        if (a.length > 0) {//有active
+                                            var dataattr = attr.attr('data-attr');
+                                            var datakey = attr.attr('data-key');
+                                            var dataiprice = attr.attr('data-iprice');
+                                            var dataitem = attr.attr('data-item');
+                                            var name = dataname + ' ' + dataattr;
+                                            $('.product-img').attr('src', dataurl);
+                                            $('.product-price').text(dataiprice);
+                                            $('.product-name').text(name);
+
+                                        } else {//如果没有属性
+                                            var dataattr = attr.attr('data-attr');
+                                            var datakey = attr.attr('data-key');
+                                            var dataiprice = attr.attr('data-iprice');
+                                            var dataitem = attr.attr('data-item');
+                                            var name = dataname + ' ' + dataattr;
+                                            $('.product-img').attr('src', dataurl);
+                                            $('.product-price').text(datasprice);
+                                            $('.product-name').text(dataname);
+                                        }
+
+                                    }
+                                },
+                                cancel: {
+                                    btnClass: 'btn-default', // multiple classes.
+                                    text: 'cancel'
+                                }
+                            }
+                        });
+                    })
+                }
+            })
+            //添加商品和清除所有商品
+            $(function () {
+                var timer=null;
+                $('body').on('click', '.j_add', function (e) {
+                   if(timer==null){
+                       timer=setTimeout(function () {
+                           dialog_form_checkbox('?app=checkDialog&act=goodsDialog&lang_id=1', 'Add goods');
+                       }, 100);
+                   }
+                })
+                $('body').on('click', '.j_alldel', function (e) {
+                    $('.j_tbody').find('tr').remove();
+                })
+                //多选checkbox
+                function dialog_form_checkbox(file_url, title) {
+                    $.get(file_url, function (data) {
+                        $.confirm({
+                            boxWidth: '60%',
+                            useBootstrap: false,
+                            title: title,
+                            content: data,
+                            animationBounce: 1.5,
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: 'Preservation',
+                                    action: function () {
+                                        clearTimeout(timer);
+                                        timer = null;
+                                        var obj = $('.tc-box input[type="checkbox"]:checked').not('#all');
+                                        for (var j = 0; j < obj.length; j++) {
+                                            dataid = $(obj[j]).attr('data-id');
+                                            dataurl = $(obj[j]).attr('data-url');
+                                            dataname = $(obj[j]).attr('data-name'); //商品名称
+                                            datasprice = $(obj[j]).attr('data-sprice');
+                                            datamprice = $(obj[j]).attr('data-mprice');
+                                            var a = $(obj[j]).parents('tr').next().find('.att a');
+                                            var attr = $(obj[j]).parents('tr').next().find('.active');
+                                            if (a.length > 0 && attr.length > 0) {//如果有选中的active
+                                                for (var k = 0; k < attr.length; k++) {
+                                                    var dataid = $(obj[j]).attr('data-id');
+                                                    var dataattr = $(attr[k]).attr('data-attr');
+                                                    var datakey = $(attr[k]).attr('data-key');
+                                                    var dataiprice = $(attr[k]).attr('data-iprice');
+                                                    var dataitem = $(attr[k]).attr('data-item');
+                                                    var name = dataname + ' ' + dataattr;
+                                                    var flag = quChong(dataid + datakey);
+                                                    if (!flag) {
+                                                        var html = '';
+                                                        html += '<tr>' +
+                                                                '<input type="hidden" class="hid" value="' + dataid + datakey + '"/>' +
+                                                                '<td>' +
+                                                                '<input type="hidden" class="store_goods_id" value="' + dataid + '"> ' +
+                                                                '<input type="hidden" class="datakey" value="' + datakey + '"> ' +
+                                                                '<input type="hidden" class="dataattr" value="' + dataattr + '"> ' +
+                                                                '<input type="hidden" class="dataurl" value="' + dataurl + '"> ' +
+                                                                '<input type="hidden" class="datamprice" value="' + dataiprice + '"> ' +
+                                                                '<input type="hidden" class="dataname" value="' + dataname + '"> ' +
+                                                                '<img src="' + dataurl + '" width="80" height="40">' +
+                                                                '</td>' +
+                                                                '<td>' + name + '</td>' +
+                                                                '<td class="yprice">' + dataiprice + '</td>' +
+                                                                '<td><input type="text" value="" class="form-control w70 discount" /></td>' +
+                                                                '<td><input type="text" value=""  class="form-control w100 lessprice" /></td>' +
+                                                                '<td><input type="text" value=""  class="form-control w100 zprice"/></td>' +
+                                                                '<td>' +
+                                                                'Home purchase restrictions&nbsp;&nbsp;' +
+                                                                '<select class="form-control inblock w120 j_select"  name="limit_amount">' +
+                                                                '<option value="0">Unlimited purchase</option>' +
+                                                                '<option value="1">One purchase limit</option>' +
+                                                                '<option value="2">Purchase two pieces</option>' +
+                                                                '<option value="3">Purchase three pieces</option>' +
+                                                                '</select>' +
+                                                                '</td>' +
+                                                                '<td>' +
+                                                                '<a href="javascript:void(0)" name="7" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table1" style="overflow: hidden; position: relative;" data-original-title="delete"><i class="fa fa-times"></i></a>' +
+                                                                '</td>' +
+                                                                '</tr>';
+                                                        //追加
+                                                        $('.j_tbody').append(html);
+                                                    }
+                                                }
+                                            }
+                                            if (a.length > 0 && attr.length == 0) {
+                                                var d = $.dialog({
+                                                    content: '<div class="text-center">' + 'At least one attribute should be selected' + '</div>',
+                                                    title: false, // hides the title.
+                                                    closeIcon: false, // hides the close icon.
+                                                    columnClass: 'xsmall',
+                                                    onOpen: function () {
+                                                        setTimeout(function () {
+                                                            d.close();
+                                                        }, 1000);
+
+                                                    }
+                                                });
+                                                return false;
+
+
+                                            } else if (attr.length == 0) {//如果没有属性
+                                                var dataid = $(obj[j]).attr('data-id');
+                                                var dataattr = $(attr[k]).attr('data-attr');
+                                                var datakey = $(attr[k]).attr('data-key');
+                                                var dataiprice = $(attr[k]).attr('data-iprice');
+                                                var dataitem = $(attr[k]).attr('data-item');
+                                                var name = dataname + ' ' + dataattr;
+                                                var flag = quChong(dataid + datakey);
+                                                if (!flag) {
+                                                    var html = '';
+                                                    html += '<tr>' +
+                                                            '<input type="hidden" class="hid" value="' + dataid + datakey + '"/>' +
+                                                            '<td>' +
+                                                            '<input type="hidden" class="store_goods_id" value="' + dataid + '"> ' +
+                                                            '<input type="hidden" class="datakey" value="' + datakey + '"> ' +
+                                                            '<input type="hidden" class="dataattr" value="' + dataattr + '"> ' +
+                                                            '<input type="hidden" class="dataurl" value="' + dataurl + '"> ' +
+                                                            '<input type="hidden" class="datamprice" value="' + datasprice + '"> ' +
+                                                            '<input type="hidden" class="dataname" value="' + dataname + '"> ' +
+                                                            '<img src="' + dataurl + '" width="80" height="40">' +
+                                                            '</td>' +
+                                                            '<td>' + dataname + '</td>' +
+                                                            '<td class="yprice">' + datasprice + '</td>' +
+                                                            '<td><input type="text" value="" class="form-control w70 discount" /></td>' +
+                                                            '<td><input type="text" value=""  class="form-control w100 lessprice" /></td>' +
+                                                            '<td><input type="text" value=""  class="form-control w100 zprice"/></td>' +
+                                                            '<td>' +
+                                                            'Home purchase restrictions&nbsp;&nbsp;' +
+                                                            '<select class="form-control inblock w120 j_select" class="limit_amount" >' +
+                                                            '<option value="0">Unlimited purchase</option>' +
+                                                            '<option value="1">One purchase limit</option>' +
+                                                            '<option value="2">Purchase two pieces</option>' +
+                                                            '<option value="3">Purchase three pieces</option>' +
+                                                            '</select>' +
+                                                            '</td>' +
+                                                            '<td>' +
+                                                            '<a href="javascript:void(0)" name="7" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;" data-original-title="delete"><i class="fa fa-times"></i></a>' +
+                                                            '</td>' +
+                                                            '</tr>';
+                                                    //追加
+                                                    $('.j_tbody').append(html);
+                                                }
+                                            }
+
+                                            // 
+                                        }
+                                    }
+                                },
+                                cancel: {
+                                    btnClass: 'btn-default', // multiple classes.
+                                    text: 'cancel',
+                                    action: function(){
+                                        clearTimeout(timer);
+                                        timer = null;
+                                    }
+                                }
+                            }
+                        });
+
+                    })
+                }
+                //去重函数
+                function quChong(str) {
+                    var arr = [];
+                    var flag;
+                    hidden = $('.hid');
+                    if (hidden.length == 0) {
+                        flag = 0;
+                    } else {
+                        for (var i = 0; i < hidden.length; i++) {
+                            if (str == $(hidden[i]).val()) {
+                                flag = 1;
+                                break;//如果找到相同的就跳出循环
+                            } else {
+                                flag = 0;
+                            }
+                        }
+                    }
+                    return flag;
+                }
+                //单个删除
+                $('body').on('click', '.delete-table1', function () {
+                    var that = $(this);
+                    $.confirm({
+                        title: '',
+                        closeIcon: true,
+                        content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i> You are sure you want to delete the selected data？",
+                        type: 'blue',
+                        buttons: {
+                            confirm: {
+                                btnClass: 'btn-blue',
+                                text: 'confirm',
+                                action: function () {
+                                    that.parents('tr').remove();
+                                }
+                            },
+                            cancel: {
+                                btnClass: 'btn-default', // multiple classes.
+                                text: 'cancel'
+                            }
+                        }
+                    });
+
+                });
+            })
+            //批量修改和失去焦点单个修改
+            $(function () {
+                //批量计算
+                $('.j_edite').click(function () {
+                    var type = $('.header-top').find('input[type="radio"]:checked').val();
+                    if (type == 1) {
+                        var pattern = /^[0-9]*[1-9][0-9]*$/;
+                        var text = $('.header-top .j_text').val();
+                        if (text > 10) {
+                            $.confirm({
+                                title: '',
+                                closeIcon: true,
+                                content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; Discount must not exceed 10 !",
+                                type: 'blue',
+                                buttons: {
+                                    confirm: {
+                                        btnClass: 'btn-blue',
+                                        text: 'confirm',
+                                        action: function () {
+                                            $('.header-top .j_text').val('');
+                                        }
+                                    }
+                                }
+                            });
+                            //alert('折扣不得大于10');
+                            return;
+                        }
+                        if (text.length == 0 || text == '0.00' || !pattern.test(text)) {
+                            $.confirm({
+                                title: '',
+                                closeIcon: true,
+                                content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; Discount should be a positive integer !",
+                                type: 'blue',
+                                buttons: {
+                                    confirm: {
+                                        btnClass: 'btn-blue',
+                                        text: 'confirm',
+                                        action: function () {
+                                            $('.header-top .j_text').val('');
+                                        }
+                                    }
+                                }
+                            });
+                            $('.header-top .j_text').val('');
+                            return false;
+                        }
+                        if (text < 0) {
+                            $.confirm({
+                                title: '',
+                                closeIcon: true,
+                                content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; Discount must not be less than 0 !",
+                                type: 'blue',
+                                buttons: {
+                                    confirm: {
+                                        btnClass: 'btn-blue',
+                                        text: 'confirm',
+                                        action: function () {
+                                            $('.header-top .j_text').val('');
+                                        }
+                                    }
+                                }
+                            });
+                            //alert('折扣不得小于1');
+                            return;
+                        } else {
+                            $('.header-top .j_text').val(Number(text).toFixed(2));
+                            var text = $('.header-top .j_text').val();
+                            $('.j_tbody tr').each(function () {
+                                var num = text / 10;
+                                var yprice = $(this).find('.yprice').text();
+                                var zprice = $(this).find('.zprice');
+                                var discount = $(this).find('.discount');
+                                var lessprice = $(this).find('.lessprice');
+                                discount.val(text);//几折
+                                zprice.val((yprice * num).toFixed(2));//折后价
+                                lessprice.val((yprice - zprice.val()).toFixed(2));
+                            })
+                        }
+                    } else {
+                        var text = $('.header-top .j_text').val();//减价
+                        if (text < 0) {
+                            $.confirm({
+                                title: '',
+                                closeIcon: true,
+                                content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; The discount must not be less than 0 !",
+                                type: 'blue',
+                                buttons: {
+                                    confirm: {
+                                        btnClass: 'btn-blue',
+                                        text: 'confirm',
+                                        action: function () {
+                                            $('.header-top .j_text').val('');
+                                        }
+                                    }
+                                }
+                            });
+                            //alert('减价不能小于0');
+                            return;
+                        }
+                        if (text == '') {
+                            $('.header-top .j_text').val(' ');
+                            return;
+                        } else {
+                            $('.header-top .j_text').val(Number(text).toFixed(2));
+                            $('.j_tbody tr').each(function () {
+                                var yprice = $(this).find('.yprice').text();
+                                if ((yprice - text) < 0) {
+                                    $.confirm({
+                                        title: '',
+                                        closeIcon: true,
+                                        content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; The value of the sale cannot be greater than the original price !",
+                                        type: 'blue',
+                                        buttons: {
+                                            confirm: {
+                                                btnClass: 'btn-blue',
+                                                text: 'confirm',
+                                                action: function () {
+                                                    $('.header-top .j_text').val('');
+                                                }
+                                            }
+                                        }
+                                    });
+                                    //alert("减价的值不能大于原价！");
+                                    return false;
+                                } else {
+                                    var yprice = $(this).find('.yprice').text();
+                                    var zprice = $(this).find('.zprice');
+                                    var discount = $(this).find('.discount');
+                                    var lessprice = $(this).find('.lessprice');
+                                    lessprice.val(Number(text).toFixed(2));//减价
+                                    zprice.val((yprice - lessprice.val()).toFixed(2));//折后价
+                                    var val = (zprice.val() / yprice) * 10;
+                                    discount.val(val.toFixed(2));//几折 
+                                }
+
+                            })
+                        }
+
+                    }
+                })
+                //失去焦点，单独计算
+                $('.j_tbody').on('blur', '.discount', function () {
+                    var pattern = /^[0-9]+([.]{1}[0-9]{1,2})?$/;
+                    if ($(this).val().length == 0 || $(this).val() == '0.00' || !pattern.test($(this).val())) {
+                        $.confirm({
+                            title: '',
+                            closeIcon: true,
+                            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; Discount format error !",
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: 'confirm',
+                                    action: function () {
+                                        $(this).val('');
+                                    }
+                                }
+                            }
+                        });
+                        $(this).val('');
+                        return false;
+                    }
+                    if ($(this).val() > 10) {
+                        $.confirm({
+                            title: '',
+                            closeIcon: true,
+                            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; Discount must not exceed 10 !",
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: 'confirm',
+                                    action: function () {
+                                        that.val('');
+                                    }
+                                }
+                            }
+                        });
+                        //alert('折扣不得大于10');
+                        return;
+                    }
+                    if ($(this).val() < 0) {
+                        $.confirm({
+                            title: '',
+                            closeIcon: true,
+                            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; Discount must not be less than 0 !",
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: 'confirm',
+                                    action: function () {
+                                        that.val('');
+                                    }
+                                }
+                            }
+                        });
+                        //alert('折扣不得小于1！');
+                        return;
+                    } else {
+                        var value = +$(this).val();
+                        $(this).val(value.toFixed(2));
+                        var yprice = $(this).parents('tr').find('.yprice').text();
+                        var discount = $(this).val() / 10;
+                        var zprice = $(this).parents('tr').find('.zprice');
+                        var lessprice = $(this).parents('tr').find('.lessprice');
+                        zprice.val((yprice * discount).toFixed(2));
+                        lessprice.val((yprice - zprice.val()).toFixed(2));
+                    }
+                })
+                $('.j_tbody').on('blur', '.lessprice', function () {
+                    var that = $(this);
+                    var yprice = $(this).parents('tr').find('.yprice').text();
+                    var pattern = /^[0-9]+([.]{1}[0-9]{1,2})?$/;
+                    if ($(this).val().length == 0 || $(this).val() == '0.00' || !pattern.test($(this).val())) {
+                        $.confirm({
+                            title: '',
+                            closeIcon: true,
+                            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; The discount format error !",
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: '确认',
+                                    action: function () {
+                                        $(this).val('');
+                                        //                                $(this).parents('tr').find('.lessprice').val('');
+                                        //                                $(this).parents('tr').find('.zprice').val();
+                                    }
+                                }
+                            }
+                        });
+                        $(this).val('');
+                        return false;
+                    }
+                    if ($(this).val() < 0) {
+                        $.confirm({
+                            title: '',
+                            closeIcon: true,
+                            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; The discount must not be less than 0 !",
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: 'confirm',
+                                    action: function () {
+                                        that.val('');
+                                    }
+                                }
+                            }
+                        });
+                        //alert('减价不能小于0');
+
+                        return;
+                    }
+                    if (($(this).val() - yprice) > 0) {
+                        $.confirm({
+                            title: '',
+                            closeIcon: true,
+                            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; The value of the sale cannot be greater than the original price !",
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: 'confirm',
+                                    action: function () {
+                                        that.val('');
+                                    }
+                                }
+                            }
+                        });
+                        //alert("减价的值不能大于原价！");
+
+                        return;
+                    } else {
+                        var value = +$(this).val();
+                        $(this).val(value.toFixed(2));
+                        var yprice = $(this).parents('tr').find('.yprice').text();
+                        var lessprice = +$(this).parents('tr').find('.lessprice').val();
+                        var zprice = $(this).parents('tr').find('.zprice');
+                        var discount = $(this).parents('tr').find('.discount');
+                        zprice.val((yprice - lessprice).toFixed(2));
+                        var val = (zprice.val() / yprice) * 10;
+                        discount.val(val.toFixed(2));//几折
+
+                    }
+                })
+                $('.j_tbody').on('blur', '.zprice', function () {
+                    var that = $(this);
+                    var pattern = /^[0-9]+([.]{1}[0-9]{1,2})?$/;
+                    var yprice = $(this).parents('tr').find('.yprice').text();
+                    if ($(this).val().length == 0 || $(this).val() == '0.00' || !pattern.test($(this).val())) {
+                        $.confirm({
+                            title: '',
+                            closeIcon: true,
+                            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; The price format error !",
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: '确认',
+                                    action: function () {
+                                        $(this).val('');
+                                        //                                $(this).parents('tr').find('.lessprice').val('');
+                                        //                                $(this).parents('tr').find('.zprice').val();
+                                    }
+                                }
+                            }
+                        });
+                        $(this).val('');
+                        return false;
+                    }
+                    if ($(this).val() < 0) {
+                        $.confirm({
+                            title: '',
+                            closeIcon: true,
+                            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; The price after break must not be less than 0 !",
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: 'confirm',
+                                    action: function () {
+                                        that.val('');
+                                    }
+                                }
+                            }
+                        });
+                        //alert('折后价不能小于0');
+
+                        return;
+                    }
+                    if (($(this).val() - yprice) > 0) {
+                        $.confirm({
+                            title: '',
+                            closeIcon: true,
+                            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; After the discount price is not greater than the original price !",
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: 'confirm',
+                                    action: function () {
+                                        that.val('');
+                                    }
+                                }
+                            }
+                        });
+                        //alert("折后价不能大于原价！");
+
+                        return;
+                    } else {
+                        var value = +$(this).val();
+                        $(this).val(value.toFixed(2));
+                        var yprice = $(this).parents('tr').find('.yprice').text();
+                        var zprice = $(this).parents('tr').find('.zprice').val();
+                        var lessprice = $(this).parents('tr').find('.lessprice');
+                        var discount = $(this).parents('tr').find('.discount');
+                        lessprice.val((yprice - zprice).toFixed(2));
+                        var val = (zprice / yprice) * 10;
+                        discount.val(val.toFixed(2));//几折
+
+                    }
+                })
+            })
+            //保存时折后价不能为空
+            $(function () {
+                $('#submit').click(function () {
+                    var goods_id = [];
+                    var zprice = [];
+                    var datakey = [];
+                    var dataattr = [];
+                    var dataurl = [];
+                    var datamprice = [];
+                    var discount = [];
+                    var lessprice = [];
+                    var zprice = [];
+                    var limit_amount = [];
+                    var goods_name = [];
+                    var prom_name = $('input[name=prom_name]').val();
+                    var start_time = $('input[name=start_time]').val();
+                    var end_time = $('input[name=end_time]').val();
+                    var prom_id = $('input[name=prom_id]').val();
+                    var store_id = $('input[name=store_id]').val();
+                    var lang_id = $('input[name=lang_id]').val();
+                    var p = $('input[name=p]').val();
+                    $('.j_tbody tr').each(function () {
+                        var store_goods_id = $(this).find('.store_goods_id').val();
+                        goods_id.push(store_goods_id);
+                        var gdataattr = $(this).find('.dataattr').val();
+                        if (gdataattr == "" || gdataattr == 'undefined' || gdataattr == null) {
+                            gdataattr = '';
+                        }
+                        dataattr.push(gdataattr);
+                        var gdatakey = $(this).find('.datakey').val();
+                        if (gdatakey == "" || gdatakey == 'undefined' || gdatakey == null) {
+                            gdatakey = '';
+                        }
+                        datakey.push(gdatakey);
+                        var gdataurl = $(this).find('.dataurl').val();
+                        dataurl.push(gdataurl);
+                        var gdatamprice = $(this).find('.datamprice').val();
+                        datamprice.push(gdatamprice);
+                        var gdiscount = $(this).find('.discount').val();
+                        discount.push(gdiscount);
+                        var glessprice = $(this).find('.lessprice').val();
+                        lessprice.push(glessprice);
+                        var gzprice = $(this).find('.zprice').val();
+                        zprice.push(gzprice);
+                        var glimit_amount = $(this).find('option:selected').val();
+                        limit_amount.push(glimit_amount);
+                        //                var gdataname = $(this).find('.dataname').val();
+                        //                goods_name.push(gdataname);
+                    });
+                    if (!prom_name) {
+                        dialog('Promotions name required');
+                        return;
+                    }
+                    if (!start_time || !end_time) {
+                        dialog('The time required for promotional activities');
+                        return;
+                    } else {
+                        start_time = dateTotime(start_time);
+                        end_time = dateTotime(end_time);
+                        if (start_time >= end_time) {
+                            dialog('The starting time of sales promotion is greater than the ending time');
+                            return;
+                        }
+                    }
+                    if (goods_id.length == 0) {
+                        dialog('Please add Commodity Operation');
+                        return;
+                    }
+                    //console.log(checkArr(discount));
+                    if (checkArr(discount)) {
+                        dialog('Discount cannot be empty');
+                        return;
+                    }
+                    if (checkArr(lessprice)) {
+                        dialog('Price reduction error');
+                        return;
+                    }
+                    if (checkArr(discount)) {
+                        dialog('zprice reduction error');
+                        return;
+                    }
+                    var data = {'store_id': store_id, 'lang_id': lang_id, 'prom_id': prom_id, 'prom_name': prom_name, 'start_time': start_time, 'end_time': end_time, 'goods_id': goods_id, 'dataattr': dataattr, 'datakey': datakey, 'dataurl': dataurl, 'datamprice': datamprice, 'discount': discount, 'zprice': zprice, 'limit_amount': limit_amount, 'lessprice': lessprice, 'p': p};
+                    // ajax 提交给后台方法
+                    $.ajax({
+                        url: '?app=goodProm&act=promEdit',
+                        type: 'POST',
+                        data: data,
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.status == 1) {
+                                var d = $.dialog({
+                                    content: '<div class="text-center">' + data.message + '</div>',
+                                    title: false, // hides the title.
+                                    closeIcon: false, // hides the close icon.
+                                    columnClass: 'xsmall',
+                                    onOpen: function () {
+                                        setTimeout(function () {
+                                            d.close();
+                                        }, 1000);
+                                        window.location.href = data.info.url;
+                                    }
+                                });
+                                return false;
+                            } else {
+                                var d = $.dialog({
+                                    content: '<div class="text-center">' + data.message + '</div>',
+                                    title: false, // hides the title.
+                                    closeIcon: false, // hides the close icon.
+                                    columnClass: 'xsmall',
+                                    onOpen: function () {
+                                        setTimeout(function () {
+                                            d.close();
+                                        }, 1000);
+                                    }
+                                });
+                                return false;
+                            }
+
+                        }
+
+                    });
+                })
+
+                /** 时间格式转换成时间戳*/
+                function dateTotime(fromDate) {
+                    var stringTime = fromDate;
+                    var timestamp2 = Date.parse(new Date(stringTime));
+                    timestamp2 = timestamp2 / 1000;
+                    return timestamp2;
+                }
+            })
+        </script>
+        <script type="text/javascript">
+            function dialog(msg) {
+                $.confirm({
+                    title: '',
+                    closeIcon: true,
+                    content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; " + msg + "!",
+                    type: 'blue',
+                    buttons: {
+                        confirm: {
+                            btnClass: 'btn-blue',
+                            text: 'confirm',
+                            action: function () {
+
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 判断数据中函数含有空的值
+            function checkArr(arr) {
+                var pattern = /^[0-9]+(.[0-9]{1,2})?$/
+                var isnull = [];
+                var alength = arr.length;
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i] == "" || arr[i] == '0.00' || arr[i] == 'NaN') {
+                        isnull.push(arr[i]);
+                    }
+                    if (!pattern.test(arr[i])) {
+                        isnull.push(arr[i]);
+                    }
+                    if (parseInt(arr[i]) <= 0) {
+                        isnull.push(arr[i]);
+                    }
+                }
+                if (isnull.length) {
+                    return true;
+                } else {
+                    return  false;
+                }
+
+            }
+        </script>
+        {/literal}
+    </body>
+</html>

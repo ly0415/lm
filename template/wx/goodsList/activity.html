@@ -1,0 +1,21 @@
+<title>活动详情</title>
+{include file="public/wx_header.html"}
+</head>
+<body>
+<div class="notice">
+    <img src="{$STATIC_URL}/wx/goodList/indexCeshi/images/noticehead.png" class="imgs"/>
+    <div class="noticetip" >
+        <div class="noticemmain">
+            <div class="ncotent">{$data.description}</div>
+            <button id="submit" name="submit"  class="nsubmit"  style="background-color:{if $data.status == 1}#7d7d7d !important{/if}">{if $data.status == 1}我已报名{else}立即报名{/if}</button>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="activity_id" value="{$data.id}">
+<input type="hidden" name="user_id" value="{$userId}">
+<input type="hidden" name="status" value="{$data.status}">
+{include file="public/wx_footer.html"}
+<script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+</body>
+</html>

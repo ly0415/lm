@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            {if $lang_id == 1}
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        Order list
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i>Order management</a></li>
+                        <li class="active">Order list</li>
+                    </ol>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary">
+                                <div class="orderlist-box mt30">
+                                    <form class="form-inline" style="padding: 0 30px;">
+                                        <div class="tabsbox">
+                                            <input type="hidden" name="app" value="orderList" />
+                                            <input type="hidden" name="act" value="index" />
+                                            <input type="hidden" name="state" value="{$state}" />
+                                            <input type="hidden" name="lang_id" value="{$lang_id}" />
+                                            <div class="form-group form-group-sm form-mar">
+                                                <ul class="nav nav-tabs">
+                                                    <li><small class="control-label zm">Order status：</small></li>
+                                                    <li {if $state == 'month_this'} class="active"{/if}><a href="store.php?app=orderList&act=index&state=month_this&lang_id={$lang_id}">Near March</a></li>
+                                                    <li {if $state == 10} class="active"{/if}><a href="store.php?app=orderList&act=index&state=10&lang_id={$lang_id}">Pending payment</a></li>
+                                                    <li {if $state == 20} class="active"{/if}><a href="store.php?app=orderList&act=index&state=20&lang_id={$lang_id}">Pending delivery</a></li>
+                                                    <li {if $state == 30} class="active"{/if}><a href="store.php?app=orderList&act=index&state=30&lang_id={$lang_id}" >Already shipped</a></li>
+                                                    <li {if $state == 40} class="active"{/if}><a href="store.php?app=orderList&act=index&state=40&lang_id={$lang_id}" >Distribution</a></li>
+                                                    <li {if $state == 50} class="active"{/if}><a href="store.php?app=orderList&act=index&state=50&lang_id={$lang_id}">Completed</a></li>
+                                                    <li {if $state == '0'} class="active"{/if}> <a href="store.php?app=orderList&act=index&state=0&lang_id={$lang_id}">Closed</a></li>
+                                                    <li {if $state == 'month_pre'} class="active"{/if}><a href="store.php?app=orderList&act=index&state=month_pre&lang_id={$lang_id}">Before March</a></li>
+                                                    <!--                                                    <li {if $state == 'uncash'} class="active"{/if}><a href="store.php?app=orderList&act=index&state=uncash&lang_id={$lang_id}">Unpaid cancellation in one week</a></li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">Commodity name：</small>
+                                                <input class="form-control" type="text" name="goods_name" placeholder="Commodity name" value="{$goods_name}"/>
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">Payment method：</small>
+                                                <input class="form-control" type="text" name="payment_code" placeholder="Alipay / WeChat..." value="{$payment_code}"/>
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">Purchaser：</small>
+                                                <input class="form-control" type="text" name="buyer_email" placeholder="Buyer mailbox" value="{$buyer_email}">
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">Consignee：</small>
+                                                <input class="form-control" type="text" placeholder="Consignee's nickname" name="buyer_name" value="{$buyer_name}"/>
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">Order number：</small>
+                                                <input class="form-control" type="text" name="order_sn" placeholder="Order number" value="{$order_sn}"/>
+                                            </div>   
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">Courier number：</small>
+                                                <input class="form-control" type="text" name="shipping_code" placeholder="Courier number" value="{$shipping_code}"/>
+                                            </div>  
+                                            {if $auth ==1}
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">Distributor：</small>
+                                                <select class="form-control w160 j_select" name="store_id">
+                                                    <option value="0">--Please select the site--</option>
+                                                    {foreach from=$store item=v}
+                                                    <option value="{$v.id}" {if $store_id == $v.id} selected {/if}>{$v.store_name}</option>
+                                                    {/foreach}
+                                                </select>
+                                            </div>  
+                                            {/if}
+                                            <div class="form-group form-group-sm form-mar">
+                                                <button type="submit" class="btn btn-default btn-sm">
+                                                    Search <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                            <!--                                            <br><br>-->
+                                            <!--                                            <div class="mt33">
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            <a href="javascript:;" class="btn btn-default btn-sm" id="exportOrder">Export order</a>
+                                                                                        </div>-->
+                                        </div>
+                                    </form>
+                                    <div class="new-table-responsive mt30">
+                                        <div class="box-body table-responsive no-padding ">
+                                            <table class="table orderlist-table table-bordered">
+                                                <thead>
+                                                    <tr> 
+                                                        <th></th>
+                                                        <th colspan="2" style="font-weight:800" >Commodity information</th>
+                                                        <th style="font-weight:800">GoodsNumber</th>
+                                                        <th style="font-weight:800">GoodsPrice</th>
+                                                        <th style="font-weight:800">Refundable state</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                {foreach from=$data item=item}
+                                                <tbody>
+                                                    <tr class="firsttr">
+                                                        <td></td>
+                                                        <td colspan="8">
+                                                            <div class="pull-left">
+                                                                <a href="store.php?app=orderList&act=details&lang_id={$lang_id}&order_id={$item.order_id}&p={$p}"> {$item.order_sn}</a>&nbsp;&nbsp;
+                                                                <span>&nbsp;&nbsp;&nbsp;Order time：{$item.add_time|date_format:"%Y-%m-%d"}&nbsp;&nbsp;</span>
+                                                                {if $item['order_state'] >20}
+                                                                <span>&nbsp;&nbsp;&nbsp;{$item.orplist_name}Express ：{$item.shipping_code}</span>
+                                                                {/if}
+                                                                <span>&nbsp;&nbsp;&nbsp;Distribution mode ： {if $item.sendout ==1}Self lifting{elseif $item.sendout ==2 }Delivery to the door{else}Mail delivery{/if}</span>
+                                                                <span>&nbsp;&nbsp;&nbsp; <a href=" index.php?app=print&act=index&orderid={$item.order_id}">Print orders</a></span>
+                                                                <span>&nbsp;&nbsp;&nbsp; <a href="index.php?app=print&act=indexSpec&orderid={$item.order_id}" class="uline or">Print specification</a></span>
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                {if !$item.fx_phone && $item.order_state != 0 && $item.order_state != 10}
+                                                                <span id="appoint" class="btn btn-primary btn-sm" onclick="appoint('{$item.order_sn}')">designated three level distributor</span>
+                                                                {/if}
+                                                                <a href="store.php?app=orderList&act=details&lang_id={$lang_id}&order_id={$item.order_id}&p={$p}" class="btn btn-primary btn-sm">Order details</a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    {foreach $item['goods_list'] as  $good}
+                                                    <tr>
+                                                        <td></td>
+                                                        <td width="70px">
+                                                            <img src="{$good.goods_image}" width="60" height="45">
+                                                        </td>
+                                                        <td>
+                                                            <div class="wts" style="width: 430px;">
+                                                                <div class="tl">
+                                                                    {$good['goods_name']}
+                                                                </div>
+                                                                <div class="tl gy">
+                                                                    Product specifications:{$good['spec_key_name']}
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><div>x{$good['goods_num']}</div></td>
+                                                        <td> <div class="rd">{$symbol}{$good['goods_pay_price']}</div></td> 
+                                                        {if $good['refund_state'] == 0}
+                                                        <td>Non Refundable</td>
+                                                        {else if $good['refund_state'] == 1}
+                                                        <td>Refunds audit</td>
+                                                        {else if $good['refund_state'] == 2}
+                                                        <td>Refunded</td>
+                                                        {else}
+                                                        <td>Refund failure</td>
+                                                        {/if}
+                                                    </tr>
+                                                    {/foreach}
+                                                    {foreach $item['gift'] as  $gift}
+                                                    <tr>
+                                                        <td></td>
+                                                        <td width="70px">
+                                                            <img src="{$gift.goods_img}" width="60" height="45">
+                                                        </td>
+                                                        <td>
+                                                            <div class="wts" style="width: 430px;">
+                                                                <div class="tl">
+                                                                    {$gift['goods_name']}
+                                                                </div>
+                                                                <div class="tl gy">
+                                                                    Product specifications:{$gift['goods_key_name']}
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>X{$gift['gift_num']}</div>
+                                                        </td> 
+                                                          <td></td>
+                                                        <td>
+                                                            <div>Gifts (buy gifts)</div>
+                                                        </td>
+                                                    </tr>
+                                                    {/foreach}
+                                                    <tr class="" >
+                                                        <td></td>
+                                                        <td colspan="8" style="text-align: left">
+                                                            <span class="rd cart-span">Order Amount collected：{$symbol}{$item.goods_amount}</span>
+                                                            <span class="rd cart-span">Amount collected：{$symbol}{$item.order_amount}</span>
+                                                            {if $item.fx_phone neq 0 }
+                                                            <span class="rd cart-span">Concession code：{$item.fx_phone}</span>
+                                                            {/if}
+                                                            {if $item.discount neq 0 }
+                                                            <span class="rd cart-span">Distribution preferences：{$symbol}{$item.discount}</span>
+                                                            {/if}
+                                                            {if $item.fx_phone neq 0 }
+                                                            <span class="rd cart-span">Preferential amount：{$symbol}{if $item.fx_money}{$item.fx_money}{else}0.00{/if}</span>
+                                                            {/if}
+                                                            {if $item.pd_amount neq 0 }
+                                                            <span class="rd cart-span">Good integration：{$symbol}{$item.pd_amount}</span>
+                                                            {/if}
+                                                            {if $item.cp_amount neq 0 }
+                                                            <span class="rd cart-span">Coupons：{$symbol}{$item.cp_amount}</span>
+                                                            {/if}
+                                                            <span class="rd cart-span">Distribution fee：{$symbol}{if $item.shipping_fee ==''}0.00{else}{$item.shipping_fee}{/if}</span>
+                                                            <span class="cart-span">Consignee：{$item.buyer_name}</span>
+                                                            <span class="cart-span">Receiving telephone：{$item.buyer_phone}</span>
+                                                            {foreach $status as $key=>$val}
+                                                            {if $key == $item['order_state']}
+                                                            <span class="cart-span">Order status：{$val}</span>
+                                                            {/if}
+                                                            {/foreach}
+                                                            <!--                                                            <span class="cart-span">退货状态：无</span>-->
+                                                        </td>
+                                                    </tr>                                     
+                                                </tbody>
+                                                {/foreach}
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="box-footer clearfix"> 
+                                        {$page_html}
+                                    </div>
+                                </div>  
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->     
+            {include file="public/footer.html"}
+            {else}
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        订单列表
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i>订单管理</a></li>
+                        <li class="active">订单列表</li>
+                    </ol>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary">
+                                <div class="orderlist-box mt30">
+                                    <form class="form-inline" style="padding: 0 30px;">
+                                        <div class="tabsbox">
+                                            <input type="hidden" name="app" value="orderList" />
+                                            <input type="hidden" name="act" value="index" />
+                                            <input type="hidden" name="state" value="{$state}" />
+                                            <input type="hidden" name="lang_id" value="{$lang_id}" />
+                                            <div class="form-group form-group-sm form-mar">
+                                                <ul class="nav nav-tabs">
+                                                    <li><small class="control-label zm">订单状态：</small></li>
+                                                    <li {if $state == 'month_this'} class="active"{/if}><a href="store.php?app=orderList&act=index&state=month_this&lang_id={$lang_id}">近三月</a></li>
+                                                    <li {if $state == 10} class="active"{/if}><a href="store.php?app=orderList&act=index&state=10&lang_id={$lang_id}">待付款</a></li>
+                                                    <li {if $state == 20} class="active"{/if}><a href="store.php?app=orderList&act=index&state=20&lang_id={$lang_id}">待发货</a></li>
+                                                    <li {if $state == 30} class="active"{/if}><a href="store.php?app=orderList&act=index&state=30&lang_id={$lang_id}" >已发货</a></li>
+                                                    <li {if $state == 40} class="active"{/if}><a href="store.php?app=orderList&act=index&state=40&lang_id={$lang_id}" >配送中</a></li>
+                                                    <li {if $state == 50} class="active"{/if}><a href="store.php?app=orderList&act=index&state=50&lang_id={$lang_id}">已完成</a></li>
+                                                    <li {if $state == '0'} class="active"{/if}> <a href="store.php?app=orderList&act=index&state=0&lang_id={$lang_id}">已关闭</a></li>
+                                                    <li {if $state == 'month_pre'} class="active"{/if}><a href="store.php?app=orderList&act=index&state=month_pre&lang_id={$lang_id}">三月前</a></li>
+                                                    <!--                                                    <li {if $state == 'uncash'} class="active"{/if}><a href="store.php?app=orderList&act=index&state=uncash&lang_id={$lang_id}">一周内未付款取消</a></li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">商品名称：</small>
+                                                <input class="form-control" type="text" name="goods_name" placeholder="商品名称" value="{$goods_name}"/>
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">支付方式：</small>
+                                                <input class="form-control" type="text" name="payment_code" placeholder="支付宝/微信..." value="{$payment_code}"/>
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">购买人：</small>
+                                                <input class="form-control" type="text" name="buyer_email" placeholder="购买人邮箱" value="{$buyer_email}">
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">收货人：</small>
+                                                <input class="form-control" type="text" placeholder="收货人昵称" name="buyer_name" value="{$buyer_name}"/>
+                                            </div>
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">订单编号：</small>
+                                                <input class="form-control" type="text" name="order_sn" placeholder="订单编号" value="{$order_sn}"/>
+                                            </div>   
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">快递单号：</small>
+                                                <input class="form-control" type="text" name="shipping_code" placeholder="快递单号" value="{$shipping_code}"/>
+                                            </div>  
+                                            {if $auth ==1}
+                                            <div class="form-group form-group-sm form-mar">
+                                                <small class="control-label zm">经销商：</small>
+                                                <select class="form-control w160 j_select" name="store_id">
+                                                    <option value="0">--请选择站点--</option>
+                                                    {foreach from=$store item=v}
+                                                    <option value="{$v.id}" {if $store_id == $v.id} selected {/if}>{$v.store_name}</option>
+                                                    {/foreach}
+                                                </select>
+                                            </div>  
+                                            {/if}
+                                            <div class="form-group form-group-sm form-mar">
+                                                <button type="submit" class="btn btn-default btn-sm">
+                                                    搜索 <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                            <!--                                            <br><br>
+                                                                                        <div class="mt33">
+                                                                                            &nbsp;&nbsp;&nbsp;
+                                                                                            <a href="javascript:;" class="btn btn-default btn-sm" id="exportOrder">导出订单</a>
+                                                                                        </div>-->
+                                        </div>
+                                    </form>
+                                    <div class="new-table-responsive mt30">
+                                        <div class="box-body table-responsive no-padding ">
+                                            <table class="table orderlist-table table-bordered">
+                                                <thead>
+                                                    <tr> 
+                                                        <th colspan="2" style="font-weight:800">商品信息</th>
+                                                        <th style="font-weight:800">商品数量</th>
+                                                        <th style="font-weight:800">商品价格</th>
+                                                        <th style="font-weight:800">退款状态</th>
+                                                    </tr>
+                                                </thead>
+                                                {foreach from=$data item=item}
+                                                <tbody>
+                                                    <tr class="firsttr">
+                                                        <td colspan="5">
+                                                            <div class="pull-left">
+                                                                <a href="store.php?app=orderList&act=details&lang_id={$lang_id}&order_id={$item.order_id}&p={$p}"> {$item.order_sn}</a>&nbsp;&nbsp;
+                                                                <span>&nbsp;&nbsp;&nbsp;下单时间：{$item.add_time|date_format:"%Y-%m-%d"}&nbsp;&nbsp;</span>
+                                                                {if $item['order_state'] >20}
+                                                                {if $item.orplist_name == ''}
+                                                                {else}
+                                                                <span>&nbsp;&nbsp;&nbsp;{$item.orplist_name}快递 ：{$item.shipping_code}</span>
+                                                                {/if}
+                                                                {/if}
+                                                                <span>&nbsp;&nbsp;&nbsp;配送方式 ： {if $item.sendout ==1}自提{elseif $item.sendout ==2 }配送上门{else}邮寄托运{/if}</span>
+                                                                {if $item.sendout==2}
+                                                                <span>&nbsp;&nbsp;&nbsp;配送时间 ： {if $item.pei_time} {$item.pei_time|date_format:"H:i"} {else} ----    {/if} </span>
+                                                                {/if}
+                                                                <span>&nbsp;&nbsp;&nbsp; <a href="store.php?app=customerOrder&act=windowPrint&orderid={$item.order_id}" class="uline or">Window小票/标签打印</a></span>
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                {if !$item.fx_phone && $item.order_state != 0 && $item.order_state != 10}
+                                                                <span id="appoint" class="btn btn-primary btn-sm" onclick="appoint('{$item.order_sn}')">指定三级分销人员</span>
+                                                                {/if}
+                                                                <a href="store.php?app=orderList&act=details&lang_id={$lang_id}&order_id={$item.order_id}&p={$p}" class="btn btn-primary btn-sm">订单详情</a>
+                                                                <!--  <a href="##" class="btn btn-primary btn-sm ml10">查看物流</a>
+                                                                      <a href="##" class="btn btn-primary btn-sm ml10">更改物流</a>
+                                                                      <a href="##" class="btn btn-primary btn-sm ml10">客服留言</a>-->
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    {foreach $item['goods_list'] as  $good}
+                                                    <tr>
+                                                        <td width="70px">
+                                                            <img src="{$good.goods_image}" width="60" height="45">
+                                                        </td>
+                                                        <td class="col-md-4">
+                                                            <div class="wts" style="width: 430px;">
+                                                                <div class="tl">
+                                                                    {$good['goods_name']}
+                                                                </div>
+                                                                <div class="tl gy">
+                                                                    产品规格:{$good['spec_key_name']}
+                                                                </div>
+                                                            </div>
+                                                        </td> 
+                                                        <td><div>x{$good['goods_num']}</div></td> 
+                                                        <td><div class="rd">{$symbol}{$good['goods_pay_price']}</div></td>
+                                                        {if $good['refund_state'] == 0}
+                                                        <td>无退款</td>
+                                                        {else if $good['refund_state'] == 1}
+                                                        <td>退款审核中</td>
+                                                        {else if $good['refund_state'] == 2}
+                                                        <td>已退款</td>
+                                                        {else}
+                                                        <td>退款失败</td>
+                                                        {/if}
+                                                    </tr>
+                                                    {/foreach}
+                                                    {foreach $item['gift'] as  $gift}
+                                                    <tr>
+                                                        <td width="70px">
+                                                            <img src="{$gift.goods_img}" width="60" height="45">
+                                                        </td>
+                                                        <td class="col-md-4">
+                                                            <div class="wts" style="width: 430px;">
+                                                                <div class="tl">
+                                                                    {$gift['goods_name']}
+                                                                </div>
+                                                                <div class="tl gy">
+                                                                    产品规格:{$gift['goods_key_name']}
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>X{$gift['gift_num']}</div>
+                                                        </td> 
+                                                        <td>
+                                                            <div>赠品（买赠活动）</div>
+                                                        </td>
+                                                    </tr>
+                                                    {/foreach}
+                                                    <tr class="" >
+                                                        <td colspan="5" style="text-align: left">
+                                                            <span class="rd cart-span">订单总金额：{$symbol}{$item.goods_amount}</span>
+                                                            <span class="rd cart-span">实收金额：{$symbol}{$item.order_amount}</span>
+                                                            {if $item.discount neq 0 }
+                                                            <span class="rd cart-span">优惠金额：{$symbol}{if $item.discount}{$item.discount}{else}0.00{/if}</span>
+                                                            {/if}
+                                                            {if $item.pd_amount neq 0 }
+                                                            <span class="rd cart-span">睿积分优惠：{$symbol}{$item.pd_amount}</span>
+                                                            {/if}
+                                                            {if $item.cp_amount neq 0 }
+                                                            <span class="rd cart-span">优惠券优惠：{$symbol}{$item.cp_amount}</span>
+                                                            {/if}
+                                                            <span class="rd cart-span">配送费：{$symbol}{if $item.shipping_fee ==''}0.00{else}{$item.shipping_fee}{/if}</span>
+                                                            </br>
+                                                            <span class="cart-span">收货人：{$item.buyer_name}</span>
+                                                            <span class="cart-span">收货电话：{$item.buyer_phone}</span>
+                                                            {foreach $status as $key=>$val}
+                                                            {if $key == $item['order_state']}
+                                                            <span class="cart-span">订单状态：{$val}</span>
+                                                            {/if}
+                                                            {/foreach}
+                                                            <!--                                                            <span class="cart-span">退货状态：无</span>-->
+                                                        </td>
+                                                    </tr>                                     
+                                                </tbody>
+                                                {/foreach}
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="box-footer clearfix"> 
+                                        {$page_html}
+                                    </div>
+                                </div>  
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->     
+            {include file="public/footer.html"}
+            {/if}
+            {if $lang_id == 1}
+            <script type="text/javascript">
+                $(function () {
+                    setInterval(function () {
+                        $("#tbl").load(location.href + " #tbl");//注意后面DIV的ID前面的空格，很重要！没有空格的话，会出双眼皮！（也可以使用类名）
+                    }, 10000);//8秒自动刷新
+                })
+                function appoint(order_sn) {
+                    setTimeout(function() {
+                        dialog_form_radio('store.php?app=orderList&act=appoint_en&lang_id=0&application=orderList&action=index&order_sn='+order_sn, 'select distributor');
+                    }, 100);
+                }
+                function dialog_form_radio(file_url, title) {
+                    $.get(file_url, function(data) {
+                        $.confirm({
+                            boxWidth: '50%',
+                            useBootstrap: false,
+                            title: title,
+                            content: data,
+                            animationBounce: 1.5,
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: 'save',
+                                    action: function() {
+                                        var data = $('#distributor').serialize();
+                                        $.ajax({
+                                            url: '?app=orderList&act=appoint_en',
+                                            type: 'POST',
+                                            data: data,
+                                            dataType: "json",
+                                            success: function(data) {
+                                                if (data.status == 1) {
+                                                    var d = $.dialog({
+                                                        content: '<div class="text-center">' + data.message + '</div>',
+                                                        title: false, // hides the title.
+                                                        closeIcon: false, // hides the close icon.
+                                                        columnClass: 'xsmall',
+                                                        onOpen: function() {
+                                                            setTimeout(function() {
+                                                                d.close();
+                                                            }, 1000);
+                                                            window.location.href = data.info.url;
+                                                        }
+                                                    });
+                                                    return false;
+                                                } else {
+                                                    var d = $.dialog({
+                                                        content: '<div class="text-center">' + data.message + '</div>',
+                                                        title: false, // hides the title.
+                                                        closeIcon: false, // hides the close icon.
+                                                        columnClass: 'xsmall',
+                                                        onOpen: function() {
+                                                            setTimeout(function() {
+                                                                d.close();
+                                                            }, 1000);
+                                                        }
+                                                    });
+                                                    return false;
+                                                }
+                                            }
+                                        });
+//                                    $('input[name="email"]').val(dataname);
+                                    }
+                                },
+                                cancel: {
+                                    btnClass: 'btn-default', // multiple classes.
+                                    text: 'cancel'
+                                }
+                            }
+                        });
+
+                    })
+                }
+            </script>
+            {else}
+            <script type="text/javascript">
+                $(function () {
+                    setInterval(function () {
+                        $("#tbl").load(location.href + " #tbl");//注意后面DIV的ID前面的空格，很重要！没有空格的话，会出双眼皮！（也可以使用类名）
+                    }, 10000);//8秒自动刷新
+                })
+                function appoint(id, order_sn) {
+                    setTimeout(function() {
+                        dialog_form_radio('store.php?app=orderList&act=appoint_en&lang_id=0&application=orderList&action=index&order_sn='+order_sn, '选择分销人员');
+                    }, 100);
+                }
+                function dialog_form_radio(file_url, title) {
+                    $.get(file_url, function(data) {
+                        $.confirm({
+                            boxWidth: '50%',
+                            useBootstrap: false,
+                            title: title,
+                            content: data,
+                            animationBounce: 1.5,
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: '保存',
+                                    action: function() {
+                                        var data = $('#distributor').serialize();
+                                        $.ajax({
+                                            url: '?app=orderList&act=appoint_en',
+                                            type: 'POST',
+                                            data: data,
+                                            dataType: "json",
+                                            success: function(data) {
+                                                if (data.status == 1) {
+                                                    var d = $.dialog({
+                                                        content: '<div class="text-center">' + data.message + '</div>',
+                                                        title: false, // hides the title.
+                                                        closeIcon: false, // hides the close icon.
+                                                        columnClass: 'xsmall',
+                                                        onOpen: function() {
+                                                            setTimeout(function() {
+                                                                d.close();
+                                                            }, 1000);
+                                                            window.location.href = data.info.url;
+                                                        }
+                                                    });
+                                                    return false;
+                                                } else {
+                                                    var d = $.dialog({
+                                                        content: '<div class="text-center">' + data.message + '</div>',
+                                                        title: false, // hides the title.
+                                                        closeIcon: false, // hides the close icon.
+                                                        columnClass: 'xsmall',
+                                                        onOpen: function() {
+                                                            setTimeout(function() {
+                                                                d.close();
+                                                            }, 1000);
+                                                        }
+                                                    });
+                                                    return false;
+                                                }
+                                            }
+                                        });
+//                                    $('input[name="email"]').val(dataname);
+                                    }
+                                },
+                                cancel: {
+                                    btnClass: 'btn-default', // multiple classes.
+                                    text: '取消'
+                                }
+                            }
+                        });
+
+                    })
+                }
+            </script>
+            {/if}
+    </body>
+</html>

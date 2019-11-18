@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>聊天窗口</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/front/css/base.css">
+    <!--<link rel="stylesheet" type="text/css" href="./css/base.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="./css/common.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="./css/style.css">-->
+</head>
+<body class="grey">
+<div class="chatmain">
+    <div class="chatheader clearfix">
+        <div class="fl"><img src="{$STATIC_URL}/front/chat/imgs/chattop.png"/><span>欢迎光临711家居网</span></div>
+        <a class="fr chatclose" href="##">╳</a>
+    </div>
+    {if !empty($info.goods_name)}
+    <a class="chatdetail" href="##">
+        <img src="{$info.original_img}"/>
+        <div class="chatgoods">
+            <p>商品名称：<span>{$info.goods_name}</span></p>
+            <p class="chatdetailprice">商品价格：<span class="red">{$symbol}{$info.shop_price}</span></p>
+        </div>
+    </a>
+    {/if}
+    <div class="chatcontent">
+        {if $gid}
+        <!--<a class="chatdetail" href="##">-->
+            <!--<img src="{$info.original_img}"/>-->
+            <!--<div class="chatgoods">-->
+                <!--<p>商品名称：<span>{$info.goods_name}</span></p>-->
+                <!--<p class="chatdetailprice">商品价格：<span class="red">{$symbol}{$info.shop_price}</span></p>-->
+            <!--</div>-->
+        <!--</a>-->
+        {/if}
+        <div class="chatcentermain">
+            {foreach from=$msg_data item=item}
+            {if ($item.fid == $fid)}
+            <div class="chat clearfix c-right">
+                <img src="/assets/front/chat/imgs/chatleft.png" class="fr imgs"/>
+                <div class="chat-text fr mr20">
+                    <span>{$item.content}</span>
+                    <p>{$item.add_time}</p>
+                </div>
+            </div>
+            {else}
+            <div class="chat clearfix c-left">
+                <img src="/assets/front/chat/imgs/chatleft.png" class="fl imgs"/>
+                <div class="chat-text fl ml20">
+                    <span>{$item.content}</span>
+                    <p>{$item.add_time}</p>
+                </div>
+            </div>
+            {/if}
+
+            {/foreach}
+        </div>
+    </div>
+    <div class="chatbottom1 clearfix">
+
+        <!--<ul class="clearfix chattools">-->
+            <!--<li class="chatallimgs"><img src="{$STATIC_URL}/front/chat/imgs/chatsma.png"/></li>-->
+            <!--<li>-->
+                <!--<label id="chat-tuxiang" title="发送图片" for="inputImage" class="btn-default-styles">-->
+                    <!--<input type="file" onchange="selectImg(this)" accept="image/jpg,image/jpeg,image/png" name="file" id="inputImage" class="hidden"/>-->
+                    <!--<i class="chatphoto"></i>-->
+                <!--</label>-->
+            <!--</li>-->
+        <!--</ul>-->
+        <div class="tool">
+                    <span class="smile">
+                        <img src="{$STATIC_URL}/front/chat/imgs/biaoqing.png" >
+                    </span>
+            <div class="allimgs">
+                <ul class="clearfix">
+                    <!--<li><img src="{$STATIC_URL}/front/chat/imgs/small/9.gif"/></li>-->
+                    <!--<li><img src="{$STATIC_URL}/front/chat/imgs/small/11.gif"/></li>-->
+                    <!--<li><img src="{$STATIC_URL}/front/chat/imgs/small/12.gif"/></li>-->
+                    <li><img src='{$STATIC_URL}/front/chat/imgs/small/9.gif'/></li>
+                    <li><img src='{$STATIC_URL}/front/chat/imgs/small/11.gif'/></li>
+                    <li><img src='{$STATIC_URL}/front/chat/imgs/small/12.gif'/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/13.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/14.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/15.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/16.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/17.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/18.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/19.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/20.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/21.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/22.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/23.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/24.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/25.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/26.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/27.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/28.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/29.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/30.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/31.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/32.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/33.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/34.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/35.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/36.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/37.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/38.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/39.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/46.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/47.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/48.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/49.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/50.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/66.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/67.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/68.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/69.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/70.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/71.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/72.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/73.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/83.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/84.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/85.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/86.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/87.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/88.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/89.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/90.gif"/></li>
+                    <li><img src="{$STATIC_URL}/front/chat/imgs/small/91.gif"/></li>
+                </ul>
+            </div>
+                    <span class="biaoqing">
+                        <img src="{$STATIC_URL}/front/chat/imgs/msg.png"/>
+                    </span>
+            <ul class="tool_msg">
+                {foreach from = $question_list item=item}
+                <li>{$item.content}</li>
+                {/foreach}
+            </ul>
+        </div>
+        <div class="chattextarea">
+            <!--<textarea id="textarea" style="" name="" rows="" cols="" class="text">-->
+            <!--</textarea>-->
+            <div contentEditable="true" id="textarea1"  style="height:70px;border-style:solid; border-width:1px; border-color:#ddd"></div>
+        </div>
+        <div class="chatbottombutton">
+            <span></span><button type="button" class="send">发 送</button>
+            <input type="hidden" id="fid" value="{$fid}">
+            <input type="hidden" id="tid" value="{$tid}">
+            <input type="hidden" id="store_good_id" value="{$info.id}">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="{$STATIC_URL}/front/chat/js/jquery.1.9.1.min.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/front/chat/js/chat.js"></script>
+
+
+{literal}
+<script>
+    var chat= $(".chatcentermain"),chats=$('.chatcontent');
+
+    //var cons = document.getElementById("textarea");
+    var wsServer = "ws://59.110.220.255:9502";
+    var webSocket = new WebSocket(wsServer);
+    webSocket.onopen = function(evt){
+        openMsg();
+        console.log("链接成功");
+    };
+    webSocket.onclose = function(evt){
+        console.log("链接关闭");
+    };
+    webSocket.onerror = function(evt, e){
+        console.log("错误"+evt.data);
+    };
+
+    //接受服务器传来的数据
+    webSocket.onmessage = function(evt){
+
+        // console.log('从服务器获取数据：'+evt.data);
+
+        var pdata = $.parseJSON(evt.data);
+        var fd = pdata.fd;
+        var type = pdata.type;
+        var content = pdata.cont;
+
+        if(type == 'open'){
+            //向数据库加 fd 表 加 数据
+            openData(fd);
+        }
+
+        if(type='msg'){
+            var answer='';
+            answer+='<div class="chat clearfix c-left">'+
+                    '<img src="/assets/front/chat/imgs/chatleft.png" class="fl imgs"/>'+
+                    '<div class="chat-text fl ml20"><span>'+content+'</span>'+
+                    ' <p id="time">'+now+'</p></div>'+
+                    '</div>';
+            $(".chatcentermain").append(answer);
+            $(".chatcontent").scrollTop($(".chatcontent")[0].scrollHeight);
+        }
+    };
+
+    $('.send').on('click',function(){
+        var news=$('#textarea1').html();
+        if(news==""){
+            alert('不能为空');
+            return false;
+        }else{
+            //向服务端推送消息
+            sendMsg();
+            $('#textarea1').html('');
+            var str='';
+            str+='<div class="chat clearfix c-right">'+
+            '<img src="/assets/front/chat/imgs/chatleft.png" class="fr imgs"/>'+
+            '<div class="chat-text fr mr20"><span>'+news+'</span>'+
+            ' <p id="time">'+now+'</p></div>'+
+            '</div>';
+            chat.append(str);
+            chats.scrollTop(chats[0].scrollHeight);
+            // setTimeout(answers,1000);
+
+        }
+    });
+
+
+
+    //客户端 向 服务器 推送消息
+    function sendMsg(){
+        var fid = $("#fid").val(); //发送ID
+        var tid = $("#tid").val(); //接收ID
+        console.log(fid);
+        console.log(tid);
+        var cont = $('#textarea1').html();
+        var news = cont.replace(/\n/g,"\\\\n");
+        var cont_n = news.replace(/\"/g,"'")
+        var pData =  '{"from_id":"'+fid+'","to_id":"'+tid+'","cont":"'+cont_n+'","type":"msg"}';
+        console.log(pData);
+        webSocket.send(pData);
+    }
+
+    //初始加载推送信息
+    function openMsg(){
+        var fid = $("#fid").val(); //发送ID
+        var tid = $("#tid").val(); //接收ID
+        var cont = $('#textarea1').html();
+        var pData = '{"from_id":"'+fid+'","to_id":"'+tid+'","cont":"'+cont+'","type":"open"}';
+        webSocket.send(pData);
+    }
+    //enter
+    $(document).keyup(function(event){
+        if(event.keyCode ==13){
+            $(".send").trigger("click");
+        }
+    });
+
+    function  openData(fd){
+        var url = 'index.php?app=webIm&act=ajaxInsertFd';
+        var fid = $("#fid").val();
+        var tid = $("#tid").val(); //接收ID
+        var gs_id = $("#store_good_id").val();
+        if(gs_id == false || gs_id == null){
+            gs_id = 0;
+        }
+        var data = { uid: fid, fd: fd,tid:tid ,gs_id:gs_id };
+
+        $.post(url,data,function(obj){
+            //console.log(obj);
+            var msg = obj.message;
+            if(obj.status == 1){
+                var d = $.dialog({
+                    content: '<div class="text-center">' + msg + '</div>',
+                    title: false, // hides the title.
+                    closeIcon: false, // hides the close icon.
+                    columnClass: 'xsmall',
+                    onOpen: function() {
+                        setTimeout(function() {
+                            d.close();
+                        }, 1000);
+                    }
+                });
+
+            }else{
+                var d = $.dialog({
+                    content: '<div class="text-center">' + msg + '</div>',
+                    title: false, // hides the title.
+                    closeIcon: false, // hides the close icon.
+                    columnClass: 'xsmall',
+                    onOpen: function() {
+                        setTimeout(function() {
+                            d.close();
+                        }, 1000);
+                    }
+                });
+            }
+
+        },'json');
+    }
+
+
+
+    //快捷语
+    var flag=true;
+    $("span.biaoqing").click(function(){
+        if(flag){
+            $("ul.tool_msg").css("display","block");
+            flag=false;
+        }else if(!flag){
+            $("ul.tool_msg").css("display","none");
+            flag=true;
+        }
+    });
+    $("ul.tool_msg").on("click","li",function(){
+        $(this).addClass("active").siblings().removeClass("active");
+        $("ul.tool_msg").css("display","none");
+        var html=$(this).html();
+        var thtml=$("#textarea1").html()
+        $("#textarea1").html(thtml+=(html+" "));
+        flag=true;
+    });
+
+
+    //表情
+    $("span.smile").click(function(){
+        //console.log( $("span.smile"));
+        //console.log(flag);
+        if(flag){
+            //console.log(flag);
+            //console.log($(".chatbottom1 div.allimgs"));
+            $(".allimgs").css("display","block");
+            flag=false;
+        }else if(!flag){
+            $(".allimgs").css("display","none");
+            flag=true;
+        }
+    });
+
+    //表情添加到输入框
+    //dom到字符串
+    function nodeToString ( node ) {
+        var tmpNode = document.createElement( "div" );
+        tmpNode.appendChild( node.cloneNode( true ) );
+        var str = tmpNode.innerHTML;
+        tmpNode = node = null; // prevent memory leaks in IE
+        return str;
+    }
+    //字符串到dom
+    function parseDom(arg) {
+        var objE = document.createElement("div");
+        objE.innerHTML = arg;
+        return objE.childNodes[0];
+    };
+    $(".allimgs ul").on("click","li",function(){
+        console.log(this);
+        var img=$(this).find("img");
+        console.log(img);
+        console.log(img[0]);
+        console.log("字符串："+nodeToString(img[0]));//字符串
+        var imgStr=nodeToString(img[0]);
+        var newImg =imgStr.replace(/\"/g,"'");
+        console.log(newImg);
+        console.log("类型"+typeof(newImg));//单引号
+        console.log( parseDom(newImg));
+
+        console.log(img.clone());
+        $("#textarea1").append(img.clone());
+        flag=true;
+    });
+</script>
+{/literal}
+
+
+</body>
+</html>
+
+

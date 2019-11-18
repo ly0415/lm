@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>{$langdata.wx_cart_title}</title>
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <meta content="email=no" name="format-detection">
+        <link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css"  rel="stylesheet" type="text/css"/>
+        <link href="{$STATIC_URL}/phone/css/style.css"  rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="footprint-wrap m-form">
+            <div class="ss-nav">
+                <a href="wx.php?app=cart&act=index&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}" class="ss-nav-back"></a>
+                <div class="ss-nav-title">{$langdata.wx_cart_title}</div>
+            </div>
+            <div class="height110"></div>
+            <div class="foot-action clearfix">
+                <div class="checkbox_on fl" id="j_check_all">
+                    <label><input type="checkbox" name="" id="all"><i></i></label>{$langdata.cart_Select}
+                </div>
+                {if $language =='ZH'}
+                <a href="##" class="btn-delet fr" id="delAll">{$langdata.delete_all}</a>
+                {else}
+                <a href="##" class="btn-delet fr" id="delAll_en">{$langdata.delete_all}</a>
+                {/if}
+
+            </div>
+            <div class="height68"></div>
+            <div class="footprint-list" id="j_check_list">
+                <!--                <h3 class="datetime" style="padding-left: .4rem;">2017-10-31</h3>-->
+                <ul>
+                    {foreach from=$cartInfo item=item}
+                    <li>
+                        <a href="##" class="clearfix">
+                            <div class="checkbox_on fl">
+                                <label><input type="checkbox" name="check-name" class="ipcheck" value="{$item.id}"><i></i></label>
+                            </div>
+                            <div class="foot-logo fl">
+                                <img src="{$item.original_img}" width="100%">
+                            </div>
+                            <div class="foot-info fl">
+                                <h3 class="foot-name ellipsis">{$item.goods_name}</h3>
+                                <p>
+                                    <span class="foot-price">{$symbol}{$item.goods_price}</span>
+                                    <span class="foot-yprice">{$symbol}{$item.market_price}</span>
+                                    <span class="foot-price">{$item.spec_key_name}</span>
+                                </p>
+                                <div class="clearfix foot-operate"> 
+                                    <!--                                    <span class="foot-salenum">销售：1000件</span>-->
+                                    {if $language =='ZH'}
+                                    <span class="ico ico-del fr j_delet" id='{$item.id}'></span>
+                                    {else}
+                                    <span class="ico ico-del fr j_delet_en" id='{$item.id}'></span>
+                                    {/if}
+                                </div>
+
+                            </div>
+                        </a>       
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+            <input type="hidden" name="latlon" value="{$latlon}">
+        </div>   
+        <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/layer/layer.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+        {if $language =='ZH'}
+        <script type="text/javascript">
+            $('body').on('click', '.j_delet', function () {
+                var latlon =$('input[name=latlon]').val();
+                var id = $(this).attr('id');
+                deletes('wx.php?app=cart&act=dele&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&id=' + id+'&latlon='+latlon);
+            });
+            $('body').on('click', '#delAll', function () {
+                var url = 'wx.php?app=cart&act=dele';
+                deleteAll(url);
+            });
+        </script>
+        {else}
+        <script type="text/javascript">
+            $('body').on('click', '.j_delet_en', function () {
+                var id = $(this).attr('id');
+                deletes_en('wx.php?app=cart&act=dele&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&id=' + id+'&latlon='+latlon);
+            });
+            $('body').on('click', '#delAll_en', function () {
+                var url = 'wx.php?app=cart&act=dele';
+                deleteAll_en(url);
+            });
+        </script>
+        {/if}
+    </body>
+</html>

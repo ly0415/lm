@@ -1,0 +1,22 @@
+<form class="form-layer" action="?app=userCenter&act=doEmail" data-type="ajax">
+    <input type="hidden" name="storeid"  value="{$storeid}"/>
+    <input type="hidden" name="lang"  value="{$lang}"/>
+    <div class="item">
+        <label><i class="error">*</i>新邮箱：</label>
+        <input type="text" name="email">
+    </div>
+    <div class="item">
+        <label><i class="error">*</i>验证密码：</label>
+        <input type="password" name="password" style="width: 265px; height: 32px; background: none; line-height: 32px; border: 1px solid #dfdfdf; outline: none; padding-left: 5px;">
+    </div>
+    <div class="item">
+        <button type="submit" class="form-btn" id="validateBtn">确认重置</button>
+        <button type="button"  class="form-btn fr" id="cancleBtn">取消</button>
+    </div>
+</form>
+<script>
+    $('#cancleBtn').click(function() {
+        layer.closeAll();
+        //window.location.reload();
+    });
+</script>

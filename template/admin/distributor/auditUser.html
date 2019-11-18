@@ -1,0 +1,34 @@
+<form class="form-horizontal "  id = "form1" action="?app=distributor&act=audit" >
+    <input type="hidden" name="id" value="{$id}">
+    <input type="hidden" name="level" value="{$level}">
+
+    <div class="form-group" style="display: inline">
+        <div style="display: inline">
+            <label class="col-sm-4 col-md-4 control-label"><span class="text-red">*</span> {$language2->examine}</label>
+        </div>
+        <div class="col-sm-5 col-md-4" style="display: inline;padding-top: 5px">
+            <input type="radio" name="is_check"  value="2" onclick="audit(this);" > {$language2->pass}
+            <input type="radio" name="is_check" value="3" checked  onclick="audit(this);" > {$language2->no_pass}
+        </div>
+    </div>
+    <div class="form-group" style="display: none" id="discount">
+        <label class="col-sm-4 col-md-4 control-label"><span class="text-red">*</span> {$language1->preferential_percent}</label>
+        <div class="col-sm-5 col-md-5">
+            <input type="text" name="discount"  value="" >
+        </div>
+    </div>
+    <script type="text/javascript">
+        var level = '{$level}';
+        function audit(obj) {
+            var value = parseInt(obj.value);
+            if (value == 2) {
+                if (level == 3) {
+                    $('#discount').show();
+                }
+            } else {
+                $('#discount').hide();
+            }
+        }
+    </script>
+
+</form>

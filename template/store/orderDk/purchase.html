@@ -1,0 +1,213 @@
+<form class="form-inline" style="padding: 30px 8px 0 8px">
+    <div class="tabsbox">
+        <input type="hidden" name="app" value="orderDk" />
+        <input type="hidden" name="act" value="index" />
+        <input type="hidden" name="type" value="2" />
+    </div>
+    <div class="form-group form-group-sm form-mar">
+        <small class="control-label zm">订单编号：</small>
+        <input class="form-control" type="text" name="order_sn" placeholder="订单编号" value="{$order_sn}"/>
+    </div>
+    <div class="form-group form-group-sm form-mar">
+        <button type="submit" class="btn btn-default btn-sm">
+            搜索 <i class="fa fa-search"></i>
+        </button>
+    </div>
+</form>
+<div class="new-table-responsive mt30">
+
+    <div class="box-body table-responsive no-padding ">
+        <table class="table orderlist-table table-bordered" id="tbl">
+            <thead>
+            <tr>
+                <th colspan="2" style="font-weight:800">商品信息</th>
+                <th style="font-weight:800">商品数量</th>
+                <th style="font-weight:800">商品价格</th>
+                <th style="font-weight:800">所属平台</th>
+                <th style="font-weight:800">退款状态</th>
+            </tr>
+            </thead>
+
+            {foreach from=$orderList item=item}
+            <tbody>
+            <tr class="firsttr">
+                <td colspan="6">
+                    <div class="pull-left">
+                        <a href="javascript:void(0)"> {$item.order_sn}</a>&nbsp;&nbsp;
+                        <span>&nbsp;&nbsp;&nbsp;下单时间：{$item.add_time|date_format:"%Y-%m-%d"}&nbsp;&nbsp;</span>
+                        <span> 自提时间: {if $item.pei_time} {$item.pei_time|date_format:"H:i"} {else} ---- {/if}</span>
+                    </div>
+                    <div class="pull-right">
+                        {if $item.order_state==10}
+                        <a href="store.php?app=orderDk&act=orderPay&order_sn={$item.order_sn}&lang_id={$lang_id}"
+                           class="btn btn-primary btn-sm">去支付</a>
+                        <span id="appoint" class="btn btn-primary btn-sm" onclick="cancleOrder('{$item.order_sn}');return false">取消订单</span>
+                        {/if}
+                    </div>
+                </td>
+            </tr>
+            {foreach $item['goods_list'] as $good}
+            <tr>
+                <td width="70px">
+                    <img src="{$good.goods_image}" width="60" height="45">
+                </td>
+                <td class="col-md-4">
+                    <div class="wts">
+                        <div class="tl">
+                            {$good['goods_name']}
+                        </div>
+                        <div class="tl gy">
+                            产品规格:{$good['spec_key_name']}
+                        </div>
+                    </div>
+                </td>
+                <td> X{$good['goods_num']}</td>
+                <td>{$symbol}{$good['goods_pay_price']}</td>
+                {if $item.source_id =='1758421'}
+                <td>
+                    <img src="{$STATIC_URL}/admin/images/1527643876.png" width="120" height="45">
+                </td>
+                {else}
+                <td>
+                    <img src="{$item['img']}" width="120" height="45">
+                    {/if}
+                </td>
+                {if $good['refund_state'] == 0}
+                <td>无退款</td>
+                {else if $good['refund_state'] == 1}
+                <td>退款审核中</td>
+                {else if $good['refund_state'] == 2}
+                <td>已退款</td>
+                {else}
+                <td>退款失败</td>
+                {/if}
+            </tr>
+            {/foreach}
+            {foreach $item['gift'] as $gift}
+            <tr>
+                <td width="70px">
+                    <img src="{$gift.goods_img}" width="60" height="45">
+                </td>
+                <td class="col-md-4">
+                    <div class="wts">
+                        <div class="tl">
+                            {$gift['goods_name']}
+                        </div>
+                        <div class="tl gy">
+                            产品规格:{$gift['goods_key_name']}
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div>X{$gift['gift_num']}</div>
+                </td>
+                <td></td>
+                {if $item.source_id =='1758421'}
+                <td>
+                    <img src="{$STATIC_URL}/admin/images/1527643876.png" width="120" height="45">
+                </td>
+                {else}
+                <td>
+                    <img src="{$item['img']}" width="120" height="45">
+                </td>
+                {/if}
+                <td>
+                    <div>赠品（买赠活动）</div>
+                </td>
+            </tr>
+            {/foreach}
+            <tr class="">
+                <td colspan="6" style="text-align: left">
+
+                    <span class="rd cart-span">订单总金额：{$symbol}{$item.goods_amount}</span>
+                    <span class="rd cart-span">实收金额：{$symbol}{$item.order_amount}</span>
+                    {if $item.discount neq 0 }
+                    <span class="rd cart-span">优惠金额：{$symbol}{$item.discount}</span>
+                    {/if}
+                    {if $item.pd_amount neq 0 }
+                    <span class="rd cart-span">睿积分优惠：{$symbol}{$item.pd_amount}</span>
+                    {/if}
+                    {if $item.cp_amount neq 0 }
+                    <span class="rd cart-span">优惠券优惠：{$symbol}{$item.cp_amount}</span>
+                    {/if}
+                    <span class="rd cart-span">配送费：{$symbol}{if $item.shipping_fee ==''}0.00{else}{$item.shipping_fee}{/if}</span>
+                    <span class="cart-span">收货人：{$item.buyer_name}</span>
+                        <span class="cart-span">收货电话：{$item.buyer_phone}
+                            <img src='{$STATIC_URL}/admin/images/editphone.png' data-toggle="modal" data-target="#editphone" alt="" onclick="editphone('{$item.order_sn}')" /></span>
+                    {foreach $status as $key=>$val}
+                    {if $key == $item['order_state']}
+                    <span class="cart-span">订单状态：{$val}</span>
+                    {/if}
+                    {/foreach}
+                    {if $item.Appoint==1 && $item.order_state>=20}
+                        <span class="btn btn-primary btn-sm Appoint" id="{$item.order_id}"
+                              style="border-radius: 25px;-webkit-border-radius: 25px;-moz-border-radius: 25px;padding: 2px 10px">接单</span>
+                    {/if}
+
+                    {if $item.sub_user neq 2 }
+                    <span class=" cart-span">下单人员：店员下单</span>
+                    {else}
+                    <span class=" cart-span">下单人员：顾客下单</span>
+                    {/if}
+                    <!--                                                                                                                        <span class="cart-span">退货状态：无</span>-->
+                </td>
+            </tr>
+            </tbody>
+            {/foreach}
+
+        </table>
+    </div>
+</div>
+<div class="box-footer clearfix">
+    {$page_html}
+</div>
+<script>
+    var cancleOrderFlag = true;
+    //修改手機號碼
+    $(function () {
+        $('#editphone').on('show.bs.modal', centerModals);
+        $(window).on('resize', centerModals);
+        function centerModals() {
+            $('#editphone').each(function (i) {
+                var $clone = $(this).clone().css('display', 'block').appendTo('body');
+                var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+                top = top > 0 ? top : 0;
+                $clone.remove();
+                $(this).find('.modal-content').css("margin-top", top);
+            });
+        }
+    });
+    //修改手机号码弹窗，保存订单编号
+    function editphone(order_sn){
+        $('#order_sn').val(order_sn);
+//        $(body).css('padding-right','0')
+    }
+    //取消订单
+    function cancleOrder(order_sn) {
+        layer.confirm("确定取消该订单【"+order_sn+"】吗?", {
+            btn: ['确定', '取消'],
+            title: '提示',
+            skin: 'firm-layer',
+            yes: function (index) {
+                if (cancleOrderFlag) {
+                    cancleOrderFlag = false;
+                    $.ajax({
+                        type: "POST",
+                        url: 'store.php?app=orderDk&act=cancle&order_sn=' + order_sn,
+                        dataType: "json",
+                        data: '',
+                        success: function (res) {
+                            alertDialog(res.message);
+                            if (res.status == 1) {
+                                window.location.reload();
+                            }
+                        },
+                        error: function (res) {
+                            cancleOrderFlag = true;
+                        }
+                    });
+                }
+            }
+        })
+    }
+</script>

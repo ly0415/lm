@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {include file="public/headtab.html"}
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                交班订单报表
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>订单管理</a></li>
+                <li class="active">交班订单报表</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="orderlist-box mt30">
+                            <form class="form-inline" style="padding: 0 30px;">
+                                <div class="tabsbox">
+                                    <input type="hidden" name="app" value="orderReport"/>
+                                    <input type="hidden" name="act" value="index"/>
+                                </div>
+                                <div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span style='color: red'>有效订单笔数： {$countOrder.num1}笔</span>
+                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                                    <span style='color: red'>有效订单金额： ￥{$countOrder.money1}</span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span style='color: red'>退款订单笔数： {$countOrder.num2}笔</span>
+                                    &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                                    <span style='color: red'>退款订单金额： ￥{$countOrder.money2}</span>
+                                </div>
+                                <hr>
+                                <div class="">
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label zm">配送方式：</small>
+                                        <select class="form-control w160 j_select" name="sendout">
+                                            <option value="0">--全部配送方式--</option>
+                                            <option value="1" {if $sendout==1}selected{/if}>自提</option>
+                                            <option value="2" {if $sendout==2}selected{/if}>区域配送</option>
+                                            <option value="3" {if $sendout==3}selected{/if}>邮寄托运</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label zm">下单人员：</small>
+                                        <select class="form-control w160 j_select" name="storeUserId">
+                                            <option value="0">--全部下单人员--</option>
+                                            {foreach from=$czRy item=v}
+                                            <option value="{$v.id}" {if $storeUserId==$v.id}selected{/if}>{$v.username}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label zm">支付方式：</small>
+                                        <select class="form-control w160 j_select" name="paymentType">
+                                            <option value="0">--全部支付方式--</option>
+                                            <option value="1" {if $paymentType==1}selected{/if}>支付宝支付</option>
+                                            <option value="2" {if $paymentType==2}selected{/if}>微信支付</option>
+                                            <option value="3" {if $paymentType==3}selected{/if}>余额支付</option>
+                                            <option value="4" {if $paymentType==4}selected{/if}>线下支付</option>
+                                            <option value="5" {if $paymentType==5}selected{/if}>免费兑换</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label zm">来源收入：</small>
+                                        <select class="form-control w160 j_select" name="sourceId">
+                                            <option value="0">--全部来源收入--</option>
+                                            <option value="1758421" {if $sourceId==1758421}selected{/if}>艾美睿</option>
+                                            {foreach from=$laiYuan item=v}
+                                            <option value="{$v.id}" {if $sourceId==$v.id}selected{/if}>{$v.name}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                    <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label">开始时间：</small>
+                                        <input type="text" class="form-control datepicker" name='start_time' value='{$startTime}' readonly>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label">结束时间：</small>
+                                        <input type="text" class="form-control datepicker" name='end_time' value='{$endTime}' readonly>
+                                    </div>
+                                    {if $stores}
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label zm">店铺：</small>
+                                        <select class="form-control w160 j_select" name="store_id">
+                                            {foreach from=$stores item=v}
+                                            <option value="{$v.store_id}" {if $store_id==$v.store_id}selected{/if}>{$v.store_name}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                    {/if}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <div class="form-group form-group-sm form-mar">
+                                        <button type="submit" class="btn btn-default btn-sm">
+                                            搜索 <i class="fa fa-search"></i>
+                                        </button>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="javascript:;" class="btn btn-default btn-sm" id="exportOrder">导出订单</a>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="new-table-responsive mt30">
+                                <div class="box-body table-responsive no-padding ">
+                                    <table class="table orderlist-table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>订单编号</th>
+                                            <th>配送方式</th>
+                                            <th>买家姓名</th>
+                                            <th>买家手机</th>
+                                            <th>所属平台</th>
+                                            <th>支付方式</th>
+                                            <th>商品市场价</th>
+                                            <th>付款时间</th>
+                                            <th>实付金额</th>
+                                            <th>订单状态</th>
+                                            <th>订单运费</th>
+                                            <th>优惠额抵扣</th>
+                                            <th>分销码抵扣</th>
+                                            <th>睿积分抵扣</th>
+                                            <th>优惠劵抵扣</th>
+                                        </tr>
+                                        </thead>
+                                        {foreach from=$data item=item}
+                                        <tbody>
+                                        <tr>
+                                            <td>{$item.order_sn}</td>
+                                            <td>{$item.sendoutName}</td>
+                                            <td>{$item.username}</td>
+                                            <td>{$item.phone}</td>
+                                            <td>{$item.sourceName}</td>
+                                            <td>{$item.paymentName}</td>
+                                            <td>{$item.market_prices}</td>
+                                            <td>{$item.payment_time}</td>
+                                            <td style="color: red">￥{$item.order_amount}</td>
+                                            <td>{$item.statusName}</td>
+                                            <td style="color: red">{$item.shipping_fee}</td>
+                                            <td style="color: red">{$item.discount}</td>
+                                            <td style="color: red">{$item.fx_money}</td>
+                                            <td style="color: red">{$item.point_discount}</td>
+                                            <td style="color: red">{$item.coupon_discount}</td>
+                                        </tr>
+                                        </tbody>
+                                        {/foreach}
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="box-footer clearfix">
+                                {$page_html}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    {include file="public/footer.html"}
+    <script type="text/javascript">
+        $(function () {
+            $('.datepicker').datetimepicker({
+                autoclose: true,
+                language: 'ch',
+                format: "yyyy-mm-dd",
+                clearBtn: true,
+                minView: 2
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $("#exportOrder").click(function () {
+            var url = "?app=orderReport&act=exportOrder&sendout={$sendout}&storeUserId={$storeUserId}&paymentType={$paymentType}&sourceId={$sourceId}&start_time={$startTime}&end_time={$endTime}&store_id={$store_id}";
+            location.href = url;
+        });
+    </script>
+</div>
+</body>
+</html>

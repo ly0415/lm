@@ -1,0 +1,248 @@
+{if $lang_id ==1}
+<div class="height">
+    <div class="new-table-responsive">
+        <div class="box-body table-responsive no-padding ">
+            <div class="box-header">
+                <div class="form-inline col-sm-10 col-md-11 no-padding">
+                    <div class="form-group form-group-sm form-mar">
+                        <small class="control-label sm">Account name：</small>
+                        <input type="text"  name="username" class="form-control"  value=""  placeholder="Please enter the membership account">
+                    </div>
+                    <div class="form-group form-group-sm form-mar">
+                        <button type="button" class="btn btn-default btn-sm" id="submit1">
+                            Search <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden"  name="totalpage"  value="{$totalpage}" >
+            <table class="table tc-box">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Membership account</th>
+                        <th>Mailbox account</th>
+                        <th>Time to join</th>
+                    </tr>
+                </thead>
+                <tbody  id="content" >
+
+                    {foreach from=$data item=item}
+
+                    <tr>
+                        <td><input class="radio-name" type="radio" name="radio" data-name="{$item.username}" data-id="{$item.id}" /></td>
+                        <td>{$item.username}</td>
+                        <td>{$item.email}</td>
+                        <td>{$item.add_time|date_format:"%Y-%m-%d"}</td>
+                    </tr>
+
+                    {/foreach}
+
+                </tbody>
+            </table>
+            <div class="page-box">
+                <ul id="page" class="pagination" >
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>  
+{literal}
+<script  type="text/javascript" >
+
+
+
+    /*分页*/
+    $(function() {
+        var is_firsttime = true;
+        var totalpage = $('input[name="totalpage"]').val();
+        totalpage = parseInt(totalpage);
+        $('#page').jqPaginator({
+            totalPages: totalpage,
+            visiblePages: 7,
+            currentPage: 1,
+            first: '<li class="prev"><a href="javascript:;">Home page</a></li>',
+            prev: '<li class="prev"><a href="javascript:;">Previous page</a></li>',
+            next: '<li class="next"><a href="javascript:;">Next page</a></li>',
+            page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+            last: '<li class="prev"><a href="javascript:;">Shadowe</a></li>',
+            onPageChange: function(num, type) {
+                if (is_firsttime) {
+                    is_firsttime = false;
+                } else {
+                    //ajax获取
+                    var url = '?app=userDialog&act=getUserList&p=' + num;
+                    $.get(url, function(res) {
+                        $('#content').html(res);
+                    });
+                }
+            }
+        });
+
+    });
+
+
+    /*搜索*/
+    $('#submit1').click(function() {
+        var username = $.trim($('input[name="username"]').val());
+        totalPage(username);
+    });
+    function totalPage(username) {
+        //ajax
+        var url = '?app=userDialog&act=totalPage&username=' + username;
+        $.get(url, function(res) {
+            var obj = jQuery.parseJSON(res);
+            var r = obj.total;
+
+            $('#page').jqPaginator({
+                totalPages: r,
+                visiblePages: 7,
+                currentPage: 1,
+                first: '<li class="prev"><a href="javascript:;">Home page</a></li>',
+                prev: '<li class="prev"><a href="javascript:;">Previous page</a></li>',
+                next: '<li class="next"><a href="javascript:;">Next page</a></li>',
+                page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                last: '<li class="prev"><a href="javascript:;">Shadowe</a></li>',
+                onPageChange: function(num, type) {
+                    //ajax
+                    var url = '?app=userDialog&act=getUserList&p=' + num + '&username=' + username;
+                    $.get(url, function(res) {
+                        $('#content').html(res);
+                    });
+                }
+
+            });
+
+        });
+    }
+
+
+
+</script> 
+{/literal}
+{else}
+<div class="height">
+    <div class="new-table-responsive">
+        <div class="box-body table-responsive no-padding ">
+            <div class="box-header">
+                <div class="form-inline col-sm-10 col-md-11 no-padding">
+                    <div class="form-group form-group-sm form-mar">
+                        <small class="control-label sm">帐号名称：</small>
+                        <input type="text"  name="username" class="form-control"  value=""  placeholder="请输入会员帐号">
+                    </div>
+                    <div class="form-group form-group-sm form-mar">
+                        <button type="button" class="btn btn-default btn-sm" id="submit1">
+                            搜索 <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden"  name="totalpage"  value="{$totalpage}" >
+            <table class="table tc-box">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>会员帐号</th>
+                        <th>邮箱帐号</th>
+                        <th>加入时间</th>
+                    </tr>
+                </thead>
+                <tbody  id="content" >
+
+                    {foreach from=$data item=item}
+
+                    <tr>
+                        <td><input class="radio-name" type="radio" name="radio" data-name="{$item.username}" data-id="{$item.id}" /></td>
+                        <td>{$item.username}</td>
+                        <td>{$item.email}</td>
+                        <td>{$item.add_time|date_format:"%Y-%m-%d"}</td>
+                    </tr>
+
+                    {/foreach}
+
+                </tbody>
+            </table>
+            <div class="page-box">
+                <ul id="page" class="pagination" >
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> 
+{literal}
+<script  type="text/javascript" >
+
+
+
+    /*分页*/
+    $(function() {
+        var is_firsttime = true;
+        var totalpage = $('input[name="totalpage"]').val();
+        totalpage = parseInt(totalpage);
+        $('#page').jqPaginator({
+            totalPages: totalpage,
+            visiblePages: 7,
+            currentPage: 1,
+            first: '<li class="prev"><a href="javascript:;">首页</a></li>',
+            prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+            next: '<li class="next"><a href="javascript:;">下一页</a></li>',
+            page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+            last: '<li class="prev"><a href="javascript:;">尾页</a></li>',
+            onPageChange: function(num, type) {
+                if (is_firsttime) {
+                    is_firsttime = false;
+                } else {
+                    //ajax获取
+                    var url = '?app=userDialog&act=getUserList&p=' + num;
+                    $.get(url, function(res) {
+                        $('#content').html(res);
+                    });
+                }
+            }
+        });
+
+    });
+
+
+    /*搜索*/
+    $('#submit1').click(function() {
+        var username = $.trim($('input[name="username"]').val());
+        totalPage(username);
+    });
+    function totalPage(username) {
+        //ajax
+        var url = '?app=userDialog&act=totalPage&username=' + username;
+        $.get(url, function(res) {
+            var obj = jQuery.parseJSON(res);
+            var r = obj.total;
+
+            $('#page').jqPaginator({
+                totalPages: r,
+                visiblePages: 7,
+                currentPage: 1,
+                first: '<li class="prev"><a href="javascript:;">首页</a></li>',
+                prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+                next: '<li class="next"><a href="javascript:;">下一页</a></li>',
+                page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                last: '<li class="prev"><a href="javascript:;">尾页</a></li>',
+                onPageChange: function(num, type) {
+                    //ajax
+                    var url = '?app=userDialog&act=getUserList&p=' + num + '&username=' + username;
+                    $.get(url, function(res) {
+                        $('#content').html(res);
+                    });
+                }
+
+            });
+
+        });
+    }
+
+
+
+</script> 
+{/literal}
+{/if}
+

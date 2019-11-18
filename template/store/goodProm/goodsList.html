@@ -1,0 +1,15 @@
+
+{foreach  from=$list  item=val}
+<tr>
+    <td><input type="checkbox"  name="check-name[]" data-id="{$val.id}"  data-name="{$val.title}" data-sn="{$val.sn}"  data-unit="{$val.unit}"  data-price="{$val.price}"  data-cprice="{$val.cost_price}"  data-mprice="{$val.market_price}"  data-standard="{$val.standard}"   /></td>
+    <td>{$val.title}</td>
+    <td>{$val.sn}</td>
+    <td>{$val.unit}</td>
+    <td>{$val.cost_price}</td>
+    <td>{$symbol}{$val.market_price}</td>
+    <td>{$symbol}{$val.price}</td>
+</tr>
+{/foreach}
+
+
+

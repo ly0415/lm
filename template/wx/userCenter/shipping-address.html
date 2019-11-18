@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>{$langdata.address_receipt}</title>
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <meta content="email=no" name="format-detection">
+        <link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css"  rel="stylesheet" type="text/css"/>
+        <link href="{$STATIC_URL}/phone/css/style.css"  rel="stylesheet" type="text/css"/>
+        <style>
+            .shipaddress-list li{
+                position:relative;
+            }
+            .shipaddress-list li .img{
+                position:absolute;
+                top:1rem;
+            }
+            .shipaddress-list li div.ship-infoimg{
+                padding-left:1rem;
+            }
+            .clearfix span.red{
+                background: #f63d3d;
+                color: #fff;
+                border-radius: 10px;
+                padding: 0.02rem 0.3rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="shipaddress-wrap">
+            <div class="ss-nav">
+                
+                <div class="ss-nav-title">{$langdata.address_receipt}</div>
+            </div>
+            <div class="height90" style="height:0.9rem"></div>
+            <div class="shipaddress-list">
+                <ul>
+                    {foreach from=$res item=info}
+                    <li>
+                        {if $returnUrl != ''}
+                        <a  href="{$returnUrl}&addr_id={$info.id}"> 
+                            {if $info.default_addr==1}
+                            <img src="{$STATIC_URL}/phone/images/ico-right.png" width="20px" class="img">
+                            <div class="ship-info ship-infoimg">
+                                <div class="clearfix">
+                                    <span class="fl">{$info.name}</span>&nbsp;&nbsp;
+                                    <span class='red'>{$langdata.address_default}</span>
+                                    <span class="fr">{$info.phone}</span><span class="fr"></span>
+                                </div>
+                                <div class="mt35">{$langdata.address_details}：{$info.address}{$info.app}</div>
+                            </div>
+                            {else}
+                            <div class="ship-info">
+                                <div class="clearfix">
+                                    <span class="fl">{$info.name}</span>
+                                    <span class="fr">{$info.phone}</span><span class="fr"></span>
+                                </div>
+                                <div class="mt35">{$langdata.address_details}：{$info.address}{$info.app}</div>
+                            </div>
+                            {/if}
+                        </a>
+                        {else}
+                        {if $info.default_addr==1}
+                        <img src="{$STATIC_URL}/phone/images/ico-right.png" width="20px" class="img">
+                        <div class="ship-info ship-infoimg">
+                            <div class="clearfix">
+                                <span class="fl">{$info.name}</span>&nbsp;&nbsp;
+                                <span class='red'>{$langdata.address_default}</span>
+                                <span class="fr">{$info.phone}</span><span class="fr"></span>
+                            </div>
+                            <div class="mt35">{$langdata.address_details}：{$info.address}{$info.app}</div>
+                        </div>
+                        {else}
+                        <div class="ship-info">
+                            <div class="clearfix">
+                                <span class="fl">{$info.name}</span>
+                                <span class="fr">{$info.phone}</span><span class="fr"></span>
+                            </div>
+                            <div class="mt35">{$langdata.address_details}：{$info.address}{$info.app}</div>
+                        </div>
+                        {/if}
+                        {/if}
+                        <div class="ship-operate mt35">
+                            {if $info.default_addr==0}
+                            <span class="fl red is_default" data-value = '{$info.id}'>
+                                {$langdata.address_szdefault}</span>
+                            {/if}
+                            <span class="edit"><i class="ico ico-edit"></i><a href='wx.php?app=userCenter&act=addAddress1&addr_id={$addr_id}&id={$info.id}&username={$info.name}&mp={$info.app}&address={$info.address}&phone={$info.phone}&postal={$info.postal_code}&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&nowlatlon={$info.latlon}&returnUrl={$url}'>{$langdata.address_edit}</a></span>
+                            <span class="j_delet" id='{$info.id}'  style='cursor:pointer'><i class="ico ico-delet"></i>{$langdata.address_delete}</span>
+                        </div>
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+            <div class="shipaddress-add">
+                <a href="wx.php?app=userCenter&act=addAddress1&addr_id={$addr_id}&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&returnUrl={$url}">{$langdata.address_add}</a>
+            </div>
+            <div class="height80"></div>
+        </div>   
+        <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/layer/layer.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+        <!--        <script type="text/javascript">
+                    $(function () {
+                        f1 = $('.fl').html();
+                        if (f1) {
+                            $('.shipaddress-add').css('display', 'none');
+                        }
+                        if (!f1) {
+                            $('.shipaddress-list').css('display', 'none');
+                        }
+                    })
+                </script>-->
+        {if $language =='ZH'}   
+        <script type="text/javascript">
+            $(".is_default").click(function () {
+                var data_id = $(this).attr("data-value");
+                layer.open({
+                    className: 'layer-confirm'
+                    , content: '确定设置当前地址为默认地址？'
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        $.ajax({
+                            url: "wx.php?app=userCenter&act=addr_default&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}",
+                            data: "data_id=" + data_id,
+                            type: "Post",
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.status == '1') {
+                                    layer.open({
+                                        shade: false
+                                        , content: '<i class="ico ico-correct"></i>' + res.message
+                                        , className: 'layer-tip'
+                                        , time: 2
+                                    });
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                } else {
+                                    layer.open({
+                                        shade: false
+                                        , content: '<i class="ico ico-error"></i> ' + res.message
+                                        , className: 'layer-tip'
+                                        , time: 2
+                                    });
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                }
+                            }
+                        })
+                    }
+                });
+            })
+        </script>
+        <script type="text/javascript">
+            //删除地址
+            $('body').on('click', '.j_delet', function () {
+                var id = $(this).attr('id');
+                deletes('wx.php?app=userCenter&act=addDelete&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&id=' + id);
+            });
+        </script> 
+        {else}
+          <script type="text/javascript">
+            $(".is_default").click(function () {
+                var data_id = $(this).attr("data-value");
+                layer.open({
+                    className: 'layer-confirm'
+                    , content: 'Make sure that the current address is set to the default address.？'
+                    , btn: ['Sure', 'Cancel']
+                    , yes: function (index) {
+                        $.ajax({
+                            url: "wx.php?app=userCenter&act=addr_default&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}",
+                            data: "data_id=" + data_id,
+                            type: "Post",
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.status == '1') {
+                                    layer.open({
+                                        shade: false
+                                        , content: '<i class="ico ico-correct"></i>' + res.message
+                                        , className: 'layer-tip'
+                                        , time: 2
+                                    });
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                } else {
+                                    layer.open({
+                                        shade: false
+                                        , content: '<i class="ico ico-error"></i> ' + res.message
+                                        , className: 'layer-tip'
+                                        , time: 2
+                                    });
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                }
+                            }
+                        })
+                    }
+                });
+            })
+        </script>
+        <script type="text/javascript">
+            //删除地址
+            $('body').on('click', '.j_delet', function () {
+                var id = $(this).attr('id');
+                deletes_en('wx.php?app=userCenter&act=addDelete&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&id=' + id);
+            });
+        </script>
+        {/if}
+    </body>
+</html>

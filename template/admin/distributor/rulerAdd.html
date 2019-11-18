@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        {include file="public/header.html"}
+
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        {$language1->addfx_rule}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="admin.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->index}</a></li>
+                        <li class="active">{$language1->fr_manage}</li>
+                        <li class="active">{$language1->addfx_rule}</li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <!-- right column -->
+                        <div class="col-xs-12">
+                            <!-- Horizontal Form -->
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title"></h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form class="form-horizontal" action="?app=distributor&act=doRuleAdd"  data-type="ajax" method="post">
+                                    <div class="box-body">
+                                        <input type="hidden" value="{$p}" name="p" />
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->rule_name}：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="ruler_name" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->one_fr_rule}：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="lev1_prop" >
+                                            </div>
+                                            %
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->two_fr_rule}：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="lev2_prop" >
+                                            </div>
+                                            %
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->three_fr_rule}：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="lev3_prop" >
+                                            </div>
+                                            %
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> {$language1->area_countroy}：</label>
+                                            <div class="col-sm-8 col-md-8 col-lg-6">
+                                                <select class="form-control w160 j_select inblock j-cate1" name="store_cate">
+                                                    <option value="0">{$language2->no_limit}</option>
+                                                    {foreach from=$storeCate item=item}
+                                                    <option value="{$item.id}">{$item.cate_name}</option>
+                                                    {/foreach}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"> {$language2->store}：</label>
+                                            <div id="check-box">
+                                                <label class="col-sm-4 col-md-2  col-lg-2 control-label"></label>
+                                                <div class="col-sm-7 col-md-10 col-lg-9 j_store_cate">
+                                                    <span style="color: red;">{$language1->fx_rule_2}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <div class="form-group">
+                                            <div class="col-sm-6 col-sm-offset-4 col-md-5 col-md-offset-2 col-lg-4 col-lg-offset-2">
+                                                <a href="admin.php?app=distributor&act=ruleList&p={$p}" class="btn btn-default"><i class="fa fa-times-circle"></i> {$language2->close}</a>
+                                                <button class="btn btn-primary pull-right" id="submit"><i class="fa fa-save"></i> {$language2->save}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- /.box -->
+                                <!-- general form elements disabled -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!--/.col (right) -->
+                    </div>
+                    <!-- /.row -->
+                </section>
+                <input type="hidden" name = "language1_fx_rule_1" value="{$language1->fx_rule_1}"/>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            {include file="public/footer.html"}
+            <script src="{$STATIC_URL}/plugin/ajaxfileupload/ajaxfileupload.js"></script>
+
+            <div class="control-sidebar-bg"></div>
+        </div>
+        {literal}
+        <script type="text/javascript">
+            //分类关联
+            $(".j-cate1").on("change", function() {
+                $('.j_room').hide();
+                var language1_fx_rule_1=$('input[name=language1_fx_rule_1]').val();
+                var _this = $(this);
+                var id = $(this).find(":selected").val();
+                var url = "?app=distributor&act=getChild&parent_id=" + id;
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: url,
+                    success: function(obj) {
+                        if (obj.status == 1) {
+                            var option = '';
+                            $.each(obj.info, function(i, e) {
+                                option += '<label class="checkbox-inline " >';
+                                option += '<input type="checkbox" name="store_id[]" value="' + e.id + '" class="check check1">' + e.store_name;
+                                option += '</label>';
+                            });
+                            $('.j_store_cate').html(option);
+
+                        } else {
+                            option = '<span style="color: red;">' + language1_fx_rule_1 + '</span>';
+                            $('.j_store_cate').html(option);
+                        }
+
+                    }
+
+                });
+            });
+        </script>
+        {/literal}
+
+    </body>
+</html>
+
+

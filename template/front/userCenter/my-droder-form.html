@@ -1,0 +1,21 @@
+<form class="form-layer" action="?app=userCenter&act=refundGoods" data-type="ajax">
+    <input type="hidden" name="order_id"  value="{$order_id}"/>
+    <input type="hidden" name="order_sn"  value="{$order_sn}"/>
+    <input type="hidden" name="storeid"  value="{$storeid}"/>
+    <input type="hidden" name="auxiliary"  value="{$auxiliary}"/>
+    <input type="hidden" name="lang"  value="{$lang}"/>
+    <div class="item">
+        <label><i class="error">*</i>{$langdata.refund_Reason}：</label>
+        <input type="text" name="reason_info" class="reason_info">
+    </div>
+    <div class="item">
+        <button type="submit" class="form-btn" id="validateBtn">{$langdata.refund_Submit}</button>
+        <button type="button"  class="form-btn fr" id="cancleBtn">{$langdata.refund_cancel}</button>
+    </div>
+</form>
+<script>
+    $('#cancleBtn').click(function() {
+        layer.closeAll();
+        //window.location.reload();
+    });
+</script>

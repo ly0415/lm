@@ -1,0 +1,52 @@
+<form class="form-horizontal" id="form1"  action="admin.php?app=likeManagement&act=add">
+    <input type="hidden" name="activity_id" value="{$activityId}">
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span> 微信号 ：</label>
+        <div class="col-sm-7 col-md-7">
+            <input type="text" class="form-control"  placeholder="微信号"  name="wx_code"  >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span> 区域店铺：</label>
+        <div class="col-sm-2 ">
+            <select class="form-control w150 j_select inblock j-cate1" name="store_cate">
+                <option value="0">请选择</option>
+                {foreach from=$storeCate item=item}
+                <option value="{$item.id}">{$item.cate_name}</option>
+                {/foreach}
+            </select>
+        </div>
+        <div class="col-sm-2 "style="margin-left: 60px">
+            <select class="form-control w150 j_select inblock j-cate2" name="store_id">
+                <option value="0">请选择</option>
+            </select>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function(){
+        //区域店铺关联
+        $(".j-cate1").on("change", function() {
+            var _this = $(this);
+            var id = $(this).find(":selected").val();
+            var url = "?app=fxRuler&act=getChild&parent_id=" + id;
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function(obj) {
+                    if (obj.status == 1) {
+                        var options = '<option value="0">{$language2->please_select}</option>';
+                        $.each(obj.info, function(i,e){
+                            options += '<option value="' + e.id + '">' + e.store_name + '</option>';
+                        });
+                        $('.j-cate2').html(options);
+                    }else{
+                        var options = '<option value="0">{$language2->please_select}</option>';
+                        $('.j-cate2').html(options);
+                    }
+                }
+            });
+        });
+    });
+</script>

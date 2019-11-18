@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$langdata.good_details}</title>
+        <meta charset="utf-8" />
+
+        <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/front/plus/photoswipe/photoswipe.css">
+        <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/front/plus/photoswipe/default-skin/default-skin.css">
+        <script type="text/javascript" src="{$STATIC_URL}/front/plus/photoswipe/photoswipe.min.js"></script>
+        <script type="text/javascript" src="{$STATIC_URL}/front/plus/photoswipe/photoswipe-ui-default.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/front/css/share.min.css">
+        <script type="text/javascript" src="{$STATIC_URL}/front/js/social-share.min.js"></script>
+        {include file="public/header.html"}
+        <style>
+            .productdetail .product-breadcrumbs .breadcrumbs {
+                font-size: 14px;
+                width: 550px;
+            }
+            .productdetail .productdetail-inner {
+                background-color: #fff;
+                padding: 48px 0 60px 0;
+            }
+        </style>
+    </head>
+    <body class="index">
+        <!-- header -->
+        <!-- header end -->
+
+        <!-- navs-box -->
+        {include file="public/daohang.html"}
+
+        <!-- navs-box end -->
+        <div class="border"></div>
+
+        <!-- productdetail -->
+        <div class="productdetail tuangou-detail">
+            <div class="share fr" style="padding: 34px 50px 0 0;">
+                <div  id="share_box">
+                    <div class="share_title">分享到:</div>
+                    <div class="social-share"  data-initialized="true" style="text-align: center;" data-url="{$SITE_URL}/wx.php?app=goods&act=goodInfo&storeid={$store_id}&lang={$langId}&gid={$groupinfo.goods_id}"  data-title="{$goodsinfo.goods_name}">
+                        <a href="#" class="social-share-icon icon-weibo"></a>
+                        <a href="#" class="social-share-icon icon-wechat"></a>
+                        <a href="#" class="social-share-icon icon-qq"></a>
+                        <a href="#" class="social-share-icon icon-qzone"></a>
+                        <a href="#" class="social-share-icon icon-twitter"></a>
+                        <a href="#" class="social-share-icon icon-facebook"></a>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+            </div>
+            <div class="productdetail-inner ">
+                <div class="w1100 clearfix">
+                    <div class="product-breadcrumbs clearfix" style="margin-bottom:40px;">
+                        <div class="breadcrumbs mb30">
+                            <a href="index.php?app=groupbuy&act=goodslist&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.list} </a>
+                            <span class="step">/</span>
+                            <a href="##">{$goodsinfo.goods_name}</a>
+                        </div>
+                        <div class="fl">
+                            <h1 class="tt">
+                                {$groupinfo.title}
+                                <span class="arrow"></span>
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="product-images fl">
+                        <!-- 放大镜效果 -->
+                        <div class="preview my-simple-gallery">
+                            <div id="vertical" class="bigImg">
+                                <img src="{$groupinfo.original_img}" width="400" height="400" alt="" id="midimg" />
+                            </div><!--bigImg end-->	
+                            <div class="smallImg">
+                                <div class="scrollbutton smallImgUp disabled"></div>
+                                <div id="imageMenu">
+                                    <ul data-pswp-uid="1">
+                                        {foreach from=$imgArr item=item}
+                                        <li><img src="{$item.image_url}" width="68" height="68"  data-size="800x800" data-src="{$SITE_URL}/{$item.image_url}" /></li>
+                                        {/foreach}
+                                    </ul>
+                                </div>
+                                <div class="scrollbutton smallImgDown"></div>
+                            </div><!--smallImg end-->	
+                        </div>
+
+                    </div>
+                    <div class="product-info fl">
+                        <div class="info-box">
+                            <h1>
+                                <span class="title">{$goodsinfo.goods_name}</span>
+                            </h1>
+                            <!--商品评论-->
+                            <div class="review  mt30 ">
+                                <div class="showstar inblock">
+                                    <div class="atar_Show">
+                                        {if $all_rate}
+                                        <p tip="20" style="width:{$all_rate * 22}px;"></p> 
+                                        {else}
+                                        <p tip="20" style="width:{5 * 22}px;"></p> 
+                                        {/if}
+                                    </div>
+                                </div>
+                                <div class="num-box inblock">
+                                    <a href="#rev">{$good_all_num.all_num}  {$langdata.comment}</a>
+                                </div>
+                            </div>
+                            <!--商品价格信息-->
+                            <div class="salebox">
+                                <p class="font18 mb10">{$langdata.price}：</p>
+                                <span class="saleprice">{$symbol}<span class="rel_price"> {$groupinfo.group_goods_price}</span></span>
+                                <span class="discount">{$symbol} <s>{$groupinfo.goods_price}</s></span>
+                                <p class="num font16 mt5">{$langdata.commodity} : {$groupinfo.group_goods_num} </p>
+                            </div>
+
+                            <div class="mt15">
+                                <p class="endtime">{$langdata.End} ：{$groupinfo.end_time|date_format:"%Y-%m-%d %H:%M "} </p>
+                            </div>
+
+                            <!--商品运费-->
+                            {if  $goodsinfo.is_free_shipping ==1}
+                            <div class="deliverybox mt15">
+                                <p class="freeship">{$langdata.Free}</p>
+                                <input type="hidden" name="shipping_price" value="0"/>
+                            </div>
+                            {else}
+                            <div class="deliverybox mt15">
+                                <p class="freeship">{$langdata.freight}：&nbsp;&nbsp;<font color="red">{$symbol} {$goodsinfo.shipping_price}</font></p>
+                                <input type="hidden" name="shipping_price" value="{$goodsinfo.shipping_price}"/>
+                            </div>
+                            {/if}
+
+                            <!--商品规格-->
+                            <div class="chooseadd-box">
+
+                                {if $groupinfo.goods_spec_key}
+
+                                <div class="border mt20 mb20"></div>
+                                <div>
+
+                                    {foreach  from=$specitems  item=val  key=key }
+                                    <p class="mb10 font14">{$val.spec_name}:</p>
+                                    <div class="tags-box">
+                                        <span class="active" >{$val.items.item_name}</span>
+                                    </div>
+                                    {/foreach}
+
+                                    <div class="border mb20"></div>
+                                </div>
+
+                                {/if}
+
+                                <div>
+
+                                    <p class="mt20 mb10 font14">{$langdata.Number1}</p>
+                                    <div class="p-select clearfix">
+                                        <div class="updown-box1 fl">
+                                            <span class="down fl"></span>
+                                            <input type="text" class="num fl"  value="1"  readonly="readonly" name="buy_num"/>
+                                            <span class="up fl"></span>
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="p-select">-->
+                                    <!--<select name="buy_num">-->
+                                    <!--<option>1</option>-->
+                                    <!--<option>2</option>-->
+                                    <!--<option>3</option>-->
+                                    <!--<option>4</option>-->
+                                    <!--<option>5</option>-->
+                                    <!--<option>6</option>-->
+                                    <!--<option>7</option>-->
+                                    <!--</select>-->
+                                    <!--</div>-->
+
+                                    <input type="hidden" name="store_id"  value="{$groupinfo.store_id}" >
+                                    <input type="hidden" name="group_id"  value="{$groupinfo.id}" >
+                                    <input type="hidden" name="goods_id"  value="{$groupinfo.goods_id}" >
+                                    <input type="hidden" name="goods_img"  value="{$groupinfo.original_img}" >
+                                    <input type="hidden" name="spec_key" value="{$groupinfo.goods_spec_key}" >
+                                    <input type="hidden" name="goods_name"  value="{$groupinfo.goods_name}" >
+                                    <input type="hidden" name="group_goods_price"  value="{$groupinfo.group_goods_price}" >
+                                    <input type="hidden" name="goods_price"  value="{$groupinfo.goods_price}" >
+                                    <input type="hidden" name="group_goods_num"  value="{$groupinfo.group_goods_num} " >
+                                    <input type="hidden" name="end_time"  value="{$groupinfo.end_time}" >
+                                    <input type="hidden" name="type"  value="2" >
+                                    <input type="hidden" name="is_free_shipping"  value="{$goodsinfo.is_free_shipping}" >
+                                    <input type="hidden" name="lang_id"  value="{$lang_id}" >
+                                    <input type="hidden" name="auxiliary"  value="{$auxiliary}" >
+                                    <input type="hidden" name="fxCode"  value="{$fxCode}" >
+                                    <input name="commtotalpage" value="{$commtotalpage}" type="hidden"/> <!--评论页数-->
+
+                                    <button  id="addorder" class="btn btn-addcart">{$langdata.purchase}</button>
+
+                                </div>
+                            </div>
+                            <!--商品规格-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>	
+
+            <div class="overview">
+                <div class="tabs">
+                    <div class="container">
+                        <a href="#info" class="active first">{$langdata.information}</a>
+                        <a href="#speci">{$langdata.product}</a>
+                        <a href="#rev">{$langdata.comment}</a>
+                    </div>
+
+                </div>
+                <div class="tabs-box">
+                    <div class="container clearfix">
+                        <div class="left fl">
+                            <div class="box box1" id="info">
+                                <h2>{$langdata.information}</h2>
+                                {$goodsinfo.goods_content}
+                            </div>
+                            <div class="box box2" id="speci">
+                                <h2>{$langdata.product}</h2>
+                                <table class="table">
+                                    {foreach  from=$attrArr item=v}
+                                    <tr>
+                                        <td>{$v.name}</td>
+                                        <td>{$v.attr_value}</td>
+                                    </tr>
+                                    {/foreach}
+                                </table>
+                            </div>
+
+
+                            <div class="box box6" id="rev">
+                                <h2>{$langdata.comment1}</h2>
+                                <div class="clearfix">
+                                    <div class="leftbox fl">
+                                        <h3>{$langdata.score}</h3>
+                                        <div class="showstar mb15">
+                                            <div class="atar_Show">
+                                                <p tip="20" style="width:{$all_rate * 22}px;"></p>
+                                            </div>
+                                            <span>{$all_rate}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="rightbox fl">
+                                        <div class="total-overall">
+                                            <div class="item">
+                                                <div class="inblock star"> 5<i class="ico ico-star"></i></div>
+                                                <div class="graph inblock">
+                                                    {if $good_comment_sta['5']['pre'] }
+                                                    <div class="has" style="width:{$good_comment_sta['5']['pre']}%"></div>
+                                                    {else}
+                                                    <div class="has" style="width:0%"></div>
+                                                    {/if}
+                                                </div>
+
+                                                <span class="count ">
+                                                    {if $good_comment_sta['5']['good_num'] }
+                                                    {$good_comment_sta['5']['good_num']}
+                                                    {else}
+                                                    0
+                                                    {/if}
+                                                </span>
+                                            </div>
+                                            <div class="item">
+                                                <div class="inblock star">4<i class="ico ico-star"></i></div>
+                                                <div class="graph inblock">
+                                                    {if $good_comment_sta['4']['pre'] }
+                                                    <div class="has" style="width:{$good_comment_sta['4']['pre']}%"></div>
+                                                    {else}
+                                                    <div class="has" style="width:0%"></div>
+                                                    {/if}
+                                                </div>
+                                                <span class="count ">
+                                                    {if $good_comment_sta['4']['good_num'] }
+                                                    {$good_comment_sta['4']['good_num']}
+                                                    {else}
+                                                    0
+                                                    {/if}
+                                                </span>
+                                            </div>
+                                            <div class="item">
+                                                <div class="inblock star">3<i class="ico ico-star"></i></div>
+                                                <div class="graph inblock">
+
+                                                    {if $good_comment_sta['3']['pre'] }
+                                                    <div class="has" style="width:{$good_comment_sta['3']['pre']}%"></div>
+                                                    {else}
+                                                    <div class="has" style="width:0%"></div>
+                                                    {/if}
+                                                </div>
+                                                <span class="count "> {if $good_comment_sta['3']['good_num'] }
+                                                    {$good_comment_sta['3']['good_num']}
+                                                    {else}
+                                                    0
+                                                    {/if} </span>
+                                            </div>
+                                            <div class="item">
+                                                <div class="inblock star">2<i class="ico ico-star"></i></div>
+                                                <div class="graph inblock">
+                                                    {if $good_comment_sta['2']['pre'] }
+                                                    <div class="has" style="width:{$good_comment_sta['2']['pre']}%"></div>
+                                                    {else}
+                                                    <div class="has" style="width:0%"></div>
+                                                    {/if}
+                                                </div>
+                                                <span class="count "> {if $good_comment_sta['2']['good_num'] }
+                                                    {$good_comment_sta['2']['good_num']}
+                                                    {else}
+                                                    0
+                                                    {/if} </span>
+                                            </div>
+                                            <div class="item">
+                                                <div class="inblock star">1<i class="ico ico-star"></i></div>
+                                                <div class="graph inblock">
+                                                    {if $good_comment_sta['1']['pre'] }
+                                                    <div class="has" style="width:{$good_comment_sta['1']['pre']}%"></div>
+                                                    {else}
+                                                    <div class="has" style="width:0%"></div>
+                                                    {/if}
+                                                </div>
+                                                <span class="count "> {if $good_comment_sta['1']['good_num'] }
+                                                    {$good_comment_sta['1']['good_num']}
+                                                    {else}
+                                                    0
+                                                    {/if} </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3>{$langdata.evaluate}</h3>
+                                <div  id="content" >
+
+                                    {foreach from=$list item=item}
+                                    <div class="reviewitem">
+                                        <div class="showstar mb15">
+                                            <div class="atar_Show">
+                                                <p tip="20" style="width:{$item.goods_rank*22}px;"></p>
+                                            </div>
+                                            <!--<span>4.5</span>-->
+                                        </div>
+                                        <p><span class="date">{$item.add_time|date_format:"%Y - %m - %d "}</span> – {$langdata.Buyers} – <span>{$item.username}</span></p>
+                                        <p>{$item.content}</p>
+
+                                        <div class="photobox mt20">
+                                            {foreach from=$item['img'] item=img}
+                                            <a href="{$img}" ><img src="{$img}" width="50" height="50"></a>
+                                            {/foreach}
+                                        </div>
+                                    </div>
+                                    {/foreach}
+
+                                </div>
+                                <!--评论分页-->
+                                <div class="pages clearfix page-box">
+                                    <ul id="page" class="pagination fr" >
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                        <div class="right fr">
+                                                    <img src="{$STATIC_URL}/front/images/pic36.png" width="400" height="600">
+                                                </div>-->
+                    </div>
+                </div>
+            </div>
+
+            <!-- historybox -->
+            <!--<div class="historybox">-->
+            <!--<div class="container">-->
+            <!--<h2>Recent History</h2>-->
+            <!--<ul class="clearfix">-->
+            <!--<li class="clearfix">-->
+            <!--<a href="##">-->
+            <!--<div class="img fl">-->
+            <!--<img src="{$STATIC_URL}/front/images/pic37.png">-->
+            <!--</div>-->
+            <!--<div class="info fl">-->
+            <!--<p class="ellipsis tit" title="" >CaCade 4 Piece Deepde 4 Piece Deep</p>-->
+            <!--<p class="mb5">Three Posts</p>-->
+            <!--<div class="showstar">-->
+            <!--<div class="atar_Show">-->
+            <!--<p tip="20" style="width: 33px;"></p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<p>CAD&nbsp;&nbsp;$589.99</p>-->
+            <!--</div>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li class="clearfix">-->
+            <!--<a href="##">-->
+            <!--<div class="img fl">-->
+            <!--<img src="{$STATIC_URL}/front/images/pic37.png">-->
+            <!--</div>-->
+            <!--<div class="info fl">-->
+            <!--<p class="ellipsis tit" title="" >CaCade 4 Piece Deepde 4 Piece Deep</p>-->
+            <!--<p class="mb5">Three Posts</p>-->
+            <!--<div class="showstar ">-->
+            <!--<div class="atar_Show">-->
+            <!--<p tip="20" style="width: 22px;"></p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<p>CAD&nbsp;&nbsp;$589.99</p>-->
+            <!--</div>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li class="clearfix">-->
+            <!--<a href="##">-->
+            <!--<div class="img fl">-->
+            <!--<img src="{$STATIC_URL}/front/images/pic37.png">-->
+            <!--</div>-->
+            <!--<div class="info fl">-->
+            <!--<p class="ellipsis tit" title="" >CaCade 4 Piece Deepde 4 Piece Deep</p>-->
+            <!--<p class="mb5">Three Posts</p>-->
+            <!--<div class="showstar ">-->
+            <!--<div class="atar_Show">-->
+            <!--<p tip="20" style="width: 44px;"></p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<p>CAD&nbsp;&nbsp;$589.99</p>-->
+            <!--</div>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li class="clearfix">-->
+            <!--<a href="##">-->
+            <!--<div class="img fl">-->
+            <!--<img src="{$STATIC_URL}/front/images/pic37.png">-->
+            <!--</div>-->
+            <!--<div class="info fl">-->
+            <!--<p class="ellipsis tit" title="" >CaCade 4 Piece Deepde 4 Piece Deep</p>-->
+            <!--<p class="mb5">Three Posts</p>-->
+            <!--<div class="showstar ">-->
+            <!--<div class="atar_Show">-->
+            <!--<p tip="20" style="width: 55px;"></p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<p>CAD&nbsp;&nbsp;$589.99</p>-->
+            <!--</div>-->
+            <!--</a>-->
+            <!--</li>-->
+
+            <!--</ul>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!-- paypal -->
+            <div class="payoptions">
+                <h2><span>{$langdata.Lately}</span></h2>
+                <div class="img">
+                    <img src="{$STATIC_URL}/front/images/zhifu.png">
+                    <img src="{$STATIC_URL}/front/images/paypal.png">
+                    <img src="{$STATIC_URL}/front/images/weixin.png">
+                </div>
+            </div>
+
+        </div>
+
+        {include file="public/footer.html"}
+        <div class="to-top tc">
+            <img src="{$STATIC_URL}/front/images/gotop.png" width="28" height="28">
+            <p class="mt5">{$langdata.Return_top}</p>
+        </div>
+
+        <!-- photoswipe -->
+        <!-- Root element of PhotoSwipe. Must have class pswp. -->
+        <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+            <!-- Background of PhotoSwipe. 
+                 It's a separate element, as animating opacity is faster than rgba(). -->
+            <div class="pswp__bg"></div>
+
+            <!-- Slides wrapper with overflow:hidden. -->
+            <div class="pswp__scroll-wrap">
+
+                <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+                <div class="pswp__container">
+                    <!-- don't modify these 3 pswp__item elements, data is added later on -->
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                    <div class="pswp__item"></div>
+                </div>
+
+                <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+                <div class="pswp__ui pswp__ui--hidden">
+
+                    <div class="pswp__top-bar">
+
+                        <!--  Controls are self-explanatory. Order can be changed. -->
+
+                        <div class="pswp__counter"></div>
+
+                        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                        <!-- <button class="pswp__button pswp__button--share" title="Share"></button> -->
+
+                        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                        <!-- element will get class pswp__preloader--active when preloader is running -->
+                        <div class="pswp__preloader">
+                            <div class="pswp__preloader__icn">
+                                <div class="pswp__preloader__cut">
+                                    <div class="pswp__preloader__donut"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                        <div class="pswp__share-tooltip"></div> 
+                    </div>
+
+                    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                    </button>
+
+                    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                    </button>
+
+                    <div class="pswp__caption">
+                        <div class="pswp__caption__center"></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="to-top tc">
+            <img src="{$STATIC_URL}/front/images/gotop.png" width="28" height="28">
+            <p class="mt5">{$langdata.prom_Return}</p>
+        </div>
+        {literal}
+
+        <script  type="text/javascript" >
+            $(function () {
+                var is_firsttime = true;
+                var totalpage = $('input[name="commtotalpage"]').val();
+                var storeid = $('input[name="store_id"]').val();
+                var gid = $('input[name="goods_id"]').val();
+                totalpage = parseInt(totalpage);
+
+                $('#page').jqPaginator({
+                    totalPages: totalpage,
+                    visiblePages: 7,
+                    currentPage: 1,
+                    //                    first: '<li class="prev"><a href="javascript:;">首页</a></li>',
+                    prev: '<li class="prev"><a href="javascript:;"><i class="sj-l inblock"></i></a></li>',
+                    next: '<li class="next"><a href="javascript:;"><i class="sj-r inblock"></i></a></li>',
+                    page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                    //                    last: '<li class="prev"><a href="javascript:;">尾页</a></li>',
+                    onPageChange: function (num, type) {
+                        if (is_firsttime) {
+                            is_firsttime = false;
+                        } else {
+                            //ajax获取
+                            var url = '?app=ajaxComment&act=getCommentList&p=' + num + '&gid=' + gid + '&storeid=' + storeid;
+                            $.get(url, function (res) {
+                                $('#content').html(res);
+                            });
+                        }
+                    }
+                });
+
+            });
+
+        </script>
+
+        <script type="text/javascript">
+
+            $(function () {
+                $(document).on("click", '.updown-box1 .up', function (e) {
+                    var num = $(this).prev().val();
+                    $(this).prev().val(parseInt(num) + 1);
+                    change_store();
+                });
+                $(document).on("click", '.updown-box1 .down', function (e) {
+                    var num = $(this).next().val();
+                    if (num <= 1) {
+                        return false;
+                    } else {
+                        $(this).next().val(parseInt(num) - 1);
+                    }
+                });
+            });
+
+            /*立即购买*/
+            $('#addorder').click(function () {
+                //         验证买的的商品数是否还有库存
+                var store_id = $('input[name="store_id"]').val();
+                var group_id = $('input[name="group_id"]').val();
+                var buy_num = $('input[name="buy_num"]').val();
+                var url = "index.php?app=groupbuy&act=ajaxcheck";
+                var data = {'store_id': store_id, 'group_id': group_id, 'buy_num': buy_num};
+                $.get(url, data, function (res) {
+                    //console.log(res);
+                    // alert(res.status)
+                    if (res.status == 1) {
+                        addorder(); //添加订单
+                    } else {
+                        alert('该商品已经抢完了！！')
+                    }
+                }, 'json');
+
+            });
+
+            //添加订单
+            function  addorder() {
+                //alert('next');
+                var store_id = $('input[name="store_id"]').val();
+                var prom_id = $('input[name="group_id"]').val();
+                var goods_num = $('input[name="buy_num"]').val();
+                var store_goods_id = $('input[name="goods_id"]').val();
+                var goods_img = $('input[name="goods_img"]').val();
+                var item_id = $('input[name="spec_key"]').val();
+                var goods_name = $('input[name="goods_name"]').val();
+                var goods_price = $('input[name="group_goods_price"]').val();
+                var origin_goods_price = $('input[name="goods_price"]').val();
+                var group_goods_num = $('input[name="group_goods_num"]').val();
+                var end_time = $('input[name="end_time"]').val();
+                var source = $('input[name="type"]').val();
+                var is_free_shipping = $('input[name="is_free_shipping"]').val();
+                var shipping_price = $('input[name="shipping_price"]').val();
+                var lang_id = $('input[name="lang_id"]').val();
+                var auxiliary = $('input[name="auxiliary"]').val();
+                var fx_code = $('input[name="fxCode"]').val();
+                //         console.log(spec_key);return;
+
+                var url = "?app=activeComfirm&act=ajaxComfirm";
+                var data = {'fx_code': fx_code, 'store_id': store_id, 'lang_id': lang_id, 'auxiliary': auxiliary, 'origin_goods_price': origin_goods_price, 'prom_id': prom_id, 'goods_num': goods_num, 'store_goods_id': store_goods_id, 'goods_img': goods_img,
+                    'item_id': item_id, 'goods_name': goods_name, 'goods_price': goods_price, 'source': source, 'shipping_price': shipping_price};
+
+
+                $.post(url, data, function (msg) {
+                    if (msg.status == 1) {
+                        window.location.href = msg.info.url;
+                    }
+
+                }, 'json');
+
+
+            }
+
+        </script>
+
+        <!-- js  -->
+        <script type="text/javascript">
+            // 左右切换的轮播
+            $(function () {
+                jQuery(".otherview .picScroll-left").slide({titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", pnLoop: 'false', autoPlay: false, vis: 5, trigger: "click"});
+            });
+
+            //收藏
+            $(function () {
+                $('.otherview .sc').click(function () {
+                    $(this).toggleClass('sc-active');
+                })
+            });
+
+            $(document).ready(function () {
+                // 图片上下滚动
+                var count = $("#imageMenu li").length - 5;
+                if (count <= 0) {
+                    $('.smallImgDown').addClass('disabled');
+                }
+                /* 显示 6 个 li标签内容 */
+                var interval = $("#imageMenu li:first").width();
+                var curIndex = 0;
+
+                $('.scrollbutton').click(function () {
+                    if ($(this).hasClass('disabled')) {
+                        return false;
+                    }
+                    if ($(this).hasClass('smallImgUp')) {
+                        --curIndex;
+                    } else {
+                        ++curIndex;
+                    }
+                    $('.scrollbutton').removeClass('disabled');
+
+                    if (curIndex == 0) {
+                        $('.smallImgUp').addClass('disabled');
+                    }
+                    if (curIndex == count - 1) {
+                        // if (curIndex >= count){
+                        $('.smallImgDown').addClass('disabled');
+                    }
+                    $("#imageMenu ul").stop(false, true).animate({
+                        "marginLeft": -curIndex * interval + "px"
+                    }, 600);
+
+                });
+                // 解决 ie6 select框 问题
+                $.fn.decorateIframe = function (options) {
+                    if ($.browser.msie && $.browser.version < 7) {
+                        var opts = $.extend({}, $.fn.decorateIframe.defaults, options);
+                        $(this).each(function () {
+                            var $myThis = $(this);
+                            //创建一个IFRAME
+                            var divIframe = $("<iframe />");
+                            divIframe.attr("id", opts.iframeId);
+                            divIframe.css("position", "absolute");
+                            divIframe.css("display", "none");
+                            divIframe.css("display", "block");
+                            divIframe.css("z-index", opts.iframeZIndex);
+                            divIframe.css("border");
+                            divIframe.css("top", "0");
+                            divIframe.css("left", "0");
+                            if (opts.width == 0) {
+                                divIframe.css("width", $myThis.width() + parseInt($myThis.css("padding")) * 2 + "px");
+                            }
+                            if (opts.height == 0) {
+                                divIframe.css("height", $myThis.height() + parseInt($myThis.css("padding")) * 2 + "px");
+                            }
+                            divIframe.css("filter", "mask(color=#fff)");
+                            $myThis.append(divIframe);
+                        });
+                    }
+                }
+                $.fn.decorateIframe.defaults = {
+                    iframeId: "decorateIframe1",
+                    iframeZIndex: -1,
+                    width: 0,
+                    height: 0
+                }
+                //放大镜视窗
+                $("#bigView").decorateIframe();
+                //点击到中图
+                $("#imageMenu li img").bind("mouseover", function () {
+                    if ($(this).attr("id") != "onlickImg") {
+                        var imageIndex = $(this).index("#imageMenu li img");
+                        midChange($(this).attr("src").replace("small", "mid"), imageIndex);
+                        $("#imageMenu li").removeAttr("id");
+                        $(this).parent().attr("id", "onlickImg");
+                    }
+                });
+                function midChange(src, imageIndex) {
+                    $("#midimg").attr("src", src).load(function () {
+                        changeViewImg();
+                    });
+                    $("#midimg").parent().data("index", imageIndex);
+                }
+                //大视窗看图
+                function mouseover(e) {
+                    if ($("#winSelector").css("display") == "none") {
+                        $("#winSelector,#bigView").show();
+                    }
+                    $("#winSelector").css(fixedPosition(e));
+                    e.stopPropagation();
+                }
+
+                function mouseOut(e) {
+                    if ($("#winSelector").css("display") != "none") {
+                        $("#winSelector,#bigView").hide();
+                    }
+                    e.stopPropagation();
+                }
+                $("#midimg").mouseover(mouseover); //中图事件
+                $("#midimg,#winSelector").mousemove(mouseover).mouseout(mouseOut); //选择器事件
+                var $divWidth = $("#winSelector").width(); //选择器宽度
+                var $divHeight = $("#winSelector").height(); //选择器高度
+                var $imgWidth = $("#midimg").width(); //中图宽度
+                var $imgHeight = $("#midimg").height(); //中图高度
+                var $viewImgWidth = $viewImgHeight = $height = null; //IE加载后才能得到 大图宽度 大图高度 大图视窗高度
+                function changeViewImg() {
+                    $("#bigView img").attr("src", $("#midimg").attr("src").replace("mid", "big"));
+                }
+                changeViewImg();
+                $("#bigView").scrollLeft(0).scrollTop(0);
+                function fixedPosition(e) {
+                    if (e == null) {
+                        return;
+                    }
+                    var $imgLeft = $("#midimg").offset().left; //中图左边距
+                    var $imgTop = $("#midimg").offset().top; //中图上边距
+                    X = e.pageX - $imgLeft - $divWidth / 2; //selector顶点坐标 X
+                    Y = e.pageY - $imgTop - $divHeight / 2; //selector顶点坐标 Y
+                    X = X < 0 ? 0 : X;
+                    Y = Y < 0 ? 0 : Y;
+                    X = X + $divWidth > $imgWidth ? $imgWidth - $divWidth : X;
+                    Y = Y + $divHeight > $imgHeight ? $imgHeight - $divHeight : Y;
+                    if ($viewImgWidth == null) {
+                        $viewImgWidth = $("#bigView img").outerWidth();
+                        $viewImgHeight = $("#bigView img").height();
+                        if ($viewImgWidth < 200 || $viewImgHeight < 200) {
+                            $viewImgWidth = $viewImgHeight = 800;
+                        }
+                        $height = $divHeight * $viewImgHeight / $imgHeight;
+                        $("#bigView").width($divWidth * $viewImgWidth / $imgWidth);
+                        $("#bigView").height($height);
+                    }
+                    var scrollX = X * $viewImgWidth / $imgWidth;
+                    var scrollY = Y * $viewImgHeight / $imgHeight;
+                    $("#bigView img").css({
+                        "left": scrollX * -1,
+                        "top": scrollY * -1
+                    });
+                    $("#bigView").css({
+                        "top": 55,
+                        "left": $(".preview").offset().left + $(".preview").width() + 15
+                    });
+                    return {
+                        left: X,
+                        top: Y
+                    };
+                }
+            });
+            var initPhotoSwipeFromDOM = function (gallerySelector) {
+                // parse slide data (url, title, size ...) from DOM elements 
+                // (children of gallerySelector)
+                var parseThumbnailElements = function (el) {
+                    var thumbElements = el.childNodes,
+                            numNodes = thumbElements.length,
+                            items = [],
+                            figureEl,
+                            childElements,
+                            linkEl,
+                            size,
+                            item;
+
+                    for (var i = 0; i < numNodes; i++) {
+                        figureEl = thumbElements[i]; // <li> element
+
+                        // include only element nodes 
+                        if (figureEl.nodeType !== 1) {
+                            continue;
+                        }
+
+                        linkEl = figureEl.children[0]; // <img> element
+
+                        size = linkEl.getAttribute('data-size').split('x');
+
+                        // create slide object
+                        item = {
+                            src: linkEl.getAttribute('data-src'),
+                            w: parseInt(size[0], 10),
+                            h: parseInt(size[1], 10),
+                            title: linkEl.getAttribute('alt'),
+                            msrc: linkEl.getAttribute('src')
+                        };
+
+                        item.el = figureEl; // save link to element for getThumbBoundsFn
+                        items.push(item);
+                    }
+
+                    return items;
+                };
+                var openPhotoSwipe = function (index, disableAnimation) {
+                    var pswpElement = document.querySelectorAll('.pswp')[0],
+                            gallery,
+                            options,
+                            items;
+
+                    //var galleryElement = document.querySelectorAll(gallerySelector);
+                    items = parseThumbnailElements(document.querySelectorAll(gallerySelector)[0]);
+
+                    // define options (if needed)
+                    options = {
+                        index: index,
+                        // define gallery index (for URL)
+                        galleryUID: '1',
+                        getThumbBoundsFn: function (index) {
+                            // See Options -> getThumbBoundsFn section of docs for more info
+                            var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+                                    pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                                    rect = thumbnail.getBoundingClientRect();
+
+                            return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
+                        },
+                        // history & focus options are disabled on CodePen
+                        // remove these lines in real life: 
+                        historyEnabled: false,
+                        focus: false
+
+                    };
+
+                    if (disableAnimation) {
+                        options.showAnimationDuration = 0;
+                    }
+
+                    // Pass data to PhotoSwipe and initialize it
+                    gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                    gallery.init();
+                };
+                // parse picture index and gallery index from URL (#&pid=1&gid=2)
+                var photoswipeParseHash = function () {
+                    var hash = window.location.hash.substring(1),
+                            params = {};
+
+                    if (hash.length < 5) {
+                        return params;
+                    }
+
+                    var vars = hash.split('&');
+                    for (var i = 0; i < vars.length; i++) {
+                        if (!vars[i]) {
+                            continue;
+                        }
+                        var pair = vars[i].split('=');
+                        if (pair.length < 2) {
+                            continue;
+                        }
+                        params[pair[0]] = pair[1];
+                    }
+
+                    if (params.gid) {
+                        params.gid = parseInt(params.gid, 10);
+                    }
+
+                    if (!params.hasOwnProperty('pid')) {
+                        return params;
+                    }
+                    params.pid = parseInt(params.pid, 10);
+                    return params;
+                };
+                $('#vertical').click(function () {
+                    var index = $(this).data("index");
+                    openPhotoSwipe(parseInt(index, 10));
+                    return false;
+                });
+                // Parse URL and open gallery if it contains #&pid=3&gid=1
+                var hashData = photoswipeParseHash();
+                if (hashData.pid > 0 && hashData.gid > 0) {
+                    openPhotoSwipe(hashData.pid - 1, true);
+                }
+            };
+            // execute above function
+            initPhotoSwipeFromDOM('#imageMenu ul');
+        </script>
+        {/literal}
+
+
+    </body>
+</html>

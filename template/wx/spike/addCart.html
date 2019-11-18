@@ -1,0 +1,44 @@
+<div id="product-addcar">
+    <i class="ico ico-close"></i>
+    <div class="pro-info clearfix">
+        <div class="img fl">
+            <img src="{$goods_name['goods_img']}">
+        </div>
+        <div class="info fl">
+            <p class="price red" id="specPrice">{$symbol}{$goods_name['discount_price']}</p>
+            <!--<p class="num">库存：10000件</p>-->
+            <p class="choose">请选择：<span>产品类型</span></p><!--请选择--><!--产品类型-->
+        </div>
+    </div>
+    <div class="pro-choose">
+        <h2>尺寸:</h2>
+        <div class="pro-tags">
+            <span style="cursor:pointer" name="spec[]" class="active" data-id="140">120X200CM</span>
+        </div>
+        <h2>颜色:</h2>
+        <div class="pro-tags">
+            <span style="cursor:pointer" name="spec[]" class="active" data-id="143">EM01艾美半亚米白仿古描金边</span>
+            <span style="cursor:pointer" name="spec[]" data-id="144">LE02艾美高光时尚浅灰色</span>
+        </div>
+        <h2>交货周期:</h2>
+        <div class="pro-tags">
+            <span style="cursor:pointer" name="spec[]" class="active" data-id="160">定制(30-45天发货)</span>
+        </div>
+        <h2>材质配布:</h2>
+        <div class="pro-tags">
+            <span style="cursor:pointer" name="spec[]" class="active" data-id="162">9073-B1115-88-17A</span>
+        </div>
+
+        <h2>购买数量</h2><!--购买数量-->
+        <div class="updown-box">
+            <span class="down fl ico ico-down"></span>
+            <input type="text" class="num fl" name="num" value="1" disabled="disabled">
+            <span class="up fl ico ico-up"></span>
+        </div>
+        <span class="storage fr" style="margin-top:0.22rem">当前库存(<em class="product-amount">3</em>)</span>
+    </div>
+    <button class="btn-sure btn" id="buy">确 定</button><!--确定-->
+</div>
+<script>
+
+</script>

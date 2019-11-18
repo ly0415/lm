@@ -1,0 +1,24 @@
+<form class="form-horizontal "  id = "form1" action="?app=storeBrand&act=doCheck" >
+
+    <input type="hidden" name="id" value="{$info['id']}">
+
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label">审核</label>
+        <div class="col-sm-7 col-md-7">
+            <div class="radio">
+                <label class="mr10">
+                    <input type="radio" name="review_status" value="2"  checked >审核通过
+                </label>
+                <label>
+                    <input type="radio" name="review_status" value="3"  >审核失败
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3  col-md-3 control-label">审核意见</label>
+        <div class="col-sm-7 col-md-7">
+            <textarea class="form-control" rows="4" name="review_note" ></textarea>
+        </div>
+    </div>
+</form>

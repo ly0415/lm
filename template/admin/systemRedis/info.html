@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {include file="public/headtab.html"}
+        <!-- Content Header (Page header) -->
+        {include file="public/crumbs.html"}
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="new-table-responsive">
+                            <div class="box-header">
+                                <form class="form-inline col-sm-9 col-md-9 no-padding" action='?app=major&act=index'>
+                                    <div class="form-group form-group-sm form-mar">
+                                        <input type='hidden' name='app' value='systemRedis'>
+                                        <input type='hidden' name='act' value='index'>
+                                        <input type="hidden" name = "delAll"  value="drop">
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label">{$language1->table_description}：</small>
+                                        <input type="text" class="form-control" name="commit" value="{$commit}">
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar">
+                                        <small class="control-label">{$language1->table_name}：</small>
+                                        <input type="text" class="form-control" name="name" value="{$name}">
+                                    </div>
+                                    <div class="form-group form-group-sm form-mar">
+                                        <button type='submit' class="btn btn-default btn-sm" id="search">
+                                            {$language2->search} <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                                <div class="col-sm-3 col-md-3 no-padding text-right">
+                                    <a class="btn btn-primary btn-sm mr5" href="javascript:void(0)" onclick="add();"  role="button"><i class="fa fa-plus"></i> {$language1->cache_search}</a>
+                                    <a class="btn btn-warning btn-sm" href="javascript:void(0)" onclick="resetRedis();" role="button"><i class="fa fa-refresh"></i> {$language1->reset_cache</a>
+                                </div>
+                            </div>
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th width="10%">{$language2->serial_number}</th>
+                                    <th width="30%">{$language1->table_description}</th>
+                                    <th width="45%">{$language1->table_name}</th>
+                                    <th width="15%">{$language2->control}</th>
+                                </tr>
+                                </thead>
+                                {if $listTables}
+                                    {foreach from=$listTables item=item key=key}
+                                        <tr>
+                                            <td>{$key+1}</td>
+                                            <td>{$item.commit}</td>
+                                            <td>{$item.name}</td>
+                                            <td class="cz">
+                                                <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;" onclick="view('{$item.name}');"  data-original-title="{$language1->look_cache}">{$language1->look_cache}</a>
+                                                <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-warning edit-table" style="overflow: hidden; position: relative;" onclick="reset('{$item.name}');"  data-original-title="{$language1->reset_cache">{$language1->reset_cache}</a>
+                                                <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  onclick="drop('{$item.name}');"  data-original-title="{$language1->clear_cache}">{$language1->clear_cache}</a>
+                                            </td>
+                                        </tr>
+                                    {/foreach}
+                                {/if}
+                            </table>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    {include file="public/footer.html"}
+</div>
+<script type="text/javascript">
+    /*重置缓存*/
+//    function reset(name) {
+//        var url = '?app=systemRedis&act=reset&redisName='+name;
+//        $.confirm({
+//            title: '提示',
+//            closeIcon: true,
+//            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>您确认重置该缓存数据麽？",
+//            type: 'blue',
+//            buttons: {
+//                confirm: {
+//                    btnClass: 'btn-blue',
+//                    text:'确认',
+//                    action: function () {
+//                        $.ajax({
+//                            type: "GET",
+//                            url: url,
+//                            success: function(obj){
+//                                var res = eval("("+obj+")");
+//                                var msg = res.message;
+//                                if(res.status == 1){
+//                                    var d=$.dialog({
+//                                        content: '<div class="text-center">'+msg+'</div>',
+//                                        title: false, // hides the title.
+//                                        closeIcon: false, // hides the close icon.
+//                                        columnClass: 'xsmall',
+//                                        onOpen: function(){
+//                                            setTimeout(function(){
+//                                                d.close();
+//                                            }, 400);
+//                                        }
+//                                    });
+//                                    setTimeout(function(){
+//                                        window.location.reload();
+//                                    },1000);
+//                                }else{
+//                                    var d=$.dialog({
+//                                        content: '<div class="text-center">'+msg+'</div>',
+//                                        title: false, // hides the title.
+//                                        closeIcon: false, // hides the close icon.
+//                                        columnClass: 'xsmall',
+//                                        onOpen: function(){
+//                                            setTimeout(function(){
+//                                                d.close();
+//                                            }, 1000);
+//                                        }
+//
+//                                    });
+//
+//                                }
+//
+//                            }
+//                        });
+//                    }
+//                },
+//                cancel: {
+//                    btnClass: 'btn-default', // multiple classes.
+//                    text:'取消'
+//                }
+//            }
+//        });
+//    }
+
+    /*查看缓存*/
+    function view(name) {
+        authCheck('?app=systemRedis&act=info&name=' + name, 1)
+    };
+
+    /*重置缓存*/
+    function reset(name) {
+        authCheck('?app=systemRedis&act=reset&name=' + name, 2, '重置缓存')
+    };
+
+    /*清空缓存*/
+    function drop(name) {
+        deletes('?app=systemRedis&act=drop&redisName=' + name);
+    }
+</script>
+</body>
+</html>

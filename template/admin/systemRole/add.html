@@ -1,0 +1,42 @@
+<form class="form-horizontal" id="form1"  action="admin.php?app=systemRole&act=doAdd">
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span> {$language1->role_cn_name} </label>
+        <div class="col-sm-7 col-md-7">
+            <input type="text" class="form-control"  placeholder="{$language1->role_cn_name}"  name="name"  >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span> {$language1->role_en_name} </label>
+        <div class="col-sm-7 col-md-7">
+            <input type="text" class="form-control"  placeholder="{$language1->role_en_name}"  name="english_name"  >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span>{$language1->grade}</label>
+        <div class="col-sm-7 col-md-7">
+            <select class="form-control" name="level">
+                <option value="">{$language1->select_role_level}</option>
+                {foreach from=$role_arr item=item key=k}
+                <option value="{$k}">{$item}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label">{$language1->area_countroy}</label>
+        <div class="col-sm-7 col-md-7">
+           <select class="form-control" name="store_cate_id">
+               <option value="">{$language1->select_regional_country}</option>
+               {foreach from=$cate_list item=item}
+               <option value="{$item.id}">{$item.cate_name}</option>
+               {/foreach}
+           </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label">{$language2->sort}</label>
+        <div class="col-sm-7 col-md-7">
+            <input type="input" class="form-control"  placeholder="{$language2->sort}"  name="sort" >
+        </div>
+    </div>
+</form>

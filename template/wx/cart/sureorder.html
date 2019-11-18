@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>{$langdata.order_confirm}</title><!--确认订单-->
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <meta content="email=no" name="format-detection">
+        <link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css"  rel="stylesheet" type="text/css"/>
+        <link href="{$STATIC_URL}/phone/css/style.css?_t={time()}"  rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="{$STATIC_URL}/phone/css/rolldate.css"/>
+        {if $lang_id =='ZH'}
+        <style>
+            /*添加的兑换券*/
+            .showdiscount{
+                margin-top: .5rem;
+            }
+            .discounttitle{
+                background-color: #fff;
+                border-top:1px solid #eeeeee
+            }
+            .discounttitle a{
+                width: 50%;
+                float: left;
+                text-align: center;
+                font-size: .28rem;
+                padding: .3rem 0 0 0;
+                letter-spacing: .05rem;
+            }
+            .discounttitle a span{
+                padding-left: .2rem;
+                padding-right: .2rem;
+                padding-bottom: .3rem;
+                display: inline-block;
+            }
+            .discounttitle a span.activespan{
+                border-bottom: 2px solid #fa9c82;
+            }
+            .showdiscount ul{
+                display: none;
+            }
+            .showdiscount ul.activeul{
+                display: block;
+            }
+            .discountShow .discountRight .discountuse .times1{
+                width: 2.5rem;
+                display: inline-block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                vertical-align: middle;
+            }
+            .discountShow .discountLeft .discountneed1{
+                font-size: .24rem;
+                margin-top: .6rem;
+                padding-bottom: .15rem;
+                border-bottom: 1px dashed #fff;
+
+            }
+            .discountShow .discountLeft .discountvalue1{
+                font-size: .26rem;
+                margin-top: .2rem;
+            }
+
+            div.couponContainer{
+                padding: 0 .1rem;
+            }
+            .couponTabs .discountMain {
+                overflow: inherit;
+                margin-top: .2rem;
+            }
+            .couponTabs .discountMain  li{
+                line-height: normal;
+                margin-right: 0;
+                margin-bottom: .4rem;
+            }
+             .discountMain  li.activediv{
+                border: 1px solid #fa9880;
+            }
+            .discountMain {
+                margin: 0 .3rem;
+            }
+
+            .discountMain .divitem {
+                margin-bottom: .5rem;
+                width: 100%;
+                margin-top: 0;
+                border: 1px solid #ddd;
+                /*box-shadow: 0rem 0rem .02rem .02rem rgba(122,122,122,0.2);*/
+            }
+            .discountMain .divitem .discountShow{
+
+                border-radius: 5px;
+                display: flex;
+            }
+            .discountMain .divitem .discountShow .discountLeft {
+                display: inline-block;
+                width: 35%;
+                text-align: center;
+                background-color: #fa9880;
+                color: #fff;
+                padding: 0 .1rem;
+                box-sizing: border-box;
+            }
+            .discountMain .divitem .discountShow .discountLeft.overdue{
+                background-color: #999999;
+            }
+            .discountMain .divitem .discountShow .discountRight {
+                display: inline-block;
+                width: 65%;
+                box-sizing: border-box;
+                background-color: #fff;
+            }
+            .discountMain .divitem .discountShow .discountRight .discountinfo{
+                padding: .25rem .2rem;
+                border-bottom: 1px solid #dddddd;
+            }
+            .clearfix:after {
+                content: ".";
+                display: block;
+                height: 0;
+                clear: both;
+                visibility: hidden
+            }
+
+            .discountShow .discountLeft .discountprice {
+                margin: .3rem 0 0 0;
+                font-size: .36rem
+            }
+
+            .discountShow .discountLeft .discountneed {
+                font-size: .2rem;
+                padding-bottom: .1rem;
+                border-bottom: 1px dashed #fff;
+            }
+
+            .discountShow .discountLeft .discountvalue {
+                font-size: .26rem;
+                margin: .2rem 0 .3rem 0;
+            }
+            .discountShow .discountRight .discountdate{
+                font-size: .26rem;
+                color: #666666;
+            }
+            .discountShow .discountRight .discountuse{
+                font-size: .26rem;
+                margin: .35rem 0 0 0;
+            }
+            .discountShow .discountRight .discountuse .times {
+                float: left;
+                margin-top: .1rem;
+            }
+            .discountShow .discountRight .discountuse .times span{
+                color: #fa9a81;
+            }
+            .discountShow .discountRight .discountuse .times span.overdue{
+                color: #999999;
+            }
+            .discountShow .discountRight .discountuse a{
+                float: right;
+                border-radius: 10rem;
+                border: 1px solid #fa9a81;
+                font-size: .24rem;
+                width: 1.2rem;
+                text-align: center;
+                color: #fa9a81;
+            }
+            .discountShow .discountRight .discountuse a.overdue{
+                color: #999999;
+                border: 1px solid #999999;
+            }
+            .discountShow .discountRight .usediscount{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 .2rem;
+                font-size: .24rem;
+                color: #999999;
+                line-height: .8rem;
+            }
+            .discountShow .discountRight .usediscount img{
+                width: .22rem;
+                height: .13rem;
+                display: inline-block;
+            }
+            .discountHidden{
+                border-top: 1px solid #dddddd;
+                background-color: #fff;
+                display: none;
+                border-radius: 5px;
+            }
+            .discountHidden p{
+                color: #666666;
+                font-size: .24rem;
+                padding: .4rem .25rem;
+            }
+            .discountHidden p span{
+                font-size: .26rem;
+                color: #fa9880;
+                letter-spacing: .01rem;
+            }
+               /* 原来样式*/
+            .modal{
+                position: fixed;
+                z-index: 100000;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0,0,0,0.7);
+                overflow: hidden;
+                display:none;
+            }
+            .modal-dialog {
+                width: 100%;
+                height: 450px;
+                background-color: #eee;
+                position: fixed;
+                bottom: 0;
+                left: 50%;
+                transform: translate(-50%);
+                /*padding-bottom: 1rem;*/
+                overflow-y: auto;
+            }
+            .yhq-right{
+                padding-bottom:0;
+            }
+            .div.couponContainer div.yhq div.yhq-left{
+                top:0
+            }
+            div.couponContainer div.yhq div.yhq-left-top{
+                padding-bottom:0;
+            }
+            .yhq-right{
+                top:0;
+            }
+            div.couponContainer>div{
+                overflow: auto;
+                height: 6.5rem;
+            }
+            div.couponContainer>div.active {
+                display: block;
+                overflow: auto;
+                height: 6.5rem;
+            }
+            div.tabsTxt{
+                padding:0;
+            }
+            .yhq-right>div{
+                padding-bottom:0;
+            }
+            div.couponContainer div.yhq div.yhq-left-top b{
+                font-size:0.4rem;
+            }
+            div.tabsTxt1{
+                margin-left:0;
+            }
+            div.couponTabs ul li{
+                margin-right:0.3rem;
+            }
+            div.couponContainer div.yhq {
+                width: 100%;
+                height: 2rem;
+                background: url(./assets/phone/images/yhqBg.png) no-repeat;
+                background-size: 100% 100%;
+                margin-top: 0.3rem;
+                position: relative;
+            }
+            .addr span.red{
+                background: #f63d3d;
+                color: #fff;
+                border-radius: 10px;
+                padding: 0.02rem 0.3rem;
+            }
+            .sureorder-wrap .tj-order .btn-daifu {
+    display: block;
+    text-align: center;
+    width: 50%;
+    background-color: #f33e3e;
+    color: #fff;
+    font-size: .3rem;
+    height: 100%;
+    line-height: 0.9rem;
+}
+        </style>
+        {else}
+        <style>
+            /*添加的兑换券*/
+            .discounttitle{
+                margin-top: .9rem;
+                background-color: #fff;
+                border-top:1px solid #eeeeee
+            }
+            .discounttitle a{
+                width: 50%;
+                float: left;
+                text-align: center;
+                font-size: .28rem;
+                padding: .3rem 0 0 0;
+                letter-spacing: .05rem;
+            }
+            .discounttitle a span{
+                padding-left: .2rem;
+                padding-right: .2rem;
+                padding-bottom: .3rem;
+                display: inline-block;
+            }
+            .discounttitle a span.activespan{
+                border-bottom: 2px solid #fa9c82;
+            }
+            .showdiscount ul{
+                display: none;
+            }
+            .showdiscount ul.activeul{
+                display: block;
+            }
+            .discountShow .discountRight .discountuse .times1{
+                width: 2.8rem;
+                display: inline-block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                vertical-align: -webkit-baseline-middle;
+            }
+            .discountShow .discountLeft .discountneed1{
+                font-size: .24rem;
+                margin-top: .6rem;
+                padding-bottom: .15rem;
+                border-bottom: 1px dashed #fff;
+
+            }
+            .discountShow .discountLeft .discountvalue1{
+                font-size: .26rem;
+                margin-top: .2rem;
+            }
+
+            .couponTabs .discountMain {
+                overflow: initial;
+            }
+            .couponTabs .discountMain  li{
+                margin-right: 0;
+                margin-bottom: .6rem;
+            }
+            .discountMain {
+                margin: 0 .3rem;
+            }
+
+            .discountMain .divitem {
+                width: 100%;
+                margin-top: 0;
+                border: 1px solid #ddd;
+                /*box-shadow: 0rem 0rem .02rem .02rem rgba(122,122,122,0.2);*/
+            }
+            .discountMain .divitem .discountShow{
+
+                border-radius: 5px;
+                display: flex;
+            }
+            .discountMain .divitem .discountShow .discountLeft {
+                display: inline-block;
+                width: 30%;
+                text-align: center;
+                background-color: #fa9880;
+                color: #fff;
+                padding: 0 .15rem;
+                box-sizing: border-box;
+            }
+            .discountMain .divitem .discountShow .discountLeft.overdue{
+                background-color: #999999;
+            }
+            .discountMain .divitem .discountShow .discountRight {
+                display: inline-block;
+                width: 70%;
+                box-sizing: border-box;
+                background-color: #fff;
+            }
+            .discountMain .divitem .discountShow .discountRight .discountinfo{
+                padding: .25rem .2rem;
+                border-bottom: 1px solid #dddddd;
+            }
+            .clearfix:after {
+                content: ".";
+                display: block;
+                height: 0;
+                clear: both;
+                visibility: hidden
+            }
+
+            .discountShow .discountLeft .discountprice {
+                margin: .3rem  .2rem;
+                font-size: .36rem
+            }
+
+            .discountShow .discountLeft .discountneed {
+                font-size: .2rem;
+                padding-bottom: .1rem;
+                border-bottom: 1px dashed #fff;
+            }
+
+            .discountShow .discountLeft .discountvalue {
+                font-size: .26rem;
+                margin: .1rem 0 .3rem 0;
+            }
+            .discountShow .discountRight .discountdate{
+                font-size: .26rem;
+                color: #666666;
+            }
+            .discountShow .discountRight .discountuse{
+                font-size: .24rem;
+                color: #666666;
+                margin-top: .3rem;
+            }
+            .discountShow .discountRight .discountuse .times {
+                float: left;
+                margin-top: .1rem;
+            }
+            .discountShow .discountRight .discountuse .times span{
+                color: #fa9a81;
+            }
+            .discountShow .discountRight .discountuse .times span.overdue{
+                color: #999999;
+            }
+            .discountShow .discountRight .discountuse a{
+                float: right;
+                color: #fa9a81;
+                padding: .08rem 0;
+                border-radius: 10rem;
+                border: 1px solid #fa9a81;
+                font-size: .24rem;
+                width: 1.2rem;
+                text-align: center;
+            }
+            .discountShow .discountRight .discountuse a.overdue{
+                color: #999999;
+                border: 1px solid #999999;
+            }
+            .discountShow .discountRight .usediscount{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 .2rem;
+                font-size: .24rem;
+                color: #999999;
+                line-height: .59rem;
+            }
+            .discountShow .discountRight .usediscount img{
+                width: .22rem;
+                height: .13rem;
+                display: inline-block;
+            }
+            .discountHidden{
+                border-top: 1px solid #dddddd;
+                background-color: #fff;
+                display: none;
+                border-radius: 5px;
+            }
+            .discountHidden p{
+                color: #666666;
+                font-size: .24rem;
+                padding: .4rem .25rem;
+            }
+            .discountHidden p span{
+                font-size: .26rem;
+                color: #fa9880;
+                letter-spacing: .01rem;
+            }
+            /*原来样式*/
+            .modal{
+                position: fixed;
+                z-index: 100000;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0,0,0,0.7);
+                overflow: hidden;
+                display:none;
+            }
+            .modal-dialog {
+                width: 100%;
+                height: 450px;
+                background-color: #fff;
+                position: fixed;
+                bottom: 0;
+                left: 50%;
+                transform: translate(-50%);
+                padding-bottom: 1rem;
+            }
+        </style>
+        {/if}
+    </head>
+    <body>
+        <div class="sureorder-wrap">
+            <div class="sureorder-address">
+                {if $flag ==1}
+                <!-- 无地址时样式 -->
+                <a href="wx.php?app=userCenter&act=addAddress1&id={$userAddress.id}&name={$userAddress.name}&mp={$userAddress.app}&address={$userAddress.pays}&phone={$userAddress.phone}&postal={$userAddress.postal_code}&storeid={$store_id}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&nowlatlon={$nowlatlon}&url={$referer}" class="btn-add-address">{$langdata.order_address}</a><!--添加地址-->
+                {else}
+                <!-- 有地址时样式 -->
+                <a href="wx.php?app=userCenter&act=myAddress&item_id=249&id={$userAddress.id}&name={$userAddress.name}&mp={$userAddress.app}&address={$city}&phone={$userAddress.phone}&postal={$userAddress.postal_code}&storeid={$store_id}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&nowlatlon={$nowlatlon}&returnUrl={$referer}" class="clearfix">
+                    <i class="ico ico-address fl"></i>
+                    <div class="mid fl">
+                        <div class="clearfix">
+                            <span class="fl">{$langdata.order_receipt}：{$userAddress.name}</span><!--收货人-->
+                            <span class="fr">{$userAddress.phone}</span>
+                        </div>
+                        <p class="addr">
+                            {if $userAddress.default_addr==1}
+                            <span class='red'>默认</span>
+                            {/if}
+                            {$langdata.order_receipt_address}：
+                            <span id="userAddress">{$address1}</span>
+
+                        </p><!--收货地址-->
+                    </div>
+                    <i class="ico ico-right fr"></i>
+                </a>
+                {/if}
+                <!--?app=map&act=addAddress&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&returnUrl={$referer}-->
+            </div>
+            <div class="myorderstate-list mt20">
+                <div class="shop">
+                    <a href="##">
+                        <i class="ico ico-shop"></i>
+                        <span>{$storeName}</span>
+                        <!--                        <span>{$langdata.order_Flagship}</span>711旗舰店-->
+                        <i class="ico ico-rg"></i>
+                    </a>
+
+                    <span class="fr state">{$langdata.order_waitfor}</span><!--等待提交订单-->
+                </div>
+                <ul id="goodsUl">
+                    {foreach from=$userGoods item=item key=key}
+                    <li class="itembox" data-room="{$item.room_type_id}" data-price="{$item.goods_price}" data-room-parent="{$item.room_parent_id}">
+                        <a href="##" class="clearfix">
+                            <div class="pro-logo fl">
+                                <img src="{$item.origin_img}" width="100%">
+                            </div>
+                            <div class="pro-info fl">
+                                <h3 class="pro-name ellipsis">{$item.goods_name}</h3>
+                                <p class="pro-tags">
+                                    <!--                                    <span>SKU: {$item.sku} </span><br/>-->
+                                    <span>{$langdata.order_Specifications}: {$item.spec_key_name} </span><br/><!--规格:-->
+                                    <span style="color: red;">{$langdata.order_Postage}: {$symbol} {$item.shipping_price} </span><!--邮费:-->
+                                    <!--                                    <span>{$langdata.order_Distribution}: {$item.shipping_store_name} </span>指定配送:-->
+                                </p>
+                            </div>
+                            <div class="pro-right fr">
+                                <p class="xprice">{$symbol}{$item.goods_price}</p>
+                                <p class="yprice">{$symbol}{$item.market_price}</p>
+                                <p class="num">X {$item.goods_num}</p>
+                            </div>
+                        </a>
+                    </li>
+                    {/foreach}
+                </ul>
+                <div class="otherbox">
+                    <ul>
+                        <li>
+                            <span>时间</span>
+                            <span class="fr">
+                                <input readonly type="text" id="dataTime" placeholder="00:00">
+                            </span>
+                        </li>
+                        <li>
+                            <span>{$langdata.order_mode}</span><!--配送方式-->
+                            <span class="fr"> 
+                                <input type="radio" name="sendout" value="1"  checked="checked"/>{$langdata.order_zitiya}&nbsp;
+                                <input type="radio" name="sendout" value="2"/>{$langdata.order_Autonomy}
+                                <input type="radio" name="sendout" value="3">{$langdata.order_yjty}
+                            </span> <!--自主配送-->
+                        </li>
+                        <li>
+                            <span>{$langdata.order_Leavingamessage}</span><!--买家留言-->
+                            <span class="fr" style="width:60%;"><input style="width:100%;" type="text" value="" placeholder="{$langdata.order_seller} "  name="seller_msg"/></span><!--留言给卖家-->
+                        </li>
+                        <li style="height: 1rem;line-height: 1rem;">
+                            <span>{$langdata.order_distribution}</span><!--使用分销手机号-->
+                            <span class="fr" style="width:60%;"><input style="width:100%;" type="text" placeholder="{$langdata.order_Pleaseenter}" name="fxPhone" value="{$fxCode}"/></span><!--请输入-->
+                            <input type="hidden" value="{$storeCate_1}" name="storeCate"/>
+                            <input type="hidden" value="{$zonge}" name="totalMoney" />
+                            <input type="hidden" value="{$symbol}" name="symbol" />
+                            <input type="hidden" value="{$userAddress['id']}" name="user_address" />
+                            <input type="hidden" value="{$store_id}" name="store_id" />
+                            <input type="hidden" value="{$lang}" name="lang" />
+                            <input type="hidden" value="{$auxiliary}" name="auxiliary" />
+                            <input type="hidden" value="{$cart_ids}" name="cart_ids" />
+                            <input type="hidden" name="address" value="{$userAddress.address}" >
+                            <input type="hidden" value="" name="discount_rate" />
+                            <input type="hidden" value="" name="fx_user_id">
+                            <input type="hidden" value="" name="rule_id">
+                            <input type="hidden" value="{$latlon}" name="latlon">
+                            <input type="hidden" value="{$total}" name="total">
+                            <input type="hidden" value="{$addr_id}" name="addr_id">
+                        </li>
+                        <li>
+                            <span>{$langdata.order_Discount}</span><!--优惠金额-->
+                            {if $discount}
+                            <span class="fr red fxMoney">{$symbol}{$discount}</span>
+                            {else}
+                            <span class="fr red fxMoney">{$symbol}0.00</span>
+                            {/if}
+                        </li>
+                        <li class="clearfix">
+                            <span>{$langdata.useRui_youhuijuan}</span>
+                            <span class="fr"  id="yhq">请选择&gt;</span>
+                            <!--<span class="fr">已选：满20抵扣5元</span>-->
+                            <!--<span class="fr">已选：封顶20元兑换</span>-->
+                            <div class="modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div style=" padding: 0 0.3rem;padding-top: 0.3rem;overflow: hidden;font-size: 0.4rem;background-color: #fff">
+                                            <span style="float: left;font-size: 0.3rem;">{$langdata.useRui_youhuijuan}</span>
+                                            <span style="float: right;color: #999999; font-size: 0.3rem;" id="cha">×</span>
+                                        </div>
+                                        <div class="">
+
+                                            <div class="">
+                                                <div class="discounttitle clearfix">
+                                                    <a href="##"><span class="activespan">抵扣劵</span></a>
+                                                    <a href="##"><span>兑换券</span></a>
+                                                </div>
+
+                                            <div class="showdiscount">
+
+                                                <ul class="discountMain activeul">
+                                                    {foreach from=$res item=val}
+                                                    <li class="divitem"  data-money="{$val.money}" data-discount="{$val.discount}" data-expire="{$val.usetype}"  data-id="{$val.id}" data-userCouponId="{$val.user_coupon_id}" data-type="{$val.type}">
+                                                        <div class='discountShow {if $val.usetype==2}clearfix{/if}'>
+                                                            <div class="discountLeft {if $val.usetype==2}overdue{/if}">
+                                                                <p class="discountprice"><span style="font-size: .24rem;">{$symbol}</span>{$val.discount}</p>
+                                                                <p class="discountneed">满{$val.money}元使用</p>
+                                                                <p class="discountvalue">{$val.discount}元抵扣劵</p>
+                                                            </div>
+                                                            <div class="discountRight">
+                                                                <div class="discountinfo">
+                                                                    <p class="discountdate">有效期：{$val.start_time|date_format:'%Y.%m.%d'}-{$val.end_time|date_format:'%Y.%m.%d'}</p>
+                                                                    <p class="discountuse clearfix">
+                                                                       <!-- <span class="times">剩余：<span >{$val.left_times}</span>次</span>-->
+                                                                        {if $val.usetype == 1}
+                                                                        <a href="##">立即使用</a>
+                                                                        {else if $val.usetype == 2}
+                                                                        <a href="##" class="overdue">不可用</a>
+                                                                        {/if}
+                                                                    </p>
+                                                                </div>
+
+                                                                <p class="usediscount">
+                                                                    <span>使用须知</span>
+                                                                    <img src="./assets/wx/arrowdown.png" alt="" />
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class='discountHidden'>
+                                                            <p>适用范围：限<span>{$val.store_names}</span>使用</p>
+                                                            <p style="padding-top: 0;">使用次数：一天<span>{$val.day_times}</span>次，共<span>{$val.total_times}</span>次</p>
+                                                        </div>
+                                                    </li>
+                                                    {/foreach}
+                                                </ul>
+                                                <!--兑换券-->
+                                                <ul class="discountMain">
+                                                    {foreach from=$voucherData item=val}
+
+                                                    <li class="divitem" data-money="{$val.money}" data-discount="{$val.discount}" data-expire="{$val.usetype}"  data-id="{$val.id}" data-userCouponId="{$val.user_coupon_id}" data-type="{$val.type}" data-roomTypeId="{$val.room_type_id}">
+                                                        <div class='discountShow {if $val.usetype==2}clearfix{/if} '>
+                                                            <div class="discountLeft {if $val.usetype==2}overdue{/if}">
+                                                                <p class="discountneed1">限{$val.money}元内使用</p>
+                                                                <p class="discountvalue1">{$val.money}元兑换券</p>
+                                                            </div>
+                                                            <div class="discountRight">
+                                                                <div class="discountinfo">
+                                                                    <p class="discountdate">有效期：{$val.start_time|date_format:'%Y.%m.%d'}-{$val.end_time|date_format:'%Y.%m.%d'}</p>
+                                                                    <p class="discountuse clearfix">
+                                                                        <span class="times1"></span>
+                                                                        {if $val.usetype == 1}
+                                                                        <a href="##">立即使用</a>
+                                                                        {else if $val.usetype == 2}
+                                                                        <a href="##" class="overdue">不可用</a>
+                                                                        {/if}
+                                                                    </p>
+                                                                </div>
+                                                                <p class="usediscount">
+                                                                    <span>使用须知</span>
+                                                                    <img src="./assets/wx/arrowdown.png" alt="" />
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class='discountHidden'>
+                                                            <p>兑换范围：限<span>{$val.type_name}</span>使用</p>
+                                                        </div>
+                                                    </li>
+                                                    {/foreach}
+                                                </ul>
+
+                                            </div>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <span>可用{$maxPoint}睿积分抵用{$maxAccount}元</span><input style="float:right;margin-top:0.2rem;width:20px;height:20px;" type="checkbox" value=""   name="point" checked/><!--使用积分-->
+                        </li>
+                    </ul>
+                </div>
+                <div class="totalbox">
+                    <span>{$langdata.order_common}{$total_num}{$langdata.order_Piecegoods}</span><!--共 件商品-->
+                    <span class="ml20">{$langdata.order_Total}：{$symbol} {$total}</span><!--合计-->
+                    <!--<span class="ml20">（{$langdata.order_charges}： {$symbol} {$shipping_price}）</span>&lt;!&ndash;含运费&ndash;&gt;-->
+                </div>
+            </div>
+            <div class="tj-order clearfix ">
+                <div class="left fl tc">
+                    <p class="price">
+                        <span class="pri">{$langdata.order_Total}：{$symbol} {$discountMoney}</span>
+                        <span class="pri1">({$langdata.order_charges} {$symbol} {$shipping_price})</span>
+                    </p><!--合计--><!--含运费-->
+                </div>
+                <input type="hidden" name="symbol" value="{$symbol}">
+                <input type="hidden" name="order_charges" value="{$langdata.order_charges}">
+                <input type="hidden" name="shippingfee" >
+                <input type="hidden" name="totalMoney" value="{$totalMoney}">
+                <input type="hidden" name="rate" value="{$rate}">
+                <input type="hidden" name="discount" value="{$discount}">
+                <input type="hidden" name="lastCid">
+                <input type="hidden" name="maxPoint" value="{$maxPoint}">
+                <input type="hidden" name="maxAccount" value="{$maxAccount}">
+                <input type="hidden" name="money" value="{$money}">
+                <div class="btnbox">
+                    <a class="btn-daifu fr" style="background:#bea58c">发起代付</a><!--提交订单-->
+                    <a class="btn-settle fr">{$langdata.order_Submit}</a><!--提交订单-->
+                </div>
+            </div>
+        </div>   
+        <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/layer/layer.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/rolldate.js" type="text/javascript"></script>
+    </body>
+</html>
+
+{literal}
+
+<!-- 分销金额-->
+<script type="text/javascript">
+    //切换优惠券兑换券
+    $('.discounttitle a').on('click',function(){
+        $(this).children('span').addClass("activespan").parent().siblings('a').children('span').removeClass("activespan");
+        $(this).parent().next('.showdiscount').children('.discountMain').eq($(this).index()).addClass('activeul').siblings().removeClass('activeul')
+    })
+
+    //--点击优惠券--
+    $('.otherbox .discountRight .usediscount').on('click',function(){
+        $(this).removeClass('active');
+         $(this).parent().parent().next('.discountHidden').toggle();
+         return false;
+    })
+    //选中
+    $('.otherbox .discountMain .divitem').on('click',function(){
+        if(!$(this).find(".discountShow").hasClass("clearfix")){
+            $(this).removeClass('active');
+            if($(this).hasClass('activediv')){
+                $(this).removeClass('activediv')
+            }else if(!$(this).hasClass('activediv')){
+                $(this).addClass('activediv').parent().siblings().children('li').removeClass('activediv')
+                $(this).addClass('activediv').siblings('li').removeClass('activediv')
+            }
+        }
+    });
+    //时间插件
+    $(function(){
+        new rolldate.Date({
+            el:'#dataTime',
+            format:'hh:mm',
+            theme:'blue'
+        })
+    })
+
+    //分销金额变更 sendoutMoney:配送金额  youhuiMoney:优惠劵优惠金额 ruiMoney:睿积分优惠金额
+    function  getFxDiscount(sendoutMoney,youhuiMoney,ruiMoney){
+        var fxPhone=$("input[name=fxPhone]").val();
+        var cart_ids = $('input[name=cart_ids]').val();
+        var lang = $('input[name=lang]').val();
+        var symbol = $('input[name=symbol]').val();
+            $.ajax({
+                url: 'wx.php?app=comfirmOrder&act=getFxDiscount',
+                type: 'POST',
+                data: {'fxPhone': fxPhone, 'cart_ids': cart_ids, 'lang': lang, 'shippingfee':
+                    sendoutMoney, 'youhui': youhuiMoney, 'point': ruiMoney},
+                async: false, //默认为true 异步
+                success: function (json) {
+                    var data = eval("(" + json + ")");
+                    // console.log(data);
+                    if (data.status == 1) {
+                        var fxinfo = symbol + '' + data.info.discount.toFixed(2);
+                        $('.fxMoney').html(fxinfo);
+                        var total = symbol + commafy(toDecimal2(data.info.payMoney));
+                        $('.pri').html('合计：'+ total);
+                        $('input[name=discount_rate]').val(data.info.discount_rate);
+                        $('input[name=discount]').val(data.info.discount.toFixed(2));
+                        $('input[name=fx_user_id]').val(data.info.fx_user_id);
+                        $('input[name=rule_id]').val(data.info.rule_id);
+                    } else {
+                        dialog(data.message, '');
+                    }
+                }
+            })
+
+    }
+    //选择优惠劵
+    $(".discountMain").on("click", "li", function () {
+        //选择优惠劵
+        if(!$(this).find(".discountShow").hasClass("clearfix")) {
+            if ($(this).hasClass('activediv')) {
+                var money = $(this).attr('data-money');
+                var discount = $(this).attr('data-discount');
+                var total = parseFloat(delcommafy($('input[name=total]').val()));
+                var userCouponId = $(this).attr("data-userCouponId");
+                var symbol = $('input[name=symbol]').val();
+                if (discount == undefined) {
+                    discount = 0;
+                }
+                if (discount != 0) {
+                    discount = delcommafy(discount);
+                }
+                var id = $(this).attr('data-id');
+                var totalMoney = delcommafy($('input[name=totalMoney]').val());
+                var fx_discount = delcommafy($('input[name=discount]').val());
+                if (fx_discount == '') {
+                    fx_discount = 0;
+                }
+                var shippingfee = delcommafy($('input[name=shippingfee]').val());
+                if (shippingfee == '') {
+                    shippingfee = 0;
+                }
+                if ($(this).attr('data-type') == 1) {
+                    getFxDiscount(shippingfee, discount, 0);
+                    $('.modal').css('display', 'none');
+                    $('#yhq').html('已选:优惠劵  满' + money + '元抵扣' + discount + '元');
+                    $('#yhq').attr('type', 1);
+                    $('#yhq').attr('data-id', id);
+                    $('#yhq').attr('data-userCouponId', userCouponId);
+                    $('#yhq').attr('data-discount', discount);
+                } else {
+                    var room_type_id = $(this).attr('data-roomTypeId');
+                    var money = $(this).attr('data-money');
+                    var goods_price_arr = new Array();
+                    $.each($('#goodsUl li'), function (i, item) {
+                        if (($(item).attr('data-room') == room_type_id  || $(item).attr('data-room-parent') == room_type_id ) && parseFloat($(item).attr('data-price')) <= parseFloat(money)) {
+                            goods_price_arr.push($(item).attr('data-price'));
+                        }
+                    })
+                    var max_price = Math.max.apply(null, goods_price_arr);
+                    getFxDiscount(shippingfee, max_price, 0);
+                    $('.modal').css('display', 'none');
+                    $('#yhq').html('已选:封顶'+money+"元兑换");
+                    $('#yhq').attr('type', 1);
+                    $('#yhq').attr('data-id', id);
+                    $('#yhq').attr('data-userCouponId', userCouponId);
+                    $('#yhq').attr('data-discount', max_price);
+                }
+            } else {
+                var money = $(this).attr('data-money');
+                var total = parseFloat(delcommafy($('input[name=total]').val()));
+                var expire = $(this).attr('data-expire');
+                var symbol = $('input[name=symbol]').val();
+                var id = $(this).attr('data-id');
+                var totalMoney = delcommafy($('input[name=totalMoney]').val());
+                var fx_discount = delcommafy($('input[name=discount]').val());
+                if (fx_discount == '') {
+                    fx_discount = 0;
+                }
+                var shippingfee = delcommafy($('input[name=shippingfee]').val());
+                if (shippingfee == '') {
+                    shippingfee = 0;
+                }
+                getFxDiscount(shippingfee, 0, 0);
+                /*  totalMoney = totalMoney  - parseFloat(fx_discount) + parseFloat(shippingfee);
+            if (totalMoney <= 0) {
+                totalMoney = 0;
+            }
+            totalMoney = commafy(toDecimal2(totalMoney));*/
+                $('.modal').css('display', 'none');
+                $('#yhq').html('请选择>');
+                $('#yhq').removeAttr('type');
+                $('#yhq').removeAttr('data-id');
+                $('#yhq').removeAttr('data-discount');
+                $('#yhq').removeAttr('data-userCouponId');
+                /*$('.pri').html('合计：'+ symbol + totalMoney);*/
+            }
+        }
+
+    });
+    //选择优惠劵判断
+    $("#yhq").click(function () {
+        if ($('input[name=point]').is(":checked")) {
+            layer.open({
+                shade: false,
+                content: " <i class='ico ico-error'></i>" + '已经使用睿积分优惠，不可再使用优惠劵',
+                className: 'layer-tip',
+                time: 2
+            });
+            return false;
+        } else {
+            $("div.modal").css("display", "block");
+        }
+    });
+    $("#cha").click(function () {
+        $("div.modal").css("display", "none");
+    });
+    //选择睿积分
+    $('input[name=point]').change(function () {
+        var symbol = $('input[name=symbol]').val();
+        var fx_discount = delcommafy($('input[name=discount]').val());
+        var totalMoney;
+        var shippingfee = delcommafy($('input[name=shippingfee]').val());
+        var maxAccount=$('input[name=maxAccount]').val();
+        console.log(maxAccount);
+        if (shippingfee == '') {
+            shippingfee = 0;
+        }
+        if (fx_discount == '') {
+            fx_discount = 0;
+        }
+        if ($('#yhq').attr('type') == 1 && $('input[name=point]').is(":checked")) {
+            layer.open({
+                shade: false,
+                content: " <i class='ico ico-error'></i>" + '已经使用优惠劵，不可再使用睿积分优惠',
+                className: 'layer-tip',
+                time: 2
+            });
+            $('input[name=point]').attr('checked', false);
+            return false;
+        }
+        if (!$('input[name=point]').is(":checked")) {
+            console.log(1);
+            getFxDiscount(shippingfee,0,0);
+      /*      var totalMoney2=0;
+            totalMoney2 = delcommafy($('input[name=totalMoney]').val());
+            totalMoney2 = parseFloat(totalMoney2) - parseFloat(fx_discount) + parseFloat(shippingfee);
+            if (totalMoney2 <= 0) {
+                totalMoney2 = 0.01;
+            }
+            totalMoney2 = commafy(toDecimal2(totalMoney2));
+            $('.pri').html('合计：'+ symbol + totalMoney2);*/
+        } else {
+            console.log(2);
+            getFxDiscount(shippingfee,0,maxAccount);
+         /*   var totalMoney1=0;
+            totalMoney1 = delcommafy($('input[name=money]').val());
+            totalMoney1 = parseFloat(totalMoney1) - parseFloat(fx_discount) + parseFloat(shippingfee);
+            if (totalMoney1 <= 0) {
+                totalMoney1 = 0;
+            }
+            totalMoney1 = commafy(toDecimal2(totalMoney1));
+            $('.pri').html('合计：'+ symbol + totalMoney1);*/
+        }
+
+    })
+
+
+//分销码抵扣
+    $(function () {
+    var fxPhone = $("input[name=fxPhone]").val();
+    var cart_ids = $('input[name=cart_ids]').val();
+    var symbol = $('input[name=symbol]').val();
+    var lang = $('input[name=lang]').val();
+    var shippingfee = delcommafy($('input[name=shippingfee]').val());
+    var youhui = $('#yhq').attr('data-discount');
+    if (youhui == undefined) {
+        youhui = 0;
+    }
+    if (youhui !== 0) {
+        youhui = delcommafy(youhui);
+    }
+    var rate = $('input[name=rate]').val();
+    var price = '0';
+    if ($('input[name=point]').is(":checked")) {
+        price = $('input[name=maxAccount]').val();
+
+    }
+    price = parseFloat(delcommafy(price));
+    shippingfee = parseFloat(shippingfee);
+    youhui = parseFloat(youhui);
+    $.ajax({
+        url: 'wx.php?app=comfirmOrder&act=getFxDiscount',
+        type: 'POST',
+        data: {'fxPhone': fxPhone, 'cart_ids': cart_ids, 'lang': lang, 'shippingfee': shippingfee, 'youhui': youhui, 'point': price},
+        async: false, //默认为true 异步
+        error: function () {
+            alert('error');
+        },
+        success: function (json) {
+            var data = eval("(" + json + ")");
+            if (data.status == 1) {
+                var fxinfo = symbol + '' + data.info.discount.toFixed(2);
+                $('.fxMoney').html(fxinfo);
+                var total = symbol + commafy(toDecimal2(data.info.payMoney));
+                if (total < 0) {
+                    total = 0.01;
+                }
+                $('.pri').html('合计：'+ total);
+                $('input[name=discount_rate]').val(data.info.discount_rate);
+                $('input[name=discount]').val(data.info.discount.toFixed(2));
+                $('input[name=fx_user_id]').val(data.info.fx_user_id);
+                $('input[name=rule_id]').val(data.info.rule_id);
+            } else {
+                dialog(data.message, '');
+            }
+        }
+    });
+    })
+     //分销金额变更
+
+    $("input[name=fxPhone]").blur(function () {
+        var fxPhone = $(this).val();
+        var cart_ids = $('input[name=cart_ids]').val();
+        var symbol = $('input[name=symbol]').val();
+        var lang = $('input[name=lang]').val();
+        var shippingfee = delcommafy($('input[name=shippingfee]').val());
+        var youhui = $('#yhq').attr('data-discount');
+        if (youhui == undefined) {
+            youhui = 0;
+        }
+        if (youhui !== 0) {
+            youhui = delcommafy(youhui);
+        }
+        var rate = $('input[name=rate]').val();
+        var price = '0';
+        if ($('input[name=point]').is(":checked")) {
+            price = $('input[name=maxAccount]').val();
+        }
+        price = parseFloat(delcommafy(price));
+        shippingfee = parseFloat(shippingfee);
+        youhui = parseFloat(youhui);
+        $.ajax({
+            url: 'wx.php?app=comfirmOrder&act=getFxDiscount',
+            type: 'POST',
+            data: {'fxPhone': fxPhone, 'cart_ids': cart_ids, 'lang': lang, 'shippingfee': shippingfee, 'youhui': youhui, 'point': price},
+            async: false, //默认为true 异步
+            error: function () {
+                alert('error');
+            },
+            success: function (json) {
+                var data = eval("(" + json + ")");
+                // console.log(data);
+                if (data.status == 1) {
+                    var fxinfo = symbol + '' + data.info.discount.toFixed(2);
+                    $('.fxMoney').html(fxinfo);
+                    var total = symbol + commafy(toDecimal2(data.info.payMoney));
+                    if (total < 0) {
+                        total = 0;
+                    }
+                    $('.pri').html('合计：'+ total);
+                    $('input[name=discount_rate]').val(data.info.discount_rate);
+                    $('input[name=discount]').val(data.info.discount.toFixed(2));
+                    $('input[name=fx_user_id]').val(data.info.fx_user_id);
+                    $('input[name=rule_id]').val(data.info.rule_id);
+                } else {
+                    dialog(data.message, '');
+                }
+            }
+        });
+    });
+    //封装提示框
+    function dialog(msg, url) {
+        layer.open({
+            shade: false,
+            content: " <i class='ico ico-error'></i>" + msg,
+            className: 'layer-tip',
+            time: 2
+        });
+        if (url.length != 0) {
+            setTimeout(function () {
+                window.location.href = url;
+            }, 1000);
+        }
+    }
+</script>
+<!--提交订单并直接支付-->
+<script type="text/javascript">
+    $('.btn-daifu').click(function () {
+        var cart_ids = $('input[name=cart_ids]').val();
+        var point = $('input[name=point]').val();
+        var latlon = $('input[name=latlon]').val();
+        var daifu = 1;
+        $.ajax({
+            url: 'wx.php?app=comfirmOrder&act=getCartId',
+            type: 'POST',
+            data: {
+                'cart_ids': cart_ids,
+            },
+            async: false,
+            error: function () {
+                alert('error');
+            },
+            success: function (json) {
+                var data = eval("(" + json + ")");
+                if (data.status == 1) {
+                    getCartId(cart_ids,daifu);
+                } else {
+                    dialog(data.message, '');
+                }
+            }
+        });
+
+    });
+        $('.btn-settle').click(function () {
+        var cart_ids = $('input[name=cart_ids]').val();
+        var point = $('input[name=point]').val();
+        var latlon = $('input[name=latlon]').val();
+        var daifu = 2;
+        $.ajax({
+            url: 'wx.php?app=comfirmOrder&act=getCartId',
+            type: 'POST',
+            data: {
+                'cart_ids': cart_ids,
+            },
+            async: false,
+            error: function () {
+                alert('error');
+            },
+            success: function (json) {
+                var data = eval("(" + json + ")");
+                if (data.status == 1) {
+                    getCartId(cart_ids,daifu);
+                } else {
+                    dialog(data.message, '');
+                }
+            }
+        });
+
+    });
+    function getCartId(cart_ids,daifu) {
+        var fxPhone = $('input[name=fxPhone]').val();
+        var store_id = $('input[name=store_id]').val();
+        var lang = $('input[name=lang]').val();
+        var auxiliary = $('input[name=auxiliary]').val();
+        var seller_msg = $('input[name=seller_msg]').val();
+        var user_address = $('input[name=user_address]').val();
+        var discount_rate = $('input[name=discount_rate]').val();
+        var fx_user_id = $('input[name=fx_user_id]').val();
+        var rule_id = $('input[name=rule_id]').val();
+        var price = '0';
+        var point = '0';
+        if ($('input[name=point]').is(":checked")) {
+            price = $('input[name=maxAccount]').val();
+            point = $('input[name=maxPoint]').val();
+        }
+        price = parseFloat(delcommafy(price));
+        var sendout = $("input[name='sendout']:checked").val();
+        var address = $('input[name=address]').val();
+        var shippingfee = $('input[name=shippingfee]').val();
+        var latlon = $('input[name=latlon]').val();
+        var addr_id = $('input[name=addr_id]').val();
+        var id = $('#yhq').attr('data-id');//优惠劵Id
+        var userCouponId = $('#yhq').attr('data-userCouponId');//用户优惠劵Id
+        var userAddress = $('#userAddress').html();
+        var pei_time=$('#dataTime').val();
+        var discount_price=$('#yhq').attr('data-discount');//优惠劵优惠金额
+        if (userAddress == undefined) {
+            if (sendout !== '1') {
+                layer.open({
+                    shade: false,
+                    content: " <i class='ico ico-error'></i>" + '收货地址不能为空',
+                    className: 'layer-tip',
+                    time: 2
+                });
+                return false;
+            }
+
+        }
+        $.ajax({
+            url: 'wx.php?app=comfirmOrder&act=comfirm',
+            type: 'POST',
+            data: {
+                'fxPhone': fxPhone,
+                'cart_ids': cart_ids,
+                'store_id': store_id,
+                'lang': lang,
+                'auxiliary': auxiliary,
+                'seller_msg': seller_msg,
+                'user_address': user_address,
+                'discount_rate': discount_rate,
+                'price': price,
+                'sendout': sendout,
+                'address': address,
+                'shippingfee': shippingfee,
+                'latlon': latlon,
+                'addr_id': addr_id,
+                'id': id,
+                'point': point,
+                'rule_id':rule_id,
+                'fx_user_id':fx_user_id,
+                'pei_time':pei_time,
+                'daifu':daifu,
+                'userCouponId':userCouponId,
+                'discount_price':discount_price
+            },
+            async: false, //默认为true 异        步
+            error: function () {
+                alert('error');
+            },
+            success: function (json) {
+                var data = eval("(" + json + ")");
+                if (data.status == 1) {
+//                      dialog(data.message,data.info.url);
+                    layer.open({
+                        shade: false,
+                        content: " <i class='ico ico-correct'></i>" + data.message,
+                        className: 'layer-tip',
+                        time: 2
+                    });
+                    setTimeout(function () {
+                        window.location.href = data.info.url;
+                    }, 1000);
+                } else {
+                    layer.open({
+                        shade: false,
+                        content: " <i class='ico ico-error'>        </i>" + data.message,
+                        className: 'layer-tip',
+                        time: 2
+                    });
+                }
+            }
+        });
+    }
+    $('input[type=radio][name=sendout]').change(function () {
+        var type = $('input:radio[name=sendout]:checked').val();
+        var cart_ids = $('input[name=cart_ids]').val();
+        var symbol = $('input[name=symbol]').val();
+        var order_charges = $('input[name=order_charges]').val();
+        var total = $('input[name=totalMoney]').val();
+        total = delcommafy(total);
+        var discount = delcommafy($('input[name=discount]').val());
+        var shippingfee = delcommafy($('input[name=shippingfee]').val());
+        var youhui = $('#yhq').attr('data-discount');
+        var price = '0';
+        if (youhui == undefined) {
+            youhui = 0;
+        }
+
+        if ($('input[name=point]').is(":checked")) {
+            price = $('input[name=maxAccount]').val();
+
+        }
+
+        price = parseFloat(delcommafy(price));
+
+        if (shippingfee == '') {
+            shippingfee = 0;
+        }
+        if (youhui == '') {
+            youhui = 0;
+        }
+        if (discount == '') {
+            discount = 0;
+        }
+        discount = parseFloat(discount);
+        if (youhui == 0) {
+            youhui = parseFloat(youhui);
+        } else {
+            youhui = parseFloat(delcommafy(youhui));
+        }
+        shippingfee = parseFloat(shippingfee);
+        $.ajax({
+            url: 'wx.php?app=comfirmOrder&act=getMoney',
+            type: 'POST',
+            data: {
+                'cart_ids': cart_ids,
+                'type': type,
+                'total': total,
+                'discount': discount,
+                'youhui': youhui,
+                'price': price
+            },
+            async: false,
+            error: function () {
+                alert('error');
+            },
+            success: function (json) {
+                var data = eval("(" + json + ")");
+                var price = data.info.price;
+                var totalMoney = data.info.totalMoney;
+                $('.pri').html('合计：'+ symbol + totalMoney);
+                $(".pri1").html('(' + order_charges + symbol + price + ')');
+                $('input[name=shippingfee]').val(price);
+            }
+        });
+    });
+
+    function delcommafy(num) {
+        if ((num + "").trim() == "") {
+            return "";
+        }
+        num = num.replace(/,/gi, '');
+        return num;
+    }
+    function commafy(num) {
+        if ((num + "").trim() == "") {
+            return"";
+        }
+        if (isNaN(num)) {
+            return"";
+        }
+        num = num + "";
+        if (/^.*\..*$/.test(num)) {
+            var pointIndex = num.lastIndexOf(".");
+            var intPart = num.substring(0, pointIndex);
+            var pointPart = num.substring(pointIndex + 1, num.length);
+            intPart = intPart + "";
+            var re = /(-?\d+)(\d{3})/
+            while (re.test(intPart)) {
+                intPart = intPart.replace(re, "$1,$2")
+            }
+            num = intPart + "." + pointPart;
+        } else {
+            num = num + "";
+            var re = /(-?\d+)(\d{3})/
+            while (re.test(num)) {
+                num = num.replace(re, "$1,$2")
+            }
+        }
+        return num;
+    }
+
+    function toDecimal2(x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return false;
+        }
+        var f = Math.round(x * 100) / 100;
+        var s = f.toString();
+        var rs = s.indexOf('.');
+        if (rs < 0) {
+            rs = s.length;
+            s += '.';
+        }
+        while (s.length <= rs + 2) {
+            s += '0';
+        }
+        return s;
+    }
+
+</script>
+{/literal}

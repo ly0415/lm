@@ -1,0 +1,10 @@
+<span>可用<span id="point_value">{$final_point}</span>睿积分抵用{$symbol}<span id="point_money">{$final_money}</span></span>
+<input type="checkbox" id="point_check" checked="checked"/>
+<script>
+    $('#point_check').click(function () {
+        //取消优惠券选中
+        $('.voucher').find('li').removeClass('activediv');
+        $('.voucher').find('a.typename').text('立即使用');
+        getPayment();
+    });
+</script>

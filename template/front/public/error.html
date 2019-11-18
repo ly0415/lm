@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>404</title>
+	<meta charset="utf-8" />
+	{include file="public/header.html"}
+</head>
+<body>
+	<!-- header -->
+	{include file="public/daohang.html"}
+	
+	<div class="error1-wrap tc mt40">
+		<img src="{$STATIC_URL}/front/images/error1.png">
+		<div class="text">
+			<p class="red mt20 font18">{$data.message}<span class="ml30">倒计时：<span class="time">5</span> 秒</span></p>
+			<a href="?app=userCenter&act=myOrder&storeid={$data.storeid}&lang={$data.lang}" class="btn btn-o mt20 font16">立即返回</a>
+		</div>
+	    <input type="hidden" name="storeId" value = '{$data.storeid}'/>
+	    <input type="hidden" name="lang" value = '{$data.lang}'/>
+	</div>
+	{include file="public/footer.html"}
+
+<script type="text/javascript">
+	var t=5;
+	setInterval("refer()",1000);
+	function refer(){
+	    var storeId = $("input[name=storeId]").val();
+	    var lang = $("input[name=lang]").val();
+		if(t==0){
+		location="?app=userCenter&act=myOrder&storeid="+storeId+"&lang="+lang;
+		}else{
+			$('.time').text(t);
+			t--; 
+		} 
+		
+	} 
+	
+</script>
+</body>
+</html>

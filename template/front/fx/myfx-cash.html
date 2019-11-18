@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$langdata.Personal_Center}</title>
+        <meta charset="utf-8" />
+        {include file="public/header.html"}
+    </head>
+    <body>
+        <!-- header -->
+        <!-- header end -->
+
+        <!-- navs-box -->
+        {include file="public/daohang.html"}
+
+        <!-- navs-box end -->
+        <div class="border"></div>
+        <div class="container distribution-yongtx">
+            <!-- bread-box -->
+            <div class="bread-box">
+                <a href="##">{$langdata.Yj_Administration}</a>
+                <i>»</i>
+                <span class="or"> {$langdata.Yj_Commission}</span>
+            </div>
+            <h1 class="font24 normal">{$langdata.Yj_Commission}</h1>
+            <form data-type="ajax" action="?app=userCenter&act=do_cash">
+                <input type="hidden"  name="storeid"  value="{$storeid}" >
+                <input type="hidden"  name="lang"  value="{$langid}" >
+                <input type="hidden"  name="auxiliary"  value="{$auxiliary}" >
+                <input type="hidden"  name="store_cash_id"  value="{$info.store_id}" >
+                <input type="hidden"  name="store_cate"  value="{$info.store_cate}" >
+                <div class="m-ultable mt30">
+                    <ul class="m-ultitle clearfix">
+                        <li>{$langdata.Yj_can}</li>
+                        <li>{$langdata.Yj_distribution}</li>
+                        <li>{$langdata.Yj_money}</li>
+                        <li>{$langdata.Yj_channel}</li>
+                    </ul>
+                    <ul class="m-ullist">
+                        <li class="clearfix">
+                            <div class="item">
+                                {$symbol}{$info.money}
+                            </div>
+                            <div class="item">
+                                {$user_info.real_name}
+                            </div>
+                            <div class="item">
+                                <span class="red font18">({$symbol})</span> <input type="text" name="fx_money"/>
+                            </div>
+                            <div class="item">
+                                <span class="blue">{$langdata.Yj_Apply}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt80 tc">
+                    <button type="submit" class="btn btn-o inblock" style="padding: 0;outline: none">{$langdata.Yj_Withdrawals}</button>
+                </div>
+            </form>
+            <!-- paypal -->
+            <div class="payoptions">
+                <h2><span>{$langdata.myacc_Payment}</span></h2>
+                <div class="img">
+                    <img src="{$STATIC_URL}/front/images/zhifu.png">
+                    <img src="{$STATIC_URL}/front/images/paypal.png">
+                    <img src="{$STATIC_URL}/front/images/weixin.png">
+                </div>
+            </div>
+        </div>
+        {include file="public/footer.html"}
+        {literal}
+        <script type="text/javascript">
+        </script>
+        {/literal}
+    </body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$langdata.listpage}</title>
+        <meta charset="utf-8" />
+        {include file="public/header.html"}
+    </head>
+    <body class="index">
+
+        {include file="public/daohang.html"}
+        <!-- navs-box end -->
+
+        <div class="container">
+            <!-- bread-box -->
+            <div class="bread-box">
+                {$cateLink}
+            </div>
+            <div class="third-box">
+                <h2 class="normal font24">{$ctgDetail.cname}</h2>
+                <div class="sresult-box clearfix mt20 mb30">
+                    <div class="left fl">
+                        <span class="result">{$goodsList.count} {$langdata.listpage_res}</span>
+
+                        {foreach from = $filterMenu  item=val }
+                        {$val}
+                        {/foreach}
+
+                        <a href="{$clearAll}" class="clear or uline">{$langdata.listpage_clear}</a>
+                    </div>
+
+                    <div class="right fr">
+                        {$langdata.listpage_sort}：
+                        <div class="sort-select">
+                            <div class="sort-text">
+                                <span class="text ellipsis" title="">{$goodsSort.selected}</span>
+                                <i class="ico ico-dw"></i>
+                            </div>
+                            <div class="sort-a">
+                                <a href="{$goodsSort.1.href}">{$goodsSort.1.val}</a>
+                                <a href="{$goodsSort.2.href}">{$goodsSort.2.val}</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="clearfix">
+                    <!--筛选条件-->
+                    <div class="leftbox fl">
+
+                        <div class="filter-box">
+                            <div class="title">
+                                <span class="inblock vt">{$langdata.price}</span>
+                                <i class="ico do"></i>
+                            </div>
+                            <div class="cont mt10">
+                                <div class="attributeul">
+                                    {foreach  from=$piceQujian  item=val}
+                                    <a href="{$val.href}">
+                                        <span class="checkbox_item">
+                                            <input type="checkbox" />
+                                            <label class="check_label {if $val.ison } on {/if}  ">
+                                                <i class="checkbox_icon "></i>
+                                                <em class="checkbox_text">{$val.priceQj}</em>
+                                            </label>
+                                        </span>
+                                    </a>
+                                    {/foreach}
+
+                                    <div class="qu tc">
+                                        {$symbol} <input type="text"  name="start_price"  value="{$sprice}"  placeholder="{$langdata.Min}" /> {$langdata.reach} <input type="text"  name="end_price"   value="{$eprice}" placeholder="{$langdata.Max}" /><a href="javascript:;"  id="search-price"  class="ico ico-n"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-box">
+                            <div class="title">
+                                <span class="inblock vt">{$langdata.brand}</span>
+                                <i class="ico do"></i>
+                            </div>
+                            <div class="cont mt10">
+                                <div class="attributeul">
+
+                                    {foreach  from=$brand  item=val}
+                                    <a href="{$val.href}">
+                                        <span class="checkbox_item">
+                                            <input type="checkbox" />
+                                            <label class="check_label  {if $val.ison } on {/if}  ">
+                                                <i class="checkbox_icon "></i>
+                                                <em class="checkbox_text">{$val.bname} </em>
+                                            </label>
+                                        </span>
+                                    </a>
+                                    {/foreach}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-box">
+                            <div class="title">
+                                <span class="inblock vt">{$langdata.style}</span>
+                                <i class="ico do"></i>
+                            </div>
+                            <div class="cont mt10">
+                                <div class="attributeul">
+                                    {foreach  from=$goodstyle  item=val}
+                                    <a href="{$val.href}">
+                                        <span class="checkbox_item">
+                                            <input type="checkbox" />
+                                            <label class="check_label  {if $val.ison } on {/if}  ">
+                                                <i class="checkbox_icon "></i>
+                                                <em class="checkbox_text">{$val.style_name} </em>
+                                            </label>
+                                        </span>
+                                    </a>
+                                    {/foreach}
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-box">
+                            <div class="title">
+                                <span class="inblock vt">{$langdata.type}</span>
+                                <i class="ico do"></i>
+                            </div>
+                            <div class="cont mt10">
+                                <div class="attributeul">
+                                    {foreach  from=$roomtype  item=val}
+                                    {foreach  from=$val['type']  item=vals}
+                                    <a href="{$vals.href}">
+                                        <span class="checkbox_item">
+                                            <input type="checkbox" />
+                                            <label class="check_label   {if $vals.ison } on {/if}  ">
+                                                <i class="checkbox_icon "></i>
+                                                <em class="checkbox_text">{$vals.type_name} </em>
+                                            </label>
+                                        </span>
+                                    </a>
+                                    {/foreach}
+                                    {/foreach}
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {foreach  from=$goodspec  item=val}
+                        <div class="filter-box">
+                            <div class="title">
+                                <span class="inblock vt">{$val.spec_name}</span>
+                                <i class="ico do"></i>
+                            </div>
+                            <div class="cont mt10">
+                                <div class="attributeul">
+                                    {foreach  from=$val.specitems  item=item}
+                                    <a href="{$item.href}">
+                                        <span class="checkbox_item">
+                                            <input type="checkbox" />
+                                            <label class="check_label   {if $item.ison } on {/if} ">
+                                                <i class="checkbox_icon "></i>
+                                                <em class="checkbox_text">{$item.item_name}</em>
+                                            </label>
+                                        </span>
+                                    </a>
+                                    {/foreach}
+                                </div>
+                            </div>
+                        </div>
+                        {/foreach}
+
+                        <!--<div class="filter-box">-->
+                        <!--<div class="title">-->
+                        <!--<span class="inblock vt">color</span>-->
+                        <!--<i class="ico do"></i>-->
+                        <!--</div>-->
+                        <!--<div class="cont mt10">-->
+                        <!--<div class="attributeul">-->
+                        <!--<a href="##">-->
+                        <!--<span class="color-bd inblock">-->
+                        <!--<span class="color black"></span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <!--<a href="##">-->
+                        <!--<span class="color-bd inblock">-->
+                        <!--<span class="color gray"></span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <!--<a href="##">-->
+                        <!--<span class="color-bd inblock">-->
+                        <!--<span class="color white"></span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <!--<a href="##">-->
+                        <!--<span class="color-bd inblock">-->
+                        <!--<span class="color brown"></span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <!--<a href="##">-->
+                        <!--<span class="color-bd inblock">-->
+                        <!--<span class="color red"></span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <!--<a href="##">-->
+                        <!--<span class="color-bd inblock">-->
+                        <!--<span class="color orange"></span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <!--<a href="##">-->
+                        <!--<span class="color-bd inblock">-->
+                        <!--<span class="color yellow"></span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <!--<a href="##">-->
+                        <!--<span class="color-bd inblock">-->
+                        <!--<span class="color green"></span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <!--<a href="##">-->
+                        <!--<span class="color-bd inblock">-->
+                        <!--<span class="color blue"></span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <!--<a href="##">-->
+                        <!--<span class="color-bd inblock">-->
+                        <!--<span class="color purple"></span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <!--<a href="##">-->
+                        <!--<span class="color-bd inblock">-->
+                        <!--<span class="color pink"></span>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+
+                    </div>
+                    <!--筛选条件-->
+
+                    <div class="rightbox fr">
+                        <div class="fav1-box">
+                            <ul class="clearfix">
+                                <!--商品列表-->
+
+                                {foreach from=$goodsList.data  item=val}
+                                <li>
+                                    <a href="index.php?app=goods&act=goodInfo&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}&gid={$val.id}"  >
+                                        <div class="img">
+                                            <img src="{$val.original_img}">
+                                        </div>
+                                        <div class="cont">
+                                            <div class="name ellipsis" title="">{$val.goods_name}</div>
+                                            <div class="price mb5">
+                                                <span class="red">{$symbol}{$val.shop_price}</span>
+                                                <span class="grey font12">{$symbol}<s>{$val.market_price}</s></span>
+                                            </div>
+                                            <div class="grey mb5 ellipsis" title="">{$val.isfree}</div>
+                                            <div class="showstar mb5">
+                                                <div class="atar_Show">
+                                                    {if $val.rate }
+                                                    <p tip="20" style="width: {$val.rate * 22}px;"></p>
+                                                    {else}
+                                                    <p tip="20" style="width: {5 * 22}px;"></p>
+                                                    {/if}
+                                                </div>
+                                                <span class="vm font12">（{$val.num}）</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    {if  $val.type==1 }
+                                    <i name='clicki' class="sc1 ico sc1-active" id="{$val.id}" title="{$langdata.listpage_qx}"></i>
+                                    {else}
+                                    <i name='clicki' class="sc1 ico " id="{$val.id}" title="{$langdata.listpage_sc}"></i>
+                                    {/if}
+                                    <input type="hidden" name="store_id" value="{$storeid}"/>
+                                    <input type="hidden" name="user_id" value="{$user_id}"/>
+                                    <input type="hidden" name="langId" value="{$langid}"/>
+                                    <input type="hidden" name="store_good_id" value="{$val.goods_id}"/>
+                                    <div class="more uline"><a   href="index.php?app=goods&act=goodInfo&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}&gid={$val.id}">{$langdata.ctgpage_more}></a></div>
+                                </li>
+                                {/foreach}
+
+                                <!--商品列表-->
+                            </ul>
+                        </div>
+
+
+                        {$goodsList.pagelink}
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- paypal -->
+            <div class="payoptions">
+                <h2><span>{$langdata.Lately}</span></h2>
+                <div class="img">
+                    <img src="{$STATIC_URL}/front/images/zhifu.png">
+                    <img src="{$STATIC_URL}/front/images/paypal.png">
+                    <img src="{$STATIC_URL}/front/images/weixin.png">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- footer -->
+        {include file="public/footer.html"}
+        <!-- footer end -->
+
+        {literal}
+        <script type="text/javascript">
+            //select 模拟
+            $(function () {
+                $('.sort-select').hover(function () {
+                    $('.sort-a').show();
+                }, function () {
+                    $('.sort-a').hide();
+                })
+                $('.sort-a a').click(function () {
+                    $('.sort-text .text').text($(this).text());
+                    $('.sort-a').hide();
+                })
+            });
+            //checkbox模拟
+            $('.check_label').click(function () {
+                var $this = $(this);
+                if ($this.hasClass("on")) {
+                    $this.prev().removeAttr("checked");
+                    $this.removeClass("on");
+                } else {
+                    $this.prev().prop("checked", "checked");
+                    $this.addClass("on");
+
+                }
+            });
+            //
+            $(function () {
+                $('.filter-box .title').click(function () {
+                    var ico = $(this).find('.ico');
+                    if (ico.hasClass('do')) {
+                        ico.removeClass('do');
+                        ico.addClass('up');
+                        $(this).next().hide();
+                    } else {
+                        ico.removeClass('up');
+                        ico.addClass('do');
+                        $(this).next().show();
+                    }
+                })
+            });
+            //收藏商品
+            $(function () {
+                $('.fav1-box .sc1').on('click', function () {
+                    var type = $(this).hasClass('sc1-active');
+                    var id = $(this).attr('id');
+                    var store_id = $('input[name=store_id]').val();
+                    var user_id = $('input[name=user_id]').val();
+                    var store_good_id = $('input[name=store_good_id]').val();
+                    var lang_id = $('input[name=langId]').val();
+                    if (user_id == '') {
+                        setTimeout(function () {
+                            window.location.href = 'index.php?app=user&act=login&lang=' + lang_id;
+                        }, 1000);
+                    } else {
+                        $.ajax({
+                            url: 'index.php?app=userCenter&act=docollectionGoods',
+                            type: 'GET',
+                            data: {id: id, type: type, store_id: store_id, store_good_id: store_good_id},
+                            dataType: 'json',
+                            success: function (res) {
+                                if (res.statu) {
+                                    $('.fav1-box .sc1[id=' + res.id + ']').toggleClass('sc1-active');
+                                } else {
+                                    $('.fav1-box .sc1[id=' + res.id + ']').toggleClass('sc1-active');
+                                }
+                            }
+                        })
+                    }
+//                    $(this).toggleClass('sc1-active');
+                })
+            });
+            // tag 删除
+            $(function () {
+                $('.tag .del').click(function () {
+                    $(this).parent().remove();
+                });
+                $('.clear').click(function () {
+                    $('.tag').remove();
+                    $(this).remove();
+                });
+            })
+
+        </script>
+        {/literal}
+    </body>
+</html>

@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+    <style>
+
+        .w77 {
+            width: 150px !important;
+        }
+
+        input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+        }
+
+        input[type="radio"] {
+            width: 15px;
+            height: 15px;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .content-header {
+            border-bottom: 4px solid #3C8DBC;
+            margin-left: 1rem;
+        }
+
+        h3 {
+            margin: 0;
+        }
+
+        .content-wrapper {
+            background-color: #fff;
+        }
+
+        /*弹出框*/
+        .modal1 {
+            display: none;
+            position: fixed;
+            z-index: 100000;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        .modal1 .modal-dialog {
+            width: 400px;
+            min-height: 250px;
+            background-color: #fff;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding-bottom: 20px;
+        }
+
+        .modal1 .modal-header1 {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .modal1 .modal-header1 span.text1 {
+            color: #000;
+            padding-left: 15px;
+            font-size: 18px;
+            float: left
+        }
+
+        .modal1 .modal-header1 b.cross {
+            float: right;
+            font-size: 20px;
+            color: #000;
+            padding-right: 10px;
+        }
+
+        .modal1 .modal-section1 {
+            padding: 20px 40px;
+            height: 130px;
+        }
+
+        .modal1 .submit {
+            padding: 5px 10px;
+            background-color: #3c8dbc;
+            border: 0;
+            color: #fff;
+        }
+
+        #cancel {
+            background-color: #f4f4f4;
+            border: 0;
+            color: #444;
+            margin-left: 10px;
+        }
+
+        .modal1 .section-left {
+            width: 35%;
+            text-align: right;
+            float: left;
+            padding-right: 10px;
+            box-sizing: border-box;
+            margin-top: 7px;
+        }
+
+        .modal-footer1 {
+            overflow: hidden;
+            padding: 0 100px;
+        }
+
+        .fxBox {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .fxBox button {
+            width: 70px;
+            color: #fff;
+            background: #348DBB;
+            text-align: center;
+            height: 25px;
+            line-height: 25px;
+            float: left;
+            border: none;
+            outline: none;
+            margin: 0 1rem;
+        }
+
+        .fxBox > span {
+            float: left;
+        }
+
+        .fxBox > .cut {
+            float: left;
+            margin-right: 1rem;
+        }
+
+        .fxBox .error_tip {
+            float: left;
+        }
+
+        #fxNum {
+            margin-left: 2.3rem;
+            width: 12rem;
+            float: left;
+        }
+
+        .table .imgContainer {
+            width: 80%;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .table .imgContainer span {
+            width: 70%;
+            height: 47px;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            position: relative;
+            top: 2.1rem;
+        }
+
+        .table > tbody > tr > td {
+            vertical-align: middle;
+        }
+        .pactive{
+            background-color:#3C8DBC
+        }
+        .login-item .ico-num {
+            background-image: url(../images/ico-num.png);
+        }
+        .forgetpass-main .validate-btn {
+            color: #bfa58c;
+            border: 1px solid #bfa58c;
+            border-radius: 4px;
+            font-size: .3rem;
+            padding: 0 .2rem;
+            height: .55rem;
+            line-height: .55rem;
+            margin-top: .2rem;
+        }
+        /*优惠券修改*/
+        .discountMain li {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 25px;
+            margin-bottom: 25px;
+        }
+        .discountShow {
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #e9e9e9;
+            background: url(./assets/wx/orange.png)no-repeat center;
+        }
+        .discountHidden{
+            display: none;
+            border: 1px solid #e9e9e9;
+            padding: 10px;
+            color: #666666;
+        }
+        .discountHidden p{
+
+            width: 320px;
+            letter-spacing: 1px;
+        }
+        .discountHidden span{
+            color: #fa9a81;
+            float: inherit!important;
+            margin-right: 0!important;
+        }
+        .discountShow .discountLeft {
+            box-sizing: border-box;
+            width: 215px;
+            height: 120px;
+            display: inline-block;
+            color: #fff;
+            text-align: left;
+            padding: 10px ;
+            border-right: 1px dashed #fff;
+        }
+        .discountShow .discountLeft .discount_tip{
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .discountShow .discountLeft .discount_enough{
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .discountShow .discountLeft .discount_enough span{
+            font-size: 16px;
+            float: inherit;
+            margin-right: 0;
+
+        }
+        .discountShow .discountLeft  .discount_use img{
+            width: 15px;
+            margin-top: 7px;
+            float: right;
+        }
+        .discountShow .discountRight {
+            width: 125px;
+            float: right;
+            box-sizing: border-box;
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+            padding: 7px;
+        }
+        .discountShow .discountRight .title{
+            padding: 5px
+        }
+        .discountShow .discountRight .time{
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .discountShow .discountRight a{
+            padding: 2px 8px;
+            background-color: #fff;
+            color:#fb9e8a ;
+            border-radius: 15px;
+        }
+        .discountShow .selectimg{
+            display: none;
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 35px;
+        }
+        .overdue .discountShow{
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #e9e9e9;
+            background: url(./assets/wx/grey.png)no-repeat center;
+        }
+        .overdue .discountShow .discountRight a{
+            color: #999999;;
+        }
+        .activediv .discountShow .selectimg{
+            display: block;
+        }
+        .hide1{
+            display: none;
+        }
+        .adress{
+            padding:10px 0;
+            margin-left:15px;
+            padding-top: 0;
+        }
+        .adress>span{
+            float:left;
+        }
+        .addInput{
+            float:left;
+        }
+        #suggestId{
+            margin-left: 13px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h3>
+                订单支付
+            </h3>
+            <ol class="breadcrumb">
+                <li><a href="?app=default&act=index"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li>订单管理</li>
+                <li class="active">代客订单</li>
+            </ol>
+        </section>
+        <!--待客下单订单内容区域-->
+        <div class="container dkOrderContainer">
+            <div class="row title">
+                <div class="col-sm-3 txt">商品详情</div>
+                <div class="col-sm-offset-7 col-sm-2 back" onclick="window.history.back();">
+                    <button class="goBack">返回</button>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>商品信息</th>
+                        <th>规格</th>
+                        <th>数量</th>
+                        <th>价格</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$orderGoodsInfo item=item}
+                    <tr class="goods_detail_tr" data-goods-pay-price="{$item.member_goods_price}" data-room-id="{$item.room_id}" data-room-pid="{$item.room_pid}" data-room-type="{$item.auxiliary_type}">
+                        <td>
+                            <div class="imgContainer">
+                                <img src="{$item.original_img}" alt="" style="width:66px;height:44px;"/>
+                                <span>{$item.goods_name}</span>
+                            </div>
+                        </td>
+                        <td>{$item.spec_key_name}</td>
+                        <td>×{$item.goods_num}</td>
+                        <td class="price">{$symbol}{$item.member_goods_price}</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <div class="col-sm-3 col-sm-offset-9 allPrice">本组商品金额: <span>{$symbol}{$goods_amount}</span></div>
+            </div>
+            <div class="row orderInfo">
+                <div class="col-sm-12 status">订单提交成功,请尽快付款!</div>
+            </div>
+            {if $type==1}
+            <div class="row ps">
+                <div class="col-sm-4">
+                    <div class="txt">配送方式:</div>
+                    {if $ziti}
+                    <div class="psStyle personalget pactive" style="cursor:pointer" data-id="1">自提</div>
+                    {/if}
+                    {if $storeId == 98}
+                    {if $peisong}
+                     <div class="psStyle busprice {if !$ziti}pactive{/if}"style="cursor:pointer;"  data-id="2">配送</div>
+                    {/if}
+                    {/if}
+                </div>
+                <div class="col-sm-offset-5 col-sm-3">
+                    <div class="txt">时间:</div>
+                    <input type="text" id="dataTime"/>
+                </div>
+            </div>
+            {/if}
+            <div class="row infoBox">
+                <!--选择用户-->
+                <div class="col-sm-12 user">
+                    <span>选择用户:</span>
+                    <input type="text" id="phone"/>
+                    <input type='hidden' id='scavenging_login' name='scavenging_login' value='1'>
+                    <!--1正常输入下单 2扫码下单-->
+                    <ul id="suggest">
+                        <li>111</li>
+                    </ul>
+                    <button onclick="checkUser()">选择用户</button>
+                    <button class="sm">扫码</button>
+                    <!--弹出框-->
+                    <div class="modal1">
+                        <div class="modal-dialog">
+                            <div class="modal-content1">
+                                <div class="modal-header1">
+                                    <span class="text1">获取信息</span>
+                                    <b class="cross">×</b>
+                                </div>
+                                <br>
+
+                                <div class="modal-section1">
+                                    <div class="line3">
+                                        <div class="section-left">获取用户:</div>
+                                        <div style="padding:0;float:left">
+                                            <input type="text" class="form-control youhuidiscount" placeholder="扫描二维码" onkeyup="keyup(this)" name="useridname" value=""
+                                                   autofocus/>
+                                        </div>
+                                        <div style="clear: both"></div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer1">
+                                    <button id="cancel">取消操作</button>
+                                    <button class="submit" id="submit1">确认信息</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 points" id="points">
+                </div>
+                <!-- <div class="col-sm-12 youhuiq">优惠券</div>-->
+                <div class="quanshow">
+                </div>
+                <!--优惠打折tab切换-->
+                <div class="col-sm-12" style="margin-top:2rem;">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="discount_li active"><a href="#li1" data-toggle="tab">优惠打折</a></li>
+                        <li class="discount_li" role="presentation"><a href="#li2" data-toggle="tab">优惠金额</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="li1">
+                            <div>
+                                <span>优惠打折:</span>
+                                <input type="text" id="discount1"/>
+
+                                <div class="cut">
+                                    <span>减价</span>
+                                    <span>{$symbol}<b class="discount_money">0.00</b></span>
+                                </div>
+                                <div class="error_tip">
+                                    <span style="color:#ff0000">*折扣必须大于0，小于10的数字</span>
+                                </div>
+                                <div style="clear:both"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="li2">
+                            <span>优惠金额:</span>
+                            <input type="text" id="discount2"/>
+
+                            <div class="cut">
+                                <span>减价</span>
+                                <span>{$symbol}<b class="discount_money">0.00</b></span>
+                            </div>
+                            <div class="error_tip">
+                                <span style="color:#ff0000">*优惠金额必须为小于应付金额的数字</span>
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--分销-->
+                <div class="col-sm-12">
+                    <div class="fxBox">
+                        <span>分销码:</span>
+                        <input type="text" id="fxNum"/>
+                        <button onclick="checkFxUser();">选择分销</button>
+                        <div class="cut">
+                            <span>减价</span>
+                            <span>{$symbol}<b id="fx_money">0.00</b></span>
+                        </div>
+                        <div class="error_tip">
+                            <!--<span style="color:#ff0000">*折扣必须大于0，小于10的数字</span>-->
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+                </div>
+                <!--配送开始-->
+                {if $type==1}
+                <div class="col-sm-12 peimod {if $ziti or !$peisong}hide1{/if}">
+                    <div class="fxBox clearfix">
+                        <span>配送费:</span>
+                        <input type="text" id="pei_discount" value="{$pei_discount}" disabled style="width:12%;margin-left:2.3rem;float:left"/>
+                        <span>（当前距离 <span id="pei_distance">0.00</span> km）</span>
+                        <span id="pei_error_tip" style="color:#ff0000;display: none;">*配送距离不能大于最大配送距离</span>
+                    </div>
+                </div>
+                <div class="col-sm-12 peimod adress {if $ziti or !$peisong}hide1{/if}">
+                    <span>配送地址:</span>
+                    <div class="addInput">
+                        <input type="text" id="suggestId" placeholder=""/>
+                        <span class="text-red">（ ↑ 根据填写内容定位到想要找的街道）</span>
+                        <span>（最大配送距离{$storeData.distance}km）</span>
+                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                    </div>
+                </div>
+                <div class="col-sm-12 peimod {if $ziti or !$peisong}hide1{/if}">
+                    <span style="padding:10px 0">地图定位:</span>
+                    <div style="width:697px;height:450px;border:#ccc solid 1px;margin-top:15px;" id="allmap"></div>
+                </div>
+                {/if}
+                <!--配送结束-->
+                <div class="col-sm-12 payment">应付金额: <span>{$symbol}<span id="payment">{$goods_amount}</span></span></div>
+                <!--请选择支付方式-->
+                <div class="col-sm-12" style="padding:3rem 0">请选择支付方式:</div>
+                {if $type==1 && !in_array($storeId,array(82,78,93,94,76,99,188))}
+                    <div class="col-sm-2" style="text-align: center" onclick="pay(1);">
+                        <img src="{$STATIC_URL}/admin/dist/img/orderpaywechat.png" style="width:80%" alt=""/>
+                    </div>
+                    <div class="col-sm-2" style="text-align: center" onclick="pay(2);">
+                        <img src="{$STATIC_URL}/admin/dist/img/orderalipay.png" style="width:80%" alt=""/>
+                    </div>
+                {elseif $type==1 && in_array($storeId,array(82,78,93,94,76,99,188))}
+                    <div class="col-sm-2" style="text-align: center">
+                        <img src="{$STATIC_URL}/admin/dist/img/yinlian.jpg" data-toggle="modal" data-target="#juhezhifumodel" alt="" id="yyyy"/>
+                    </div>
+                {/if}
+                <div class="col-sm-2" style="text-align: center">
+                    <img src="{$STATIC_URL}/admin/dist/img/xianxiafuk.jpg" style="width:80%" data-toggle="modal" data-target="#dkxdOrderModal"
+                         alt=""/>
+                </div>
+                {if $type==1}
+                <div class="col-sm-2" style="text-align: center">
+                    <img src="{$STATIC_URL}/admin/dist/img/rechargePay.jpg" style="width:80%" data-toggle="modal" data-target="#dkxdOrderModal1" alt=""/>
+                </div>
+                <div class="col-sm-2" style="text-align: center" onclick="pay(5);">
+                    <img src="{$STATIC_URL}/admin/dist/img/duiBtn.png" style="width:80%" alt=""/>
+                </div>
+                <div class="col-sm-2" style="text-align: center" onclick="pay(9);">
+                    <img src="{$STATIC_URL}/admin/dist/img/appoint.png" style="width:80%" alt=""/>
+                </div>
+                {/if}
+                <!-- <div class="col-sm-3" style="text-align: center">
+                     <img src="{$STATIC_URL}/admin/dist/img/duiBtn.png" style="width:80%" alt=""/>
+                 </div>-->
+            </div>
+            <br><br><br>
+
+        </div>
+    </div>
+    <!-- juhezhifu -->
+    <div class="modal fade" id="juhezhifumodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">扫码支付</h4>
+                </div>
+                <div class="modal-body" id="xxxx">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="dkxdOrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">线下找零</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row line1">
+                        <div class="col-sm-3">所属平台:</div>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                {if $type==1}
+                                <div class="col-sm-4 sourceBox">
+                                    <input type="radio" name="source_id" id="rdo1" value="1758421"/>
+                                    <img src="{$STATIC_URL}/admin/images/1527643876.png" alt="" style="width:80px;height: 35px"/>
+                                </div>
+                                {else}
+                                {foreach from=$sourceInfo key=key item=v}
+                                <div class="col-sm-4 sourceBox">
+                                    <input type="radio" name="source_id" value="{$v.id}" {if $key==0}id="rdo1"{/if}>
+                                    <img src="{$v.img}" alt="" style="width:80px;height: 35px"/>
+                                </div>
+                                {/foreach}
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                    {if $type==2}
+                    <div class="row line2">
+                        <div class="col-sm-3">补充地址:</div>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="补充来源用户收入地址(选择性填写)" id="address"/>
+                        </div>
+                    </div>
+                    {/if}
+                    <div class="row line3">
+                        <div class="col-sm-3">当前金额:</div>
+                        <div class="col-sm-9">{$symbol}<span id="xxfk_payment">0.00</span></div>
+                    </div>
+                    {if $type==2}
+                    <div class="row line2">
+                        <div class="col-sm-3">配送金额:</div>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="请输入配送金额" id="xxfk_pei_price"/>
+                        </div>
+                    </div>
+                    {/if}
+                    <div class="row line2">
+                        <div class="col-sm-3">支付金额:</div>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="请输入支付金额" id="xxfk_getmoney"/>
+                        </div>
+                    </div>
+                    <div class="row line3">
+                        <div class="col-sm-3">找零:</div>
+                        <div class="col-sm-9">{$symbol}<span id="xxfk_givemoney">0.00</span></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消付款</button>
+                    <button type="button" class="btn btn-primary" id="submit" onclick="pay(3)">确定付款</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="dkxdOrderModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width:400px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">验证码验证</h4>
+                </div>
+                <div class="modal-body">
+                    <i class="ico ico-num"></i>
+                    <div style="position:relative;width: 100%">
+                        <input type="text" name="code" placeholder="请输入验证码" class="text inblock" style="width: 100%;height: 40px;padding-left:5px;border: 1px solid #f4f4f4;">
+                        <a href="##" class="validate-btn getval" style="position:absolute;right:5px;top:5px;padding:5px 10px;border:1px solid #eee">发送验证码</a>
+                    </div>
+                    <div class="error" style="display: none;margin-top:10px;color:red;" id="code_error"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消付款</button>
+                    <button type="button" class="btn btn-primary" id="submit" onclick="pay(4)">确定付款</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="form1">
+        <input type="hidden" id="fx_discount" value="0">
+        <input type="hidden" id="storeId" value="{$storeId}">
+        <input type="hidden" id="max_distance" value="{$storeData.distance}">
+        <input type="hidden" id="store_longitude" value="{$storeData.longitude}">
+        <input type="hidden" id="store_latitude" value="{$storeData.latitude}">
+        <input type="hidden" id="goods_amount" name="goods_amount" value="{$goods_amount}">
+        <input type="hidden" id="uniquecode" name="uniquecode" value="{$uniquecode}">
+        <input type="hidden" id="sendout" name="sendout" value="1">
+        <input type="hidden" id="phone_c" name="phone" value="">
+        <input type="hidden" id="pd_amount" name="pd_amount" value="">
+        <input type="hidden" id="pd_point" name="pd_point" value="">
+        <input type="hidden" id="couponid" name="couponid" value="">
+        <input type="hidden" id="usercouponid" name="usercouponid" value="">
+        <input type="hidden" id="coupon_amount" name="coupon_amount" value="">
+        <input type="hidden" id="discount_type" name="discount_type" value="">
+        <input type="hidden" id="discount_num" name="discount_num" value="">
+        <input type="hidden" id="discount_amount" name="discount_amount" value="">
+        <input type="hidden" id="order_amount" name="order_amount" value="">
+        <input type="hidden" id="buyer_address" name="buyer_address" value="">
+        <input type="hidden" id="source_id" name="source_id" value="">
+        <input type="hidden" id="fx_user_id" name="fx_user_id" value="">
+        <input type="hidden" id="fx_dis_amount" name="fx_dis_amount" value="">
+        <input type="hidden" id="pei_time" name="pei_time" value="">
+        <input type="hidden" id="pei_price" name="pei_price" value="{if $type==1}{$pei_discount}{else}0{/if}">
+        <input type="hidden" id="phoneSource" name="phoneSource"   value="">
+        <input type="hidden" id="code" name="code"   value="">
+        <input type="hidden" id="delivery" name="delivery" value="">
+        <input type="hidden" id="pei_longitude" name="pei_longitude" value="">
+        <input type="hidden" id="pei_latitude" name="pei_latitude" value="">
+    </form>
+    <!-- /.content-wrapper -->
+    {include file="public/footer.html"}
+</div>
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"></script>
+{literal}
+<script>
+    var keydownFirstTime = 0;
+    function keyup(obj) {
+        var date = new Date();
+        var nowTime = date.getTime();
+        if (obj.value.length<2) {
+            keydownFirstTime = nowTime;
+        }
+        if(nowTime-keydownFirstTime >500){
+            obj.value='';
+        }
+    }
+</script>
+<script>
+    var pay_flag = true;//支付标志，false表示正在支付，防止重复点击
+    var pei_flag = true;//配送标志，true表示可以配送
+    $(function () {
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#dataTime'
+                ,type: 'time'
+            });
+        });
+        //进来先算一遍应付金额，用来初始化一些变量
+        getPayment();
+        //输入用户号码，监听事件
+        $('#phone').on('keyup', function () {
+            var phone = $.trim($(this).val());
+            var storeId = $('#storeId').val();
+            var flag = phone.substr(2, 11);
+            //检索号码
+            if (flag) {
+                $.ajax({
+                    type: "POST",
+                    url: 'store.php?app=ajaxSearch&act=userPhone&phone=' + phone + '&storeId=' + storeId,
+                    dataType: "json",
+                    data: '',
+                    success: function (res) {
+                        var options = '';
+                        $.each(res, function (i, e) {
+                            options += '<li>' + e.phone + '</li>';
+                        });
+                        if (options) {
+                            $('#suggest').html('').append(options).css("display", "block");
+                        }
+                    }
+                });
+            } else {
+                $("#suggest").css("display", "none");
+            }
+            //改成非扫码状态
+            $("#scavenging_login").val(1);
+            //获取优惠券
+            getCoupon();
+            //获取睿积分
+            getPoints();
+            //更新分销码
+            getFxInfo(1);
+        });
+        //选中检索的号码
+        $('#suggest').on('click', 'li', function (event) {
+            var phone = $(this).text();
+            $('#phone').val(phone);
+            //改成非扫码状态
+            $("#scavenging_login").val(1);
+            //获取优惠券
+            getCoupon();
+            //获取睿积分
+            getPoints();
+            //更新分销码
+            getFxInfo(1);
+        });
+        //点击其他地方，收起用户列表
+        $(document).click(function (event) {
+            $('#suggest').hide()
+        });
+        //选择人员保存事件
+        $('body').on('click', '.checkuser', function (e) {
+            $('#phone').val($(this).attr('data-phone'));
+            //改成非扫码状态
+            $("#scavenging_login").val(1);
+            //获取优惠券
+            getCoupon();
+            //获取睿积分
+            getPoints();
+            //更新分销码
+            getFxInfo(1);
+        });
+        //优惠打折和优惠金额标签切换
+        $('.discount_li').on('click', function () {
+            setTimeout(getPayment, 200);
+        });
+        //优惠打折输入监听
+        $('#discount1').on('keyup', function () {
+            getPayment();
+        });
+        //优惠金额输入监听
+        $('#discount2').on('keyup', function () {
+            getPayment();
+        });
+        //分销码输入，监听事件
+        $('#fxNum').on('keyup', function () {
+            getFxInfo(0);
+        });
+        //选择分销码保存事件
+        $('body').on('click', '.checkfxcode', function (e) {
+            $('#fxNum').val($(this).attr('data-code'));
+            $('#fx_discount').val($(this).attr('data-discount'));
+            $('#fx_user_id').val($(this).attr('data-id'));
+            getPayment();
+        });//线下找零-配送金额-输入监听
+        $('#xxfk_pei_price').on('keyup', function () {
+            //计算找零
+            getXxfkGiveMoney();
+        });
+        //线下找零-支付金额-输入监听
+        $('#xxfk_getmoney').on('keyup', function () {
+            //计算找零
+            getXxfkGiveMoney();
+        });
+    });
+
+    $("#yyyy").click(function () {
+        $("#xxxx").html('');
+        var phone = $.trim($('#phone').val());
+        var order_sn = $('#uniquecode').val();
+        //获取应付金额和订单号
+        var order_amount = parseFloat($('#payment').text()).toFixed(2);
+        var imgUrl = 'http://www.lmeri.com/store.php?app=zzShijiCloud&act=saomapay&order_amount='+order_amount+'&order_sn='+order_sn;
+        if (order_amount <= 0) {
+            alertDialog('付款金额过低，无法使用此支付方式');
+            return false;
+        }
+        var reg = /^\d{11}$/;
+        if (!reg.test(phone)) {
+            alertDialog('请填写有效的用户手机号');
+            return false;
+        }
+        //获取分销金额
+        var fx_money = $('#fx_money').text();
+        var pei_time=$('#dataTime').val();
+        var sendout=$('.ps').find('.pactive').attr('data-id');
+        var delivery = $('#suggestId').val();
+        var phoneSourcce=$('#scavenging_login').val();
+        $('#phone_c').val(phone);
+        $('#order_amount').val(order_amount);
+        $('#source_id').val(source_id);
+        $('#buyer_address').val(buyer_address);
+        $('#fx_dis_amount').val(fx_money);
+        $('#pei_time').val(pei_time);
+        $('#sendout').val(sendout);
+        $('#delivery').val(delivery);
+        $('#phoneSource').val(phoneSourcce);
+        //信息入库
+        var url = '?app=orderDk&act=payDkxd&paytype=1&yinlian=1';
+        var formdata = $('#form1').serialize();
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "json",
+            data: formdata,
+            success: function (res) {
+                if(res.status == 0){
+                    alertDialog(res.message);
+                    setTimeout(function () {
+                        window.location.href = '?app=orderDk&act=orderPay&order_sn='+order_sn;
+                    }, 1000);
+                } else {
+                    $("#xxxx").html('<img src="'+imgUrl+'" style="width:40%;margin-left: 30%;padding-bottom: 30px" alt=""/>');
+                }
+            }
+        });
+    });
+
+    setInterval(function () {
+        var order_sn = $('#uniquecode').val();
+        //校验支付
+        $.ajax({
+            type: "POST",
+            url: 'store.php?app=orderDk&act=getOrderStatus&order_sn=' + order_sn,
+            dataType: "json",
+            data: '',
+            success: function (res) {
+                if( res.info.order_state == 20 ){
+                    window.location.href = '?app=order&act=index';
+                }
+            }
+        });
+    }, 3000);
+
+    //线下付款，设置模态框居中
+    $(function () {
+        $('#juhezhifumodel').on('hidden.bs.modal', function (e) {
+            $("body").css("padding-right","0");
+        });
+        $('#dkxdOrderModal').on('hidden.bs.modal', function (e) {
+            $("body").css("padding-right","0");
+        });
+        $('#dkxdOrderModal').on('show.bs.modal', centerModals);
+        $(window).on('resize', centerModals);
+        function centerModals() {
+            $('#dkxdOrderModal').each(function (i) {
+                var $clone = $(this).clone().css('display', 'block').appendTo('body');
+                var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+                top = top > 0 ? top : 0;
+                $clone.remove();
+                $(this).find('.modal-content').css("margin-top", top);
+                //订单来源默认选中第一个
+                $('#rdo1').prop("checked", true);
+                //初始化当前金额
+                $('#xxfk_payment').text($('#payment').text());
+                $('#xxfk_pei_price').val('');
+                $('#xxfk_getmoney').val('');
+                $('#xxfk_givemoney').text('0.00');
+            });
+        }
+    });
+
+    $(function () {
+        $('#dkxdOrderModal1').on('hidden.bs.modal', function (e) {
+            $("body").css("padding-right","0");
+        });
+        $('#dkxdOrderModal1').on('show.bs.modal', centerModals);
+        $(window).on('resize', centerModals);
+        function centerModals() {
+            $('#dkxdOrderModal1').each(function (i) {
+
+//                 var validCode = true;
+//                //发送短信验证吗
+//                $('#code_error').css('display', 'none','color','red');
+//                     var phone = $('#phone').val();
+//                 //验证
+//                 if (phone.length == 0) {
+//                        $('#code_error').css('display', 'block');
+//                         $('#code_error').text('请填写手机号在来验证');
+//                     return false;
+//                 }
+//                  $.post('wx.php?app=sms&act=sendSms', {'phone': phone}, function (data) {
+//                 });
+//                //倒计时
+//                 var time = 60;
+//                 var code = $('.getval');
+//                 code.addClass('active');
+//                 if (validCode) {
+//                    validCode = false;
+//                    var t = setInterval(function () {
+//                        time--;
+//                        code.html("已发送" + time + "秒");
+//                        if (time == 0) {
+//                            clearInterval(t);
+//                            code.removeClass('active');
+//                            code.html("重新获取");
+//                            validCode = true;
+//                        }
+//                     }, 1000)
+//                }
+                var $clone = $(this).clone().css('display', 'block').appendTo('body');
+                var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+                top = top > 0 ? top : 0;
+                $clone.remove();
+                $(this).find('.modal-content').css("margin-top", top);
+            });
+        }
+    });
+    //扫码
+    $(function () {
+        //扫码按钮点击事件
+        $(".sm").click(function () {
+            $(".modal1").css("display", "block");
+            $(".modal-section1 input").val('').focus();
+            $("body").css("overflow-y", "hidden");
+        });
+        //弹框右上角叉号点击事件
+        $(".cross").click(function () {
+            $(".modal1").css("display", "none");
+            $("body").css("overflow-y", "auto");
+        });
+        //取消按钮点击事件
+        $("#cancel").click(function () {
+            $(".modal1").css("display", "none");
+            $("body").css("overflow-y", "auto");
+        });
+        //确认按钮点击事件
+        $("#submit1").click(function () {
+            var val = $.trim($(".modal-section1 input").val());
+            $(".modal1").css("display", "none");
+            $("body").css("overflow-y", "auto");
+            $("#phone").val(val);
+            $("#scavenging_login").val(2);
+            $(".modal-section1 input").val("");
+            //获取优惠券
+            getCoupon();
+            //获取睿积分
+            getPoints();
+            //更新分销码
+            getFxInfo(1);
+        });
+        //监听输入框值变化
+        $('.modal-section1 input').on('keyup', function () {
+            var phone = $.trim($(this).val());
+            var reg = /^1[34578]\d{9}$/;
+            if (reg.test(phone)) {
+                $('#submit1').click();
+            }
+        });
+    });
+    //选择人员
+    function checkUser() {
+        //加载弹窗
+        setTimeout(function () {
+            dialog_only_cancle('?app=ajaxSearch&act=userDialog', '选择人员');
+        }, 300);
+    }
+    //获取优惠券
+    function getCoupon() {
+        var phone = $.trim($('#phone').val());
+        if (phone.length == 11) {
+            var goods_amount = $('#goods_amount').val();
+            var uniquecode = $('#uniquecode').val();
+            $.ajax({
+                type: "POST",
+                url: 'store.php?app=orderDk&act=ajaxCoupon&phone=' + phone + '&goods_amount=' + goods_amount + '&uniquecode=' + uniquecode,
+                dataType: "json",
+                data: '',
+                success: function (res) {
+                    if (res.status == 1) {
+                        $('.quanshow').html(res.info);
+                        getPayment();
+                    }
+                }
+            });
+        } else {
+            $('.quanshow').html('');
+            getPayment();
+        }
+    }
+    //获取睿积分
+    function getPoints() {
+        var phone = $.trim($('#phone').val());
+        //是否扫码
+        var scavenging_login = $('#scavenging_login').val();
+        if (phone.length == 11 && scavenging_login == 2) {
+            var goods_amount = $('#goods_amount').val();
+            $.ajax({
+                type: "POST",
+                url: 'store.php?app=orderDk&act=ajaxPoints&phone=' + phone + '&goods_amount=' + goods_amount,
+                dataType: "json",
+                data: '',
+                success: function (res) {
+                    if (res.status == 1) {
+                        $('#points').html(res.info);
+                        getPayment();
+                    }
+                }
+            });
+        } else {
+            $('#points').html('');
+            getPayment();
+        }
+    }
+    //选择分销码
+    function checkFxUser() {
+        //加载弹窗
+        setTimeout(function () {
+            dialog_only_cancle('?app=ajaxSearch&act=fxUserDialog', '选择分销码');
+        }, 300);
+        $("#fxNum").attr('disabled',false);
+    }
+    //获取分销信息
+    function getFxInfo(type) {
+        var phone = $.trim($('#phone').val());
+        var fx_code = $.trim($('#fxNum').val());
+        var goods_amount = $('#goods_amount').val();
+        $.ajax({
+            type: "POST",
+            url: 'store.php?app=orderDk&act=fxUserByCode&fx_code=' + fx_code + '&type=' + type + '&phone=' + phone,
+            dataType: "json",
+            data: '',
+            success: function (res) {
+                if (res.status == 1) {
+                    $('#fx_discount').val(res.info.discount);
+                    $('#fx_user_id').val(res.info.id);
+                    if (type == 1) {
+                        $('#fxNum').val(res.info.fx_code);
+                        if (res.info.level==3) {
+                            $('#fxNum').attr('disabled', true);
+                        }
+                    }
+                    getPayment();
+                } else {
+                    if (res.info==''){
+                        $('#fxNum').attr('disabled', false);
+                    }
+                    $('#fx_discount').val(0);
+                    $('#fx_user_id').val('');
+                    if (type == 1) {
+                        $('#fxNum').val('');
+                    }
+                    getPayment();
+                }
+            }
+        });
+    }
+    //获取配送距离
+    function getPeiDistance() {
+        var max_distance = parseFloat($('#max_distance').val());
+        var store_longitude = $('#store_longitude').val();
+        var store_latitude = $('#store_latitude').val();
+        var pei_longitude = $('#pei_longitude').val();
+        var pei_latitude = $('#pei_latitude').val();
+        if (pei_longitude && pei_latitude) {
+            var pei_distance = getDistance(store_latitude, store_longitude, pei_latitude, pei_longitude);
+            pei_distance = parseFloat(pei_distance).toFixed(2);
+            $('#pei_distance').html(pei_distance);
+            if (pei_distance > max_distance) {
+                pei_flag = false;
+                $('#pei_error_tip').show();
+            } else {
+                pei_flag = true;
+                $('#pei_error_tip').hide();
+            }
+            //经纬度变动后，一定会调用该方法，所以这里直接将地址放到表单中
+//            var delivery = $('#suggestId').val();
+//            $('#delivery').val(delivery);
+        } else {
+            pei_flag = false;
+        }
+    }
+    //计算两个经纬度之间的距离，单位km
+    function getDistance(lat1, lng1, lat2, lng2) {
+        var radLat1 = lat1 * Math.PI / 180.0;
+        var radLat2 = lat2 * Math.PI / 180.0;
+        var a = radLat1 - radLat2;
+        var b = lng1 * Math.PI / 180.0 - lng2 * Math.PI / 180.0;
+        var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
+                        Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+        s = s * 6378.137;// EARTH_RADIUS;
+        s = Math.round(s * 10000) / 10000;
+        return s;
+    }
+    //线下付款，计算找零
+    function getXxfkGiveMoney() {
+        var xxfk_pei_price = $.trim($('#xxfk_pei_price').val());
+        var xxfk_getmoney = $.trim($('#xxfk_getmoney').val());
+        if (!xxfk_pei_price || isNaN(xxfk_pei_price)) {
+            xxfk_pei_price = 0.00;
+        } else {
+            xxfk_pei_price = parseFloat(xxfk_pei_price).toFixed(2);
+        }
+        if (!xxfk_getmoney || isNaN(xxfk_getmoney)) {
+            xxfk_getmoney = 0.00;
+        } else {
+            xxfk_getmoney = parseFloat(xxfk_getmoney).toFixed(2);
+        }
+        if (xxfk_getmoney > 0.00) {
+            var xxfk_payment = $.trim($('#xxfk_payment').text());
+            var xxfk_givemoney = (parseFloat(xxfk_getmoney) - parseFloat(xxfk_payment) - parseFloat(xxfk_pei_price)).toFixed(2);
+            if (xxfk_givemoney == 0) {
+                xxfk_givemoney = '0.00';
+            }
+            $('#xxfk_givemoney').text(xxfk_givemoney);
+        } else {
+            $('#xxfk_givemoney').text('0.00');
+        }
+    }
+    //计算应付金额
+    function getPayment() {
+        //获取订单金额
+        var goods_amount = parseFloat($.trim($('#goods_amount').val()));
+        //计算应付金额
+        var payment = goods_amount;
+        if ($('#point_check').prop('checked')) {
+            //获取睿积分抵扣金额和积分值
+            var point_money = parseFloat($('#point_money').text());
+            var point_value = parseInt($('#point_value').text());
+            //重置隐藏域的值
+            $('#pd_amount').val(point_money);
+            $('#pd_point').val(point_value);
+            $('#couponid').val(0);
+            $('#coupon_amount').val(0);
+            $('#usercouponid').val(0);
+            //应付金额减少
+            payment -= point_money;
+        } else {
+            //获取电子券金额
+            var coupon_money = 0;
+            var couponid = 0;
+            var usercouponid = 0;
+            if ($('.quantab_yhj').hasClass('active') && ($('#div_yhj').find('li.activediv').length > 0)) {
+                coupon_money = parseFloat($('#div_yhj').find('li.activediv').attr('data-coupon-money'));
+                couponid = $('#div_yhj').find('li.activediv').attr('data-coupon-id');
+                usercouponid = $('#div_yhj').find('li.activediv').attr('data-userCouponid');
+            } else if($('.quantab_dhj').hasClass('active') && ($('#div_dhj').find('li.activediv').length > 0)) {
+                coupon_money = parseFloat($('#div_dhj').find('li.activediv').attr('data-coupon-money'));
+                var limit_money = parseFloat($('#div_dhj').find('li.activediv').attr('data-coupon-money'));
+                var limit_roomid = parseFloat($('#div_dhj').find('li.activediv').attr('data-room-id'));
+                couponid = $('#div_dhj').find('li.activediv').attr('data-coupon-id');
+                usercouponid = $('#div_dhj').find('li.activediv').attr('data-userCouponid');
+                var money = [];
+                //循环寻找兑换券对应的商品
+                $('.goods_detail_tr').each(function(){
+                    var price_temp = parseFloat($(this).attr('data-goods-pay-price'));
+                    var roomid_temp = $(this).attr('data-room-id');
+                    var roompid_temp = $(this).attr('data-room-pid');
+                    var auxiliary_type = $(this).attr('data-room-type');
+                    if (auxiliary_type == 0) {
+                        var cond = ((roomid_temp == limit_roomid) || (roompid_temp == limit_roomid)) && (price_temp <= limit_money) && (price_temp > coupon_money);
+                    } else {
+                        if (auxiliary_type == 0) {
+                            var cond = ((roomid_temp == limit_roomid) || (roompid_temp == limit_roomid)) && (price_temp <= limit_money) && (price_temp <= coupon_money);
+                            if (cond) {
+                                money.push(price_temp);
+                            }
+                        } else {
+                            if (auxiliary_type.indexOf(",") != -1) {
+                                var a = false;
+                                var room_type = auxiliary_type.split(',');
+                                $.each(room_type,function(index,value){
+                                    if(value == limit_roomid){
+                                        a=true;
+                                    }else{
+                                        a=false;
+                                    }
+                                })
+                                var cond = ((a || roomid_temp == limit_roomid) || (roompid_temp == limit_roomid)) && (price_temp <= limit_money) && (price_temp <= coupon_money);
+                            } else {
+                                var cond = ((auxiliary_type == limit_roomid) ||(roompid_temp == limit_roomid) || (roompid_temp == limit_roomid)) && (price_temp <= limit_money) && (price_temp <= coupon_money);
+                            }
+                            if (cond) {
+                                money.push(price_temp);
+                            }
+                        }
+                    }
+                    if (cond){
+                        coupon_money = price_temp;
+                        money.push(price_temp);
+                    } else {
+                        money = 0;
+                    }
+                });
+            }
+            if (money) {
+                money = Math.max.apply(null, money);
+            } else {
+                money = coupon_money;
+            }
+
+            //重置隐藏域的值
+            $('#pd_amount').val(0);
+            $('#pd_point').val(0);
+            $('#couponid').val(couponid);
+            $('#coupon_amount').val(money);
+            $('#usercouponid').val(usercouponid);
+            //应付金额减少
+            payment -= money;
+        }
+        //优惠打折
+        var discount1 = $.trim($('#discount1').val());
+        var disObj1 = $('#li1');
+        if (!isNaN(discount1) && parseFloat(discount1) > 0 && parseFloat(discount1) < 10) {
+            var discount_money1 = (payment - payment * parseFloat(discount1) / 10).toFixed(2);
+            disObj1.find('.discount_money').text(discount_money1);
+            disObj1.find('.error_tip').hide();
+        } else {
+            disObj1.find('.discount_money').text('0.00');
+            disObj1.find('.error_tip').show();
+        }
+        //优惠金额
+        var disObj2 = $('#li2');
+        var discount2 = $.trim($('#discount2').val());
+        if (!isNaN(discount2) && parseFloat(discount2) <= parseFloat(payment)) {
+            disObj2.find('.discount_money').text(parseFloat(discount2).toFixed(2));
+            disObj2.find('.error_tip').hide();
+        } else {
+            disObj2.find('.discount_money').text('0.00');
+            disObj2.find('.error_tip').show();
+        }
+        //获取优惠减价
+        if (disObj1.hasClass('active')) {
+            var discount_money = disObj1.find('.discount_money').text();
+            $('#discount_type').val(1);
+            $('#discount_num').val($.trim($('#discount1').val()));
+            $('#discount_amount').val(discount_money);
+        } else {
+            var discount_money = disObj2.find('.discount_money').text();
+            $('#discount_type').val(2);
+            $('#discount_num').val(0);
+            $('#discount_amount').val(discount_money);
+        }
+        payment -= discount_money;
+        //获取分销金额
+        var fx_discount = parseFloat($('#fx_discount').val());
+        var fx_money = (goods_amount * fx_discount * 0.01).toFixed(2);
+        payment -= parseFloat(fx_money);
+        $('#fx_money').text(fx_money);
+        //配送费
+        if ($('.busprice').hasClass('pactive')) {
+            getPeiDistance();
+            var pei_discount = $.trim($('#pei_discount').val());
+            if (!isNaN(pei_discount) && pei_discount) {
+                pei_discount = parseFloat(pei_discount).toFixed(2);
+            }else{
+                pei_discount = 0.00;
+            }
+            payment += parseFloat(pei_discount);
+        } else {
+            pei_flag = true;
+        }
+        payment = payment.toFixed(2);
+        //计算应付金额
+        if (payment < 0) {
+            payment = 0;
+        }
+        $('#payment').text(payment);
+    }
+    //支付
+    function pay(type) {
+        var phone = $.trim($('#phone').val());
+        //判断配送
+        if (!pei_flag) {
+            alertDialog('配送地址必选且不能超过最大配送距离!');
+            return false;
+        }
+        //预购，判断号码
+        if (type == 9) {
+            if (phone != '0102') {
+                alertDialog('预购号码有误!');
+                return false;
+            }
+            var fx_user_id = $('#fx_user_id').val();
+            if (fx_user_id) {
+                alertDialog('预购禁止使用分销码!');
+                return false;
+            }
+        }
+        //获取应付金额
+        var order_amount = parseFloat($('#payment').text()).toFixed(2);
+        if (order_amount <= 0 && (type == 1 || type == 2)) {
+            alertDialog('付款金额过低，无法使用此支付方式');
+            return false;
+        }
+        if (order_amount > 0 && (type == 5)) {
+            alertDialog('付款金额为0才能使用此支付方式');
+            return false;
+        }
+        //线下支付，判断支付金额
+        if (type == 3) {
+            var xxfk_payment = $.trim($('#xxfk_payment').text());
+            var xxfk_pei_price = $.trim($('#xxfk_pei_price').val());
+            var xxfk_getmoney = $.trim($('#xxfk_getmoney').val());
+            if (!xxfk_pei_price || isNaN(xxfk_pei_price)) {
+                xxfk_pei_price = 0.00;
+            } else {
+                xxfk_pei_price = parseFloat(xxfk_pei_price).toFixed(2);
+            }
+            if (!xxfk_getmoney || isNaN(xxfk_getmoney)) {
+                xxfk_getmoney = 0.00;
+            } else {
+                xxfk_getmoney = parseFloat(xxfk_getmoney).toFixed(2);
+            }
+            if (!xxfk_getmoney || isNaN(xxfk_getmoney) || (parseFloat(xxfk_getmoney) < (parseFloat(xxfk_payment) + parseFloat(xxfk_pei_price)))) {
+                alertDialog('支付金额过低!');
+                return false;
+            }
+            order_amount = parseFloat(order_amount) + parseFloat(xxfk_pei_price);
+            if (xxfk_pei_price > 0) {
+                $('#pei_price').val(xxfk_pei_price);
+            }
+        }
+        var reg = /^\d{11}$/;
+        if (reg.test(phone) || (type == 9)) {
+            var order_sn = $('#uniquecode').val();
+            //获取抵扣睿积分和抵扣金额
+//            var point_value = 0;
+//            var point_money = 0;
+//            if ($('#point_check').prop('checked')) {
+//                point_value = parseInt($('#point_value').text());
+//                point_money = parseFloat($('#point_money').text());
+//            }
+            // //获取优惠券金额
+            // var couponid = 0;
+            // var coupon_amount = 0;
+            // if ($('.coupon_div_single').find('img.active').length > 0) {
+            //     couponid = $('.coupon_div_single').find('img.active').attr('data-coupon-id');
+            //     coupon_amount = parseFloat($('.coupon_div_single').find('img.active').attr('data-coupon-money'));
+            // }
+            //获取折扣信息
+//            if ($('#li1').hasClass('active')) {
+//                var discount_type = 1;
+//                var discount_num = $.trim($('#discount1').val());
+//                var discount_amount = $('#li1').find('.discount_money').text()
+//            } else {
+//                var discount_type = 2;
+//                var discount_num = 0;
+//                var discount_amount = $('#li2').find('.discount_money').text()
+//            }
+            //获取分销金额
+            var fx_money = $('#fx_money').text();
+            //获取线下付款独有数据
+            if (type == 3) {
+                var buyer_address = $.trim($('#address').val());
+                var source_id = $('input[name=source_id]:checked').val();
+            }
+            if (type == 4) {
+                var code = $('input[name=code]').val();
+            }
+            var pei_time=$('#dataTime').val();
+            var sendout=$('.ps').find('.pactive').attr('data-id');
+            var delivery = $('#suggestId').val();
+            var phoneSourcce=$('#scavenging_login').val();
+            $('#phone_c').val(phone);
+//            $('#pd_amount').val(point_money);
+//            $('#pd_point').val(point_value);
+
+//            var couponid = $("input[name=couponid]").val();
+//            var coupon_amount =$("input[name=coupon_amount]").val();
+//            var usercouponid = $("input[name=usercouponid]").val();
+//            $('#couponid').val(couponid);
+//            $('#coupon_amount').val(coupon_amount);
+//            $('#usercouponid').val(usercouponid);
+//            $('#discount_type').val(discount_type);
+//            $('#discount_num').val(discount_num);
+//            $('#discount_amount').val(discount_amount);
+            $('#order_amount').val(order_amount);
+            $('#source_id').val(source_id);
+            $('#code').val(code);
+            $('#buyer_address').val(buyer_address);
+            $('#fx_dis_amount').val(fx_money);
+            $('#pei_time').val(pei_time);
+            $('#sendout').val(sendout);
+            $('#delivery').val(delivery);
+            $('#phoneSource').val(phoneSourcce);
+            //信息入库
+            var url = '?app=orderDk&act=payDkxd&paytype=' + type;
+            var formdata = $('#form1').serialize();
+            if (pay_flag) {
+                pay_flag = false;
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    dataType: "json",
+                    data: formdata,
+                    success: function (res) {
+                        if (res.status == 1) {
+                            if (type == 1) {
+                                //微信支付
+                                window.location.href = '?app=native&act=native&pay_v=2&order_id=' + order_sn + '&id=' + res.info.order_id;
+                            } else if (type == 2) {
+                                //支付宝支付
+                                window.location.href = '?app=aliPayDk&act=aliPay&pay_v=2&order_id=' + order_sn + '&id=' + res.info.order_id;
+                            } else if (type == 12) {
+                                //聚合支付
+                                window.location.href = '?app=zzShijiCloud&act=saomapay&order_id=' + order_sn;
+                            } else {
+                                //线下支付
+                                alertDialog(res.message);
+                                if (type == 9) {
+                                    setTimeout(function () {
+                                        window.location.href = '?app=orderDk&act=index&type=2';
+                                    }, 500);
+                                } else {
+                                    setTimeout(function () {
+                                        // window.location.href = '?app=customerOrder&act=index';
+                                        window.location.href = '?app=order&act=index';
+                                    }, 500);
+                                }
+                            }
+                        } else {
+                            pay_flag = true;
+                            alertDialog(res.message);
+                        }
+                    }
+                });
+            }
+        } else {
+            alertDialog('请填写有效的用户手机号');
+        }
+    }
+    /*删除订单*/
+    $(".shanchu").click(function () {
+        var _data = $(this).attr("data");
+        layer.confirm('您确定要删除当前此订单？', {
+            btn: ['确定删除', '取消'],
+            title: '提示',
+            icon: 0,
+            skin: 'firm-layer',
+            yes: function (index) {
+                $.ajax({
+                    url: "store.php?app=orderDk&act=dele&lang_id=0",
+                    data: "data=" + _data,
+                    type: "POST",
+                    dataType: "json",
+                    success: function (res) {
+                        layer.alert(res.message, {
+                            icon: 1,
+                            btn: false,
+                            title: false,
+                            closeBtn: 0,
+                            time: 3000,
+                            skin: 'alt-layer'
+                        });
+                        setTimeout(function () {
+                            window.location.href = res.info.url;
+                        }, 1000)
+                    }
+                })
+            }
+        })
+    });
+
+    $(function(){
+        $(".busprice").click(function(){
+            $('.peimod').css('display','block');
+            $(this).addClass('pactive');
+            $(".personalget").removeClass('pactive');
+            getPayment();
+        });
+        $(".personalget").click(function(){
+            $('.peimod').css('display','none');
+            $(this).addClass('pactive');
+            $(".busprice").removeClass('pactive');
+            getPayment();
+        });
+    })
+</script>
+{/literal}
+{literal}
+<script>
+    $(function () {
+        //发送验证码
+        var validCode = true;
+        $(" .getval").click(function () {
+            //发送短信验证吗
+            $('#code_error').css('display', 'none','color','red');
+            var phone = $('#phone').val();
+            //验证
+            if (phone.length == 0) {
+                layer.alert('请填写手机号在来验证', {
+                    icon: 1,
+                    btn: false,
+                    title: false,
+                    closeBtn: 0,
+                    time: 2000,
+                    skin: 'alt-layer'
+                });
+                return false;
+            }
+            $.post('wx.php?app=sms&act=sendSms', {'phone': phone}, function (data) {
+
+            });
+            //倒计时
+            var time = 60;
+            var code = $(this);
+            code.addClass('active');
+            if (validCode) {
+                validCode = false;
+                var t = setInterval(function () {
+                    time--;
+                    code.html("已发送" + time + "秒");
+                    if (time == 0) {
+                        clearInterval(t);
+                        code.removeClass('active');
+                        code.html("重新获取");
+                        validCode = true;
+                    }
+                }, 1000)
+            }
+        })
+    });
+</script>
+<script type="text/javascript">
+    // 百度地图API功能
+    var longitude = '';
+    var latitude = '';
+    var mp = new BMap.Map("allmap");
+    if (longitude == '') {
+        var point = new BMap.Point(116.404, 39.915);
+    } else {
+        var point = new BMap.Point(longitude, latitude);
+    }
+
+    mp.centerAndZoom(point, 11);
+    var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+            {
+                "input": "suggestId"
+                , "location": mp
+            });
+    var marker = new BMap.Marker(point);  // 创建标注
+    mp.addOverlay(marker);              // 将标注添加到地图中
+    mp.addEventListener("click", function (e) {
+        mp.removeOverlay(marker);//删除
+        longitude = e.point.lng;
+        latitude = e.point.lat;
+//        document.getElementById('longitude').value = longitude;
+//        document.getElementById('latitude').value = latitude;
+        var point = new BMap.Point(longitude, latitude);
+        var geoc = new BMap.Geocoder();
+        mp.centerAndZoom(point, 18);
+        marker = new BMap.Marker(point);  // 创建标注
+        mp.addOverlay(marker);               // 将标注添加到地图中
+        var pt = e.point;
+        geoc.getLocation(pt, function (rs) {
+            var addComp = rs.addressComponents;
+            add = (addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+            document.getElementById('suggestId').value = add;
+            //计算应付金额
+            $('#pei_longitude').val(longitude);
+            $('#pei_latitude').val(latitude);
+            getPayment();
+        });
+    });
+    window.mp = mp;//将map变量存储在全局
+    mp.enableScrollWheelZoom();
+    mp.enableInertialDragging();
+    mp.enableContinuousZoom();
+
+    ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+
+    var myValue;
+    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+        G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+        setPlace();
+    });
+
+    function G(id) {
+        return document.getElementById(id);
+    }
+    function setPlace() {
+        mp.clearOverlays();    //清除地图上所有覆盖物
+        function myFun() {
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            mp.centerAndZoom(pp, 18);
+            longitude = pp.lng;
+            latitude = pp.lat;
+//            document.getElementById('longitude').value = longitude;
+//            document.getElementById('latitude').value = latitude;
+            marker = new BMap.Marker(pp);  // 创建标注
+            console.log("创建标注 " + marker);
+            mp.addOverlay(marker);  //添加标注
+            //计算应付金额
+            $('#pei_longitude').val(longitude);
+            $('#pei_latitude').val(latitude);
+            getPayment();
+        }
+
+        var local = new BMap.LocalSearch(mp, {//智能搜索
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }
+</script>
+{/literal}
+</body>
+</html>

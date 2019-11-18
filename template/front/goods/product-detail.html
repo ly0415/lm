@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$langdata.goods}</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/front/plus/photoswipe/photoswipe1.css">
+    <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/front/plus/photoswipe/default-skin/default-skin1.css">
+    <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/front/css/share.min.css">
+
+    <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/front/css/swiper.min.css">
+    <script type="text/javascript" src="{$STATIC_URL}/front/js/jquery.1.8.2.min.js"></script>
+    <script type="text/javascript" src="{$STATIC_URL}/front/plus/photoswipe/photoswipe1.min.js"></script>
+    <script type="text/javascript" src="{$STATIC_URL}/front/js/swiper.min.js"></script>
+
+    <script type="text/javascript" src="{$STATIC_URL}/front/js/social-share.min.js"></script>
+    <script type="text/javascript" src="{$STATIC_URL}/front/plus/photoswipe/photoswipe1-ui-default.min.js"></script>
+    <style>
+        /*img.pswp__img{*/
+        /*display:block!important;*/
+        /*width:800px;*/
+        /*height:800px;*/
+        /*position:absolute;*/
+        /*top:50%;*/
+        /*left:50%;*/
+        /*transform:translate(-105%,-50%);*/
+        /*}*/
+        /*img.pswp__img--placeholder{*/
+        /*display:none!important;*/
+        /*}*/
+    </style>
+    <style >
+        .a_o_store{
+            text-decoration: none;/*去掉a标签的下划线*/
+            margin-left: 100px;/*设置a标签之间的距离*/
+        }
+        .a_store{
+            width: 80%;
+            margin: 0 auto;
+            font-size: 20px;
+            text-align: center;
+            padding-top: 10px;
+            color: #494949;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+
+
+
+
+
+    {include file="public/header.html"}
+</head>
+<div class="index">
+    <!-- header -->
+    <!-- header end -->
+
+    <!-- navs-box -->
+    {include file="public/daohang.html"}
+
+    <!-- navs-box end -->
+    <div class="border"></div>
+
+    <!-- productdetail -->
+    <div class="productdetail">
+        <div class="productdetail-inner ">
+            <div class="w1100 clearfix">
+                <div class="product-breadcrumbs clearfix">
+                    <div class="breadcrumbs fl">
+                        <a href="index.php?app=ctgPage&act=index&storeid={$storeid}&lang={$langId}&auxiliary={$auxiliary}&cid={$cat_2.parent_id}">{$cat_1.name}</a>
+                        <span class="step">/</span>
+                        <a href="index.php?app=ctgPage&act=index&storeid={$storeid}&lang={$langId}&auxiliary={$auxiliary}&cid={$cat_3.parent_id}">{$cat_2.name}</a>
+                        <span class="step">/</span>
+                        <a href="index.php?app=listPage&act=index&storeid={$storeid}&lang={$langId}&auxiliary={$auxiliary}&cid={$info.cat_id}">{$cat_3.name}</a>
+                        <!--<span class="step">/</span>-->
+                        <!--<span class="last">SKU: {$info.sku}</span>-->
+                    </div>
+                    <div class="share fr">
+                        <div  id="share_box">
+                            <div class="share_title">分享到:</div>
+                            <div class="social-share"  data-initialized="true" style="text-align: center;" data-url="{$SITE_URL}/wx.php?app=goods&act=goodInfo&storeid={$store_id}&lang={$langId}&gid={$info.id}"  data-title="{$info.goods_name}">
+                                <a href="#" class="social-share-icon icon-weibo"></a>
+                                <a href="#" class="social-share-icon icon-wechat"></a>
+                                <a href="#" class="social-share-icon icon-qq"></a>
+                                <a href="#" class="social-share-icon icon-qzone"></a>
+                                <a href="#" class="social-share-icon icon-twitter"></a>
+                                <a href="#" class="social-share-icon icon-facebook"></a>
+                            </div>
+                            <div style="clear:both"></div>
+                        </div>
+                        <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+                        <!-- JiaThis Button END -->
+                    </div>
+                </div>
+                <div class="product-images fl">
+                    <!-- 放大镜效果 -->
+                    <div class="preview my-simple-gallery">
+                        <div id="vertical" class="bigImg">
+                            <img src="{$SITE_URL}/{$info.original_img}" width="400" height="400" alt="" id="midimg" />
+                            <div style="display:none;" id="winSelector"></div>
+                        </div><!--bigImg end-->
+                        <div class="smallImg">
+                            <div class="scrollbutton smallImgUp disabled"></div>
+                            <div id="imageMenu">
+                                <ul data-pswp-uid="1">
+                                    {foreach from=$img_arr item=item}
+                                    <li><img src="{$SITE_URL}/{$item.image_url}" width="68" height="68"  data-size="400x400" data-src="{$SITE_URL}/{$item.image_url}" /></li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                            <div class="scrollbutton smallImgDown"></div>
+                        </div><!--smallImg end-->
+                        <div id="bigView" style="display:none;"><img width="800" height="800" alt="" src="" /></div>
+                    </div>
+                </div>
+                <div class="product-info fl">
+                    <div class="info-box">
+                        <h1>
+                            <span class="title">{$info.goods_name}</span>
+                            <!--<span class="tit">by <a href="##"></a> </span>-->
+                        </h1>
+                        {if $zhhdData[0]['store_goods_id']}
+                        <span class="red">(&nbsp;{$langdata.youhuidazhe}&nbsp;)</span>
+                        {else if $xsmsData[0]['store_goods_id']}
+                        <span class="red">(&nbsp;{$langdata.youhuidazhe}&nbsp;)</span>
+                        {else if $cxData[0]['goods_id']}
+                        <span class="red">(&nbsp;{$langdata.youhuidazhe}&nbsp;)</span>
+                        {else if $tgData[0]['goods_id']}
+                        <span class="red">(&nbsp;{$langdata.youhuidazhe}&nbsp;)</span>
+                        {/if}
+                        <div class="review mt5 mb5">
+                            <div class="showstar inblock">
+
+                                <div class="atar_Show">
+                                    {if $all_rate}
+                                    <p tip="20" style="width:{$all_rate * 22}px;"></p>
+                                    {else}
+                                    <p tip="20" style="width:{5 * 22}px;"></p>
+                                    {/if}
+                                </div>
+                            </div>
+                            <div class="num-box inblock">
+                                <a href="#rev">{$good_all_num.all_num}{$langdata.comment}</a> <span></span>
+                            </div>
+                        </div>
+                        <div class="salebox">
+                                <span class="saleprice">{$cur_info.symbol}<span class="rel_price">{$info.shop_price}</span>
+                                    <span class="discount">{$cur_info.symbol}<s>{$info.market_price}</s></span>
+                                    <!--<span class="savedpercent">32% off</span>-->
+                                    <!--<p class="onsale">在售中</p>-->
+                                    <!--<p class="endtime">结束时间 1 day 7:02:49</p>-->
+                        </div>
+                        {if $info.is_free_shipping ==1}
+                        <div class="deliverybox mt10 mb10">
+                            <p class="freeship">{$langdata.Free}</p>
+                            <input type="hidden" name="shipping_price" value="{$info.shipping_price}"/>
+                            <!--<p class="shiptime">截止日期 Mon,Aug 14</p>-->
+                        </div>
+                        {else}
+                        <div class="deliverybox  mt10 mb10">
+                            <p class="freeship">{$langdata.freight}：&nbsp;&nbsp;<font color="red">{if empty($info.shipping_price)}{$cur_info.symbol}0.00{else}{$cur_info.symbol} {$info.shipping_price}{/if}</font></p>
+                            <p></p>
+                            <input type="hidden" name="shipping_price" value="{$info.shipping_price}"/>
+                            <!--<p class="shiptime">截止日期 Mon,Aug 14</p>-->
+                        </div>
+                        {/if}
+                        {if $spec_img}
+                        <div class="border mt20 mb20"></div>
+                        {/if}
+                        <div class="chooseadd-box">
+                            <div>
+                                {foreach  from=$spec_img item=val key=key}
+                                <p class="mb10 font14">{$key}:</p>
+                                <div class="tags-box">
+                                    {foreach from=$val  item = item key=k}
+                                    <span  name="spec[]" {if $k==0 } class="active" {/if}  data-id="{$item.item_id}">{$item.item}</span>
+                                    {/foreach}
+                                </div>
+                                {/foreach}
+                                <!--<p class="mt20 mb10 font14">规格:</p>-->
+                                <!--{if $spec_arr}-->
+                                <!--<div class="img-box">-->
+                                <!--123-->
+                                <!--</div>-->
+                                <!--{/if}-->
+                                <div class="border mb20"></div>
+                                <p class="mt20 mb10 font14">{$langdata.Number1}</p>
+                                <div class="p-select clearfix">
+                                    <div class="updown-box1 fl">
+                                        <span class="down fl"></span>
+                                        <input type="text" class="num fl"  value="1"  readonly="readonly" name="goods_num"/>
+                                        <span class="up fl"></span>
+                                    </div>
+                                    <span class="storage fl mt10 ml15">
+                                        {$langdata.goods_Stock}({if empty($info.goods_storage)}0{else}{$info.goods_storage}{/if})
+                                    </span>
+                                </div>
+                                <p class="mt20 mb10 font14">{$langdata.goods_store}</p>
+                                <div class="p-select">
+                                    <div class="clearfix">
+                                        {if $storelist}
+                                            <select name="store_choose" id="storelist">
+                                                {foreach from = $storelist item=item}
+                                                <option value="{$item.id}" {if $item.id == $store_id} selected {/if}>{$item.store_name}</option>
+                                                {/foreach}
+                                            </select>
+                                        {else}
+                                            <span style="margin-left: 5%;">{$langdata.store_adress}</span>
+                                        {/if}
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    {if ($info.mark ==1)}
+                                        <button class="btn btn-addsc fl">
+                                            {if $info.type==1 }
+                                            <i class="ico ico-addscno ico-addsc" name='clicki' id="{$info.id}" title="{$langdata.goods_qx}"></i>{$langdata.goods_qx}
+                                            {else}
+                                            <i class="ico ico-addscno" name='clicki' id="{$info.id}" title="{$langdata.goods_sc}"></i>{$langdata.goods_sc}
+                                            {/if}
+                                            <input type="hidden" name="store_id" value="{$storeid}"/>
+                                            <input type="hidden" name="user_id" value="{$user_id}"/>
+                                            <input type="hidden" name="store_good_id" value="{$info.goods_id}"/>
+                                        </button>
+                                        <button class="btn btn-addcart1 fr">
+                                            {if $storelist}
+                                                {$langdata.purchase}
+                                            {else}
+                                                {$langdata.store_adress}
+                                            {/if}
+                                        </button>
+                                    {else}
+                                        <button class="btn btn-down mt20 fr">{$langdata.edit}</button>
+                                    {/if}
+                                </div>
+
+                                <a href="##" class="mt20 block" style="font-size: 14px;"></a>
+                                <input name="spec_arr" id="spec_arr" value="{$spec_arr}" type="hidden"/>
+                                <input name="old_pirce" value="{$info.shop_price}" type="hidden" id="old_price"/>
+                                <input name="old_num" value="{$info.goods_storage}" type="hidden" id="old_num"/>
+                                <input name="store_goods_id" value="{$store_goods_id}" type="hidden" id="store_goods_id"/>
+                                <input name="prom_id" value="0" type="hidden"/>
+                                {if $goods_price}
+                                <input name="goods_price" value="{$goods_price}" type="hidden"/>
+                                {else}
+                                <input name="goods_price" value="{$info.shop_price}" type="hidden" />
+                                {/if}
+                                <!--商品规格信息-->
+                                <input name="spec_price" value="" type="hidden" id="spec_price"/>
+                                <input name="spec_key" value="" type="hidden" id="spec_key"/>
+                                <input name="order_from" value="1" type="hidden"/>
+                                <input name="store_id" value="{$store_id}" type="hidden"/>
+                                <input name="commtotalpage" value="{$commtotalpage}" type="hidden"/> <!--评论页数-->
+                                <input name="langId" value="{$langId}" type="hidden"/>
+                                <input name="fxCode" value="{$fxCode}" type="hidden"/>
+                                <input name="shortHand" value="{$lang_id}" type="hidden"/>
+                                <input type="hidden" name="returnUrl" value="{$returnUrl}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        <input type="hidden" name="store_arr" value="{$store_arr.store_discount}">
+                <!--
+                                        <div style="width:1100px;height:200px;border:#ccc solid 1px;" id="allmap"></div>-->
+                <input name="auxiliary" value="{$auxiliary}" type="hidden"/>
+            </div>
+            <div class="w1100">
+                <!--组合销售-->
+                <div class="product_zh" {if empty($promGood)} style="display: none" {/if}>
+                <div class="titlePublic"><span></span></div>
+                <div class="swiper-container">
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-wrapper">
+                        {foreach from=$promGood  item=item1}
+                        <div class="swiper-slide">
+                            {foreach from=$item1  item=val}
+                            <div class="item">
+                                <a href="?app=combined&act=goods_info&storeid={$store_id}&lang={$langId}&auxiliary={$auxiliary}&gid={$val.id}&type=2">
+                                    <img src="{$val.goods_img}" alt=""/>
+                                    <div class="pname">{$val.goods_name}</div>
+                                </a>
+                            </div>
+                            {/foreach}
+                        </div>
+                        {/foreach}
+                    </div>
+                </div>
+                <div class="totalPrice">
+                    <span class="total"></span>
+                    <span class="price"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="overflow:hidden">
+            <p class="mt20 mb10 font14" style="font-size: 20px;">{$langdata.fujindianpu}：</p>
+            {foreach from=$sData item=val}
+            <div class="a_o_store" style="overflow: hidden;float:left;height:60px;line-height:60px;">
+                <a href="index.php?storeid={$val.id}&lang={$langId}&auxiliary={$val.distinguish}" class="a_store">
+                    <div style="width:240px;height:75px;float:left">
+                        <img src="{$val.logo}" style="width:100%;height:100%"/>
+                    </div>
+                    <span style="float:left;font-size:14px">{$val.sltore_name}&nbsp;<span style='font-size:10px'>{$val.distance}km</span></span>
+                </a>
+            </div>
+            {/foreach}
+        </div>
+    </div>
+    <div class="overview">
+        <div class="tabs">
+            <div class="container">
+                <a href="#info" class="active first">{$langdata.information}</a>
+                <a href="#speci">{$langdata.product}</a>
+                <a href="#rev">{$langdata.comment1}</a>
+                <!--<a href="#revs">商品提问</a>-->
+            </div>
+        </div>
+        <div class="tabs-box">
+            <div class="container clearfix">
+                <div class="left fl">
+                    <div class="box box1" id="info">
+                        <!--组合销售-->
+                        <div class="product_zh" {if empty($storeGood[0])} style="display: none" {/if}>
+                        <div class="titlePublic"><span></span></div>
+                        <div class="swiper-container">
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-wrapper">
+                                {foreach from=$storeGood  item=item1}
+                                <div class="swiper-slide">
+                                    {foreach from=$item1  item=val}
+                                    <div class="item">
+                                        <!--                                                    <img style="width: 214px;height: 160px;"  src="{$val.original_img}"/>-->
+                                        <a href="?app=goods&act=goodInfo&storeid={$store_id}&lang={$langId}&auxiliary={$auxiliary}&gid={$val.id}">
+                                            <img src="{$val.original_img}" alt=""/>
+                                            <div class="pname">{$val.goods_name}</div>
+                                        </a>
+                                    </div>
+                                    {/foreach}
+                                </div>
+                                {/foreach}
+                            </div>
+                        </div>
+                    </div>
+                    <h2>{$langdata.information}</h2>
+                    {$info.goods_content}
+                </div>
+                <div class="box box2" id="speci">
+                    <h2>{$langdata.product}</h2>
+                    <table class="table">
+                        {foreach  from=$attr_arr item=v}
+                        <tr>
+                            <td>{$v.attr_name}</td>
+                            <td>{$v.attr_value}</td>
+                        </tr>
+                        {/foreach}
+                    </table>
+                </div>
+                <div class="box box6" id="rev">
+                    <h2>{$langdata.comment1}</h2>
+                    <div class="clearfix">
+                        <div class="leftbox fl">
+                            <h3>{$langdata.score}</h3>
+                            <div class="showstar mb15">
+                                <div class="atar_Show">
+                                    <p tip="20" style="width:{$all_rate * 22}px;"></p>
+                                </div>
+                                <span>{$all_rate}</span>
+                            </div>
+                        </div>
+                        <div class="rightbox fl">
+                            <div class="total-overall">
+                                <div class="item">
+                                    <div class="inblock star"> 5<i class="ico ico-star"></i></div>
+                                    <div class="graph inblock">
+                                        {if $good_comment_sta['5']['pre'] }
+                                        <div class="has" style="width:{$good_comment_sta['5']['pre']}%"></div>
+                                        {else}
+                                        <div class="has" style="width:0%"></div>
+                                        {/if}
+                                    </div>
+
+                                    <span class="count ">
+                                                    {if $good_comment_sta['5']['good_num'] }
+                                                    {$good_comment_sta['5']['good_num']}
+                                                    {else}
+                                                    0
+                                                    {/if}
+                                                </span>
+                                </div>
+                                <div class="item">
+                                    <div class="inblock star">4<i class="ico ico-star"></i></div>
+                                    <div class="graph inblock">
+                                        {if $good_comment_sta['4']['pre'] }
+                                        <div class="has" style="width:{$good_comment_sta['4']['pre']}%"></div>
+                                        {else}
+                                        <div class="has" style="width:0%"></div>
+                                        {/if}
+                                    </div>
+                                    <span class="count ">
+                                                    {if $good_comment_sta['4']['good_num'] }
+                                                    {$good_comment_sta['4']['good_num']}
+                                                    {else}
+                                                    0
+                                                    {/if}
+                                                </span>
+                                </div>
+                                <div class="item">
+                                    <div class="inblock star">3<i class="ico ico-star"></i></div>
+                                    <div class="graph inblock">
+
+                                        {if $good_comment_sta['3']['pre'] }
+                                        <div class="has" style="width:{$good_comment_sta['3']['pre']}%"></div>
+                                        {else}
+                                        <div class="has" style="width:0%"></div>
+                                        {/if}
+                                    </div>
+                                    <span class="count "> {if $good_comment_sta['3']['good_num'] }
+                                                    {$good_comment_sta['3']['good_num']}
+                                                    {else}
+                                                    0
+                                                    {/if} </span>
+                                </div>
+                                <div class="item">
+                                    <div class="inblock star">2<i class="ico ico-star"></i></div>
+                                    <div class="graph inblock">
+                                        {if $good_comment_sta['2']['pre'] }
+                                        <div class="has" style="width:{$good_comment_sta['2']['pre']}%"></div>
+                                        {else}
+                                        <div class="has" style="width:0%"></div>
+                                        {/if}
+                                    </div>
+                                    <span class="count "> {if $good_comment_sta['2']['good_num'] }
+                                                    {$good_comment_sta['2']['good_num']}
+                                                    {else}
+                                                    0
+                                                    {/if} </span>
+                                </div>
+                                <div class="item">
+                                    <div class="inblock star">1<i class="ico ico-star"></i></div>
+                                    <div class="graph inblock">
+                                        {if $good_comment_sta['1']['pre'] }
+                                        <div class="has" style="width:{$good_comment_sta['1']['pre']}%"></div>
+                                        {else}
+                                        <div class="has" style="width:0%"></div>
+                                        {/if}
+                                    </div>
+                                    <span class="count "> {if $good_comment_sta['1']['good_num'] }
+                                                    {$good_comment_sta['1']['good_num']}
+                                                    {else}
+                                                    0
+                                                    {/if} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>{$langdata.evaluate}</h3>
+                    <div  id="content" >
+                        {foreach from=$list item=item}
+                        <div class="reviewitem">
+                            <div class="showstar mb15">
+                                <div class="atar_Show">
+                                    <p tip="20" style="width:{$item.goods_rank*22}px;"></p>
+                                </div>
+                                <!--<span>4.5</span>-->
+                            </div>
+                            <p><span class="date">{$item.add_time|date_format:"%Y - %m - %d - "}</span> – {$langdata.Buyers} – <span>{$item.username}</span></p>
+                            <p>{$item.content}</p>
+
+                            <div class="photobox mt20">
+                                {foreach from=$item['img'] item=img}
+                                {if $img == ''}
+                                {else}
+                                <a href="{$img}"  ><img src="{$img}" width="50" height="50"></a>
+                                {/if}
+                                {/foreach}
+                            </div>
+                            <div class="photobox mt20">
+                                {if $item.revert ==''}
+
+                                {else}
+                                <p>{$langdata.business}</p>
+                                <p>{$item.revert}</p>
+                                {/if}
+                            </div>
+                            <!--                                        <br/>-->
+                            <!--<a href="#" class="ico zan mt30"><i class="ico ico-zan"></i>Helpful<span class="count">84</span></a>-->
+                        </div>
+                        {/foreach}
+                    </div>
+                    <!--评论分页-->
+                    <div class="pages clearfix page-box">
+                        <ul id="page" class="pagination fr" >
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- historybox -->
+<div class="historybox">
+    <div class="container">
+        <h2>{$langdata.Lately} </h2>
+        <ul class="clearfix">
+            {foreach from=$data item=item}
+            <li class="clearfix">
+                <a href="index.php?app=goods&act=goodInfo&storeid={$storeid}&lang={$langId}&auxiliary={$auxiliary}&gid={$item.store_good_id}">
+                    <div class="img fl">
+                        <img src="{$item.original_img}">
+                    </div>
+                    <div class="info fl">
+                        <p class="ellipsis tit" title="" >{$item.goods_name}</p>
+                        <p class="mb5"></p>
+                        <div class="showstar">
+                            <div class="atar_Show">
+                                {if $item.rate}
+                                <p tip="20" style="width: {$item.rate *22}px;"></p>
+                                {else}
+                                <p tip="20" style="width: 110px;"></p>
+                                {/if}
+                            </div>
+                        </div>
+                        <p>&nbsp;&nbsp;{$cur_info.symbol}{$item.shop_price}</p>
+                    </div>
+                </a>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+</div>
+<!-- paypal -->
+<div class="payoptions">
+    <h2><span>{$langdata.ZhiFu}</span></h2>
+    <div class="img">
+        <img src="{$STATIC_URL}/front/images/zhifu.png">
+        <img src="{$STATIC_URL}/front/images/paypal.png">
+        <img src="{$STATIC_URL}/front/images/weixin.png">
+    </div>
+</div>
+</div>
+{include file="public/footer.html"}
+<div class="to-top tc" style="z-index:1">
+    <img src="{$STATIC_URL}/front/images/gotop.png" width="28" height="28">
+    <p class="mt5">{$langdata.Return_top}</p>
+</div>
+<!-- photoswipe -->
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe.
+         It's a separate element, as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+        <div class="pswp__container">
+            <!-- don't modify these 3 pswp__item elements, data is added later on -->
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <!-- <button class="pswp__button pswp__button--share" title="Share"></button> -->
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!--分页-->
+</div>
+    <script type="text/javascript">
+        var goods_no_storage = "{$langdata.goods_no_storage}";
+        var purchase = "{$langdata.purchase}";
+        var spec_goods_price = {$spec_arr};
+    </script>
+    {literal}
+    <script type="text/javascript">
+        $(function () {
+            var is_firsttime = true;
+            var totalpage = $('input[name="commtotalpage"]').val();
+            var storeid = $('input[name="store_id"]').val();
+            var gid = $('input[name="store_goods_id"]').val();
+            totalpage = parseInt(totalpage);
+            $('#page').jqPaginator({
+                totalPages: totalpage,
+                visiblePages: 7,
+                currentPage: 1,
+    //      first: '<li class="prev"><a href="javascript:;">首页</a></li>',
+                prev: '<li class="prev"><a href="javascript:;"><i class="sj-l inblock"></i></a></li>',
+                next: '<li class="next"><a href="javascript:;"><i class="sj-r inblock"></i></a></li>',
+                page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+    //      last: '<li class="prev"><a href="javascript:;">尾页</a></li>',
+                onPageChange: function (num, type) {
+                    if (is_firsttime) {
+                        is_firsttime = false;
+                    } else {
+                        //ajax获取
+                        var url = '?app=ajaxComment&act=getCommentList&p=' + num + '&gid=' + gid + '&storeid=' + storeid;
+                        $.get(url, function (res) {
+                            $('#content').html(res);
+                        });
+                    }
+                }
+            });
+        });
+
+        if (spec_goods_price) {
+            get_goods_price();
+        }
+        function isNullObj(obj) {
+            for (var i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        /***用作 sort 排序用*/
+        function sortNumber(a, b)
+        {
+            return a - b;
+        }
+
+        // 选择点击后的样式
+        $(function () {
+            var tags = $('.chooseadd-box .tags-box').find('span');
+            tags.click(function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+                get_goods_price();
+            })
+            var imgs = $('.chooseadd-box .img-box').find('img');
+            imgs.click(function () {
+                $(this).parent().siblings().find('img').removeClass('active');
+                $(this).addClass('active');
+            })
+        })
+        // 左右切换的轮播
+        $(function () {
+            jQuery(".otherview .picScroll-left").slide({titCell: ".hd ul", mainCell: ".bd ul", autoPage: true, effect: "left", pnLoop: 'false', autoPlay: false, vis: 5, trigger: "click"});
+        })
+
+        $(document).ready(function () {
+            // 图片上下滚动
+            var count = $("#imageMenu li").length - 5;
+            if (count <= 0) {
+                $('.smallImgDown').addClass('disabled');
+            }
+            /* 显示 6 个 li标签内容 */
+            var interval = $("#imageMenu li:first").width();
+            var curIndex = 0;
+            $('.scrollbutton').click(function () {
+                if ($(this).hasClass('disabled')) {
+                    return false;
+                }
+                if ($(this).hasClass('smallImgUp')) {
+                    --curIndex;
+                } else {
+                    ++curIndex;
+                }
+                $('.scrollbutton').removeClass('disabled');
+                if (curIndex == 0) {
+                    $('.smallImgUp').addClass('disabled');
+                }
+                if (curIndex == count - 1) {
+                    // if (curIndex >= count){
+                    $('.smallImgDown').addClass('disabled');
+                }
+                $("#imageMenu ul").stop(false, true).animate({
+                    "marginLeft": -curIndex * interval + "px"
+                }, 600);
+            });
+            // 解决 ie6 select框 问题
+            $.fn.decorateIframe = function (options) {
+                if ($.browser.msie && $.browser.version < 7) {
+                    var opts = $.extend({}, $.fn.decorateIframe.defaults, options);
+                    $(this).each(function () {
+                        var $myThis = $(this);
+                        //创建一个IFRAME
+                        var divIframe = $("<iframe />");
+                        divIframe.attr("id", opts.iframeId);
+                        divIframe.css("position", "absolute");
+                        divIframe.css("display", "none");
+                        divIframe.css("display", "block");
+                        divIframe.css("z-index", opts.iframeZIndex);
+                        divIframe.css("border");
+                        divIframe.css("top", "0");
+                        divIframe.css("left", "0");
+                        if (opts.width == 0) {
+                            divIframe.css("width", $myThis.width() + parseInt($myThis.css("padding")) * 2 + "px");
+                        }
+                        if (opts.height == 0) {
+                            divIframe.css("height", $myThis.height() + parseInt($myThis.css("padding")) * 2 + "px");
+                        }
+                        divIframe.css("filter", "mask(color=#fff)");
+                        $myThis.append(divIframe);
+                    });
+                }
+            }
+            $.fn.decorateIframe.defaults = {
+                iframeId: "decorateIframe1",
+                iframeZIndex: -1,
+                width: 0,
+                height: 0
+            }
+            //放大镜视窗
+            $("#bigView").decorateIframe();
+            //点击到中图
+            $("#imageMenu li img").bind("mouseover", function () {
+                if ($(this).attr("id") != "onlickImg") {
+                    var imageIndex = $(this).index("#imageMenu li img");
+                    midChange($(this).attr("src").replace("small", "mid"), imageIndex);
+                    $("#imageMenu li").removeAttr("id");
+                    $(this).parent().attr("id", "onlickImg");
+                }
+            });
+            function midChange(src, imageIndex) {
+                $("#midimg").attr("src", src).load(function () {
+                    changeViewImg();
+                });
+                $("#midimg").parent().data("index", imageIndex);
+            }
+            //大视窗看图
+            function mouseover(e) {
+                if ($("#winSelector").css("display") == "none") {
+                    $("#winSelector,#bigView").show();
+                }
+                $("#winSelector").css(fixedPosition(e));
+                e.stopPropagation();
+            }
+
+            function mouseOut(e) {
+                if ($("#winSelector").css("display") != "none") {
+                    $("#winSelector,#bigView").hide();
+                }
+                e.stopPropagation();
+            }
+            $("#midimg").mouseover(mouseover); //中图事件
+            $("#midimg,#winSelector").mousemove(mouseover).mouseout(mouseOut); //选择器事件
+            var $divWidth = $("#winSelector").width(); //选择器宽度
+            var $divHeight = $("#winSelector").height(); //选择器高度
+            var $imgWidth = $("#midimg").width(); //中图宽度
+            var $imgHeight = $("#midimg").height(); //中图高度
+            var $viewImgWidth = $viewImgHeight = $height = null; //IE加载后才能得到 大图宽度 大图高度 大图视窗高度
+            function changeViewImg() {
+                $("#bigView img").attr("src", $("#midimg").attr("src").replace("mid", "big"));
+            }
+            changeViewImg();
+            $("#bigView").scrollLeft(0).scrollTop(0);
+            function fixedPosition(e) {
+                if (e == null) {
+                    return;
+                }
+                var $imgLeft = $("#midimg").offset().left; //中图左边距
+                var $imgTop = $("#midimg").offset().top; //中图上边距
+                X = e.pageX - $imgLeft - $divWidth / 2; //selector顶点坐标 X
+                Y = e.pageY - $imgTop - $divHeight / 2; //selector顶点坐标 Y
+                X = X < 0 ? 0 : X;
+                Y = Y < 0 ? 0 : Y;
+                X = X + $divWidth > $imgWidth ? $imgWidth - $divWidth : X;
+                Y = Y + $divHeight > $imgHeight ? $imgHeight - $divHeight : Y;
+                if ($viewImgWidth == null) {
+                    $viewImgWidth = $("#bigView img").outerWidth();
+                    $viewImgHeight = $("#bigView img").height();
+                    if ($viewImgWidth < 200 || $viewImgHeight < 200) {
+                        $viewImgWidth = $viewImgHeight = 800;
+                    }
+                    $height = $divHeight * $viewImgHeight / $imgHeight;
+                    $("#bigView").width($divWidth * $viewImgWidth / $imgWidth);
+                    $("#bigView").height($height);
+                }
+                var scrollX = X * $viewImgWidth / $imgWidth;
+                var scrollY = Y * $viewImgHeight / $imgHeight;
+                $("#bigView img").css({
+                    "left": scrollX * -1,
+                    "top": scrollY * -1
+                });
+                $("#bigView").css({
+                    "top": 313,
+                    "left": $(".preview").offset().left + $(".preview").width() + 15
+                });
+                return {
+                    left: X,
+                    top: Y
+                };
+            }
+
+            var initPhotoSwipeFromDOM = function (gallerySelector) {
+                // parse slide data (url, title, size ...) from DOM elements
+                // (children of gallerySelector)
+                var parseThumbnailElements = function (el) {
+                    var thumbElements = el.childNodes,
+                        numNodes = thumbElements.length,
+                        items = [],
+                        figureEl,
+                        childElements,
+                        linkEl,
+                        size,
+                        item;
+                    for (var i = 0; i < numNodes; i++) {
+                        figureEl = thumbElements[i]; // <li> element
+
+                        // include only element nodes
+                        if (figureEl.nodeType !== 1) {
+                            continue;
+                        }
+
+                        linkEl = figureEl.children[0]; // <img> element
+
+                        size = linkEl.getAttribute('data-size').split('x');
+                        // create slide object
+                        item = {
+                            src: linkEl.getAttribute('data-src'),
+    //                            w: parseInt(size[0], 10),
+    //                            h: parseInt(size[1], 10),
+                            w: 964,
+                            h: 1024,
+                            title: linkEl.getAttribute('alt'),
+                            msrc: linkEl.getAttribute('src')
+                        };
+                        item.el = figureEl; // save link to element for getThumbBoundsFn
+                        items.push(item);
+                    }
+
+                    return items;
+                };
+                var openPhotoSwipe = function (index, disableAnimation) {
+                    var pswpElement = document.querySelectorAll('.pswp')[0],
+                        gallery,
+                        options,
+                        items;
+                    //var galleryElement = document.querySelectorAll(gallerySelector);
+                    items = parseThumbnailElements(document.querySelectorAll(gallerySelector)[0]);
+                    // define options (if needed)
+                    options = {
+                        index: index,
+                        // define gallery index (for URL)
+                        galleryUID: '1',
+                        getThumbBoundsFn: function (index) {
+                            // See Options -> getThumbBoundsFn section of docs for more info
+                            var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+                                pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                                rect = thumbnail.getBoundingClientRect();
+                            return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
+                        },
+                        // history & focus options are disabled on CodePen
+                        // remove these lines in real life:
+                        historyEnabled: false,
+                        focus: false
+
+                    };
+                    if (disableAnimation) {
+                        options.showAnimationDuration = 0;
+                    }
+
+                    // Pass data to PhotoSwipe and initialize it
+                    gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                    gallery.init();
+                };
+                // parse picture index and gallery index from URL (#&pid=1&gid=2)
+                var photoswipeParseHash = function () {
+                    var hash = window.location.hash.substring(1),
+                        params = {};
+                    if (hash.length < 5) {
+                        return params;
+                    }
+
+                    var vars = hash.split('&');
+                    for (var i = 0; i < vars.length; i++) {
+                        if (!vars[i]) {
+                            continue;
+                        }
+                        var pair = vars[i].split('=');
+                        if (pair.length < 2) {
+                            continue;
+                        }
+                        params[pair[0]] = pair[1];
+                    }
+
+                    if (params.gid) {
+                        params.gid = parseInt(params.gid, 10);
+                    }
+
+                    if (!params.hasOwnProperty('pid')) {
+                        return params;
+                    }
+                    params.pid = parseInt(params.pid, 10);
+                    return params;
+                };
+                $('#vertical').click(function () {
+                    var index = $(this).data("index");
+                    openPhotoSwipe(parseInt(index, 10));
+                    return false;
+                });
+                // Parse URL and open gallery if it contains #&pid=3&gid=1
+                var hashData = photoswipeParseHash();
+                if (hashData.pid > 0 && hashData.gid > 0) {
+                    openPhotoSwipe(hashData.pid - 1, true);
+                }
+            };
+            // execute above function
+            initPhotoSwipeFromDOM('#imageMenu ul');
+        });
+
+    </script>
+    {/literal}
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>index</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="{$STATIC_URL}/front/css/base.css">
+</head>
+<body style="background-color:#fff;">
+	<div class="container clearfix login-header">
+		<div style="margin-top:8px;width:240px">
+			<a href="##" class="logo fl mt20">
+				<img src="{$webconf.store_logo.value}" style="width:100%">
+			</a>
+		</div>
+		<div class="login fr">
+			安全登录
+			<i class="ico-lock ico"></i>
+		</div>	
+	</div>
+	<form>
+		<div class="login-box box1">
+			<div class="login-tit">
+				输入您的电子邮件地址登录或创建一个帐户。
+			</div>
+			<div class="login-content">
+				<p>	
+					<input type="text" name="yanzheng" placeholder="Email Address" class="text">
+					<div class="error" style="display: none;" id="email_error">请输入有效的电子邮件地址。</div>
+				</p>
+				<p><button class="btn-sub continue" type="button">继续</button> </p>
+			</div>	
+		</div>
+		<div class="login-box box2" style="display: none;">
+			<div class="login-tit" style="margin-bottom:20px;">
+				欢迎！
+				<p class="sub">添加密码以完成您的帐户设置。</p>
+			</div>
+			<div class="login-content">
+				<p>
+                                    <input type="text" name="email" placeholder="Email Address" class="text">
+					<input type="hidden" name="flag" value="" />
+				</p>
+				<p class=" password">
+					<input type="password" name="password" value="" placeholder="请输入密码" class="text"><span class="show">显示</span>
+					<div class="error" style="display: none;">请输入有效的电子邮件地址。</div>
+				</p>
+				<p><button class="btn-sub">创建帐户</button> </p>
+				<p class="other"> 
+				 	有一个账号?<br/>
+				 	<a href="##">登陆</a>
+				 </p>
+			</div>
+		</div>
+	</form>
+	
+	<div class="login-footer">
+		<p class="web">www.711home.com www.711home.net</p>
+		<p>Copyright @ 2003 - 2016 711 household co., ltd. - amy juwang shanghai icp for 16027528 - 1</p>
+	</div>
+
+<script type="text/javascript" src="{$STATIC_URL}/front/js/jquery.1.8.2.min.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/front/js/common.js"></script>
+	{literal}
+<script type="text/javascript">
+	// 点击继续
+	$(function(){
+		$('.continue').click(function(){
+		    var email = $('input[name=yanzheng]').val();
+		    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+		    if(email == ""){
+               $('#email_error').css('display','block');
+               $('input[name=yanzheng]').focus();
+               return false;
+			}
+            if(!reg.test(email)){
+                $('#email_error').css('display','block');
+                $('#email_error').html('your email pattern is error!');
+                return false;
+            }
+            $.ajax({
+                url:'index.php?app=user&act=yanzheng',
+				type:'post',
+                data:'email='+$('input[name=yanzheng]').val(),
+                async : false, //默认为true 异步
+                error:function(){
+                   alert('error');
+                },
+           success:function(data){
+               $('.box1').hide();
+               $('input[name=email]').val(email);
+               $('input[name=flag]').val(data.flag);
+               $('.box2').show();
+             }
+          });
+		})
+	})
+
+	//
+	// 显示隐藏密码
+	$(function(){
+		$('.password').on('click','.show',function(){
+			name=$(this).prev().attr('name');
+			value=$(this).prev().attr('value');
+			if($(this).prev().attr('type') == 'password'){
+				$('.password').html('<input type="text" name="'+name+'" value="'+value+'" placeholder="password" class="text"><span class="show">Show</span>');
+			}else if($(this).prev().attr('type') == 'text'){
+				$('.password').html('<input type="password" name="'+name+'" value="'+value+'" placeholder="password" class="text"><span class="show">Show</span>');
+			}
+		})
+	})
+</script>
+	{/literal}
+</body>
+</html>

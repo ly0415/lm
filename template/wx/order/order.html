@@ -1,0 +1,257 @@
+{include file="public/wx_header.html"}
+<style>
+    html a:hover{
+        color:#333 !important;
+    }
+</style>
+    </head>
+    <body>
+        <div class="myorderstate-wrap">
+            <div class="myorderstate-menus">
+                <ul>
+                    <li><a href="wx.php?app=order&act=orderindex&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}" class="active">{$langdata.order_whole}</a></li>
+                    <li><a href="wx.php?app=order&act=orderPayment&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">{$langdata.order_payment}</a></li>
+                    <li><a href="wx.php?app=order&act=orderHair&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">{$langdata.order_delivery}</a></li>
+                    <li><a href="wx.php?app=order&act=orderCollect&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">{$langdata.order_received}</a></li>
+                    <li><a href="wx.php?app=order&act=orderEvaluate&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">{$langdata.order_To}</a></li>
+                    <!--<li><a href="wx.php?app=order&act=orderRefund&storeid={$storeid}&lang={$lang}">{$langdata.order_sale}</a></li>-->
+                </ul>
+            </div>
+            {foreach from=$data item=item}
+            <div class="myorderstate-list mt20">
+                <div class="shop">
+                    <a>
+                        <i class="ico ico-shop"></i>
+                        <span class="storeName">{$item.store_name}</span>
+                    </a>
+                    {foreach $status as $key=>$val}
+                    {if $key == $item['order_state']}
+                    <span class="fr state">{$val}</span>  
+                    {/if}
+                    {/foreach}
+                </div>
+                <ul>
+                    {foreach $item['goods_list'] as  $good}
+                    <li class="itembox">
+                            {if $item.order_state==10}
+                            <a href="wx.php?app=orderList&act=pendingPayment&storeid={$storeid}&orderid={$item.order_id}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&referer={$referer}&orderSn={$item.order_sn}" class="clearfix">
+                            {else}
+                            <a href="wx.php?app=orderList&act=pendingPayment&storeid={$storeid}&orderid={$item.order_id}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&referer={$referer}&orderSn={$item.order_sn}" class="clearfix">
+                                {/if}
+                            <div class="pro-logo fl">
+                                <img src="{$good.goods_image}" style="width:100%;height:100%;">
+                            </div>
+                            <div class="pro-info fl">
+                                <h3 class="pro-name ellipsis">{$good.goods_name}</h3>
+                                <p class="pro-tags">
+                                    <span>{$langdata.order_specification}: {$good.spec_key_name}</span>
+                                </p>
+                                <div class="pro-right clearfix">
+                                    <p class="xprice fl">{$symbol}{$good.goods_pay_price}</p>
+                                    <p class="num fr">X{$good.goods_num}</p>
+                                </div>
+                            </div>
+                        </a>  
+                        <!--<div class="btnbox tr">-->
+                            <!--{if $item['order_state'] ==50}-->
+                            <!--{if $good.refund_state !=2}-->
+                            <!--{if $good.evaluation_state == 0}-->
+                            <!--<a href="wx.php?app=order&act=evaluateDetails&storeid={$storeid}&order_id={$item.order_id}&order_sn={$item.order_sn}&gid={$good.ogoods_id}&rec_id={$good.rec_id}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}" class="btn-sure">{$langdata.order_evaluation}</a>-->
+                            <!--{else}-->
+                            <!--<a href="##" class="btn-sure">{$langdata.order_evaluated}</a>-->
+                            <!--{/if}-->
+                            <!--{/if}-->
+                            <!--{/if}-->
+                        <!--</div>-->
+                    </li>
+                    {/foreach}
+                    {foreach $item['gift'] as  $gift}
+                    <li class="itembox">
+                        <a href="##" class="clearfix">
+                            <div class="pro-logo fl">
+                                <img src="{$gift.goods_img}" style="width:100%;height:100%;">
+                            </div>
+                            <div class="pro-info fl">
+                                <h3 class="pro-name ellipsis">{$gift.goods_name}</h3>
+                                <p class="pro-tags">
+                                    <span>{$langdata.order_specification}: {$gift.goods_key_name}</span>
+                                </p>
+                                <div class="pro-right clearfix">
+                                    <p class="xprice fl">{$langdata.Buy_agift}</p>
+                                    <p class="num fr">X{$gift.gift_num}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {/foreach}
+                </ul>
+                <div class="totalbox">
+                    <span>{$langdata.order_common}{$item['num'][0]['num']}{$langdata.order_goods}</span>
+                    <span class="ml20">{$langdata.order_Total}：{$symbol}{$item.order_amount}</span>
+                    <span class="ml20">（{$langdata.order_charges}{$symbol}{$item.shipping_fee}）</span>
+                </div>
+                <div class="btnbox tr">
+                    {if $item['order_state'] ==0}
+                    {if $item['mark'] ==1} 
+                    <a href="javascript:;"  class="btn-sure j_delet" id='{$item.order_id}'>{$langdata.delete_order}</a>
+                    {/if}
+                    {else if $item['order_state'] ==10}
+                    <a href="?app=orderList&act=comfirmOrder&order_id={$item.order_sn}&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&store_id={$item.store_id}" class="btn-sure">{$langdata.order_Immediate}</a>
+                    <a href="##" class="btn-sure changeState" data='{$item["order_sn"]}_{$item["order_state"]}_cancel_{$item["store_id"]}'>{$langdata.cancel_order}</a>
+                    <!--<a href="wx.php?app=fxPayment&act=index&storeid={$storeid}&orderid={$item.order_id}&lang={$lang}" class="btn-sure" id="filter">发起代付</a>-->
+                    {else if $item['order_state'] ==20}
+                    {if $item.Appoint ==1}
+                    <!--<a href="##" class="btn-sure">{$langdata.order_Toexamine}</a>-->
+                    {else}
+                    {if $item['refund_state'] !=2 && $item['goods_list'][0]['refund_state'] == 0}
+                    <a href="?app=order&act=qbRefund&storeid={$storeid}&order_id={$item.order_id}&order_sn={$item.order_sn}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&store_id={$item.store_id}" class="btn-sure">{$langdata.order_Full}</a>
+                    {if $good.refund_state ==1}
+                    <span href="##" class="btn-sure">{$langdata.order_audit}</span>
+                    {else if $good.refund_state ==2}
+                    <span href="##" class="btn-sure">{$langdata.order_Refunds}</span>
+                    {else if $good.refund_state ==3}
+                    <span href="##" class="btn-sure">{$langdata.order_failure}</span>
+                    {/if}
+                    {/if}
+                    {/if}
+                    {else if $item['order_state'] ==30}
+                    {if $item['refund_state'] !=2 && $item['goods_list'][0]['refund_state'] == 0}
+                    <a href="?app=order&act=qbRefund&storeid={$storeid}&order_id={$item.order_id}&order_sn={$item.order_sn}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&store_id={$item.store_id}" class="btn-sure">{$langdata.order_Full}</a>
+                    {if $good.refund_state ==1}
+                    <span href="##" class="btn-sure">{$langdata.order_audit}</span>
+                    {else if $good.refund_state ==2}
+                    <span href="##" class="btn-sure">{$langdata.order_Refunds}</span>
+                    {else if $good.refund_state ==3}
+                    <span href="##" class="btn-sure">{$langdata.order_failure}</span>
+                    {/if}
+                    {/if}
+                    {else if $item['order_state'] ==40}
+                    <a href="##" class="btn-sure changeState"  data='{$item["order_sn"]}_{$item["order_state"]}_receive_{$item.store_id}'  order_id="{$item.order_id}">{$langdata.order_receipt}</a>
+                    {if $item['refund_state'] !=2 && $item['goods_list'][0]['refund_state'] == 0}
+                    <a href="?app=order&act=qbRefund&storeid={$storeid}&order_id={$item.order_id}&order_sn={$item.order_sn}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}&store_id={$item.store_id}" class="btn-sure">{$langdata.order_Full}</a>
+                    {if $good.refund_state ==1}
+                    <span href="##" class="btn-sure">{$langdata.order_audit}</span>
+                    {else if $good.refund_state ==2}
+                    <span href="##" class="btn-sure">{$langdata.order_Refunds}</span>
+                    {else if $good.refund_state ==3}
+                    <span href="##" class="btn-sure">{$langdata.order_failure}</span>
+                    {/if}
+                    {/if}
+                    {else if $item['order_state'] ==50}
+                    {if $item['mark'] ==1}
+                    <a href="?app=orderInvoice&act=add&store_id={$item.store_id}&order_sn={$item.order_sn}"  class="btn-sure">申请开票</a>
+                    <a href="javascript:;"  class="btn-sure j_delet" id='{$item.order_id}'>{$langdata.delete_order}</a>
+                    {/if}
+                    {/if}
+                </div>
+                <input type="hidden" name="languages"  value="{$lang_id}"/>
+            </div>
+            {/foreach}
+        </div>
+        <input type="hidden" name="referer" value="{$referer}">
+        <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/layer/layer.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+        {if $lang_id =='ZH'}
+        <script type="text/javascript">
+            $(".changeState").click(function () {
+                var _data = $(this).attr("data");
+                layer.open({
+                    className: 'layer-confirm'
+                    , content: '您确定要继续当前操作？'
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        $.ajax({
+                            url: "wx.php?app=order&act=editOrderState&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}",
+                            data: "data=" + _data,
+                            type: "Post",
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.status == '1') {
+                                    layer.open({
+                                        shade: false
+                                        , content: '<i class="ico ico-correct"></i> 操作成功！'
+                                        , className: 'layer-tip'
+                                        , time: 2
+                                    });
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                } else {
+                                    layer.open({
+                                        shade: false
+                                        , content: '<i class="ico ico-error"></i> 操作失败！'
+                                        , className: 'layer-tip'
+                                        , time: 2
+                                    });
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                }
+                            }
+                        })
+                    }
+                });
+            })
+        </script>
+        <script type="text/javascript">
+            //删除地址
+            $('body').on('click', '.j_delet', function () {
+                var id = $(this).attr('id');
+                deletes('wx.php?app=order&act=dele&storeid={$storeid}&lang={$lang}&latlon={$latlon}&auxiliary={$auxiliary}&id=' + id);
+            });
+        </script>
+        {else}
+        <script type="text/javascript">
+            $(".changeState").click(function () {
+                var _data = $(this).attr("data");
+                layer.open({
+                    className: 'layer-confirm'
+                    , content: 'You are sure to continue the current operation？'
+                    , btn: ['Determine', 'Cancel']
+                    , yes: function (index) {
+                        $.ajax({
+                            url: "wx.php?app=order&act=editOrderState&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}",
+                            data: "data=" + _data,
+                            type: "Post",
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.status == '1') {
+                                    layer.open({
+                                        shade: false
+                                        , content: '<i class="ico ico-correct"></i> Successful operation！'
+                                        , className: 'layer-tip'
+                                        , time: 2
+                                    });
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                } else {
+                                    layer.open({
+                                        shade: false
+                                        , content: '<i class="ico ico-error"></i> Operation failed！'
+                                        , className: 'layer-tip'
+                                        , time: 2
+                                    });
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                }
+                            }
+                        })
+                    }
+                });
+            })
+        </script>
+        <script type="text/javascript">
+            //删除地址
+            $('body').on('click', '.j_delet', function () {
+                var id = $(this).attr('id');
+                deletes_en('wx.php?app=order&act=dele&storeid={$storeid}&lang={$lang}&latlon={$latlon}&auxiliary={$auxiliary}&id=' + id);
+            });
+        </script>
+        {/if}
+    </body>
+</html>

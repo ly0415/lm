@@ -1,0 +1,62 @@
+<form class="form-horizontal" id="form1"  action="admin.php?app=storeCate&act=doEdit">
+    <input type="hidden" name="id" value="{$data.id}">
+
+    {foreach from=$langInfo item = vo}
+       {foreach from=$langD item = v key=k}
+          {if  $vo.id == $v.lang_id }
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label">{if $k == $count}<span class="text-red">*</span>{/if} {$vo.name}: </label>
+        <div class="col-sm-7 col-md-7">
+            <input type="text" class="form-control"  name="name[{$v.lang_id}]"  value="{$v.cate_name}"  >
+        </div>
+    </div>
+          {/if}
+       {/foreach}
+    {/foreach}
+    {foreach from= $extralInfo item=v1}
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span> {$v1.shorthand}: </label>
+        <div class="col-sm-7 col-md-7">
+            <input type="text" class="form-control"  name="name[{$v1.id}]"  value=""  >
+        </div>
+    </div>
+    {/foreach}
+
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span> {$language1->language_used}: </label>
+        <div class="col-sm-7 col-md-7">
+            <select class="form-control w160 j_select" name="language_id" id="language_id" >
+                <option value="0">--{$language2->please_select}--</option>
+                {foreach from=$langInfo item =vo}
+                <option value='{$vo.id}'   {if $data.lang_id == $vo.id} selected {/if}  >{$vo.name}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span> {$language1->currency}: </label>
+        <div class="col-sm-7 col-md-7">
+            <select class="form-control w160 j_select" name="currency_id" id="currency_id" >
+                <option value="0">--{$language2->please_select}--</option>
+                {foreach from=$currencyInfo item = vo}
+                <option value='{$vo.id}'  {if $data.currency_id == $vo.id} selected {/if} >{$vo.name}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span>{$language1->classify_code}:</label>
+        <div class="col-sm-7 col-md-7">
+            <input type="input" class="form-control"  placeholder="{$language1->classify_code}"  name="cate_code"  value="{$data.cate_code}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span>{$language1->three_discount}:</label>
+        <div class="col-sm-7 col-md-7">
+            <input type="text" class="form-control"   name="fx_discount"  value="{$data.fx_discount}" >
+        </div>
+    </div>
+</form>

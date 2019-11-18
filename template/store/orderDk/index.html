@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {include file="public/header.html"}
+    <style>
+        .tabsbox.active {
+            color: #555;
+            cursor: default;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-bottom-color: transparent;
+        }
+
+        .w77 {
+            width: 150px !important;
+        }
+
+        input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+        }
+
+        input[type="radio"] {
+            width: 15px;
+            height: 15px;
+        }
+
+        body {
+            position: relative;
+            padding-right: 0px !important;
+        }
+        *.modal-open {
+            overflow-y: scroll;
+            padding-right: 0 !important;}
+    </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {include file="public/headtab.html"}
+        <section class="content-header">
+            <h1>
+                开始下单
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="?app=default&act=index&lang_id={$lang_id}"><i class="fa fa-dashboard"></i> 首页</a>
+                </li>
+                <li>代客下单</li>
+                <li class="active">开始下单</li>
+            </ol>
+            <div class="form-inline" style="padding: 15px 15px  0 15px ;">
+                <div class="tabsbox" style="background-color: #fff;">
+
+                    <ul class="nav nav-tabs" role="tablist" style="background-color: #ecf0f5">
+                        <li class="discount_li {if $type==1}active{/if}"><a href="#li1" data-toggle="tab">代客下单</a></li>
+                        <li class="discount_li {if $type==2}active{/if}" role="presentation" ><a href="#li2" data-toggle="tab" style="position: relative">
+                            代客预购
+                            <div class="headerCount" style="position: absolute;right: -5px;left: auto;top: -5px"> <span class="h5">{$total_yugou}</span></div>
+                        </a></li>
+                    </ul>
+                    <div class="tab-content box box-primary">
+                        <div class="tab-pane {if $type==1}active{/if}" id="li1">
+                            {include file="orderDk/makeorder.html"}
+                        </div>
+                        <div class="tab-pane {if $type==2}active{/if}" id="li2">
+                            {include file="orderDk/purchase.html"}
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+        <!--待客下单内容区域-->
+
+    </div>
+    <div class="modal fade" id="editphone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width:400px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改手机号</h4>
+                </div>
+                <div class="modal-body">
+                    <i class="ico ico-num"></i>
+                    <input type="hidden" id="order_sn" value="">
+                    <div style="position:relative;width: 100%">
+                        <input type="text" id="new_phone" placeholder="请输入手机号码" class="text inblock"
+                               style="width: 100%;height: 40px;padding-left:5px;border: 1px solid #f4f4f4;">
+
+                    </div>
+                    <!--<div style="position:relative;width: 100%">-->
+                        <!--<input type="text" id="code" placeholder="请输入验证码" class="text inblock"-->
+                               <!--style="width: 100%;height: 40px;padding-left:5px;border: 1px solid #f4f4f4;">-->
+                        <!--<a href="##" class="validate-btn getval" style="position:absolute;right:5px;top:5px;padding:5px 10px;border:1px solid #eee">获取验证码</a>-->
+                    <!--</div>-->
+                    <div class="error" style="display: none;margin-top:10px;color:red;" id="code_error"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="changePhone();return false;">用户确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    {include file="public/footer.html"}
+</div>
+<script type="text/javascript">
+    //商品点击事件，选规格
+    $("div.productItem").click(function (event) {
+        event.stopPropagation();
+        if ($(this).find(".popBox").css("display") == "none") {
+            //隐藏所有popBox
+            $(".popBox").css("display", "none");
+            //显示当前popBox
+            $(this).find(".popBox").css("display", "block");
+            //加载当前popBox数据
+            var storegoodsid = $(this).attr('data-storegoodsid');
+            var goodstype = $(this).attr('data-type');
+            var typeid = $(this).attr('data-typeid');
+            var url = '?app=orderDk&act=ajaxGoodsSpec&type=' + goodstype + '&store_goods_id=' + storegoodsid + '&typeid=' + typeid;
+            var obj = $(this);
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                data: '',
+                success: function (res) {
+                    if (res.status == 1) {
+                        obj.find(".popBox").html(res.info);
+                        //更新价格
+                        changePrice(storegoodsid, $(obj).find('.popContent'));
+                    }
+                }
+            });
+        } else {
+            $(this).find(".popBox").css("display", "none");
+        }
+    });
+    //点击其他地方，收起规格列表
+    $(document).click(function (event) {
+        $('.popBox').hide();
+    });
+    //点击popBox阻止冒泡
+    $(".popBox").click(function (event) {
+        event.stopPropagation();
+    });
+    //购物车的显示和隐藏
+    $(".change").click(function () {
+        if ($(this).find("i").attr("class") == "arrow1") {
+            $(".cartTxt").css("display", "none");
+            $(".cart-Container").css("display", "none");
+            $(".total").css("height", "0");
+            $("#main-right div.total div.totalPrice b").css("color", "#333333");
+            $(this).find("i").removeClass("arrow1").addClass("arrow0");
+            $(this).find("span").text("展开菜单");
+        } else {
+            if ($("div.cart-Container ul li").length > 0) {
+                $(".cartTxt").css("display", "block");
+                $(".cart-Container").css("display", "block");
+                $(".total").css("height", "4rem");
+                $("#main-right div.total div.totalPrice b").css("color", "#FF0000");
+                $(this).find("i").removeClass("arrow0").addClass("arrow1");
+                $(this).find("span").text("收起菜单");
+                $('input[id="chAll"]').prop("checked", false);
+                $("div.total  .checkAll input").trigger("click");
+            }
+        }
+    });
+    //清空购物车
+    $("#clearCart").click(function () {
+        $("div.cart-Container ul").html("");
+        $(".cartTxt").css("display", "none");
+        $(".cart-Container").css("display", "none");
+        //$(".total").css("height", "0");
+        $(".total").css("display", "none");
+        $("b.allPrice").html(0);
+        $("b.totalCount").html(0);
+        $(".change").find("i").removeClass("arrow1").addClass("arrow0");
+        $(".change").find("span").text("展开菜单");
+        $(".content #main-right div.total div.totalPrice b").css("color", "#333333");
+        $("#currentCount").html("0");
+        $("div.cart-Container ul")[0].style.height = "auto";
+    });
+    //购物车增加商品数量
+    $(".cart-Container").on('click', '.next', function () {
+        var count = parseInt($(this).prev().html());
+        count++;
+        $(this).prev().html(count);
+        $(this).closest('li').find('input[name="store_goods_number[]"]').val(count);
+        getTotalPrice();
+    });
+    //购物车减少商品数量
+    $(".cart-Container").on('click', '.pre', function () {
+        var count = parseInt($(this).next().html());
+        if (count > 1) {
+            count--;
+            $(this).next().html(count);
+            $(this).closest('li').find('input[name="store_goods_number[]"]').val(count);
+        } else if (count == 1) {
+            return false;
+        }
+        getTotalPrice();
+    });
+    //点击删除
+    $("#main-right").on("click", "div.cancel", function () {
+        $("#main-right ul").css("height", "auto");
+        $(this).parent().remove();
+        getTotalPrice();
+        if ($("#main-right ul li").length == 0) {
+            //收起菜单
+            $(".change").trigger("click");
+        }
+    });
+    //规格项点击激活
+    function changeSpecItem(obj) {
+        //点亮规格项
+        $(obj).addClass("active").siblings("li.active").removeClass("active");
+        //更新价格
+        var storegoodsid = $(obj).closest('.productItem').attr('data-storegoodsid');
+        changePrice(storegoodsid, $(obj).closest('.popContent'));
+    }
+    //规格项加号按钮点击
+    function popNext(obj) {
+        var count = parseInt($(obj).prev().html());
+        count++;
+        $(obj).prev().html(count)
+    }
+    //规格项减号按钮点击
+    function popPre(obj) {
+        var count = parseInt($(obj).next().html());
+        if (count <= 1) {
+            $(obj).next().html(1);
+            return false;
+        } else {
+            count--;
+            $(obj).next().html(count);
+        }
+    }
+    //修改规格项的商品价格
+    function changePrice(store_goods_id, obj) {
+        var spec_key = [];
+        var spec_name_save = [];
+        var spec_name_show = [];
+        $(obj).find("div.popContent1 li.active").each(function () {
+            spec_key.push($(this).attr('data-spec-item-id'));
+            spec_name_save.push(':' + $(this).text());
+            spec_name_show.push('<span>' + $(this).text() + '</span>');
+        });
+        spec_key = spec_key.join('_');
+        spec_name_save = spec_name_save.join(' ');
+        spec_name_show = spec_name_show.join('');
+        if (spec_key) {
+            //获取规格对应的价格
+            var goodstype = $(obj).closest('.productItem').attr('data-type');
+            var typeid = $(obj).closest('.productItem').attr('data-typeid');
+            var url = '?app=orderDk&act=ajaxGoodsPrice&type=' + goodstype + '&store_goods_id=' + store_goods_id + '&spec_key=' + spec_key + '&typeid=' + typeid;
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                data: '',
+                success: function (res) {
+                    if (res.status == 1) {
+                        $(obj).find(".price1").html(res.info);
+                    }
+                }
+            });
+        } else {
+            //没有规格，则直接用商品通用价格
+            var price = $(obj).closest('.productItem').attr('data-goodsprice');
+            $(obj).find(".price1").html(price);
+        }
+        $(obj).find('.spec_key').val(spec_key);
+        $(obj).find('.spec_name_save').val(spec_name_save);
+        $(obj).find('.spec_name_show').val(spec_name_show);
+    }
+    //加入购物车
+    function addCart(obj) {
+        var storegoodsid = $(obj).closest('.productItem').attr('data-storegoodsid');
+        var storegoodsname = $(obj).closest('.productItem').find('.pname').text();
+        var goodsUrl = $(obj).closest('.productItem').find('.goods_url').attr('src');
+        var goodNum = $(obj).closest('.productItem').find('.popContent2 .count').text();
+        var spec_name_save = $(obj).closest('.productItem').find('.spec_name_save').val();
+        var spec_name_show = $(obj).closest('.productItem').find('.spec_name_show').val();
+        var spec_key = $(obj).closest('.productItem').find('.spec_key').val();
+        var price = $(obj).closest('.productItem').find('.price1').text();
+        var prom_type = $(obj).closest('.productItem').attr('data-type');
+        var prom_id = $(obj).closest('.productItem').attr('data-typeid');
+        var li_id = prom_type + '-' + prom_id + '-' + storegoodsid + '-' + spec_key;
+        if ($("#" + li_id).length > 0) {
+            //购物车已存在该商品
+            var count = $("#" + li_id).find('.middle .count').text();
+            var totalCount = parseInt(count) + parseInt(goodNum);
+            $("#" + li_id).find('.middle .count').text(totalCount);
+            $("#" + li_id).find('input[name="store_goods_number[]"]').val(totalCount);
+        } else {
+            //购物车不存在该商品
+            var html = '';
+            html += '<li id="' + li_id + '">';
+            html += '<div class="left">';
+            html += '<p>' + storegoodsname + '</p>';
+            html += '<div class="goodStyle">' + spec_name_show + '</div>';
+            html += '</div>';
+            html += '<div class="middle">';
+            html += '<button type="button" class="pre">-</button>';
+            html += '<button type="button" class="count">' + goodNum + '</button>';
+            html += '<button type="button" class="next">+</button>';
+            html += '</div>';
+            html += '<div class="right">' + price + '</div>';
+            html += '<div class="cancel">删除</div>';
+            html += '<div class="hide">';
+            html += '<input type="hidden" name="store_goods_id[]" value="' + storegoodsid + '">';
+            html += '<input type="hidden" name="store_goods_name[]" value="' + storegoodsname + '">';
+            html += '<input type="hidden" name="store_goods_speckey[]" value="' + spec_key + '">';
+            html += '<input type="hidden" name="store_goods_specname[]" value="' + spec_name_save + '">';
+            html += '<input type="hidden" name="store_goods_url[]" value="' + goodsUrl + '">';
+            html += '<input type="hidden" name="store_goods_price[]" value="' + price + '">';
+            html += '<input type="hidden" name="store_goods_number[]" value="' + goodNum + '">';
+            html += '<input type="hidden" name="prom_type[]" value="' + prom_type + '">';
+            html += '<input type="hidden" name="prom_id[]" value="' + prom_id + '">';
+            html += '</div>';
+            html += '</li>';
+            $("div.cart-Container ul").append(html);
+        }
+
+        if ($("div.cart-Container ul li").length >= 6) {
+            $("div.cart-Container ul")[0].style.height = (parseInt(Math.abs($("div.cart-Container ul li").height())) + 21) * 6 + "px";
+        }
+        //关闭添加商品弹窗
+        $("div.popBox").css("display", "none");
+        getTotalPrice();
+    }
+    //计算总价和总数量
+    function getTotalPrice() {
+        var totalPrice = 0;
+        var totalCount = 0;
+        $("div.cart-Container li").each(function () {
+            var price = parseFloat($(this).find(".right").html());
+            var count = parseInt($(this).find(".count").html());
+            totalCount += count;
+            totalPrice += price * count;
+        });
+        $("b.allPrice").html((totalPrice).toFixed(2));
+        $("b.totalCount").html(totalCount);
+        $("#currentCount").html(totalCount);
+        $("#allPrices").val((totalPrice).toFixed(2));
+    }
+    //下单
+    function addOrder(type) {
+        var url = '?app=orderDk&act=addOrder&type=' + type;
+        var formdata = $('#form_dkxd').serialize();
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "json",
+            data: formdata,
+            success: function (res) {
+                alertDialog(res.message);
+                if (res.status == 1) {
+                    setTimeout(function () {
+                        window.location.href = res.info.url;
+                    }, 500);
+                }
+            }
+        });
+    }
+</script>
+{literal}
+<script>
+    $(function () {
+        //发送验证码
+        var validCode = true;
+        $(" .getval").click(function () {
+            //发送短信验证吗
+            $('#code_error').css('display', 'none','color','red');
+            var phone = $.trim($('#new_phone').val());
+            //验证
+            var reg = /^1[34578]\d{9}$/;
+            if (!reg.test(phone)) {
+                layer.alert('请填写有效手机号在来验证', {
+                    icon: 1,
+                    btn: false,
+                    title: false,
+                    closeBtn: 0,
+                    time: 2000,
+                    skin: 'alt-layer'
+                });
+                return false;
+            }
+            $.post('wx.php?app=sms&act=sendSms', {'phone': phone}, function (data) {
+
+            });
+            //倒计时
+            var time = 60;
+            var code = $(this);
+            code.addClass('active');
+            if (validCode) {
+                validCode = false;
+                var t = setInterval(function () {
+                    time--;
+                    code.html("已发送" + time + "秒");
+                    if (time == 0) {
+                        clearInterval(t);
+                        code.removeClass('active');
+                        code.html("重新获取");
+                        validCode = true;
+                    }
+                }, 1000)
+            }
+        })
+    });
+    //修改手机号
+    function changePhone() {
+        var phone = $.trim($('#new_phone').val());
+        var code = $.trim($('#code').val());
+        var order_sn = $.trim($('#order_sn').val());
+        $.ajax({
+            type: "POST",
+            url: 'store.php?app=orderDk&act=changePhone',
+            dataType: "json",
+            data: {phone: phone, code: code, order_sn:order_sn},
+            success: function (res) {
+                alertDialog(res.message);
+                if (res.status == 1) {
+//                    window.location.href = "?app=orderDk&act=index&type=2";
+                    window.location.href = "?app=orderDk&act=orderPay&order_sn=" + order_sn;
+                }
+            }
+        });
+    }
+</script>
+{/literal}
+</body>
+
+</html>

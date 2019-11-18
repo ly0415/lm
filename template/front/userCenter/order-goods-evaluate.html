@@ -1,0 +1,342 @@
+<form class="form-layer" action="?app=userCenter&act=addEvaluate" data-type="ajax">
+    <input type="hidden" name="star_num" id="star_num"  />
+    <input type="hidden" name="lang"  value="{$lang}"/>
+     <input type="hidden" name="auxiliary"  value="{$auxiliary}"/>
+    <input type="hidden" name="storeid"  value="{$storeid}"/>
+    <input type="hidden" name="gid"  value="{$goods_id}"/>
+    <input type="hidden" name="user_id"  value="{$user_id}"/>
+    <input type="hidden" name="order_id"  value="{$order_id}"/>
+    <input type="hidden" name="order_sn"  value="{$order_sn}"/>
+    <input type="hidden" name="rec_id"  value="{$rec_id}"/>
+    <div class="item mt15 clearfix">
+        <div class="left fl ">
+            <div class="img fl">
+                <a href="##"><img src="{$data.goods_image}" width="100" height="100"></a>
+            </div>
+        </div>
+        <div class='item mt15 clearfix' style='float:left;'>
+            <label><h3><i class="error"></i>{$langdata.evaluate_score}：</h3></label>
+            <div class="showstar mb15" style="display: inline-block;">
+                <div class="atar_Show" id="demo" onclick="DisplayCoord(event)">
+                    <p tip="20" id="star" style="width: 20%;"></p>
+                </div>
+                <span class="arti"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 col-md-2  col-lg-2 control-label"><h3>{$langdata.evaluate_content}：</h3></label>
+        <div class="col-sm-7 col-md-6 col-lg-5">
+            <textarea  name="evaluete_content" rows="3" cols="44" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="image_id" id="image_id" value="">
+        <label class="col-sm-4 col-md-2  col-lg-2 control-label"><h3>{$langdata.evaluate_Show}：</h3></label>
+        <div class="col-sm-7 col-md-6 col-lg-5">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="goods_xc" style="width:100px; text-align:center; margin: 5px; display:inline-block;">
+                                <input type="hidden" name="goods_images[]" value="">
+                                <a href="##" onclick="GetUploadify(10, '', 'goods', 'call_back2', '{$lang}');">
+                                    <img src="{$STATIC_URL}/admin/dist/img/add-button.jpg" width="100" height="100">
+                                </a>
+                                <br>
+                                <a href="##">&nbsp;&nbsp;</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="item">
+        <button type="submit" class="form-btn" id="validateBtn">{$langdata.evaluate_Submit}</button>
+        <button type="button"  class="form-btn fr" id="cancleBtn">{$langdata.evaluate_cancel}</button>
+    </div>
+</form> 
+{if $lang_id =='ZH'}
+{literal}
+<script>
+    //星级评价
+    var demo_x = 110;
+    var demo_width = 22;
+    var star_num = 5;
+    var arti = '非常好';
+    function getX(obj) {
+        var parObj = obj;
+        var left = obj.offsetLeft;
+        while (parObj = parObj.offsetParent) {
+            left += parObj.offsetLeft;
+        }
+        console.log(left)
+        return left;
+    }
+
+    function getY(obj) {
+        var parObj = obj;
+        var top = obj.offsetTop;
+        while (parObj = parObj.offsetParent) {
+            top += parObj.offsetTop;
+        }
+        console.log(top)
+        return top;
+    }
+
+    function DisplayCoord(event) {
+        var top, left, oDiv;
+        oDiv = document.getElementById("demo");
+        top = getY(oDiv);
+        left = getX(oDiv);
+        x = parseInt((event.clientX - left + document.documentElement.scrollLeft) - 3);
+        star_num = Math.ceil(x / 20);
+        if (star_num > 5) {
+            star_num = 5;
+        }
+        switch (star_num) {
+            case 1 :
+                arti = '非常差';
+                break;
+            case 2 :
+                arti = '差';
+                break;
+            case 3 :
+                arti = '一般';
+                break;
+            case 4 :
+                arti = '好';
+                break;
+            default:
+                arti = '非常好'
+        }
+        $('#star_num').val(star_num)
+        $('.arti').html(arti)
+
+        $('#star_num').val(star_num)
+
+        $('#star').css('width', ((star_num * 20) + '%'))
+    }
+
+
+
+    $().ready(function() {
+        $('#star').css('width', ((star_num * 20) + '%'))
+        $('#star_num').val(star_num)
+        $('.arti').text(arti)
+
+    })
+
+</script> 
+<script>
+    $('#cancleBtn').click(function() {
+        layer.closeAll();
+        //window.location.reload();
+    });
+    function GetUploadify(num, elementid, path, callback, lang)
+    {
+        // var upurl ='/index.php?m=Admin&c=Uploadify&a=upload&num='+num+'&input='+elementid+'&path='+path+'&func='+callback;
+        var upurl = 'index.php?app=userCenter&act=upload&num=' + num + '&input=' + elementid + '&path=' + path + '&func=' + callback + '&lang=' + lang;
+        console.log(upurl);
+        layer.open({
+            type: 2,
+            title: '上传图片',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['50%', '60%'],
+            content: upurl
+        });
+    }
+
+
+
+    function img_call_back(fileurl_tmp)
+    {
+        $("#imagetext").val(fileurl_tmp);
+        $("#img_a").attr('href', fileurl_tmp);
+        $("#img_i").attr('onmouseover', "layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+    }
+
+    // 上传商品相册回调函数
+    function call_back2(paths) {
+        var last_div = $(".goods_xc:last").prop("outerHTML");
+        for (i = 0; i < paths.length; i++)
+        {
+            $(".goods_xc:eq(0)").before(last_div);  // 插入一个 新图片
+            $(".goods_xc:eq(0)").find('a:eq(0)').attr('href', paths[i]).attr('onclick', '').attr('target', "_blank");// 修改他的链接地址
+            $(".goods_xc:eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+            $(".goods_xc:eq(0)").find('a:eq(1)').attr('onclick', "ClearPicArr2(this,'" + paths[i] + "')").text('删除');
+            $(".goods_xc:eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
+        }
+    }
+    /*
+     * 上传之后删除组图input
+     * @access   public
+     * @val      string  删除的图片input
+     */
+    function ClearPicArr2(obj, path)
+    {
+        $.ajax({
+            type: 'GET',
+            url: "?app=userCenter&act=delUpload",
+            data: {action: "del", filename: path},
+            success: function() {
+                $(obj).parent().remove(); // 删除完服务器的, 再删除 html上的图片
+            }
+        });
+        // 删除数据库记录
+        //        $.ajax({
+        //            type:'GET',
+        //            url:"/index.php/Admin/Goods/del_goods_images",
+        //            data:{filename:path},
+        //            success:function(){
+        //                //
+        //            }
+        //        });
+    }
+</script>
+{/literal}
+{else}
+{literal}
+<script>
+    //星级评价
+    var demo_x = 110;
+    var demo_width = 22;
+    var star_num = 5;
+    var arti = 'Very nice';
+    function getX(obj) {
+        var parObj = obj;
+        var left = obj.offsetLeft;
+        while (parObj = parObj.offsetParent) {
+            left += parObj.offsetLeft;
+        }
+        console.log(left)
+        return left;
+    }
+
+    function getY(obj) {
+        var parObj = obj;
+        var top = obj.offsetTop;
+        while (parObj = parObj.offsetParent) {
+            top += parObj.offsetTop;
+        }
+        console.log(top)
+        return top;
+    }
+
+    function DisplayCoord(event) {
+        var top, left, oDiv;
+        oDiv = document.getElementById("demo");
+        top = getY(oDiv);
+        left = getX(oDiv);
+        x = parseInt((event.clientX - left + document.documentElement.scrollLeft) - 3);
+        star_num = Math.ceil(x / 20);
+        if (star_num > 5) {
+            star_num = 5;
+        }
+        switch (star_num) {
+            case 1 :
+                arti = 'Very bad';
+                break;
+            case 2 :
+                arti = 'Difference';
+                break;
+            case 3 :
+                arti = 'Commonly';
+                break;
+            case 4 :
+                arti = 'Good';
+                break;
+            default:
+                arti = 'Very nice'
+        }
+        $('#star_num').val(star_num)
+        $('.arti').html(arti)
+
+        $('#star_num').val(star_num)
+
+        $('#star').css('width', ((star_num * 20) + '%'))
+    }
+
+
+
+    $().ready(function() {
+        $('#star').css('width', ((star_num * 20) + '%'))
+        $('#star_num').val(star_num)
+        $('.arti').text(arti)
+
+    })
+
+</script> 
+<script>
+    $('#cancleBtn').click(function() {
+        layer.closeAll();
+        //window.location.reload();
+    });
+    function GetUploadify(num, elementid, path, callback, lang)
+    {
+        // var upurl ='/index.php?m=Admin&c=Uploadify&a=upload&num='+num+'&input='+elementid+'&path='+path+'&func='+callback;
+        var upurl = 'index.php?app=userCenter&act=upload&num=' + num + '&input=' + elementid + '&path=' + path + '&func=' + callback + '&lang=' + lang;
+        console.log(upurl);
+        layer.open({
+            type: 2,
+            title: 'Upload pictures',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['50%', '60%'],
+            content: upurl
+        });
+    }
+
+
+
+    function img_call_back(fileurl_tmp)
+    {
+        $("#imagetext").val(fileurl_tmp);
+        $("#img_a").attr('href', fileurl_tmp);
+        $("#img_i").attr('onmouseover', "layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+    }
+
+    // 上传商品相册回调函数
+    function call_back2(paths) {
+        var last_div = $(".goods_xc:last").prop("outerHTML");
+        for (i = 0; i < paths.length; i++)
+        {
+            $(".goods_xc:eq(0)").before(last_div);  // 插入一个 新图片
+            $(".goods_xc:eq(0)").find('a:eq(0)').attr('href', paths[i]).attr('onclick', '').attr('target', "_blank");// 修改他的链接地址
+            $(".goods_xc:eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+            $(".goods_xc:eq(0)").find('a:eq(1)').attr('onclick', "ClearPicArr2(this,'" + paths[i] + "')").text('删除');
+            $(".goods_xc:eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
+        }
+    }
+    /*
+     * 上传之后删除组图input
+     * @access   public
+     * @val      string  删除的图片input
+     */
+    function ClearPicArr2(obj, path)
+    {
+        $.ajax({
+            type: 'GET',
+            url: "?app=userCenter&act=delUpload",
+            data: {action: "del", filename: path},
+            success: function() {
+                $(obj).parent().remove(); // 删除完服务器的, 再删除 html上的图片
+            }
+        });
+        // 删除数据库记录
+        //        $.ajax({
+        //            type:'GET',
+        //            url:"/index.php/Admin/Goods/del_goods_images",
+        //            data:{filename:path},
+        //            success:function(){
+        //                //
+        //            }
+        //        });
+    }
+</script>
+{/literal}
+{/if}

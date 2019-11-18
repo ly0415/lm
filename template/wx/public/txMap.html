@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html style="font-size:50px;background-color:#fff;overflow-x:hidden">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="{$STATIC_URL}/phone/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/phone/css/city-picker.css">
+    <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/phone/css/main.css">
+</head>
+<body style="position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;">
+
+<header class="addadress" style="width:100%;">
+    <div class="left">
+
+            <div style="position: relative;">
+                <!-- container -->
+                <input readonly type="text" data-toggle="city-picker"  name="city">
+            </div>
+
+
+    </div>
+    <div class="right sou">
+        <input type="text" placeholder="查找小区/大厦、学校等" id="suggestId" name="search" />
+    </div>
+    <div style="clear:both" ></div>
+
+</header>
+<div id="searchResultPanel" style="border:1px solid #C0C0C0;width:100%;height:auto; display:none;"></div>
+<div class="adressmap" id="container" style="width:100%;">
+
+</div>
+<div class="addressName">
+</div>
+<input type="hidden" name="latlon" value="{$latlon}">
+<input type="hidden" name="lang" value="{$lang}">
+<input type="hidden" name="storeid" value="{$storeid}">
+<input type="hidden" name="lat" value="{$lat}">
+<input type="hidden" name="lng" value="{$lng}">
+<input type="hidden" name="auxiliary" value="{$auxiliary}">
+<input type="hidden" name="address" >
+<input type="hidden" name="qu" value="{$qu}">
+</body>
+<script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/layer/layer.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/city-picker.data.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/phone/js/city-picker.js"></script>
+{literal}
+<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=SIYBZ-DYBY5-5R3IE-QVADH-4YP5J-BCFFU&libraries=drawing,geometry,autocomplete,convertor"></script>
+<script type="text/javascript">
+    var searchService,map;
+    var init = function() {
+        var lng=$('input[name=lng]').val();
+        var lat=$('input[name=lat]').val();
+        var center = new qq.maps.LatLng(lat,lng);
+        var resultCities = document.getElementById("resultCities");
+        map = new qq.maps.Map(document.getElementById('container'),{
+            center: center,
+            zoom: 13
+        });
+        //调用Poi检索类
+        searchService = new qq.maps.SearchService({
+            location : "全国",
+            complete : function(results){
+                var citys = results.detail.cities,
+                    resultSpans=['<p>多个城市有结果：</p>'];
+                for(var i = 0,l = citys.length;i < l; i++){
+                    resultSpans.push(citys[i].cityName + '(' +citys[i].resultNum+ ')');
+                }
+                resultCities.innerHTML = resultSpans.join(' ');
+            }
+        });
+    }
+    //按关键字进行查询
+    function searchKeyword() {
+        var keyword = document.getElementById("suggestId").value;
+        searchService.search(keyword);
+    }
+    init();
+    $('.sou').click(function () {
+        searchKeyword();
+    });
+
+</script>
+
+{/literal}
+</body>
+
+
+</html>

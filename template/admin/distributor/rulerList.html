@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+        <style>
+
+            .col-md-11 {
+                width: 75.666667%;
+            }
+        </style>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        {$language1->fr_rule_set}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="admin.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->index}</a></li>
+                        <li class="active">{$language1->fr_manage}</li>
+                        <li class="active">{$language1->fr_urle_lists}</li>
+                    </ol>
+
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <form class="form-inline col-sm-10 col-md-11 no-padding">
+                                        <input type='hidden' name='app' value='distributor'>
+                                        <input type='hidden' name='act' value='ruleList'>
+                                        <input type="hidden" name = "delAll" value="dele">
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">{$language1->area_countroy}：</small>
+                                            <select class="form-control w160 j_select j-area" name="area_id" id="area_id">
+                                                <option value="0">{$language2->all}</option>
+                                                {$areaOption}
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">{$language2->regional_store}：</small>
+                                            <select class="form-control w160 j_select j-store" name="store_id" id="store_id">
+                                                <option value="0">{$language2->all}</option>
+                                                {foreach from=$storeList  item=val}
+                                                <option value='{$val.id}'  {if $val.id == $store_id  } selected {/if}  >{$val.store_name}</option>
+                                                {/foreach}
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">{$language1->rule_name}：</small>
+                                            <input type="text" class="form-control" name="ruler_name" value="{$ruler_name}">
+                                        </div>
+                                        <div class="form-group form-group-sm form-mar">
+                                            <button type="submit" class="btn btn-default btn-sm">
+                                                {$language2->search} <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                    <div class="col-sm-2  col-md-2 no-padding" style="float: right">
+                                        <a class="btn btn-primary pull-right btn-sm" href="?app=distributor&act=add&p={$p}"   role="button"><i class="fa fa-plus"></i> {$language1->addfx_rule}</a>
+                                    </div>
+
+                                </div>
+                                <div class="new-table-responsive">
+                                    <div class="box-body table-responsive no-padding">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" name="" id="all"/></th>
+                                                    <th>id</th>
+                                                    <th>{$language1->rule_name}</th>
+                                                    <th>{$language1->one_fr}</th>
+                                                    <th>{$language1->two_fr}</th>
+                                                    <th>{$language1->three_fr}</th>
+                                                    <th>{$language2->belone_store}</th>
+                                                    <th>{$language2->add_time}</th>
+                                                    <th>{$language2->control}</th>
+                                                </tr>
+                                            </thead>
+
+                                            {foreach from=$list item=item}
+                                            <tr>
+                                                <td><input type="checkbox" name="check-name" value="{$item.id}" /></td>
+                                                <td>{$item.sort_id}</td>
+                                                <td>{$item.rule_name}</td>
+                                                <td>{$item.lev1_prop} %</td>
+                                                <td>{$item.lev2_prop} %</td>
+                                                <td>{$item.lev3_prop} %</td>
+                                                <td>{$item.store_name}</td>
+                                                <td>{$item.add_time}</td>
+                                                <td>
+
+                                                    <a href="?app=distributor&act=editRule&id={$item.id}&p={$p}" data-toggle="tooltip" class="btn btn-xs btn-success "   style="overflow: hidden; position: relative;"  >{$language2->edit}</a>
+
+                                                    <a href="javascript:;" data-toggle="tooltip" class="btn btn-xs btn-danger "  onclick="shanchu({$item.id});"   style="overflow: hidden; position: relative;"  >{$language2->drop}</a>
+
+                                                </td>
+
+                                            </tr>
+                                            {/foreach}
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="box-footer clearfix">
+                                    <a href="##"  class="btn btn-primary btn-sm delete-all"><i class="fa fa-trash-o"></i> {$language2->all_drop}</a>
+                                    {$page_html}
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            {include file="public/footer.html"}
+        </div>
+    </body>
+</html>
+<script type="text/javascript">
+    /*删除*/
+    function shanchu(id){
+    deletes('?app=distributor&act=dele&id=' + id);
+    }
+    //分类关联
+    $("#area_id").on("change", function() {
+        $('.j_room').hide();
+        var _this = $(this);
+        var id = $(this).find(":selected").val();
+        var url = "?app=fxRuler&act=getChild&parent_id=" + id;
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: url,
+            success: function(obj) {
+                // if (obj.status == 1) {
+                //     var option = '';
+                //     $.each(obj.info, function(i, e) {
+                //         option += '<label class="checkbox-inline " >';
+                //         option += '<input type="checkbox" name="store_id[]" value="' + e.id + '" class="check check1">' + e.store_name;
+                //         option += '</label>';
+                //     });
+                //     $('.j_store_cate').html(option);
+                //
+                // }
+                if (obj.status == 1) {
+                    var options = '<option value="0">{$language2->please_select}</option>';
+                    // var options = '<option value="0">{$language1->select_fx_rule}</option>';
+                    $.each(obj.info, function(i,e){
+                        options += '<option value="' + e.id + '">' + e.store_name + '</option>';
+                    });
+                    $('#store_id').html(options);
+                }else{
+                    var options = '<option value="0">{$language2->please_select}</option>';
+                    // var options = '<option value="0">{$language1->select_fx_rule}</option>';
+                    $('#store_id').html(options);
+
+                }
+
+            }
+
+        });
+    });
+</script>

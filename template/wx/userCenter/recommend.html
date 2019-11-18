@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html style="font-size:50px">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="{$STATIC_URL}/phone/css/style.css"/>
+    <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js"></script>
+    <style>
+        html{
+            background-color:#fff;
+        }
+        .menu{
+            overflow:hidden;
+            background:#BEA58C;
+        }
+        .menu li{
+            float:left;
+            width:50%;
+            font-size:0.3rem;
+            height:1rem;
+            line-height:1rem;
+            text-align:center;
+        }
+        .menu li a{
+            color:#fff;
+        }
+        .shareContainer{
+            margin-top:0.3rem;
+        }
+        .shareContainer ul{
+            overflow:hidden;
+        }
+        .shareContainer ul.title{
+            background:#F7F7F7;
+            font-size:0.28rem;
+            padding:0.1rem 0;
+            border-top:1px solid #E5E5E5;
+            border-bottom:1px solid #E5E5E5;
+        }
+        .shareContainer ul li{
+            float:left;
+            text-align:center;
+            height:0.8rem;
+            line-height:0.8rem;
+        }
+        .shareContainer ul.detail{
+            font-size:0.2rem;
+            border-bottom:0.5px solid #E5E5E5;
+            color:#999999;
+        }
+        .shareContainer ul.detail li{
+            font-size:0.25rem;
+        }
+        .shareContainer ul li:first-child{
+            width:20%;
+        }
+        .shareContainer ul li:nth-child(2){
+            width:40%;
+        }
+        .shareContainer ul li:last-child{
+            width:40%;
+        }
+        .menu li.active{
+            border-bottom:5px solid #b08a66;
+        }
+        .shareContainer>div{
+            display:none;
+        }
+        .shareContainer>div.active{
+            display:block;
+        }
+    </style>
+</head>
+<body>
+    <ul class="menu">
+        <li class="active"><a href="#d1">{$langdata.Myrecommendation_My}({$langdata.Myrecommendation_gong}{$num_res.count}{$langdata.Myrecommendation_ge})</a></li>
+        <li><a href="#d2">{$langdata.My_Myrecommendation}</a></li>
+    </ul>
+    <div class="shareContainer">
+       <div id="d1" class="active">
+           <ul class="title">
+               <li>{$langdata.Myrecommendation_xuhao}</li>
+               <li>{$langdata.Myrecommendation_phone}</li>
+               <li>{$langdata.Myrecommendation_time}</li>
+           </ul>
+            {foreach from=$list item=val }
+           <ul class="detail">
+               <li>{$val.sort_id}</li>
+               <li>{$val.phone}</li>
+               <li>{$val.add_time}</li>
+           </ul>
+             {/foreach}
+       </div>
+        <div id="d2">
+            <ul class="title">
+               <li>{$langdata.Myrecommendation_xuhao}</li>
+               <li>{$langdata.Myrecommendation_phone}</li>
+               <li>{$langdata.Myrecommendation_time}</li>
+            </ul>
+            {if $Recommendme_data.phone==''}
+            {else}
+            <ul class="detail">
+                <li>1</li>
+                <li>{$Recommendme_data.phone}</li>
+                <li>{$Recommendme_data.add_time|date_format:"%Y-%m-%d %H:%M"}</li>
+            </ul>
+            {/if}
+        </div>
+    </div>
+    <script>
+        $(".menu li").click(function(){
+            $(this).addClass("active").siblings("li.active").removeClass("active");
+            var id=$(this).find("a").attr("href");
+            $(id).addClass("active").siblings("div.active").removeClass("active");
+        })
+    </script>
+</body>
+</html>

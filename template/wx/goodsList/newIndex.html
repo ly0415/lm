@@ -1,0 +1,340 @@
+{include file="public/wx_header.html"}
+<!--<title>店铺详情</title>-->
+<!--<link rel="stylesheet" type="text/css" href="{$STATIC_URL}/wx/swiper-3.4.2.min.css" />-->
+</head>
+<body>
+<div class="new-store-container">
+    <!--顶部信息部分-->
+    <div class="nsc-top">
+        <div class="nsc-top-swiper swiper-container" id="swiper-container7">
+            <ul class="swiper-wrapper">
+                <!--2019-04-10修改swiper-->
+                {foreach from=$backgroundImg item=item}
+                <li class="swiper-slide" style="cursor: pointer;">
+                    <img src="{$item.background}"/>
+                    {if $item.type == 1}
+                    <a href="?app=goodList&act=activity&id={$item.activity_id}" class="sc7-goin">
+                        <img src="{$STATIC_URL}/wx/goodList/newIndex/images/flag.png"/>
+                        <p class="sc7-goin-text">点击进入</p>
+                    </a>
+                    {/if}
+                    {if $item.type == 2}
+                    <a href="?app=storeBalanceUser&act=activityIndex&activity_id={$item.activity_id}&store_id={$mrstoreid}" class="sc7-goin">
+                        <img src="{$STATIC_URL}/wx/goodList/newIndex/images/flag.png"/>
+                        <p class="sc7-goin-text">点击进入</p>
+                    </a>
+                    {/if}
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        <div class="nsc-store-info">
+            <div class="nsc-si-box">
+                <div class="nsc-sib-l">
+                    <p class="nsc-store-name">{$storeName}</p>
+                    <p class="nsc-store-notice">{if $storeData.store_notice}公告:{$storeData.store_notice}{/if}</p>
+                </div>
+                <div class="nsc-sib-r">
+                    <img src="{$storeData.logo}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--底部主体部分信息-->
+    <div class="nsc-main-content">
+        <!--推荐促销秒杀导航部分-->
+        <div class="nsc-top-guide">
+            <div class="nsc-tg-top swiper-container" id="swiper-container1">
+                <input type="hidden" value="{$display}" class="hides"/>
+                {if $display != 1}
+                <ul class="swiper-wrapper tabClick">
+                    <li class="swiper-slide swiper-no-swiping nsc-tg-li nsc-sc1-li" style="cursor: pointer;"><span class="active-nav">推荐</span></li>
+                    {if $promotionDisplay != 1}
+                    <li class="swiper-slide swiper-no-swiping nsc-tg-li nsc-sc1-li" style="cursor: pointer;"><span class="">促销</span></li>
+                    {/if}
+                    {if $spikeDisplay != 1}
+                    <li class="swiper-slide swiper-no-swiping nsc-tg-li nsc-sc1-li" style="cursor: pointer;"><span class="">秒杀</span></li>
+                    {/if}
+                </ul>
+                {/if}
+                <!--配送方式-->
+                <div class="nsc-tg-top2 swiper-container" id="swiper-container5">
+                    <ul class="swiper-wrapper">
+                        <li class="swiper-slide nsc-tg-li nsc-tg-send" id="0" style="cursor: pointer;"><span class="active-nav2">到店自提</span></li>
+                        <li class="swiper-slide nsc-tg-li nsc-tg-send" id="1" style="cursor: pointer;"><span class="">配送上门</span></li>
+                        <li class="swiper-slide nsc-tg-li nsc-tg-send" id="2" style="cursor: pointer;"><span class="">邮寄托运</span></li>
+                        <li class="swiper-slide nsc-tg-li nsc-tg-send" id="3" style="cursor: pointer;"><span class="">海外代购</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nsc-tg-main swiper-container" id="swiper-container2">
+                <ul class="swiper-wrapper">
+                    <!--推荐主页面-->
+                    <li class="swiper-slide swiper-no-swiping">
+                        <div class="recomend-content">
+                            <!--推荐左侧导航-->
+                            <div class="recomend-c-left swiper-container" id="swiper-container3">
+                                <ul class="swiper-wrapper">
+                                    <li class="swiper-slide swiper-no-swiping rc-left-guide" style=""><span class="active-navy rc-lg-span">热销商品</span></li>
+                                    {foreach from=$room item=val key=k}
+                                    <li class="swiper-slide swiper-no-swiping rc-left-guide" style=""><span class="rc-lg-span">{$val.type_name}</span></li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                            <!--推荐右侧主体部分-->
+                            <div class="recomend-c-right" id="">
+                                <ul class="">
+                                    <li class="">
+                                        <!--商品类别标题-->
+                                        <p class="rcr-goods-title">热销商品</p>
+                                        <!--每个content-slider是一个商品-->
+                                        {foreach from=$hotGoods item=v}
+                                        <div class="content-slide">
+                                            <div class="recomend-l-detail">
+                                                <div class="rld-l">
+                                                    <a href="wx.php?app=goods&act=goodInfo&storeid={$mrstoreid}&gid={$v.id}&lang=29&auxiliary=0&source=0&cid=0"><img src="{$v.original_img}"/></a>
+                                                    {if $v.goods_storage <= 0}
+                                                    <div class="sold-out">
+                                                        <img src="{$STATIC_URL}/phone/images/soldOut.png"/>
+                                                    </div>
+                                                    {/if}
+                                                </div>
+                                                <div class="rld-r">
+                                                    <p class="rld-r-title">{$v.goods_name}</p>
+                                                    <p class="rld-r-intro">{$v.goods_remark}</p>
+                                                    <div class="rld-r-button spec-button" style="cursor: pointer;">
+                                                        <button style="cursor: pointer;" data-id="{$v.id}" data-ids="{$v.goods_id}">{$langdata.specification}</button>
+                                                    </div>
+                                                </div>
+                                                <div class="rld-b">
+                                                    <p>
+                                                        <span class="rld-b-text">零售价:<span class="rld-b-price">{$symbol}{$v.market_price}</span></span>
+                                                        <span class="rld-b-text">折扣价:<span class="rld-b-price">{$symbol}{$v.shop_price}</span></span>
+                                                        <span class="rld-b-text">会员价:<span class="rld-b-price">{$symbol}{$v.member_price}起</span></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/foreach}
+                                    </li>
+                                    {foreach from=$goods item=val key=k}
+                                    <li class="" style="">
+                                        <p class="rcr-goods-title">{$val.0.room_name}</p>
+                                        {foreach from=$val  item=v}
+                                        <div class="content-slide">
+                                            <div class="recomend-l-detail">
+                                                <div class="rld-l">
+                                                    <a href="wx.php?app=goods&act=goodInfo&storeid={$mrstoreid}&gid={$v.basic.id}&lang=29&auxiliary=0&source=0&cid=0"><img src="{$v.basic.original_img}"/></a>
+                                                    {if $v.basic.goods_storage <= 0}
+                                                    <div class="sold-out {$v.goods_storage}">
+                                                        <img src="{$STATIC_URL}/phone/images/soldOut.png"/>
+                                                    </div>
+                                                    {/if}
+                                                </div>
+                                                <div class="rld-r">
+                                                    <p class="rld-r-title">{$v.basic.goods_name}</p>
+                                                    <p class="rld-r-intro">{$v.basic.goods_remark}</p>
+                                                    <div class="rld-r-button spec-button" style="cursor: pointer;">
+                                                        <button style="cursor: pointer;" data-id="{$v.id}" data-ids="{$v.goods_id}">{$langdata.specification}</button>
+                                                    </div>
+                                                </div>
+                                                <div class="rld-b">
+                                                    <p>
+                                                        <span class="rld-b-text">零售价:<span class="rld-b-price">{$symbol}{$v.basic.market_price}</span></span>
+                                                        <span class="rld-b-text">折扣价:<span class="rld-b-price">{$symbol}{$v.basic.shop_price}</span></span>
+                                                        <span class="rld-b-text">会员价:<span class="rld-b-price">{$symbol}{$v.basic.member_price}起</span></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/foreach}
+                                    </li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <!--推荐主页面结束-->
+                    <!--促销主页面-->
+                    {if $promotionDisplay != 1}
+                    <li class="swiper-slide swiper-no-swiping">
+                        <div class="nsc-tg-top4 swiper-container" id="swiper-container8">
+                            <ul class="swiper-wrapper">
+                                {foreach from=$prokeys item=item key=key}
+                                    <li class="swiper-slide swiper-no-swiping nsc-tg-li {if $key==0}active-nav3{/if}"><a target="#t{$key}">{$item}</a></li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                        <div class="sale-container">
+                            <!--每一个促销主体-->
+                            <ul class="sale-c-main">
+                                <!--每一个li都是一个促销商品列表-->
+                                {$i=0}
+                                {foreach from=$promotionData item=item key=key}
+                                <div id="t{$i++}" class="{if $key=="今日"}displayBlock{/if} sale-c-main-li">
+                                    {foreach from=$item item=value}
+                                        <li>
+                                            <!--倒计时部分，需要在endtime那里传入结束时间-->
+                                            <div class="sale-c-m-top settime" endTime="{$value.format_end_time}">
+                                                <p class="scmt-title">
+                                                    <span class="scmt-t-img"></span>
+                                                    <span class="scmt-t-text">{$value.prom_name}</span>
+                                                </p>
+                                                <div class="scmt-countdown">
+                                                            <span class="scmt-countdown-box">
+                                                                <span class="scmt-ct-title"><span class="">倒计时:</span></span>
+                                                                <span class="scmt-ct-time scmt-relative"><span class="scmt-absolute scmt-hour">00</span></span>
+                                                                <span class="scmt-relative"><span class="scmt-absolute">:</span></span>
+                                                                <span class="scmt-ct-time scmt-relative"><span class="scmt-absolute scmt-min">00</span></span>
+                                                                <span class="scmt-relative"><span class="scmt-absolute">:</span></span>
+                                                                <span class="scmt-ct-time scmt-relative"><span class="scmt-absolute scmt-sec">00</span></span>
+                                                            </span>
+                                                </div>
+                                            </div>
+                                            <ul class="sale-c-main-list">
+                                                {foreach from=$value['goods'] item=value1}
+                                                <li>
+                                                    <div class="sale-cml-content">
+                                                        <div class="sale-cmlc-l">
+                                                            {if $value['status']=="马上抢购" }
+                                                                <a href="wx.php?app=promotionActivity&act=index&storeGoodsId={$value1.goods_id}&activityId={$value.id}&lang_id={$lang}&store_id={$storeid}"><img src="{$value1.goods_img}" alt=""/></a>
+                                                            {else}
+                                                                <img src="{$value1.goods_img}" alt=""/>
+                                                            {/if}
+                                                        </div>
+                                                        <div class="sale-cmlc-r">
+                                                            <p class="sale-cmlcr-title">
+                                                                {if $value['status']=="马上抢购" }
+                                                                    <a href="wx.php?app=promotionActivity&act=index&storeGoodsId={$value1.goods_id}&activityId={$value.id}&lang_id={$lang}&store_id={$storeid}">{$value1.goods_name}</a>
+                                                                {else}
+                                                                    {$value1.goods_name}
+                                                                {/if}
+                                                            </p>
+                                                            <p class="sale-cmlcr-discount">{$value1.discount_rate}折</p>
+                                                            <p class="sale-cmlcr-price"><span class="new-price">¥{$value1.discount_price}</span><span class="old-price">¥{$value1.goods_price}</span></p>
+                                                            <p class="sale-cmlcr-button" style="cursor: pointer;">
+                                                                <button style="cursor: pointer;">{if $value['status']=="马上抢购" }<a href="wx.php?app=promotionActivity&act=index&storeGoodsId={$value1.goods_id}&activityId={$value.id}&lang_id={$lang}&store_id={$storeid}" style="color: white">{/if}{$value['status']}</a></button>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                {/foreach}
+                                            </ul>
+                                        </li>
+                                    {/foreach}
+                                </div>
+                                {/foreach}
+                            </ul>
+                        </div>
+                    </li>
+                    {/if}
+                    <!--促销主页面结束-->
+                    <!--秒杀主页面-->
+                    {if $spikeDisplay != 1}
+                    <li class="swiper-slide swiper-no-swiping">
+                        <div class="nsc-tg-top3 swiper-container" id="swiper-container6">
+                            <ul class="swiper-wrapper">
+                                {foreach from=$keys item=item key=key}
+                                <li class="swiper-slide swiper-no-swiping nsc-tg-li nsc-sc6-li {if $key==0}active-nav3{/if}" id="" style="cursor: pointer;"> <a target="#day_{$key}">{$item}</a></li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                        <div class="crazy-container" id="spike">
+                            <ul class="crazy-c-main">
+                                {$j=0}
+                                {foreach from=$activityData item=item key=key}
+                                <div  id="day_{$j++}" class="{if $key=="今日"}displayBlock{/if} crazy-c-main-li">
+                                {foreach from=$item item=value}
+
+                                <li>
+                                    <div class="crazy-c-m-top settime" endTime="{$value.format_end_time}">
+                                        <p class="ccmt-title">
+                                            <span class="ccmt-t-img"></span>
+                                            <span class="ccmt-t-text">{$value.name}</span>
+                                        </p>
+                                        <div>
+                                            <span class="startTime" id="time_{$a++}{$value.id}" style="display: none;">{$value.format_start_time}</span>
+                                            <input type="hidden" name="end_time" value="{$value.end_time}">
+                                        </div>
+                                        <div class="ccmt-countdown">
+                                            <span class="ccmt-countdown-box">
+                                                <span class="ccmt-ct-title"><span class="">倒计时:</span></span>
+                                                <span class="ccmt-ct-time ccmt-relative"><span class="ccmt-absolute ccmt-hour">00</span></span>
+                                                <span class="ccmt-relative"><span class="ccmt-absolute">:</span></span>
+                                                <span class="ccmt-ct-time ccmt-relative"><span class="ccmt-absolute ccmt-min">00</span></span>
+                                                <span class="ccmt-relative"><span class="ccmt-absolute">:</span></span>
+                                                <span class="ccmt-ct-time ccmt-relative"><span class="ccmt-absolute ccmt-sec">00</span></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <ul class="crazy-c-main-list">
+                                        {foreach  from=$value['goods'] item=value1}
+                                        <li>
+                                            <div class="crazy-cml-content">
+                                                <div class="crazy-cmlc-l">
+                                                    {if $value['status']=="马上抢购" }
+                                                    <a href="wx.php?app=spikeActivity&act=goodsDetail&store_goods_id={$value1.store_goods_id}&id={$value.id}&lang_id={$lang}&store_id={$storeid}"><img src="{$value1.goods_img}" alt=""/></a>
+                                                    {else}
+                                                    <img src="{$value1.goods_img}" alt=""/>
+                                                    {/if}
+                                                </div>
+                                                <div class="crazy-cmlc-r">
+                                                    <p class="crazy-cmlcr-title">
+                                                        {if $value['status']=="马上抢购" }
+                                                            <a href="wx.php?app=spikeActivity&act=goodsDetail&store_goods_id={$value1.store_goods_id}&id={$value.id}&lang_id={$lang}&store_id={$storeid}">{$value1.goods_name}</a>
+                                                        {else}
+                                                            {$value1.goods_name}
+                                                        {/if}
+                                                    </p>
+                                                    <div class="crazy-progress-container">
+                                                        <div class="crazy-progress-container-l">
+                                                            <p class="cpcl-precent" style="width: 10%;"></p>
+                                                            <p class="cpcl-precent-text">还剩{$value1.goods_num}件</p>
+                                                        </div>
+                                                        <div class="crazy-progress-container-r">
+                                                            <p class="cpcr-buy">已抢{if $value1.soldNum}{$value1.soldNum}{else}0{/if}件</p>
+                                                        </div>
+                                                    </div>
+                                                    <p class="crazy-cmlcr-price"><span class="new-price">¥{$value1.discount_price}</span><span class="old-price">¥{$value1.goods_price}</span></p>
+                                                    <p class="crazy-cmlcr-button" style="cursor: pointer;">
+                                                        <button style="cursor: pointer;">{if $value['status']=="马上抢购" }<a href="wx.php?app=spikeActivity&act=goodsDetail&store_goods_id={$value1.store_goods_id}&id={$value.id}&lang_id={$lang}&store_id={$storeid}" style="color: white">{/if}{$value['status']}</a></button>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {/foreach}
+                                    </ul>
+                                </li>
+                                {/foreach}
+                                </div>
+                                {/foreach}
+                            </ul>
+                        </div>
+                    </li>
+                    {/if}
+                    <!--秒杀主页面结束-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="latlon" value="{$latlon}">
+<input type="hidden" name="rtid" value="{$rtid}">
+<input type="hidden" name="storeid" value="{$storeid}">
+<input type="hidden" name="lang" value="{$lang}">
+<input type="hidden" name="auxiliary" value="{$auxiliary}">
+<input type="hidden" name="num" value="{$langdata.num}">
+<input type="hidden" name="cart" value="{$langdata.cart}">
+<input type="hidden" name="uname" value="{$langdata.name}">
+<input type="hidden" name="order" value="{$order}">
+<input type="hidden" name="countryId" value="{$countryId}">
+<input type="hidden" name="store_arr" value="{$store_arr}">
+<input type="hidden" name="roomids" value="{$roomids}">
+<input type="hidden" name="static_url" value="{$STATIC_URL}"/>
+<input type="hidden" name="mrstoreid" value="{$mrstoreid}">
+{include file="public/wx_footer.html"}
+<script src="jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/wx/swiper-3.4.2.min.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/wx/common1.js" type="text/javascript"></script>
+</body>
+</html>

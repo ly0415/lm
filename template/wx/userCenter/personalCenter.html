@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{$langdata.myCenter_personal}</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css" rel="stylesheet" type="text/css"/>
+    <link href="{$STATIC_URL}/phone/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="{$STATIC_URL}/phone/css/layui.css" rel="stylesheet" type="text/css"/>
+    <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+</head>
+	<style type="text/css">
+		.pcenter-header {
+      position: relative;
+      /*margin-top: .9rem;*/
+      height: 3.7rem;
+      background-image: url('assets/phone/img/personimg.png');
+      width: 100%;
+      background-size: cover;
+      background-position: center center;
+    }
+    
+    .pcenter-header .pcenter-headdata {
+      text-align: right;
+      position: absolute;
+      right: .3rem;
+      bottom: .3rem;
+    }
+    
+    .pcenter-header span {
+      display: block;
+      font-size: .3rem;
+      color: #fff;
+      margin-top: .1rem;
+    }
+    
+    .pcenter-header img {
+      height: 1.5rem;
+      right: .3rem;
+    }
+    
+    .person-info {
+      background-color: #fff;
+      margin-top: .15rem;
+    }
+    
+    .person-info ul {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+    }
+    
+    .person-info ul li {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      text-align: center;
+      padding: .3rem 0;
+    }
+    
+    .person-info ul li .tip {
+      margin-top: .2rem;
+      display: block;
+      font-size: .26rem;
+      color: #919191;
+      letter-spacing: .05rem;
+      /*font-weight: bold;*/
+    }
+    
+    .person-info ul li .infotip {
+      font-size: .28rem;
+      height: .3rem;
+      display: inline-block;
+      color: #bdac99;
+    }
+    
+    .person-info ul li img {
+      width: .3rem;
+      height: .3rem;
+    }
+    
+    .person-order {
+      background-color: #fff;
+      margin-top: .15rem;
+    }
+    
+    .perordertitle {
+      padding: .25rem .3rem;
+    }
+    
+    .perordertitle .ico-right {
+      margin-top: .03rem;
+      background-image: url('assets/phone/img/ico-rg.png');
+      width: .15rem;
+      height: .25rem;
+      margin-left: .1rem;
+    }
+    
+    .perordertitle .more {
+      font-size: .24rem;
+      color: #919191;
+    }
+    
+    .perordertitle .myorder {
+      font-size: .28rem;
+      color: #333333;
+      letter-spacing: .05rem;
+      /*font-weight: bold;*/
+    }
+    
+    .person-order ul {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+    }
+    
+    .person-order ul li {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      text-align: center;
+    }
+    
+    .person-order ul li i {
+      position: relative;
+      width: .5rem;
+      height: .45rem;
+    }
+    
+    .person-order ul li .ico-pcenter1 {
+      background-image: url(assets/phone/img/icon-nav01.png);
+    }
+    
+    .person-order ul li .ico-pcenter2 {
+      background-image: url(assets/phone/img/icon-nav02.png);
+    }
+    
+    .person-order ul li .ico-pcenter3 {
+      background-image: url(assets/phone/img/icon-nav03.png);
+    }
+    
+    .person-order ul li .ico-pcenter4 {
+      background-image: url(assets/phone/img/icon-nav04.png);
+    }
+    
+    .person-order ul li .ico-pcenter5 {
+      background-image: url(assets/phone/img/icon-nav05.png);
+    }
+    
+    .person-order ul li i em {
+      position: absolute;
+      right: -.2rem;
+      top: -.15rem;
+      background-color: #f01919;
+      line-height: .28rem;
+      padding: 0rem .04rem;
+      font-size: .14rem;
+      color: #fff;
+      font-style: normal;
+      border-radius: .28rem;
+      height: .28rem;
+      min-width: .24rem;
+    }
+    
+    .person-order ul li span {
+      font-size: .26rem;
+      color: #919191;
+      display: block;
+      margin-top: .25rem;
+    }
+    
+    .person-order ul li a {
+      display: inline-block;
+      width: 100%;
+      padding: .25rem 0;
+    }
+    
+    .person-tool {
+      margin-top: .15rem;
+      background-color: #fff
+    }
+    
+    .person-tool ul {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    
+    .person-tool ul li {
+      text-align: center;
+      width: 25%;
+    }
+    
+    .person-tool ul li a {
+      font-size: .26rem;
+      color: #919191;
+      display: inline-block;
+      padding: .4rem 0;
+    }
+    
+    .person-tool ul li a img {
+      width: .45rem;
+      height: .43rem;
+    }
+    
+    .person-tool ul li a span {
+      display: block;
+      margin-top: .2rem;
+    }
+    .person-code {
+			display: none;
+			height: 8.2rem;
+			background-color: #FFFFFF;
+		}
+		
+		.person-code .codeTop {
+			padding-top: .45rem;
+		}
+		
+		.person-code .codeTop .img {
+			display: inline-block;
+			margin-left: .4rem;
+		}
+		
+		.person-code .codeTop .text {
+			display: inline-block;
+			vertical-align: top;
+			margin-top: 0.25rem;
+			font-size: 0.28rem;
+			color: #303030;
+			margin-left: 0.3rem;
+		}
+		
+		.person-code .codeTop img {
+			width: 1.25rem;
+			height: 1.25rem;
+		}
+		
+		.person-code .codeMain .img {
+			text-align: center;
+			margin-top: .7rem;
+		}
+		.person-code .codeMain img{
+			width: 4rem;
+			height: 4rem
+		}
+		.layui-layer{
+			width: 80%!important;
+		}
+		.codeMain a{
+			display: inline-block;
+			padding: .2rem .5rem;
+			background-color: #f01919;
+			margin-top: .5rem;
+			color: #fff;
+			border-radius: .05rem;
+			}
+			.codeMain{
+				text-align: center;
+			}
+.layui-layer-msg {
+      border: 0!important;
+      width: 50%!important;
+      background: rgba(0, 0, 0, .7) !important;
+      border-radius: 8px !important;
+    }
+    
+    .ico-correct {
+      display: block!important;
+      width: .48rem!important;
+      height: .48rem!important;
+      background-size: 100% 100%!important;
+      margin: 0 auto .25rem!important;
+      background-image: url('assets/phone/images/ico-correct.png')!important;
+    }
+    
+    .ico-error {
+      display: block!important;
+      width: .48rem!important;
+      height: .48rem!important;
+      background-size: 100% 100%!important;
+      margin: 0 auto .25rem!important;
+      background-image: url('assets/phone/images/ico-error.png')!important;
+    }
+	</style>
+
+	<body>
+		<div class="pcenter-wrap">
+			<div class="pcenter-header">
+				<div class="pcenter-headdata">
+					<img style="border: 2px solid #fff;" src="{$headimg}" alt="" />
+					<span  style="color:#FFFFFF;">{$nickname}</span>
+				</div>
+			</div>
+			<div class="person-info">
+				<ul>
+					<li>
+						<span class="infotip">{$symbol}{$balance}</span>
+						<span class="tip">余额</span>
+					</li>
+					<li>
+						<span class="infotip">{$integral}</span>
+						<span class="tip">积分</span>
+					</li>
+					<li class='membercode'>
+						<img src="{$STATIC_URL}/phone/img/specailcode.png" alt="" />
+						<span class="tip">会员码</span>
+					</li>
+				</ul>
+			</div>
+			<!--我的订单-->
+			<div class="person-order">
+				<div class='perordertitle'>
+					<a href="wx.php?app=order&act=orderindex&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}" class="clearfix">						
+						<span class="fl myorder">{$langdata.myCenter_order}</span>
+						<span class="fr more">全部订单<i class="ico ico-right fr"></i></span>
+					</a>
+				</div>
+                <ul>
+                    <li>
+                        <a href="wx.php?app=order&act=orderindex&storeid={$storeid}&lang={$lang}&type=2">
+                            <i class="ico ico-pcenter1"> {if $dfkOrder ==''}{else}<em>{$dfkOrder}</em>{/if}</i>
+                            <span>{$langdata.myCenter_Payment}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href=wx.php?app=order&act=orderindex&storeid={$storeid}&lang={$lang}&type=3">
+                            <i class="ico ico-pcenter2">{if $dfhOrder ==''}{else}<em>{$dfhOrder}</em>{/if}</i>
+                            <span>{$langdata.myCenter_Hair}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="wx.php?app=order&act=orderindex&storeid={$storeid}&lang={$lang}&type=4">
+                            <i class="ico ico-pcenter3">{if $dshOrder ==''}{else}<em>{$dshOrder}</em>{/if}</i>
+                            <span>{$langdata.myCenter_Collect}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="wx.php?app=order&act=orderindex&storeid={$storeid}&lang={$lang}&type=5">
+                            <i class="ico ico-pcenter4">{if $dpjOrder ==''}{else}<em>{$dpjOrder}</em>{/if}</i>
+                            <span>{$langdata.myCenter_Evaluate}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="wx.php?app=order&act=orderRefund&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                            <i class="ico ico-pcenter5">{if $dtkOrder ==''}{else}<em>{$dtkOrder}</em>{/if}</i>
+                            <span>{$langdata.myCenter_Refund}</span>
+                        </a>
+                    </li>
+
+                </ul>
+			</div>
+			<!--常用工具-->
+			<div class="person-tool">
+				<div class='perordertitle'>
+					<a href="##" class="clearfix">						
+						<span class="fl myorder">常用工具</span>						
+					</a>
+				</div>
+				<ul>
+                 	<li>
+                 		<a href="wx.php?app=default&act=myShare&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                 		<img src="{$STATIC_URL}/phone/img/icon1.png" alt="" />
+                 		<span>分享码</span>
+                 		</a>                 		
+                 	</li>
+                 	<li>
+                 		<a href="wx.php?app=userCenter&act=userInfo&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                 		<img src="{$STATIC_URL}/phone/img/icon2.png" alt="" />
+                 		<span>{$langdata.myCenter_information}</span>
+                 		</a>
+                 	</li>
+                 	<li>
+                 		<a href="wx.php?app=userCenter&act=personAddress&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                 		<img src="{$STATIC_URL}/phone/img/icon3.png" alt="" />
+                 		<span>{$langdata.myacc_addr}</span>
+                 		</a>
+                 	</li>
+                 	<li>
+                 		<a href="wx.php?app=userCenter&act=Collection&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                 		<img src="{$STATIC_URL}/phone/img/icon4.png" alt="" />
+                 		<span>{$langdata.myacc_Mycollection}</span>
+                 		</a>
+                 	</li>
+                 	<li>
+                 		<a href="wx.php?app=userCenter&act=myRecommendation&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                 		<img src="{$STATIC_URL}/phone/img/icon5.png" alt="" />
+                 		<span>我的推荐</span>
+                 		</a>
+                 	</li>
+                 		<li>
+                 		<a href="wx.php?app=userCenter&act=coupon&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                 		<img src="{$STATIC_URL}/phone/img/icon6.png" alt="" />
+                 		<span>{$langdata.use_yhq}</span>
+                 		</a>                 		
+                 	</li>
+                 	<li>
+                 		<a href="wx.php?app=userCenter&act=footPrint&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                 		<img src="{$STATIC_URL}/phone/img/icon7.png" alt="" />
+                 		<span>{$langdata.myCenter_footprint}</span>
+                 		</a>
+                 	</li>
+                 	<li>
+                 		<a href="wx.php?app=userCenter&act=pointLog&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                 		<img src="{$STATIC_URL}/phone/img/icon8.png" alt="" />
+                 		<span>睿积分</span>
+                 		</a>
+                 	</li>
+                 	<li>
+                 		<a href="wx.php?app=easyDis&act=index&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                 		<img src="{$STATIC_URL}/phone/img/icon9.png" alt="" />
+                 		<span>{$langdata.myCenter_fx}</span>
+                 		</a>
+                 	</li>
+                 	<li>
+                 		<a href="wx.php?app=userCenter&act=safetyCenter&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                 		<img src="{$STATIC_URL}/phone/img/icon10.png" alt="" />
+                 		<span>{$langdata.security_account}</span>
+                 		</a>
+                 	</li>
+                 	<li>
+                 		<a href="wx.php?app=rechargeAmount&act=index&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}">
+                 		<img src="{$STATIC_URL}/phone/img/icon11.png" alt="" />
+                 		<span>余额充值</span>
+                 		</a>
+                 	</li>
+                 </ul>
+			</div>
+			<div class="height110"></div>
+                        <div class="person-code" id='person-code'>
+				<div class="codeTop">
+				   <div class="img">
+					 <img src="{$headimg}">
+				  </div>
+				  <div class="text">
+					{$nickname}
+				  </div>
+				</div>
+				<div class="codeMain">
+                                    {if $res.order_url==''} 
+				    <a href="##"  class="submit">生成二维码</a>
+                                    {else}
+                                    <div class="img">
+					<img src="{$res.order_url}">
+				    </div>
+                                    <a href="##" class="submit">更新二维码</a>
+                                    {/if}
+                                    <input type='hidden' name='user_id' value='{$res.id}'>
+                                    <input type='hidden' name='phone' value='{$res.phone}'>
+                                    <input type='hidden' name='lang' value='{$lang}'>
+                                    <input type='hidden' name='latlon' value='{$latlon}'>
+                                    <input type='hidden' name='auxiliary' value='{$auxiliary}'>
+				</div>
+			</div>
+                        <input type="hidden" name="userId"  value="{$userId}">
+                        {include file="public/footer1.html"}
+		</div>
+		<script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+                <script src="{$STATIC_URL}/phone/layui/layui.all.js" type="text/javascript"></script>
+                <script src="{$STATIC_URL}/phone/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+                <script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+                <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+                {include file="public/wxjs.html"}
+        <script type="text/javascript">
+            console.log(00);
+			    //点图片弹出详情框                           
+        $(".membercode").click(function(){
+           
+            layer.open({
+                type:1,
+                title:false,
+                //skin: 'demo-class', //样式类名
+                closeBtn:1, //显示关闭按钮
+//                anim: 2,
+//                scrollbar: false,
+                shadeClose: true, //开启遮罩关闭
+                content: $("#person-code"),
+                end:function(){
+                    $("#person-code").css("display","none");
+                }
+            });
+        });
+
+		</script>
+          <script type="text/javascript">
+            var share_title = "艾美睿邀您入会。";
+            var share_desc = "快点加入吧";
+            var share_image = "xxx.jpg";
+            var userId = $('input[name=userId]').val();
+            var share_link = "http://www.711home.net/wx.php?app=user&act=quickLogin&userId=" + userId;
+//            var share_link = "http://www.njbsds.cn/bspm711/wx.php?app=default&act=myShare&userId="+userId;
+            wx.ready(function () {
+                // 在这里调用 API
+                wx.onMenuShareAppMessage({
+                    title: share_title, // 分享标题
+                    desc: share_desc, // 分享描述
+                    link: share_link, // 分享链接
+                    imgUrl: share_image, // 分享图标
+                    type: '', // 分享类型,music、video或link，不填默认为link
+                    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+                wx.onMenuShareTimeline({
+                    title: share_title, // 分享标题
+                    link: share_link, // 分享链接
+                    imgUrl: share_image, // 分享图标
+                    success: function () {
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                    }
+                });
+            });
+        </script>
+            {literal}
+        <script type="text/javascript">
+                $('.submit').click(function () {
+                    var user_id = $("input[name=user_id]").val()
+                    var phone = $("input[name=phone]").val()
+                    var lang = $("input[name=lang]").val()
+                    var latlon = $("input[name=latlon]").val()
+                    var auxiliary = $("input[name=auxiliary]").val()
+                    $.ajax({
+                        url: 'wx.php?app=userCenter&act=orderCode',
+                        type: 'post',
+                        data: {'user_id': user_id, 'phone': phone, 'lang': lang, 'latlon': latlon, 'auxiliary': auxiliary},
+                        dateType: "json",
+                        async: false, //默认为true 异步
+                        success: function (res) {
+//                            alert(res);return;
+                            var jsondata = $.parseJSON(res);
+                            if (jsondata.status == 1) {
+                                 layer.msg('', {
+                                     time: 2000,
+                                     content: '<i class="ico ico-correct"></i>' + jsondata.message,
+                                 });
+                                setTimeout(function () {
+                                    window.location.href = jsondata.info.url;
+                                }, 1000);
+                            } else {
+                                 layer.msg('', {
+                                     time: 2000,
+                                     content: '<i class="ico ico-error"></i>' + jsondata.message,
+                                 });
+                            }
+
+                        }
+                    });
+                })
+        </script> 
+        {/literal}
+	</body>
+
+</html>

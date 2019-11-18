@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$langdata.grou_list}</title>
+        <meta charset="utf-8" />
+        {include file="public/header.html"}
+    </head>
+    <body class="index">
+
+        {include file="public/daohang.html"}
+        <!-- navs-box end -->
+
+        <!-- navs-box end -->
+        <div class="border"></div>
+
+        <!-- navs -->
+        <div class="active-menu">
+            <div class="container">
+                <a href="?app=combined&act=c_index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Sale}</a>
+                <a href="index.php?app=seckill&act=goodslist&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Seckill}</a>
+                <a href="index.php?app=goodPromotion&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Promotion}</a>
+                <a  class="active"  href="index.php?app=groupbuy&act=goodslist&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Group}</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="tuan-box mt60">
+                <div class="fav3-box">
+                    <ul class="clearfix">
+                        <!--商品列表-->
+                        {foreach from=$res.data  item=val}
+                        <li>
+                            <a href="index.php?app=groupbuy&act=goodsInfo&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}&id={$val.id}"   >
+                                <div class="img">
+                                    <img src="{$val.original_img}">
+                                    <span class="solde">{$langdata.Grou_purchase}</span>
+                                </div>
+                                <div class="cont">
+                                    <div class="name ellipsis" title="">{$val.goods_name}</div>
+                                    <div class="price mb5">
+                                        <span class="red">{$langdata.price}：{$symbol}{$val.group_goods_price}</span>
+                                        <span class="grey font12">{$symbol}<s>{$val.goods_price}</s></span>
+                                    </div>
+                                    <div class="grey mb5 ellipsis" title="">{$langdata.number}：{$val.virtual_num} </div>
+                                    <div>
+                                        <span class="red" >{$langdata.Date}：</span>
+                                        <span class="vm font12 red ">{$val.end_time|date_format:"%Y-%m-%d  %H:%M"}</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <!--<i name='clicki' class="sc1 ico " id="{$val.id}" ></i>-->
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+                {if $langguages =='ZH'}
+               <div class="more">
+                    <img src="{$STATIC_URL}/front/images/m-more.png" width="1200" height="240">
+                </div>
+                {else}
+                <div class="more">
+                    <img src="{$STATIC_URL}/front/images/m-more-en.png" width="1200" height="240">
+                </div> 
+                {/if}
+
+                {$res.pagelink}
+
+            </div>
+
+            <!-- paypal -->
+            <div class="payoptions">
+                <h2><span>{$langdata.Lately}</span></h2>
+                <div class="img">
+                    <img src="{$STATIC_URL}/front/images/zhifu.png">
+                    <img src="{$STATIC_URL}/front/images/paypal.png">
+                    <img src="{$STATIC_URL}/front/images/weixin.png">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- footer -->
+        {include file="public/footer.html"}
+        <!-- footer end -->
+        <div class="to-top tc">
+            <img src="{$STATIC_URL}/front/images/gotop.png" width="28" height="28">
+            <p class="mt5">{$langdata.prom_Return}</p>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('.active-menu a').click(function () {
+                    $('.active-menu a').removeClass('active');
+                    $(this).addClass('active');
+                })
+            })
+        </script>
+
+    </body>
+</html>

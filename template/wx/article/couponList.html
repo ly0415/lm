@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文章领劵</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        var clientWidth = window.screen.width;
+        console.log(clientWidth);//360
+        var html = document.getElementsByTagName('html')[0];
+        html.style.fontSize = clientWidth / 20 + 'px';//fontsize=18.75px
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body,
+        .container,
+        form {
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            background: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563258458797&di=7ca3f7f2e7977fbd24dfff67933a5386&imgtype=0&src=http%3A%2F%2Fpic162.nipic.com%2Ffile%2F20180425%2F26645399_173231685086_2.jpg');
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        form {
+            position: relative;
+        }
+
+        form>div {
+            width: 70%;
+            height: 2rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            text-align: center;
+            line-height: 2rem;
+            color: #fff;
+            position: absolute;
+            left: 15%;
+            cursor: pointer;
+        }
+
+        form>.phoneNum {
+            background: rgba(98, 98, 98, 0.6);
+            border: 0.1rem solid #fff;
+            bottom: 10rem;
+
+        }
+
+        form>.articleCoupon {
+            bottom: 7rem;
+        }
+
+        form>.articleCoupon>button {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            outline: 0;
+            border-radius: 5px;
+            border: 0.1rem solid #242671;
+            background: #242671;
+            font-size: 0.8rem;
+            color: #fff;
+        }
+
+        form .hint {
+            color: #f00;
+            background: rgba(0, 0, 0, 0);
+            bottom: 12rem;
+            display: none;
+        }
+
+        input {
+            width: 100%;
+            height: 100%;
+            font-size: 0.8rem;
+            color: #fff;
+            border: 0;
+            outline: 0;
+            padding: 0 1rem;
+            box-sizing: border-box;
+            background: rgba(0, 0, 0, 0);
+            cursor: pointer;
+        }
+
+        input::-webkit-input-placeholder {
+            font-size: 0.8rem;
+            color: #fff;
+            text-align: center;
+            line-height: 2rem;
+        }
+
+        input:-moz-placeholder {
+            font-size: 0.8rem;
+            color: #fff;
+            text-align: center;
+            line-height: 2rem;
+        }
+
+        input::-moz-placeholder {
+            font-size: 0.8rem;
+            color: #fff;
+            text-align: center;
+            line-height: 2rem;
+        }
+
+        input:-ms-input-placeholder {
+            font-size: 0.8rem;
+            color: #fff;
+            text-align: center;
+            line-height: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="">
+            <div class="hint" id="hint">手机号输入错误！</div>
+            <div class="phoneNum">
+                <input type="text" maxlength="11" name="phone" placeholder="请输入手机号" value="" id="input">
+            </div>
+            <div style="border:{$console[0]['relation_1']['color']};background-color:{$console[0]['relation_1']['color']}  " class="articleCoupon" id="submit">
+                <button type="button">{$console[0]['relation_1']['name']}</button>
+            </div>
+        </form>
+    </div>
+     <script src="{$STATIC_URL}/phone/js/layer/layer.js"></script>
+    <script>
+        $("#submit").click(function(){
+            var phone = $("input[name='phone']").val();
+            $.ajax({
+                type: 'POST',
+                url:  'wx.php?app=article&act=doCoupon',
+                data: { phone:phone, id: 1 },
+                dataType:'json',
+                success:function(res){
+                    if(res.status == 0){
+                        alert(res.message);
+                    }else{
+                        window.location.href = res.info.url;
+                    }
+                },
+
+            }) 
+        })
+
+
+
+    </script>
+</body>
+
+</html>

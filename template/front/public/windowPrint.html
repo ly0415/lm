@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="Generator" content="EditPlus®">
+        <meta name="Author" content="">
+        <meta name="Keywords" content="">
+        <meta name="Description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>订单打印</title>
+        <style media="print">
+        </style>
+        <style type="text/css" >
+            /*公用base*/
+            body{ background:#fff; font-size:12px; font-family:'Microsoft YaHei',"宋体",Verdana, Arial; margin:0; padding:0; color:#000; }
+            h1,h2,h3,h4,h5,h6,ul,li,dl,dt,dd,form,img,p{
+                margin:0; padding:0; border:none; list-style-type:none;
+            }
+            a{ text-decoration: none;color:#000;cursor: pointer; }
+            a:hover{ color: #e32a2f; }
+            .f-fl{ float:left; }
+            .f-fr{ float:right; }
+            .tl{ text-align:left; }
+            .tc{ text-align:center; }
+            .tr{ text-align:right; }
+            .none{ display:none; }
+            .inblock{ display: inline-block; }
+            .clearfix:after{
+                content:"."; display:block; height:0; clear:both;
+                visibility:hidden;
+            }
+            *html .clearfix{
+                height:1%;
+            }
+            *+html .clearfix{
+                height:1%;
+            }
+            .appointment-sucess{ width: 198px;padding:0 15px 15px 15px;font-size: 12px; }
+            .info-box ul li{ margin-bottom: 20px; }
+            .info-box ul li p{ margin-top: 5px; }
+            .info-box .right{ font-weight: bold; }
+            .er-box img { width: 198px;height: 198px; margin-top: -8px; }
+            .er-box p{ color: red;margin: 16px 0; }
+            .color-r{ color: red; }
+            .btn-print{ color: #fff;background-color: #2086ee;border-radius: 6px;border: none;width: 70px;height: 25px;line-height: 25px;cursor: pointer; }
+            .noprint{ display: none; }
+            .btn-print {
+                color: #fff;
+                background-color: #2086ee;
+                border-radius: 40px;
+                border: none;
+                width: 100px;
+                height: 35px;
+                line-height: 35px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="printpage">
+            <div class="noprint">此处不打印</div>
+            <!-- sucess-box -->
+            <div class="appointment-sucess">
+<!--                 er-box left-->
+                <div class="er-box">
+<!--                    <div class="img">
+                        <img src="{$info.order_url}">
+                    </div>-->
+                    <p></p>
+                </div>
+                <!-- info-box -->
+                <div class="info-box" style="margin-left: 100px;width: 200px;">
+                    <ul >
+                        <li class="clearfix">
+                            <span class="f-fl left">订 单 号 :</span>
+                            <span class="f-fr right">{$info.order_sn}</span>
+                        </li> 
+                        <li class="clearfix">
+                            <span class="f-fl left">取 货 码 :</span>
+                            <span class="f-fr right">{$info.number_order}</span>
+                        </li> 
+                        {if $info.seller_msg !=''}
+                        <li class="clearfix">
+                            <span class="f-fl left">用户留言:</span>
+                            <span class="f-fr right">{$info.seller_msg}</span>
+                        </li>
+                        {/if}
+                        {foreach $info['goods_list'] as  $good}
+                        <li class="clearfix">
+                            <span class="f-fl left">订单商品 :</span>
+                            <span class="f-fr right">
+                                <div class="left fl ">
+                                    <div class="content fl">
+                                        <p><a href="##" class="f-weight">{$good['goods_name']}</a><span>  &nbsp;&nbsp;({$langdata.order_Spec}：{$good['spec_key_name']})</span></p>
+                                        <p align="right">{$langdata.order_Number} X <span class="count">{$good.goods_num}</span></p>
+                                        <p align="right" class="color-r">{$symbol}{$good.goods_pay_price}</p>
+                                    </div>
+                                </div>
+                            </span>
+                        </li> 
+                        {/foreach}
+                        {foreach $info['gift'] as  $gift}
+                        <li class="clearfix">
+                            <span class="f-fl left">赠品 :</span>
+                            <span class="f-fr right">
+                                <div class="leftbox fl">
+                                    <p class="red">{$langdata.order_gift}</p>
+                                    <div class="item mt15 clearfix">
+                                        <div class="left fl ">
+                                            <div class="content fl">
+                                                <p><a href="##" class="f-weight">{$gift.goods_name}</a><span>  &nbsp;&nbsp;{$langdata.order_Spec}：({$gift.goods_key_name})</span></p>
+                                                <p align="right">{$langdata.order_Number} X <span class="count">{$gift.gift_num}</span></p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </span>
+                        </li>
+                        {/foreach}
+                        <li class="clearfix">
+                            <span class="f-fl left">订单状态:</span>
+                            {foreach $status as $key=>$val}
+                            {if $key == $info['order_state']}
+                            <span class="f-fr right">{$val}</span>
+                            {/if}
+                            {/foreach}
+                        </li>
+                        <li class="clearfix">
+                            <span class="f-fl left">支付单号:</span>
+                            <span class="f-fr right">{$info.pay_sn}</span>
+                        </li>
+                        <li class="clearfix">
+                            <span class="f-fl left">用 户 名 :</span>
+                            <span class="f-fr right">{$info.buyer_name}</span>
+                        </li>
+                        {if $info.buyer_phone==''}
+                        {else}
+                        <li class="clearfix">
+                            <span class="f-fl left">用户电话:</span>
+                            <span class="f-fr right">{$info.buyer_phone}</span>
+                        </li>
+                        {/if}
+                        {if $info.sendout=='1'}
+                        {else}
+                        <li class="clearfix">
+                            <span class="f-fl left">用户地址 :</span>
+                            <span class="f-fr right">{$info.buyer_address}</span>
+                        </li>
+                        {/if}
+                        {if $info.fx_phone ==''}
+                        {else}
+                        <li class="clearfix">
+                            <span class="f-fl left">优惠码:</span>
+                            <span class="f-fr right">{$info.fx_phone}</span>
+                        </li> 
+                        {/if}
+                        <li class="clearfix">
+                            <span class="f-fl left">商品总金额:</span>
+                            <span class="f-fr right color-r">￥{$info.goods_amount}</span>
+                        </li> 
+                        <li class="clearfix">
+                            <span class="f-fl left">配送费:</span>
+                            <span class="f-fr right color-r">￥{$info.shipping_fee}</span>
+                        </li> 
+                        {if $info.discount neq 0 }
+                        {if $info.fx_phone neq 0 }
+                        <li class="clearfix">
+                            <span class="f-fl left">分销优惠金额:</span>
+                            <span class="f-fr right color-r">￥{$info.discount}</span>
+                        </li>
+                        {else}
+                        <li class="clearfix">
+                            <span class="f-fl left">优惠金额:</span>
+                            <span class="f-fr right color-r">￥{$info.discount}</span>
+                        </li>
+                        {/if}
+                        {/if}
+                        {if $info.pd_amount =='0'}
+                        {else}
+                        <li class="clearfix">
+                            <span class="f-fl left">睿积分抵扣:</span>
+                            <span class="f-fr right color-r">￥{$info.pd_amount}</span>
+                        </li>
+                        {/if}
+                        {if $info.cp_amount =='0'}
+                        {else}
+                        <li class="clearfix">
+                            <span class="f-fl left">优惠卷优惠:</span>
+                            <span class="f-fr right color-r">￥{$info.cp_amount}</span>
+                        </li>
+                        {/if}
+                        <li class="clearfix">
+                            <span class="f-fl left">支付总金额:</span>
+                            <span class="f-fr right color-r">￥{$info.order_amount}</span>
+                        </li>
+                        <li class="clearfix">
+                            <span class="f-fl left">客户签字：</span>
+                            <span class="f-fr right color-r"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="width: 208px;margin-left: 100px;">
+            {if $info.sendout ==1}
+<!--            <input type="button" value="打印小票"  onclick="javascrtpt:window.location.href = 'store.php?app=customerOrder&act=index&lang_id=0?type=print_{$info.order_id}'" class="btn-print f-fr">-->
+            <input type="button" value="打印小票"  onclick="javascrtpt:window.location.href = 'store.php?app=order&act=index&lang_id=0?type=print_{$info.order_id}'" class="btn-print f-fr">
+            <input type="button" value="打开钱箱"  onclick="javascrtpt:window.location.href = 'index.php?type=openMoneyBox'" class="btn-print f-fr"/>
+            {else}
+            <input type="button" value="打印小票"  onclick="javascrtpt:window.location.href = 'store.php?app=orderList&act=index&lang_id=0?type=print_{$info.order_id}'" class="btn-print f-fr">
+            <input type="button" value="打开钱箱"  onclick="javascrtpt:window.location.href = 'index.php?type=openMoneyBox'" class="btn-print f-fr"/>
+            {/if}
+            <!--             <button onclick="printdiv('printpage');" class="btn-print f-fr">打印</button>-->
+        </div>
+    </body>
+    <!--    <script language="javascript" type="text/javascript">
+            function printdiv(printpage) {
+                var headstr = "<html><head><title></title></head><body>";
+                var footstr = "</body>";
+                var newstr = document.all.item(printpage).innerHTML;
+                var oldstr = document.body.innerHTML; //获取当前页的html代码
+                document.body.innerHTML = headstr + newstr + footstr;
+                window.print();
+                document.body.innerHTML = oldstr; //还原设置
+                return false;
+            }
+        </script>-->
+</html>

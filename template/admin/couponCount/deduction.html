@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+    <style>
+        .coupon_name input{
+            border: none;
+            background: none;
+        }
+        .tabCon a{
+            color:#333;
+        }
+
+        /*电子券*/
+        .ticketBox{
+            background:#fff;
+            padding:0 2rem;
+            width: 98%;
+            margin: 0 auto;
+        }
+        .ticketBox{
+            overflow:hidden;
+        }
+        .ticketBox .selectBox{
+            width:80%;
+            float:left;
+            margin-top:1rem;
+        }
+        .ticketBox .selectBox>div.country{
+            float:right;
+            margin-right:2rem;
+        }
+        .ticketBox .selectBox>div.city{
+            float:right;
+        }
+        .ticketBox .tabCon{
+            width:20%;
+            float:left;
+        }
+        .tabCon li{
+            float:left;
+            padding:1rem 2rem;
+        }
+        .tabCon li.active{
+            background:#F5F9FC;
+            border-bottom:3px solid #3C8DBC;
+        }
+        .ticketContent>div{
+            display:none;
+        }
+        .ticketContent>div.active{
+            display:block;
+        }
+        .ticketContent{
+            overflow:hidden;
+        }
+        .ticketContent #d1,.ticketContent #d2{
+            width: 98%;
+            margin: 0 auto;
+            margin-top:1rem;
+            margin-bottom:2rem;
+        }
+        .ticketContent #d2{
+            width: 98%;
+            margin: 0 auto;
+            margin-top:1rem;
+            margin-bottom:2rem;
+        }
+        .ticketContent #d1 .cate,.ticketContent #d2 .cate{
+            display:flex;
+            justify-content:space-between;
+        }
+        .ticketContent #d1 .ticketLeft,.ticketContent #d2 .ticketLeft{
+            width:24%;
+            height: 30rem;
+            display: flex;
+            flex-direction: column;
+            /*justify-content: space-between;*/
+            margin-right:1rem;
+        }
+        .ticketContent #d1 .ticketRight,.ticketContent #d2 .ticketRight{
+            /*float:right;*/
+            width:74%;
+            background:#fff;
+            height:30rem;
+        }
+        .ticketContent #d1 .ticketLeft li,.ticketContent #d2 .ticketLeft li{
+            padding:2rem;
+            background:#fff;
+            width:100%;
+            margin-bottom:1rem;
+            display:flex;
+            align-items:center;
+        }
+        .ticketContent #d1 .ticketLeft li:last-child,.ticketContent #d2 .ticketLeft li:last-child{
+            margin-bottom:0;
+        }
+        .ticketContent #d1 .ticketLeft li .img,.ticketContent #d2 .ticketLeft li .img{
+            width:4rem;
+            height:4rem;
+            margin-right:1rem;
+        }
+        .ticketContent #d1 .ticketLeft li .img img,.ticketContent #d2 .ticketLeft li .img img{
+            width:100%;
+            height:100%;
+        }
+        .ticketContent .ticketLeft p{
+            margin:0;
+        }
+        .ticketContent #d1 .ticketLeft .count span,.ticketContent #d2 .ticketLeft .count span{
+            font-size:1.8rem;
+            font-weight:bold;
+            color:#3C8DBC;
+            padding-right:1rem;
+        }
+        .ticketLeft .countBox>p{
+            font-size:1.2rem;
+            color:#9CAAB0;
+            margin-top:1rem;
+        }
+        .ticketLeft .count p{
+            font-size:1.2rem;
+        }
+        .deductionBox{
+            background:#fff;
+            margin-top:2rem;
+        }
+        .deductionBox>div{
+            padding:1rem 1.5rem;
+            font-size:1.6rem;
+        }
+        .deductionBox table{
+            background:#fff;
+        }
+        .deductionBox table thead tr{
+            background: #F2F8FC;
+        }
+        .table-bordered>thead>tr>th{
+            border:1px solid #ddd;
+            text-align:center;
+        }
+        .table-bordered>tbody>tr>td{
+            border:1px solid #ddd;
+            text-align:center;
+        }
+        .table-bordered>tbody>tr>td .btn{
+            padding:3px 6px;
+            font-size:12px;
+        }
+        .year{
+            float:right;
+        }
+        #datepicker{
+            width:8rem;
+        }
+        .city select{
+            width:14rem;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                {$language1->electronic_coupon}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="store.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->index}</a></li>
+                <li class="active">{$language1->electronic_coupon}</li>
+                <li class="active">{$language1->deduction_list}</li>
+            </ol>
+        </section>
+        <div class="ticketBox">
+            <ul class="tabCon">
+                <li class="active"><a target="#d1">抵扣券</a></li>
+                <li><a href="?app=couponCount&act=index&op=dui&lang_id={$lang_id}">兑换券</a></li>
+            </ul>
+            <div class="selectBox">
+                <div class="city">
+                    <!--<span>请选择区域店铺:</span>-->
+                    <select name="" id="" class="j-store">
+                        <option value="0">--请选择店铺--</option>
+                        {$storeOption}
+                    </select>
+                    <input type="hidden" class="j-store-v" value="{$store_id}">
+                </div>
+                <div class="country">
+                    <span>区域店铺:</span>
+                    <select name="" id="" class="j-area">
+                        <option value="0">--请选择国家--</option>
+                        {$areaOption}
+                    </select>
+                    <input type="hidden" class="j-area-v" value="{$area_id}">
+                </div>
+                <div class="year">
+                    <span>请选择年份:</span>
+                    <input type="text" class="j-time" id="datepicker" name="start_time" value="{$start_time}" readonly style="margin-right: 10px">
+                    <!--<input type="hidden" class="j-time-v" value="{$start_time}">-->
+                </div>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+        <div class="ticketContent">
+            <div id="d1" class="active">
+                <div class="cate">
+                    <ul class="ticketLeft">
+                        <li>
+                            <div class="img">
+                                <img src="{$STATIC_URL}/admin/dist/img/ticket1.png" alt=""/>
+                            </div>
+                            <div class="countBox">
+                                <div class="count">
+                                    <p>
+                                        <span>{if $sendSums==''}0{else}{$sendSums} {/if}</span>张
+                                    </p>
+                                </div>
+                                <p>抵扣券发送总张数</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="img">
+                                <img src="{$STATIC_URL}/admin/dist/img/ticket2.png" alt=""/>
+                            </div>
+                            <div class="countBox">
+                                <div class="count">
+                                    <p>
+                                        <span>{if $useSums==''}0{else}{$useSums}{/if}</span>张
+                                    </p>
+                                </div>
+                                <p>抵扣券已使用的总次数</p>
+                            </div>
+                        </li>
+                        <!--<li>-->
+                            <!--<div class="img">-->
+                                <!--<img src="{$STATIC_URL}/admin/dist/img/ticket3.png" alt=""/>-->
+                            <!--</div>-->
+                            <!--<div class="countBox">-->
+                                <!--<div class="count">-->
+                                    <!--<p>-->
+                                        <!--<span>{$counts}</span>张-->
+                                    <!--</p>-->
+                                <!--</div>-->
+                                <!--<p>抵扣券剩余的总张数</p>-->
+                            <!--</div>-->
+                        <!--</li>-->
+                    </ul>
+                    <div class="ticketRight">
+                        <div id="main3" style="width:100%;height:29.6rem;"></div>
+                    </div>
+                </div>
+                <!--抵扣券明细-->
+                <div class="deductionBox">
+                    <div>抵扣券明细</div>
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>抵扣券名称</th>
+                            <th>满足金额</th>
+                            <th>抵扣金额</th>
+                            <th>有效天数</th>
+                            <th>总发放张数</th>
+                            <th>总使用次数</th>
+                            <!--<th>剩余张数</th>-->
+                            <th>添加时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach $coupons as $index => $coupon}
+                        <tr>
+                            <td>{$index+1}</td>
+                            <td>{$coupon.coupon_name}</td>
+                            <td>{$coupon.money}</td>
+                            <td>{$coupon.discount}</td>
+                            <td>{$coupon.limit_times}</td>
+                            <td>{$coupon.counts}</td>
+                            <td>{$coupon.used_coupon}</td>
+                            <!--<td>{$coupon.unused_coupon}</td>-->
+                            <td>{$coupon.add_time}</td>
+                            <td>
+                                <button class="btn btn-success coupon-show" data-coupon-id="{$coupon.id}">查看</button>
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="d2">2</div>
+        </div>
+    </div>
+    <input type="hidden" name="p" value="{$p}">
+    {include file="public/footer.html"}
+</div>
+<script>
+    $(function(){
+        //Date picker
+        $('#datepicker').datepicker({
+            startView: 'decade',
+            minView: 'decade',
+            format: 'yyyy',
+            maxViewMode: 2,
+            minViewMode:2,
+            autoclose: true
+        });
+        // $(".tabCon li").click(function(){
+        //     $(this).addClass("active").siblings("li.active").removeClass("active");
+        //     var id=$(this).find("a").attr("target");
+        //     $(id).addClass("active").siblings("div.active").removeClass("active");
+        // });
+
+        $('.j-area').change(function(){
+            var area_id = $(this).val();
+            var url = "admin.php?app=couponCount&act=index&area_id="+area_id;
+            location.href = url;
+        });
+        $('.j-store').change(function(){
+            var store_id = $(this).val();
+            var area_id = $('.j-area-v').val();
+            var url = "admin.php?app=couponCount&act=index&area_id="+area_id+"&store_id="+store_id;
+            location.href = url;
+        });
+
+        $('.j-time').change(function(){
+            var start_time = $(this).val();
+            var store_id = $('.j-store-v').val();
+            var area_id = $('.j-area-v').val();
+            var url = "admin.php?app=couponCount&act=index&area_id="+area_id+"&store_id="+store_id+"&start_time="+start_time;
+            location.href = url;
+        });
+
+        $('.coupon-show').click(function () {
+            var coupon_id = $(this).data('coupon-id');
+            location.href = 'admin.php?app=couponCount&act=showUserCoupons&type=2&coupon_id=' + coupon_id;
+        });
+
+        var myChart3 = echarts.init(document.getElementById('main3'));
+        // 指定图表的配置项和数据
+        option3 = {
+            color: ['#3398DB'],
+            title : {
+                text: '抵扣券统计',
+                subtext: '',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    data : [{$sting}],
+                    axisTick: {
+                        alignWithLabel: true
+                    }
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'抵扣券已发送的张数',
+                    type:'bar',
+                    barWidth: '20%',
+                    itemStyle:{
+                        normal:{
+                            color:'#9AFF9A',
+                        }
+                    },
+                    data:[{$s1}]
+                },
+                {
+                    name:'抵扣券已使用的次数',
+                    type:'bar',
+                    barWidth: '20%',
+                    itemStyle:{
+                        normal:{
+                            color:'#FF0000',
+                        }
+                    },
+                    data:[{$s2}]
+                },
+                // {
+                //     name:'抵扣券剩余的张数',
+                //     type:'bar',
+                //     barWidth: '20%',
+                //     itemStyle:{
+                //         normal:{
+                //             color:'#3398DB',
+                //         }
+                //     },
+                //     data:[{$s3}]
+                // }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart3.setOption(option3);
+    });
+</script>
+</body>
+</html>

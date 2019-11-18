@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+    <style>
+
+        .w77 {
+            width: 150px !important;
+        }
+
+        input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+        }
+
+        input[type="radio"] {
+            width: 15px;
+            height: 15px;
+        }
+
+        body {
+            position: relative;
+        }
+
+        .content-header {
+            border-bottom: 4px solid #3C8DBC;
+            margin-left: 1rem;
+        }
+
+        h3 {
+            margin: 0;
+        }
+
+        .content-wrapper {
+            background-color: #fff;
+        }
+
+        /*弹出框*/
+        .modal1 {
+            display: none;
+            position: fixed;
+            z-index: 100000;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        .modal1 .modal-dialog {
+            width: 400px;
+            min-height: 250px;
+            background-color: #fff;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding-bottom: 20px;
+        }
+
+        .modal1 .modal-header1 {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .modal1 .modal-header1 span.text1 {
+            color: #000;
+            padding-left: 15px;
+            font-size: 18px;
+            float: left
+        }
+
+        .modal1 .modal-header1 b.cross {
+            float: right;
+            font-size: 20px;
+            color: #000;
+            padding-right: 10px;
+        }
+
+        .modal1 .modal-section1 {
+            padding: 20px 40px;
+            height: 130px;
+        }
+
+        .modal1 .submit {
+            padding: 5px 10px;
+            background-color: #3c8dbc;
+            border: 0;
+            color: #fff;
+        }
+
+        #cancel {
+            background-color: #f4f4f4;
+            border: 0;
+            color: #444;
+            margin-left: 10px;
+        }
+
+        .modal1 .section-left {
+            width: 35%;
+            text-align: right;
+            float: left;
+            padding-right: 10px;
+            box-sizing: border-box;
+            margin-top: 7px;
+        }
+
+        .modal-footer1 {
+            overflow: hidden;
+            padding: 0 100px;
+        }
+
+        .fxBox {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .fxBox button {
+            width: 70px;
+            color: #fff;
+            background: #348DBB;
+            text-align: center;
+            height: 25px;
+            line-height: 25px;
+            float: left;
+            border: none;
+            outline: none;
+            margin: 0 1rem;
+        }
+
+        .fxBox > span {
+            float: left;
+        }
+
+        .fxBox > .cut {
+            float: left;
+            margin-right: 1rem;
+        }
+
+        .fxBox .error_tip {
+            float: left;
+        }
+
+        #fxNum {
+            margin-left: 2.3rem;
+            width: 12rem;
+            float: left;
+        }
+
+        .table .imgContainer {
+            width: 80%;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .table .imgContainer span {
+            width: 70%;
+            height: 47px;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            position: relative;
+            top: 2.1rem;
+        }
+
+        .table > tbody > tr > td {
+            vertical-align: middle;
+        }
+        .pactive{
+            background-color:#3C8DBC
+        }
+        .login-item .ico-num {
+            background-image: url(../images/ico-num.png);
+        }
+        .forgetpass-main .validate-btn {
+            color: #bfa58c;
+            border: 1px solid #bfa58c;
+            border-radius: 4px;
+            font-size: .3rem;
+            padding: 0 .2rem;
+            height: .55rem;
+            line-height: .55rem;
+            margin-top: .2rem;
+        }
+        /*优惠券修改*/
+        .discountMain li {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 25px;
+            margin-bottom: 25px;
+        }
+        .discountShow {
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #e9e9e9;
+            background: url(./assets/wx/orange.png)no-repeat center;
+        }
+        .discountHidden{
+            display: none;
+            border: 1px solid #e9e9e9;
+            padding: 10px;
+            color: #666666;
+        }
+        .discountHidden p{
+
+            width: 320px;
+            letter-spacing: 1px;
+        }
+        .discountHidden span{
+            color: #fa9a81;
+            float: inherit!important;
+            margin-right: 0!important;
+        }
+        .discountShow .discountLeft {
+            box-sizing: border-box;
+            width: 215px;
+            height: 120px;
+            display: inline-block;
+            color: #fff;
+            text-align: left;
+            padding: 10px ;
+            border-right: 1px dashed #fff;
+        }
+        .discountShow .discountLeft .discount_tip{
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .discountShow .discountLeft .discount_enough{
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .discountShow .discountLeft .discount_enough span{
+            font-size: 16px;
+            float: inherit;
+            margin-right: 0;
+
+        }
+        .discountShow .discountLeft  .discount_use img{
+            width: 15px;
+            margin-top: 7px;
+            float: right;
+        }
+        .discountShow .discountRight {
+            width: 125px;
+            float: right;
+            box-sizing: border-box;
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+            padding: 7px;
+        }
+        .discountShow .discountRight .title{
+            padding: 5px
+        }
+        .discountShow .discountRight .time{
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .discountShow .discountRight a{
+            padding: 2px 8px;
+            background-color: #fff;
+            color:#fb9e8a ;
+            border-radius: 15px;
+        }
+        .discountShow .selectimg{
+            display: none;
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 35px;
+        }
+        .overdue .discountShow{
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #e9e9e9;
+            background: url(./assets/wx/grey.png)no-repeat center;
+        }
+        .overdue .discountShow .discountRight a{
+            color: #999999;;
+        }
+        .activediv .discountShow .selectimg{
+            display: block;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h3>
+                订单支付
+            </h3>
+            <ol class="breadcrumb">
+                <li><a href="?app=default&act=index"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li>订单管理</li>
+                <li class="active">代客订单</li>
+            </ol>
+        </section>
+        <!--待客下单订单内容区域-->
+        <div class="container dkOrderContainer">
+            <div class="row title">
+                <div class="col-sm-3 txt">商品详情</div>
+                <div class="col-sm-offset-7 col-sm-2 back" onclick="window.history.back();">
+                    <button class="goBack">返回</button>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>商品信息</th>
+                        <th>规格</th>
+                        <th>数量</th>
+                        <th>价格</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach from=$orderGoodsInfo item=item}
+                    <tr class="goods_detail_tr">
+                        <td>
+                            <div class="imgContainer">
+                                <img src="{$item.original_img}" alt=""/>
+                                <span>{$item.goods_name}</span>
+                            </div>
+                        </td>
+                        <td>{$item.spec_key_name}</td>
+                        <td>×{$item.goods_num}</td>
+                        <td class="price">{$symbol}{$item.goods_pay_price}</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <div class="col-sm-3 col-sm-offset-9 allPrice">本组商品金额: <span>{$symbol}{$orderInfo.goods_amount}</span></div>
+            </div>
+            <div class="row orderTxt">
+                <div class="col-sm-12">订单信息</div>
+            </div>
+            <div class="row orderInfo">
+                <div class="col-sm-3 status">订单提交成功,请尽快付款!</div>
+                <div class="col-sm-3">订单编号：{$orderInfo.order_sn}</div>
+            </div>
+            <div class="row orderDetail">
+                <div class="col-sm-3">
+                    <div class="row item">
+                        <div class="col-sm-5">
+                            <span>选择用户:</span>
+                        </div>
+                        <div class="col-sm-7">
+                            <span>{$orderInfo.buyer_phone}</span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-sm-5">
+                            <span>配送方式:</span>
+                        </div>
+                        <div class="col-sm-7">
+                            <span>{if $orderInfo.sendout==1}自提{else}配送{/if}</span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-sm-5">
+                            <span>配送费:</span>
+                        </div>
+                        <div class="col-sm-7">
+                            <span>{if $orderInfo.sendout==2}{$orderInfo.shipping_fee}元{else}无{/if}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row item">
+                        <div class="col-sm-5">
+                            <span>抵扣券:</span>
+                        </div>
+                        <div class="col-sm-7">
+                            <span>{if $couponInfo and $couponInfo.type==1}满{$couponInfo.money}元减{$couponInfo.discount}元{else}无{/if}</span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-sm-5">
+                            <span>兑换券:</span>
+                        </div>
+                        <div class="col-sm-7">
+                            <span>{if $couponInfo and $couponInfo.type==2}{$symbol}{$orderInfo.cp_amount}{else}无{/if}</span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-sm-5">
+                            <span>睿积分:</span>
+                        </div>
+                        <div class="col-sm-7">
+                            <span>{if $pd_point}{$pd_point}积分抵扣{$symbol}{$orderInfo.pd_amount}{else}无{/if}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row item">
+                        <div class="col-sm-5">
+                            <span>优惠打折:</span>
+                        </div>
+                        <div class="col-sm-7">
+                            <span>{if $orderInfo.discount_num>0}{$orderInfo.discount_num}折{else}无{/if}</span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-sm-5">
+                            <span>优惠金额:</span>
+                        </div>
+                        <div class="col-sm-7">
+                            <span>{$symbol}{$orderInfo.discount}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="row item">
+                        <div class="col-sm-5">
+                            <span>分销金额:</span>
+                        </div>
+                        <div class="col-sm-7">
+                            <span>{$symbol}{$fx_money}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row infoBox">
+                <div class="col-sm-12 payment">应付金额: <span>{$symbol}<span id="payment">{$orderInfo.order_amount}</span></span></div>
+                <!--请选择支付方式-->
+                <div class="col-sm-12" style="padding:3rem 0">请选择支付方式:</div>
+                <div class="col-sm-2" style="text-align: center" onclick="pay(1);">
+                    <img src="{$STATIC_URL}/admin/dist/img/orderpaywechat.png" style="width:80%" alt=""/>
+                </div>
+                <div class="col-sm-2" style="text-align: center" onclick="pay(2);">
+                    <img src="{$STATIC_URL}/admin/dist/img/orderalipay.png" style="width:80%" alt=""/>
+                </div>
+                <div class="col-sm-2" style="text-align: center">
+                    <img src="{$STATIC_URL}/admin/dist/img/xianxiafuk.jpg" style="width:80%" data-toggle="modal" data-target="#dkxdOrderModal"
+                         alt=""/>
+                </div>
+                {if $orderInfo.buyer_phone != '0102'}
+                <div class="col-sm-2" style="text-align: center">
+                    <img src="{$STATIC_URL}/admin/dist/img/rechargePay.jpg" style="width:80%" data-toggle="modal" data-target="#dkxdOrderModal1" alt=""/>
+                </div>
+                <div class="col-sm-2" style="text-align: center" onclick="pay(5);">
+                    <img src="{$STATIC_URL}/admin/dist/img/duiBtn.png" style="width:80%" alt=""/>
+                </div>
+                {/if}
+            </div>
+            <br><br><br>
+
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="dkxdOrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">线下找零</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row line1">
+                        <div class="col-sm-3">所属平台:</div>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-4 sourceBox">
+                                    <input type="radio" name="source_id" id="rdo1" value="1758421"/>
+                                    <img src="{$STATIC_URL}/admin/images/1527643876.png" alt="" style="width:80px;height:35px"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row line3">
+                        <div class="col-sm-3">当前金额:</div>
+                        <div class="col-sm-9">{$symbol}<span id="xxfk_payment">0.00</span></div>
+                    </div>
+                    <div class="row line2">
+                        <div class="col-sm-3">支付金额:</div>
+                        <div class="col-sm-9">
+                            <input type="text" placeholder="请输入支付金额" id="xxfk_getmoney"/>
+                        </div>
+                    </div>
+                    <div class="row line3">
+                        <div class="col-sm-3">找零:</div>
+                        <div class="col-sm-9">{$symbol}<span id="xxfk_givemoney">0.00</span></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消付款</button>
+                    <button type="button" class="btn btn-primary" id="submit" onclick="pay(3)">确定付款</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="dkxdOrderModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width:400px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">验证码验证</h4>
+                </div>
+                <div class="modal-body">
+                    <i class="ico ico-num"></i>
+                    <div style="position:relative;width: 100%">
+                        <input type="text" name="code" placeholder="请输入验证码" class="text inblock" style="width: 100%;height: 40px;padding-left:5px;border: 1px solid #f4f4f4;">
+                        <a href="##" class="validate-btn getval" style="position:absolute;right:5px;top:5px;padding:5px 10px;border:1px solid #eee">发送验证码</a>
+                    </div>
+                    <div class="error" style="display: none;margin-top:10px;color:red;" id="code_error"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消付款</button>
+                    <button type="button" class="btn btn-primary" id="submit" onclick="pay(4)">确定付款</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="form1">
+        <input type="hidden" id="phone" name="phone" value="{$orderInfo.buyer_phone}">
+        <input type="hidden" id="order_id" name="order_id" value="{$orderInfo.order_id}">
+        <input type="hidden" id="uniquecode" name="uniquecode" value="{$orderInfo.order_sn}">
+        <input type="hidden" id="order_amount" name="order_amount" value="{$orderInfo.order_amount}">
+        <input type="hidden" id="buyer_address" name="buyer_address" value="">
+        <input type="hidden" id="source_id" name="source_id" value="">
+        <input type="hidden" id="code" name="code" value="">
+    </form>
+    <!-- /.content-wrapper -->
+    {include file="public/footer.html"}
+</div>
+{literal}
+<script>
+    var keydownFirstTime = 0;
+    function keyup(obj) {
+        var date = new Date();
+        var nowTime = date.getTime();
+        if (obj.value.length<2) {
+            keydownFirstTime = nowTime;
+        }
+        if(nowTime-keydownFirstTime >500){
+            obj.value='';
+        }
+    }
+</script>
+<script>
+    $(function () {
+        //线下找零-支付金额-输入监听
+        $('#xxfk_getmoney').on('keyup', function () {
+            var xxfk_getmoney = $.trim($('#xxfk_getmoney').val());
+            if (xxfk_getmoney && !isNaN(xxfk_getmoney)) {
+                var xxfk_payment = $.trim($('#xxfk_payment').text());
+                $('#xxfk_givemoney').text((parseFloat(xxfk_getmoney) - parseFloat(xxfk_payment)).toFixed(2));
+            } else {
+                $('#xxfk_givemoney').text('0.00');
+            }
+        });
+    });
+    //线下付款，设置模态框居中
+    $(function () {
+        $('#dkxdOrderModal').on('hidden.bs.modal', function (e) {
+            $("body").css("padding-right","0");
+        });
+        $('#dkxdOrderModal').on('show.bs.modal', centerModals);
+        $(window).on('resize', centerModals);
+        function centerModals() {
+            $('#dkxdOrderModal').each(function (i) {
+                var $clone = $(this).clone().css('display', 'block').appendTo('body');
+                var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+                top = top > 0 ? top : 0;
+                $clone.remove();
+                $(this).find('.modal-content').css("margin-top", top);
+                //订单来源默认选中第一个
+                $('#rdo1').prop("checked", true);
+                //初始化当前金额
+                $('#xxfk_payment').text($('#payment').text());
+                $('#xxfk_getmoney').val('');
+                $('#xxfk_givemoney').text('0.00');
+            });
+        }
+    });
+
+    $(function () {
+        $('#dkxdOrderModal1').on('hidden.bs.modal', function (e) {
+            $("body").css("padding-right","0");
+        });
+        $('#dkxdOrderModal1').on('show.bs.modal', centerModals);
+        $(window).on('resize', centerModals);
+        function centerModals() {
+            $('#dkxdOrderModal1').each(function (i) {
+                var $clone = $(this).clone().css('display', 'block').appendTo('body');
+                var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+                top = top > 0 ? top : 0;
+                $clone.remove();
+                $(this).find('.modal-content').css("margin-top", top);
+            });
+        }
+    });
+    //支付
+    function pay(type) {
+        var order_sn = $('#uniquecode').val();
+        var order_amount = parseFloat($('#payment').text());
+        //线下支付，判断支付金额
+        if (type == 3) {
+            var xxfk_payment = $.trim($('#xxfk_payment').text());
+            var xxfk_getmoney = $.trim($('#xxfk_getmoney').val());
+            if (!xxfk_getmoney || isNaN(xxfk_getmoney) || (parseFloat(xxfk_getmoney) < parseFloat(xxfk_payment))) {
+                alertDialog('支付金额不能小于当前金额');
+                return false;
+            }
+        }
+        if (order_amount <= 0 && (type == 1 || type == 2)) {
+            alertDialog('付款金额过低，无法使用此支付方式');
+            return false;
+        }
+        if (order_amount > 0 && (type == 5)) {
+            alertDialog('付款金额为0才能使用此支付方式');
+            return false;
+        }
+        //获取线下付款独有数据
+        if (type == 3) {
+            var buyer_address = $.trim($('#address').val());
+            var source_id = $('input[name=source_id]:checked').val();
+        }
+        if (type == 4) {
+            var code = $('input[name=code]').val();
+        }
+        $('#source_id').val(source_id);
+        $('#code').val(code);
+        $('#buyer_address').val(buyer_address);
+        //信息入库
+        var url = '?app=orderDk&act=payDkxd&paytype=' + type + '&flag=2';
+        var formdata = $('#form1').serialize();
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "json",
+            data: formdata,
+            success: function (res) {
+                if (res.status == 1) {
+                    if (type == 1) {
+                        //微信支付
+                        window.location.href = '?app=native&act=native&pay_v=2&order_id=' + order_sn + '&id=' + res.info.order_id;
+                    } else if (type == 2) {
+                        //支付宝支付
+                        window.location.href = '?app=aliPayDk&act=aliPay&pay_v=2&order_id=' + order_sn + '&id=' + res.info.order_id;
+                    } else {
+                        //线下支付
+                        alertDialog(res.message);
+                        setTimeout(function () {
+                            // window.location.href = '?app=customerOrder&act=index';
+                            window.location.href = '?app=order&act=index';
+                        }, 500);
+                    }
+                } else {
+                    alertDialog(res.message);
+                }
+            }
+        });
+    }
+    /*删除订单*/
+    $(".shanchu").click(function () {
+        var _data = $(this).attr("data");
+        layer.confirm('您确定要删除当前此订单？', {
+            btn: ['确定删除', '取消'],
+            title: '提示',
+            icon: 0,
+            skin: 'firm-layer',
+            yes: function (index) {
+                $.ajax({
+                    url: "store.php?app=orderDk&act=dele&lang_id=0",
+                    data: "data=" + _data,
+                    type: "POST",
+                    dataType: "json",
+                    success: function (res) {
+                        layer.alert(res.message, {
+                            icon: 1,
+                            btn: false,
+                            title: false,
+                            closeBtn: 0,
+                            time: 3000,
+                            skin: 'alt-layer'
+                        });
+                        setTimeout(function () {
+                            window.location.href = res.info.url;
+                        }, 1000)
+                    }
+                })
+            }
+        })
+    });
+
+    $(function(){
+        $(".busprice").click(function(){
+            $('.bprice').css('display','block');
+            $(this).addClass('pactive');
+            $(".personalget").removeClass('pactive');
+        });
+        $(".personalget").click(function(){
+            $('.bprice').css('display','none');
+            $(this).addClass('pactive');
+            $(".busprice").removeClass('pactive');
+        });
+    })
+</script>
+{/literal}
+{literal}
+<script>
+    $(function () {
+        //发送验证码
+        var validCode = true;
+        $(" .getval").click(function () {
+            //发送短信验证吗
+            $('#code_error').css('display', 'none','color','red');
+            var phone = $('#phone').val();
+            //验证
+            if (phone.length == 0) {
+                layer.alert('请填写手机号在来验证', {
+                    icon: 1,
+                    btn: false,
+                    title: false,
+                    closeBtn: 0,
+                    time: 2000,
+                    skin: 'alt-layer'
+                });
+                return false;
+            }
+            $.post('wx.php?app=sms&act=sendSms', {'phone': phone}, function (data) {
+
+            });
+            //倒计时
+            var time = 60;
+            var code = $(this);
+            code.addClass('active');
+            if (validCode) {
+                validCode = false;
+                var t = setInterval(function () {
+                    time--;
+                    code.html("已发送" + time + "秒");
+                    if (time == 0) {
+                        clearInterval(t);
+                        code.removeClass('active');
+                        code.html("重新获取");
+                        validCode = true;
+                    }
+                }, 1000)
+            }
+        })
+    });
+</script>
+{/literal}
+</body>
+</html>

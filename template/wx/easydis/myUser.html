@@ -1,0 +1,63 @@
+
+<html style="font-size: 50px">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>{$langdata.order_Myteam}</title><!-- 易分销-我的团队-->
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css"  rel="stylesheet" type="text/css"/>
+    <link href="{$STATIC_URL}/phone/css/style.css?_t={time()}"  rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!--三级分销-->
+<div class="firstContainer">
+    <div class="userImg">
+        {if $info.headimgurl}
+        <img src="{$info.headimgurl}" alt=""/>
+        {else}
+        <img src="{$STATIC_URL}/phone/images/userImg.png" alt=""/>
+        {/if}
+    </div>
+    <div class="userIfo">
+        <div class="uname">
+            <span class="s1">{$info.real_name}</span>
+            <span class="s2">（共<b>{$info.count}</b>个会员）</span>
+        </div>
+        <div class="phone">
+            <span>号码:</span>
+            <span>{$info.phone}</span>
+        </div>
+    </div>
+    <div class="level">(三级分销)</div>
+</div>
+<div class="distributionContent">
+    {foreach from=$data item=v}
+    <div class="distributionItem">
+        <div class="userImg">
+            {if $v.headimgurl}
+            <img src="{$v.headimgurl}" alt=""/>
+            {else}
+            <img src="{$STATIC_URL}/phone/images/userImg.png" alt=""/>
+            {/if}
+        </div>
+        <div class="uname">
+            <span>
+                {$v.username}
+            </span>
+        </div>
+        <div class="num">
+            <span>号码:</span>
+            <span>
+            {$v.phone}
+            </span>
+        </div>
+    </div>
+    {/foreach}
+</div>
+</body>
+</html>

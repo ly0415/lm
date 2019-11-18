@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$langdata.Personal_Center}</title>
+        <meta charset="utf-8" />
+        {include file="public/header.html"}
+    </head>
+    <body>
+        <!-- header -->
+        <!-- navs-box -->
+        {include file="public/daohang.html"}
+        <!-- navs-box end -->
+        <div class="border"></div>
+        <div class="container myorder-box">
+            <!-- bread-box -->
+            <div class="bread-box ">
+                <a href="##">{$langdata.order_Account}</a>
+                <i>»</i>
+                <span class="or">{$langdata.order_myorder}</span>
+            </div>
+            <h1 class="normal font24">{$langdata.order_myorder}</h1>
+            <div class="view-options mt20">
+                <ul class="clearfix">
+                    <li {if $state == ''} class="active" {/if}><a href="index.php?app=userCenter&act=myOrder&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}">{$langdata.order_order}</a></li>
+                    <li  {if $state == 'undeal'} class="active" {/if}><a href="index.php?app=userCenter&act=myOrder&storeid={$storeid}&lang={$lang}&state=undeal&auxiliary={$auxiliary}">{$langdata.order_processed_order}</a></li>
+                </ul>
+            </div>
+            <div class="choose-time mt30 mb30">
+                {$langdata.order_Checkyour_order}：
+                <select name='select' id='choose-time' onchange=mbar(this) >
+                    <option value="index.php?app=userCenter&act=myOrder&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&order_type=order_six_month&state={if $state == 'undeal'}undeal{/if}"  {if !$order_type or $order_type=='order_six_month'} selected {/if}>{$langdata.order_Last6}</option>
+                    <option value="index.php?app=userCenter&act=myOrder&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&order_type=order_twelve_month&state={if $state == 'undeal'}undeal{/if}" {if $order_type and $order_type=='order_twelve_month'} selected {/if}>{$langdata.order_Last12}</option>
+                </select>
+            </div>
+            <div class="order-container tab-pane">
+                {foreach from=$data item=item}
+                <input type="hidden" name="Appoint" value="{$item['Appoint']}" />
+                <div class="order-item">
+                    <div class="order-info clearfix">
+                        <div class="fl item item1">
+                            <span>{$langdata.order_Orderhas}</span>
+                            <div class="mt15">{$item.add_time|date_format:"%Y-%m-%d"}</div>
+                        </div>
+                        <div class="fl item item2">
+                            <span>{$langdata.order_Total}</span>
+                            <div class="mt15">{$symbol}{$item.order_amount}</div>
+                        </div>
+                        <div class="fl item item3">
+                            <span>{$langdata.order_Deliverto}</span>
+                            <div class="address-box mt15">
+                                <a href="##" class="uline or">{$item.buyer_name}<i class="ico ico-b"></i></a>
+                                <div class="address rx-charge">
+                                    <span class="tri-pointer">
+                                        <i class="inner-tri"></i>
+                                    </span>
+                                    <p>{$item.buyer_name}</p>
+                                    <p>{$item.buyer_address}</p>
+                                    <p>{$langdata.order_Telephone}：{$item.buyer_phone}</p>
+                                    <p>{$langdata.order_modees}：{$item.shippingMethod}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                        {if $item['order_state'] >10}
+                                                <div class="fl item item3">
+                                                    <span>{$langdata.order_QRcode}</span>
+                                                    <div class="address-box mt15">
+                                                        <a href="##" class="uline or">{$langdata.order_See}<i class="ico ico-b"></i></a>
+                                                        <div class="address rx-charge" align="center">
+                                                            <span class="tri-pointer">
+                                                                <i class="inner-tri"></i>
+                                                            </span>
+                                                            <img src="{$item.order_url}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {/if}-->
+                        <!--                        <a href="index.php?app=print&act=indexSpec&orderid={$item.order_id}" class="uline or">规格2维码</a>-->
+                        {if $item['order_state'] >20}
+                        {if {$item.orplist_name}!=''}
+                        <div class="fl item item3">
+                            <span>{$langdata.order_state}</span>
+                            <div class="address-box mt15">
+                                <a href="##" class="uline or">{$langdata.order_details}<i class="ico ico-b"></i></a>
+                                <div class="address rx-charge">
+                                    <span class="tri-pointer">
+                                        <i class="inner-tri"></i>
+                                    </span>
+                                    <p>{$langdata.order_express}&nbsp;&nbsp;:&nbsp;&nbsp;{$item.orplist_name}</p>
+                                    <p>{$langdata.order_Numbers}&nbsp;&nbsp;:&nbsp;&nbsp;{$item.shipping_code}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/if}
+                        {/if}
+                        <div class="fr item4">
+                            <span>{$langdata.order_Order_number}  {$item.order_sn}</span>
+                            <div class="mt15"><a href="index.php?app=userCenter&act=order_details&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&orderid={$item.order_id}" class="link">{$langdata.order_order_details}</a></div>
+                        </div>
+                    </div> 
+                    <div class="order-content clearfix">
+                        {foreach $item['goods_list'] as  $good}
+                        <div class="leftbox fl">
+                            <!--                            <h2 class="font16 mb10">{$langdata.order_In}10月23-10月30日 {$langdata.order_Arrive}</h2>-->
+                            {foreach $status as $key=>$val}
+                            {if $key == $good['order_state']}
+                            <p class="red">{$val}</p>
+                            {/if}
+                            {/foreach}
+                            <div class="item mt15 clearfix">
+                                <div class="left fl ">
+                                    <div class="img fl">
+                                        <a href="##"><img src="{$good.goods_image}"></a>
+                                    </div>
+                                    <div class="content fl">
+                                        <p><a href="##" class="f-weight">{$good['goods_name']}</a><span>  &nbsp;&nbsp;({$langdata.order_Spec}：{$good['spec_key_name']})</span></p>
+                                        <p>{$langdata.order_store}：<a href="index.php?app=userCenter&act=myOrder&storeid={$item.store_id}&lang={$lang}&auxiliary={$auxiliary}" style="color: red">{$item.store_name}</a>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                        <!--                                                                                <span>  {$langdata.order_Gift}：()</span>-->
+                                        <p class="red">{$symbol}{$good.goods_pay_price}</p>
+                                        <p><a href="index.php?app=goods&act=goodInfo&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&gid={$good.ogoods_id}" class="btn btn-next">{$langdata.order_Buyagain}</a></p>
+                                    </div>
+                                </div>
+                                <div class="right fl">
+                                    {$langdata.order_Number} X <span class="count">{$good.goods_num}</span>
+                                </div>
+                                {if $item['Appoint'] ==1}
+                                {else}
+                                <div style="float:left;width:20%;text-align: center">
+                                    {if $item['order_state'] ==50}
+                                    {if $good['refund_state'] != 2}
+                                    {if $good['evaluation_state'] ==0}
+                                    <a href="##" class="btn btn-o inblock mb20" onclick="pingjia('{$item.order_sn}', '{$good.ogoods_id}', '{$item.order_id}', '{$item.store_id}', '{$good.rec_id}', '{$lang}', '{$auxiliary}')">{$langdata.order_Commodity}</a>
+                                    {else}
+                                    <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_evaluated}</a>
+                                    {/if}
+                                    {/if}
+                                    {/if}
+                                </div>
+                                {/if}
+                            </div>
+                        </div>
+                        {/foreach}
+                        <div class="rightbox fr tr">
+                            {if $item['Appoint'] ==1}
+                            {if $item['order_state'] ==0}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_cancelled}</a> 
+                            {if $item['mark'] ==1} 
+                            <a href="javascript:;" onclick="shanchu({$item['order_id']});" class="btn btn-o inblock mb20 ">{$langdata.order_Delete}</a>
+                            {/if}
+                            {else if $item['order_state'] ==10}
+                            <a href="?app=orderPay&act=index&order_id={$item.order_sn}&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}" class="btn btn-o inblock mb20">{$langdata.order_Unpaid}</a>
+                            <a href="##" class="btn btn-o inblock mb20 changeState" data='{$item["order_sn"]}_{$item["order_state"]}_cancel_{$item["store_id"]}'>{$langdata.order_cancel}</a>
+                            {else $item['order_state'] >10}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_examine}</a> 
+                            {/if}
+                            {else}
+                            {if $item['order_state'] == 0}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_cancelled}</a> 
+                            {if $item.refund_state ==1}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_audit}</a>
+                            {else if $item.refund_state ==2}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_refund}</a>
+                            {else if $item.refund_state ==3}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_failed}</a>
+                            {/if}
+                            {if $item['mark'] ==1} 
+                            <a href="javascript:;" onclick="shanchu({$item['order_id']});" class="btn btn-o inblock mb20 ">{$langdata.order_Delete}</a>
+                            {/if}
+                            {else if $item['order_state'] ==10}
+                            <a href="?app=orderPay&act=index&order_id={$item.order_sn}&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}" class="btn btn-o inblock mb20">{$langdata.order_Unpaid}</a>
+                            <a href="##" class="btn btn-o inblock mb20 changeState" data='{$item["order_sn"]}_{$item["order_state"]}_cancel_{$item["store_id"]}'>{$langdata.order_cancel}</a>
+                            {else if $item['order_state'] ==20}
+                            <a href="##" class="btn btn-o inblock mb20">{$langdata.order_deliver}</a>
+                            {if $item['refund_state'] !=2 && $item['goods_list'][0]['refund_state'] == 0}
+                            <a class="btn btn-o inblock mb20" href="javascript:;" id="add-role" onclick="tuikuan('{$item.order_id}', '{$item.order_sn}', '{$storeid}', '{$lang}', '{$auxiliary}')" >{$langdata.order_Apply}</a>
+                            {else}
+                            {if $item.refund_state ==1}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_audit}</a>
+                            {else if $item.refund_state ==2}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_refund}</a>
+                            {else if $item.refund_state ==3}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_failed}</a>
+                            {/if}
+                            {/if}
+                            {else if $item['order_state'] ==30}
+                            <a href="##" class="btn btn-o inblock mb20">{$langdata.order_Distribution}</a>
+                            {if $item['refund_state'] !=2 && $item['goods_list'][0]['refund_state'] == 0}
+                            <a class="btn btn-o inblock mb20" href="javascript:;" id="add-role" onclick="tuikuan('{$item.order_id}', '{$item.order_sn}', '{$storeid}', '{$lang}', '{$auxiliary}')" >{$langdata.order_Apply}</a>
+                            {else}
+                            {if $item.refund_state ==1}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_audit}</a>
+                            {else if $item.refund_state ==2}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_refund}</a>
+                            {else if $item.refund_state ==3}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_failed}</a>
+                            {/if}
+                            {/if}
+                            {else if $item['order_state'] ==40}
+                            <a href="##" class="btn btn-o inblock mb20 changeState"  data='{$item["order_sn"]}_{$item["order_state"]}_receive'_order_id="{$item.order_id}">{$langdata.order_Logistics}</a>
+                            {if $item['refund_state'] !=2 && $item['goods_list'][0]['refund_state'] == 0}
+                            <a class="btn btn-o inblock mb20" href="javascript:;" id="add-role" onclick="tuikuan('{$item.order_id}', '{$item.order_sn}', '{$storeid}', '{$lang}', '{$auxiliary}')" >{$langdata.order_Apply}</a>
+                            {else}
+                            {if $item.refund_state ==1}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_audit}</a>
+                            {else if $item.refund_state ==2}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_refund}</a>
+                            {else if $item.refund_state ==3}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_failed}</a>
+                            {/if}
+                            {/if}
+                            {else if $item['order_state'] ==50}
+                            <a href="##" class="btn btn-next btn-default mb20">{$langdata.order_completed}</a>
+                            {if $item['mark'] ==1}
+                            <a href="javascript:;" onclick="shanchu({$item['order_id']});" class="btn btn-o inblock mb20 ">{$langdata.order_Delete}</a>
+                            {/if}
+
+                            {/if}
+                            {/if}
+                        </div>
+                        {foreach $item['gift'] as  $gift}
+                        <div class="leftbox fl">
+                            <p class="red">{$langdata.order_gift}</p>
+                            <div class="item mt15 clearfix">
+                                <div class="left fl ">
+                                    <div class="img fl">
+                                        <a href="##"><img src="{$gift.goods_img}"></a>
+                                    </div>
+                                    <div class="content fl">
+                                        <p><a href="##" class="f-weight">{$gift.goods_name}</a></p>
+                                        <p> &nbsp;&nbsp;{$langdata.order_Spec}：({$gift.goods_key_name})</p>
+                                    </div>
+                                </div>
+                                <div class="right fl">
+                                    {$langdata.order_Number} X <span class="count">{$gift.gift_num}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {/foreach}
+                    </div>
+                </div>   
+                {/foreach}
+                {$goodsList.pagelink}
+            </div> 
+            <!-- paypal -->
+            <div class="payoptions">
+                <h2><span>{$langdata.manage_Options}</span></h2>
+                <div class="img">
+                    <img src="{$STATIC_URL}/front/images/zhifu.png">
+                    <img src="{$STATIC_URL}/front/images/paypal.png">
+                    <img src="{$STATIC_URL}/front/images/weixin.png">
+                </div>
+            </div>
+        </div>
+        {include file="public/footer.html"}
+        <div class="to-top tc">
+            <img src="{$STATIC_URL}/front/images/gotop.png" width="28" height="28">
+            <p class="mt5">{$langdata.Return_top}</p>
+        </div>
+        <script type="text/javascript">
+               function mbar(sobj) {
+                var docurl = sobj.options[sobj.selectedIndex].value;
+                 if (docurl != "") {
+                    open(docurl, '_self');
+               sobj.selectedIndex = 0;
+              sobj.blur();
+            }
+            }
+         </script>
+        {if $lang_id == 'ZH'}
+        <script type="text/javascript">
+            $(".changeState").click(function() {
+            var _data = $(this).attr("data");
+            layer.confirm('您确定要继续当前操作？', {
+            btn: ['确定', '取消'],
+                    title:'提示',
+                    icon:0,
+                    skin:'firm-layer',
+                    yes: function(index){
+                    $.ajax({
+                    url: "index.php?app=userCenter&act=editOrderState",
+                            data: "data=" + _data,
+                            type: "POST",
+                            dataType: "json",
+                            success: function(res) {
+                            layer.alert(res.message, {
+                            icon: 1,
+                                    btn:false,
+                                    title:false,
+                                    closeBtn: 0,
+                                    time:3000,
+                                    skin:'alt-layer'
+                            });
+                            window.location.reload();
+                            }
+                    })
+                    }
+            });
+            })
+                    /*删除订单*/
+                            function shanchu(id) {
+                            deletes('?app=userCenter&act=dele&id=' + id);
+                            }
+        </script>
+        {literal}
+        <script type="text/javascript">
+                    //申请退款
+                    function tuikuan(id, sn, storeid, lang, auxiliary) {
+                    dialog_load_form('?app=userCenter&act=refund&&order_id=' + id + '&order_sn=' + sn + '&storeid=' + storeid + '&lang=' + lang + '&auxiliary=' + auxiliary, '退款原因');
+                    }
+                    //商品评价
+                    function pingjia(sn, gid, oid, store_id, recid, lang, auxiliary) {
+                    dialog_load_form('?app=userCenter&act=evaluate&order_sn=' + sn + '&gid=' + gid + '&order_id=' + oid + '&storeid=' + store_id + '&recid=' + recid + '&lang=' + lang + '&auxiliary=' + auxiliary, '商品评价');
+                    }
+        </script>
+        {/literal}
+        {else}
+        <script type="text/javascript">
+                    $(".changeState").click(function() {
+                    var _data = $(this).attr("data");
+                    layer.confirm('You are sure to continue the current operation？', {
+                    btn: ['Determine', 'Cancel'],
+                            title:'Prompt',
+                            icon:0,
+                            skin:'firm-layer',
+                            yes: function(index){
+                            $.ajax({
+                            url: "index.php?app=userCenter&act=editOrderState&lang=30",
+                                    data: "data=" + _data,
+                                    type: "POST",
+                                    dataType: "json",
+                                    success: function(res) {
+                                    layer.alert(res.message, {
+                                    icon: 1,
+                                            btn:false,
+                                            title:false,
+                                            closeBtn: 0,
+                                            time:3000,
+                                            skin:'alt-layer'
+                                    });
+                                    window.location.reload();
+                                    }
+                            })
+                            }
+                    });
+                    })
+                            /*删除订单*/
+                                    function shanchu(id) {
+                                    deletes_en('?app=userCenter&act=dele&id=' + id);
+                                    }
+        </script>
+        {literal}
+        <script type="text/javascript">
+                            //申请退款
+                            function tuikuan(id, sn, storeid, lang, auxiliary) {
+                            dialog_load_form('?app=userCenter&act=refund&&order_id=' + id + '&order_sn=' + sn + '&storeid=' + storeid + '&lang=' + lang + '&auxiliary=' + auxiliary, 'Reasons for refunds');
+                            }
+                            //商品评价
+                            function pingjia(sn, gid, oid, store_id, recid, lang, auxiliary) {
+                            dialog_load_form('?app=userCenter&act=evaluate&order_sn=' + sn + '&gid=' + gid + '&order_id=' + oid + '&storeid=' + store_id + '&recid=' + recid + '&lang=' + lang + '&auxiliary=' + auxiliary, 'Commodity evaluation');
+                            }
+        </script>
+        {/literal}
+        {/if}
+    </body>
+</html> 
+

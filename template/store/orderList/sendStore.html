@@ -1,0 +1,56 @@
+<form class="form-horizontal" id="form1"  action="store.php?app=orderList&act=doSend">
+    <input type="hidden" name="order_sn" value="{$order_sn}">
+    <input type="hidden" name="store_ids" value="{$store_ids}">
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span>区域国家</label>
+        <div class="col-sm-7 col-md-7">
+            <select class="form-control  j_store service-select1" name="service_area_id" style="width: 219px !important;" >
+                <option value='0'>--{$language2->please_select}--</option>
+                {foreach $service_area_data as $k => $v}
+                <option value="{$v.id}" >{$v.name}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 col-md-3 control-label"><span class="text-red">*</span>区域店铺</label>
+        <div class="col-sm-7 col-md-7">
+            <select class="form-control  j_store service-select2" name="service_store_id" style="width: 219px !important;" >
+                <option value='0'>--{$language2->please_select}--</option>
+                {foreach $service_store_data as $k => $v}
+                <option value="{$v.id}" >{$v.name}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <script >
+        $('.service-select1').on("change",function () {
+            var  id = $(this).find(':selected').val();
+            var  store_ids = $("input[name=store_ids]").val();
+            var url="store.php?app=orderList&act=getStoreSelect&id="+id+'&type=1&store_ids=' + store_ids;
+            if(id!=0){
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: url,
+                    success: function (obj) {
+                        if (obj.status == 1) {
+                            var options = '<option value="0">--请选择--</option>';
+                            $.each(obj.info, function(i,e){
+                                options += '<option value="' + e.id + '">' + e.name + '</option>';
+                            });
+                            $('.service-select2').html(options);
+                        }else{
+                            var options = '<option value="0">--请选择--</option>';
+                            $('.service-select1').html(options);
+                        }
+                    }
+                });
+            } else {
+                $('.service-select2').html('<option value="0">--请选择--</option>');
+                $('.service-select3').html('<option value="0">--请选择--</option>');
+                $('.service-select4').html('<option value="0">--请选择--</option>');
+            }
+        });
+    </script>
+</form>

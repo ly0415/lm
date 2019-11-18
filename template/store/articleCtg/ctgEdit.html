@@ -1,0 +1,30 @@
+
+<form class="form-horizontal "  id = "form1" action="?app=articleCtg&act=doEdit" >
+
+    <!--<input type="hidden" name="parentId" value="{$data.parent_id}">-->
+    <input type="hidden" name="id" value="{$data.id}">
+    <input type="hidden" value="{$lang_id}" name="lang_id" />
+    <!--<input type="hidden" name="lelvel" value="{$data.lelvel}">-->
+
+    <!--<div class="form-group"  >-->
+    <!--<label class="col-sm-4 col-md-4 control-label"><span class="text-red">*</span>编辑分类 </label>-->
+    <!--<div class="col-sm-5">-->
+    <!--<select class="form-control" name="parent_id"  >-->
+    <!--<option  value="0"> --顶级分类-- </option>-->
+    <!--</select>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <div class="form-group">
+        <label class="col-sm-4 col-md-4 control-label"><span class="text-red">*</span> 分类中文名称 </label>
+        <div class="col-sm-5 col-md-5">
+            <input type="text" class="form-control" name="name"  value="{$data.name}"  >
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 col-md-4 control-label"><span class="text-red">*</span> 分类英文名称 </label>
+        <div class="col-sm-5 col-md-5">
+            <input type="text" class="form-control" name="english_name"  value="{$data.english_name}"  >
+        </div>
+    </div>
+</form>

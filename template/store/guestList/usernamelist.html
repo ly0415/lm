@@ -1,0 +1,51 @@
+{if $lang_id==1}
+<table class="table tc-box" id="content">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Nickname</th>
+            <th>Phone number</th>
+            <th>Mail</th> 
+            <th>Registering area</th>
+        </tr>
+    </thead>
+    <tbody >
+        {foreach from=$data item=item}
+        <tr>
+            <td><input type="radio" name="check-name" data-name="{$item.username}" data-id="{$item.id}" /></td>
+            <td>{$item.username}</td>
+            <td>{$item.phone}</td>
+            <td>{$item.email}</td>
+            <td>{$item.store_name}</td>
+        </tr>
+        {/foreach}
+    </tbody>
+</table>
+{else}
+<table class="table tc-box" id="content">
+    <thead>
+        <tr>
+            <th></th>
+            <th>用户昵称</th>
+            <th>手机号码</th>
+            <th>邮件</th> 
+            <th>注册区域</th>
+        </tr>
+    </thead>
+    <tbody >
+        {foreach from=$data item=item}
+        <tr>
+            <td><input type="radio" name="check-name" data-name="{$item.username}" data-id="{$item.id}" /></td>
+            <td>{$item.username}</td>
+            <td>{$item.phone}</td>
+            <td>{$item.email}</td>
+            <td>{$item.store_name}</td>
+        </tr>
+        {/foreach}
+    </tbody>
+</table>
+{/if}
+
+
+
+

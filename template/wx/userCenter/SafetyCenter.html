@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>{$langdata.security_account}</title>
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <meta content="email=no" name="format-detection">
+        <style>
+            .mycollection .mycollectionul{
+                display: flex;
+                width:100%;
+                border:none;
+                border-top:1px solid #e8e8e8;
+                border-bottom:1px solid #e8e8e8
+            }
+            .mycollection .mycollectionul li{
+                color:#444444;
+                font-size:.3rem;
+                flex:1;text-align: center;
+                line-height: .9rem;
+                height:.9rem;
+            }
+            .mycollection .mycollectionul li a{
+                display: inline-block;
+                line-height: .9rem;
+                height:.9rem;
+            }
+            .mycollection .mycollectionul li.cactive a{
+                color:#bea58c;
+                border-bottom:2px solid #bea58c;
+                box-sizing: border-box;
+            }
+            .mycollection .mycollectionlist{
+                position:relative
+            }
+            .mycollectionlist .myclist{
+                float:left;
+                position:absolute;
+                top:0;transform:translateX(-100%);
+                -webkit-transform:translateX(-100%);
+                width:100%;overflow-x: hidden !important;
+            }
+            .mycollectionlist .myclist.tactive ~ .myclist{
+                -webkit-transform: translateX(100%);
+                transform: translateX(100%);
+            }
+            .mycollectionlist .myclist.tactive {
+                position: relative;
+                -webkit-transition: -webkit-transform .15s;
+                transition: -webkit-transform .15s;
+                transition: transform .15s;
+                transition: transform .15s, -webkit-transform .15s;
+                -webkit-transform: translateX(0);
+                transform: translateX(0);
+            }
+        </style>
+        <link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css"  rel="stylesheet" type="text/css"/>
+        <link href="{$STATIC_URL}/phone/css/style.css"  rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="mycollection">
+            <ul class="mycollectionul">
+                <li class="cactive"><a href="javascript:void(0)">账户安全</a></li>
+                <li><a href="javascript:void(0)">切换账号</a></li>
+            </ul>
+            <div class="mycollectionlist">
+                <div class="myclist tactive">
+                    <div class="accountsafe-list">
+                        <ul class="my-section">
+                            <li>
+                                <a href="wx.php?app=userCenter&act=editPassword&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}" class="clearfix">
+                                    <span class="lab">{$langdata.security_Password}</span>
+                                    <i class="ico ico-right fr"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="wx.php?app=userCenter&act=editEmail&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}" class="clearfix">
+                                    <span class="lab">{$langdata.security_mailbox}</span>
+                                    <i class="ico ico-right fr"></i>
+                                    <span class="fr"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="wx.php?app=userCenter&act=editPhone&storeid={$storeid}&lang={$lang}&auxiliary={$auxiliary}&latlon={$latlon}" class="clearfix">
+                                    <span class="lab">{$langdata.security_phone}</span>
+                                    <i class="ico ico-right fr"></i>
+                                    <span class="fr"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="myclist">
+                    <div class="untieContainer">
+                        <div class="untie">
+                            <div class="imgBox">
+                                <img src="{$STATIC_URL}/phone/img/unite.png" alt=""/>
+                            </div>
+                            <div class="txt1">{$langdata.myacc_tothephone}</div>
+                            <div class="txt2">{$res.phone}</div>
+                        </div>
+                        <button id="unbind">切换账号</button>
+                    </div>
+                    <input type="hidden" name="userId" value="{$res.id}">
+                </div>
+            </div>
+        </div>
+        <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js"></script>
+        <script src="{$STATIC_URL}/phone/js/common.js"></script>
+        <script src="{$STATIC_URL}/phone/js/layer/layer.js" type="text/javascript"></script>
+        <script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+        <script>
+            $(function () {
+                $("html").css('background', '#fff');
+                $('.mycollectionul li').click(function () {
+                    var _index = $(this).index();
+                    $(this).addClass("cactive").siblings(".mycollectionul li").removeClass("cactive");
+                    $(".mycollectionlist .myclist").eq(_index).addClass('tactive').siblings().removeClass('tactive');
+                })
+            })
+        </script>
+        {literal}
+        <script>
+            $('#unbind').click(function () {
+                var userId = $('input[name=userId]').val();
+                $.ajax({
+                    url: "wx.php?app=userCenter&act=unbind",
+                    data: {userId: userId},
+                    type: 'post',
+                    aysnc: false,
+                    error: function () {
+                        alert('错误');
+                    },
+                    success: function (data) {
+                        var data = eval("(" + data + ")");
+                        console.log(data);
+                        layer.open({
+                            shade: false,
+                            content: " <i class='ico ico-correct'></i>" + data.message,
+                            className: 'layer-tip',
+                            time: 2
+                        });
+                        setTimeout(function () {
+                            window.location.href = data.info;
+                        }, 1000);
+                    }
+
+                })
+            })
+        </script>
+        {/literal}
+    </body>
+</html>

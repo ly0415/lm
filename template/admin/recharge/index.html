@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>充值送睿积分</title>
+    {include file="public/header.html"}
+    <!--<script src="http://mat1.gtimg.com/libs/jquery/1.12.0/jquery.min.js"></script>-->
+</head>
+<body>
+<div class="add-box">
+    <div>
+        <input type="text"/>
+        <span class="j_add">+</span>
+    </div>
+    <!--<div>-->
+    <!--<input type="text"/>-->
+    <!--<span class="j_del">-</span>-->
+    <!--</div>-->
+    {include file="public/footer.html"}
+</div>
+<script>
+    $('.add-box').on('click','.j_add',function(){
+        html = '';
+        html+=`
+                <div>
+                    <input type="text"/>
+                    <span class="j_del">-</span>
+                </div>
+            `;
+        $(this).parent().append(html);
+    });
+
+    $('.add-box').on('click','.j_del',function(){
+        $(this).parent().remove();
+    });
+</script>
+</body>
+</html>

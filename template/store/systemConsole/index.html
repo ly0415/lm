@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+    <link rel="stylesheet" href="{$STATIC_URL}/plugin/bootstrapswitch/bootstrap-switch.min.css">
+    <style>
+        .table{
+            width:95%;
+            margin:0 auto;
+        }
+        .table th{
+            border: 1px solid #E6E6E6;
+            background: #F7F7F7;
+            text-align: center;
+        }
+        #table td{
+            border: 1px solid #E6E6E6;
+            vertical-align:middle;
+        }
+        .explain span{
+            float:left;
+        }
+        .explain div{
+            overflow:hidden;
+        }
+        .explain div p{
+            float:left;
+            margin-left:20px;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    {include file="public/menu.html"}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                打印控制台
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="admin.php?app=default&act=index&lang_id={$lang_id}"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a href="#">权限设置</a></li>
+                <li class="active">打印控制台</li>
+            </ol>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- right column -->
+                <div class="col-xs-12">
+                    <!-- Horizontal Form -->
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <table class="table" id="table">
+                            <tr>
+                                <th style="width:3%">编号</th>
+                                <th style="width:32%">描述</th>
+                                <th style="width:45%">值</th>
+                                <th style="width:20%">操作</th>
+                            </tr>
+                            <tr>
+                                <td align="center">01</td>
+                                <td>提示音和自动打印权限设置</td>
+                                <td>
+                                    <form>
+                                    <!--<input type="number" name="delivery_time"  value="{$allDelivery[1].delivery_time}" style="width: 60%;height: 35px;text-align:center;padding:10px 10px;" min="1" max="10" >-->
+                                    <select name="user_id" class="form-control">
+                                        <option value="0" selected> -- 请选择 --</option>
+                                        {foreach $config['notice_users'] as $v}
+                                        <option value="{$v['id']}" {if $v['is_notice']==1} selected {/if}> -- {$v['username']} --</option>
+                                        {/foreach}
+                                    </select>
+                                    </form>
+                                </td>
+                                <td>
+                                    <input type="submit"  data-ajax-url="?app=systemConsole&act=selectNoticeUser" class="submit btn btn-primary" value="{$language2->setting}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">02</td>
+                                <td>手动获取用户验证码</td>
+                                <td>
+                                    <input type="text" id="code_phone" placeholder="请输入用户手机号" style="width: 60%;height: 35px;padding:10px 10px;">
+                                </td>
+                                <td>
+                                    <input type="button" class="btn btn-primary" value="获取验证码" onclick="getSmsCode();"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr/>
+                        <!-- /.box -->
+                        <!-- general form elements disabled -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    {include file="public/footer.html"}
+</div>
+<script src="{$STATIC_URL}/plugin/bootstrapswitch/bootstrap-switch.min.js"></script>
+<script src="{$STATIC_URL}/plugin/lodop/LodopFuncs.js"></script>
+<!--提交收货时间-->
+{literal}
+<script type="text/javascript">
+    $(".submit").click(function () {
+        // var delivery_id = $(this).attr('js-id');
+        // var delivery_time = $('input[name=delivery_time]').val();
+        // var lang_id = $('input[name=lang_id]').val();
+
+        // var grand = $(this).siblings();
+        // var submit = $(this).siblings().find("input");
+        // var data = new FormData();
+        // data.append("id_img", file);
+        var data = $(this).parent().prev().find("form").serialize();
+        var ajax_url = $(this).attr('data-ajax-url');
+        console.log(data);
+        console.log(ajax_url);
+        layer.confirm('确认是否提交？', {
+            btn: ['确定', '取消'],
+            title: '提示',
+            icon: 0,
+            skin: 'firm-layer',
+            yes: function (index) {
+                $.ajax({
+                    url: ajax_url,
+                    data: data,
+                    type: "POST",
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.status == '1') {
+                            layer.alert(res.message, {
+                                icon: 1,
+                                btn: false,
+                                title: false,
+                                closeBtn: 0,
+                                time: 1000,
+                                skin: 'alt-layer'
+                            });
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            layer.alert(res.message, {
+                                icon: 1,
+                                btn: false,
+                                title: false,
+                                closeBtn: 0,
+                                time: 1000,
+                                skin: 'alt-layer'
+                            });
+                        }
+                    }
+                })
+            }
+        })
+    });
+    function dateTotime(fromDate) {
+        var stringTime = fromDate;
+        var timestamp2 = Date.parse(new Date(stringTime));
+        timestamp2 = timestamp2 / 1000;
+        return timestamp2;
+    }
+    function dialog(msg) {
+        $.confirm({
+            title: '',
+            closeIcon: true,
+            content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; " + msg + "",
+            type: 'blue',
+            buttons: {
+                confirm: {
+                    btnClass: 'btn-blue',
+                    text: '确认',
+                    action: function () {
+
+                    }
+                }
+            }
+        });
+        return;
+    }
+    //获取用户验证码
+    function getSmsCode() {
+        var code_phone = $.trim($('#code_phone').val());
+        $.ajax({
+            type: "POST",
+            url: '?app=sms&act=getSmsCode&phone=' + code_phone,
+            dataType: "json",
+            data: '',
+            success: function (res) {
+                if (res.status == 1) {
+                    $.confirm({
+                        title: '验证码',
+                        closeIcon: true,
+                        content: '<div class="text-center" style="font-size: 20px;">' + res.info + '</div>',
+                        type: 'blue',
+                        buttons: {
+                            confirm: {
+                                btnClass: 'btn-blue',
+                                text: '确认',
+                                action: function () {
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    alertDialog(res.message);
+                }
+            }
+        });
+    }
+</script>
+{/literal}
+</body>
+</html>

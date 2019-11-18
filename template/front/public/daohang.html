@@ -1,0 +1,270 @@
+<!-- header -->
+<div class="header-box">
+    <!--    弹窗功能-->
+    {if $userId}
+    <div class="talkBox">
+        <div class="talkBoxHeader">
+            <!--            咨询客服-->
+            <p>{$langdata.Consulting_service}</p>
+        </div>
+        <div class="talkBoxContent"> 
+            {foreach from=$kf_data item=item}
+            <div class="talkBoxContentText">
+                <div class="talkBoxContentImg fl">
+                    <img src="{$STATIC_URL}/front/images/customer.png"/>
+                </div>
+                <div class="talkBoxContentName fl">
+                    <p><a href="{$kf_Url}&auxiliary={$auxiliary}&tid={$item.id}" target="_blank">{$item.kf_name}</a></p>  
+                </div>
+            </div>
+            {/foreach}
+        </div>
+        <div class="talkBoxFooter">
+        </div>
+    </div>
+    <div class="talkTip">
+        <span class="icon1"></span>
+        <span class="text">{$langdata.Online_Service}</span><!--            在线客服-->
+        <span class="icon2"></span>
+    </div>
+    {/if}
+    <div class="container clearfix">
+        <div class="left fl">
+            <span>{$langdata.heading_welcome}</span>
+            {if !$userId}
+            <a href="index.php?app=user&act=register&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.heading_register}</a>
+            <a href="index.php?app=user&act=login&lang={$langid}&auxiliary={$auxiliary}">{$langdata.heading_loginin}</a>
+            {/if}
+            {if $userId}
+            <a href="javascript:" id="front_logout">{$langdata.heading_loginout}</a>
+            {/if}
+
+                <!--国家的选择-->
+                <div class="area-select inblock">
+                    <div class="area-text">
+                        <span class="text ellipsis" title="">{if $curCountry.lcatename }{$curCountry.lcatename}{else}{$langdata.heading_Country}{/if}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{if $curStoreInfo.store_name}{$curStoreInfo.store_name}{else}{$langdata.heading_store}{/if}</span>
+                        <i class="ico ico-dw"></i>
+                    </div>
+                    <div class="modal">
+
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span class="text1">{$langdata.Choose_thecity}</span><!--            选择城市-->
+                                    <span class="cross">×</span>
+                                </div>
+                                <div class="modal-section">
+                                    <!--搜索框-->
+                                    <div class="search textBox">
+                                        <input type="text" id="inputKw" name='storelang_name' placeholder="{$langdata.Lookup_content}"/><!--            请输入您要查找的内容-->
+                                        <div class="searchIcon" >
+                                            <span></span>
+                                        </div>
+                                        <ul id="suggest">
+
+                                        </ul>
+                                        <div style="clear:both"></div>
+                                    </div>
+                                    <div class="searchContainer">
+                                        <!--标签页切换-->
+                                        <div class="container">
+                                            <div class="swiper-container swiper1">
+                                                <div class="swiper-wrapper" id="swiper-wrapper" >
+                                                    <!--<div class="swiper-slide selected"><a href="#d1">中国站</a></div>
+                                                    <div class="swiper-slide"><a href="#d2">中国站</a></div>
+                                                     <div class="swiper-slide"><a href="#d3">中国站</a></div>
+                                                     <div class="swiper-slide"><a href="#d4">中国站</a></div>
+                                                     <div class="swiper-slide"><a href="#d5">中国站</a></div>
+                                                     <div class="swiper-slide"><a href="#d6">中国站中国站</a></div>
+                                                     <div class="swiper-slide"><a href="#d7">中国站中国站</a></div>-->
+                                                    {foreach from=$storeCate item=item}
+                                                    <div class="swiper-slide {if $item.id == $cid} selected {/if} "><a href="#{$item.id}">{$item.lcatename}</a></div>
+                                                    {/foreach}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="container2">
+                                            {foreach from=$storeCate item=item}
+                                            <div id="{$item.id}" {if $item.id == $cid} class="active" {/if}>
+                                                 <ul>
+                                                    {foreach $item['store'] item=v}
+                                                    <li><a href="index.php?storeid={$v.id}&lang={$v.lang_id}&auxiliary={$v.distinguish}">{$v.store_name}</a></li>
+                                                    {/foreach}
+                                                </ul>
+                                            </div>
+                                            {/foreach}
+                                        </div>
+                                    </div>
+                                    <div class="moreCity">
+                                        {$langdata.Coming_soon}<!-- 其他城市正在开通中，敬请期待........-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div class="area-choose" style="display: none;">-->
+                        <!--{foreach from=$storeCate item=item}-->
+                        <!--<p  data-id="{$item.id}" >{$item.lcatename}</p>-->
+                        <!--{/foreach}-->
+                        <!--</div>-->
+                </div>
+                <!--站点的选择-->
+                <!--<div class="area1-select inblock">-->
+                <!--<div class="area1-text">-->
+                <!--<span class="text ellipsis" title="">{if $curStoreInfo.store_name}{$curStoreInfo.store_name}{else}{$langdata.heading_store}{/if}</span>-->
+                <!--<i class="ico ico-dw"></i>-->
+                <!--</div>-->
+                <!--<div class="result2">-->
+                <!--{if $curstores}-->
+                <!--<div class="area1-choose" style="display: none;">-->
+                <!--{foreach from=$curstores item=item}-->
+                <!--<p><a href="index.php?storeid={$item.id}&lang={$item.lang_id}">{$item.store_name}</a></p>-->
+                <!--{/foreach}-->
+                <!--</div>-->
+                <!--{/if}-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+            <div class="storeTip">
+                <span>店铺公告</span>
+                <i class="ico ico-dw"></i>
+                <ul>
+                    <li>
+                        <span class="shopHours">营业时间:</span>
+                        <span>{$curStoreInfo.store_start_time}-{$curStoreInfo.store_end_time}</span>
+                    </li>
+                    <li>
+                        <span class="tip">公告:</span>
+                        <span>{$curStoreInfo.store_notice}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 语言选择 -->
+        <div class="right fr">
+            <div class="area2-select inblock">
+                <div class="area2-text">
+                    <div class="txt" >
+                        <img src="{$langinfo.logo}" width="26" height="26">
+                        <span class="text ellipsis" title="">{$langinfo.name}</span>
+                    </div>
+                    <i class="ico ico-dw"></i>
+                </div>
+                <div class="area2-choose" style="display: none;">
+                    {foreach from=$langs  item=item }
+                    <p   data-id="{$item.id}" >
+                        <img src="{$item.logo}" width="26" height="26">
+                        <span   class="text ellipsis vm" title="">{$item.name}</span>
+                    </p>
+                    {/foreach}
+                </div>
+            </div>
+
+            <!--  <a href="javascript:" id="merchantSettled">Merchant settled</a> -->
+            <a href="?app=userCenter&act=myCenter&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}" >{$langdata.heading_membercenter}</a>
+            <a href="?app=map&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}" class="txtNear">{$langdata.heading_map}</a>
+            <!--<a href="?app=design&act=index&storeid={$storeid}&lang={$langid}">{$langdata.3d_designer}</a>-->
+            <!--<a href="##">{$langdata.heading_helpcenter}</a>-->
+            <!--<a href="?app=design&act=index&storeid={$storeid}&lang={$langid}"><img src="{$STATIC_URL}/front/images/diynav.png" /></a>-->
+            <a href="?app=design&act=apartSearch&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}" class="txtIcon"><img src="{$STATIC_URL}/front/images/diynav.png" /></a>
+        </div>
+
+    </div>
+</div>
+<!-- header end -->
+
+<!-- navs-box -->
+<div class="navs-box">
+    <div class="container clearfix">
+        <div class="logo fl">
+            <a href="index.php?storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}"><img src="{$webconf.store_logo.value}" style="width:100%"></a>
+        </div>
+        <div class="navs fl">
+            <ul>
+                <li class="first">
+                    <a href="javascript:;">{$langdata.heading_ctg}<i class="ico ico-dw"></i></a>
+                    <div class="navs-list">
+                        <ul>
+                            {foreach  from=$ctgtree key=key item=val}
+                            <li>
+                                <a href="index.php?app=ctgPage&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}&cid={$val.id}"  class="tit1 {if $key==0 } active {/if}">{$val.category_name}</a>
+                                <div class="item-box"  {if $key==0 }style="display:block"{/if} >
+                                     {foreach  from=$val.childs  item = item}
+                                     <div class="item">
+                                        <a href="index.php?app=ctgPage&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}&cid={$item.id}" class="tit2">{$item.category_name}</a>
+
+                                        {foreach from=$item.childs  item = v }
+                                        <a href="index.php?app=listPage&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}&cid={$v.id}"   >{$v.category_name}</a>
+                                        {/foreach}
+                                    </div>
+                                    {/foreach}
+
+                                </div>
+                            </li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                </li>
+                <li  class="second">
+                    <a href="##">{$langdata.heading_roomtype} <i class="ico ico-dw"></i></a>
+                    <div class="navs-list1">
+                        <div class="item-list  clearfix">
+                            {foreach  from=$frontroomtype  item=val}
+                            {foreach  from=$val['secondLevel']  item=vo}
+                            <div class="item">
+                                <a  href="index.php?app=roomPage&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}&rtid={$vo.id}">
+                                    <div class="img">
+                                        <img src="{$vo.rimg}" width="140" height="140">
+                                    </div>
+                                    <div class="cont ellipsis">
+                                        {$vo.type_name}
+                                    </div>
+                                </a>
+                            </div>
+                            {/foreach}
+                            {/foreach}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a  href="index.php?app=articlePage&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.heading_article}</a>
+                </li>
+                <li>
+                    <!--<a href="index.php?app=goodPromotion&act=index&storeid={$storeid}&lang={$langid}">{$langdata.heading_sale}</a>-->
+                    <a href="index.php?app=combined&act=c_index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.heading_sale}</a>
+                </li>
+                <li>
+                    <a  href="index.php?app=homefixPicture&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">家装美图</a>
+                </li>
+            </ul>
+        </div>
+        <div class="account fr">
+            <ul class="list clearfix">
+                <li>
+                    <a href="?app=userCenter&act=myCenter&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}" class="first ellipsis inblock" style="max-width: 90px" title="{$userName}">{$langdata.heading_hello} {$userName}</a>
+                    <!-- 登入之后进去的样式 -->
+                    <!-- <a href="##">My account</a> -->
+                </li>
+                <li>
+                    <a href="index.php?app=cart&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}"><span class="cartnum"><i class="ico ico-cart inblock"></i><span class="num">{$cart_count}</span></span>{$langdata.heading_shopcart}</a>
+                </li>
+                <!--<li class="mypoint">-->
+                <!--<a href="##">{$langdata.heading_points} <span class="point fr">500</span></a>-->
+                <!--</li>-->
+
+            </ul>
+            <div class="search">
+                <form  id="search-form"  action="index.php?app=searchPage&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}" >
+                    <input type='hidden' name='app' value='searchPage'>
+                    <input type='hidden' name='act' value='index'>
+                    <input type='hidden' name='storeid' value='{$storeid}'>
+                    <input type='hidden' name='lang' value='{$langid}'>
+
+                    <input type="text" name="gname" class="text"  value="{$searchD}"  placeholder="{$langdata.heading_placeholder}" />
+
+                    <button  type="submit"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

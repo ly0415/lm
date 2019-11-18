@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>买赠活动添加</title>
+        {include file="public/header.html"}
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <section class="content-header">
+                    <h1>
+                        {$langdata.gift__Gift}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="?app=giftActivity&act=add&lang_id={$lang}"><i class="fa fa-dashboard"></i>  {$langdata.gift__home}</a></li>
+                        <li><a href="#">{$langdata.gift__Promotion}</a></li>
+                        <li class="active"> {$langdata.gift__Gift}</li>
+                    </ol>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary pb20">
+                                <div class="box-header">
+                                    <div class="col-sm-1 col-md-1 no-padding pull-right">
+                                        <a class="btn btn-primary pull-right btn-sm" href="?app=giftActivity&act=index&lang_id={$lang_id}"><i class="fa fa-plus"></i> {$langdata.gift__Return}</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-horizontal">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-3  col-lg-3 control-label"><span class="text-red">*</span> {$langdata.gift__type}：</label>
+                                            <div class="col-sm-7 col-md-6 col-lg-5 j_type">
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios"  value="1" checked>{$langdata.gift__Full}
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadios"  value="2" >{$langdata.gift__pieces}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-3  col-lg-3 control-label"><span class="text-red">*</span> {$langdata.gift__name}：</label>
+                                            <div class="col-sm-7 col-md-6 col-lg-5">
+                                                <input type="text" class="form-control" placeholder="" name="active_name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-3  col-lg-3 control-label"><span class="text-red">*</span> {$langdata.gift__start}：</label>
+                                            <div class="col-sm-7 col-md-6 col-lg-5">
+                                                <input type="text" class="form-control w174 inblock" placeholder="" id="datepicker1" name="start_time" readonly/>
+                                                <label class="">{$langdata.gift__End}：</label>
+                                                <input type="text" class="form-control w174 inblock" placeholder="" id="datepicker2" name="end_time" readonly/>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="zuhesale clearfix">
+                                    <div class="col-xs-12 header">
+                                        <div class="col-xs-8">{$langdata.gift__Discount}</div>
+                                    </div> 
+                                    <div class="col-xs-12 mt30" >
+                                        <div class="new-table-responsive mb20" style="display: block;">
+                                            <div class="box-body table-responsive no-padding ">
+                                                <table class="table table-bordered">
+                                                    <tbody class="j_tbody">
+                                                        <tr>
+                                                            <td>
+                                                                {$langdata.gift__consumption}
+                                                                <input type="text" name="mPrice" class="form-control w70 inblock ml15 mr15">
+                                                                {$langdata.gift__element}
+                                                            </td>
+                                                            <td>
+                                                                {$langdata.gift__give}
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" value="" name="goods_name" class="form-control w250 inblock j_add giftname" readonly="true"  placeholder="{$langdata.gift__Choice}">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name="setNum"   class="form-control w70 inblock" placeholder="{$langdata.gift__amount}">
+                                                            </td>
+                                                            <td>
+                                                                <a href="##" name="7" data-toggle="tooltip" class="btn btn-xs btn-success j_addtr" data-original-title="{$langdata.gift__Addto}"><i class="fa fa-plus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="new-table-responsive mb20" style="display: none;">
+                                            <div class="box-body table-responsive no-padding ">
+                                                <table class="table table-bordered">
+                                                    <tbody class="j_tbody1">
+                                                        <tr>
+                                                            <td>
+                                                                {$langdata.gift__consumption}
+                                                                <input type="text"  name="amount"  class="form-control w70 inblock ml15 mr15">
+                                                                {$langdata.gift__piece}
+                                                            </td>
+                                                            <td>
+                                                                {$langdata.gift__give}
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" value="" name="goods_name" class="form-control w250 inblock j_add giftname" readonly="true"  placeholder="{$langdata.gift__Choice}">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text"   name="setNum"   class="form-control w70 inblock" placeholder="{$langdata.gift__amount}">
+                                                            </td>
+                                                            <td>
+                                                                <a href="##" name="7" data-toggle="tooltip" class="btn btn-xs btn-success j_addtr1" data-original-title="{$langdata.gift__Addto}"><i class="fa fa-plus"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <div class="col-xs-5 col-xs-offset-3 ">
+                                        <a href="?app=giftActivity&act=index&lang_id={$lang_id}" class="btn btn-default"><i class="fa fa-times-circle"></i> {$langdata.gift__Close}</a>
+                                        <button type="button" id="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> {$langdata.gift__Deposit}
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="hidden"  name="store_id" value="{$store_id}" />
+                                <input type="hidden"  name="lang_id" value="{$lang_id}" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            {include file="public/footer.html"}
+        </div>
+        {literal}
+        <!-- ./wrapper -->
+        <script type="text/javascript">
+            $(function() {
+                var newDate = new Date();
+                var t = newDate.toJSON();
+                $('#datepicker1').datetimepicker({
+                    autoclose: true,
+                    language: 'ch',
+                    format: "yyyy-mm-dd hh:ii",
+                    clearBtn: true,
+                    startDate: new Date(t)
+
+                });
+                $('#datepicker2').datetimepicker({
+                    autoclose: true,
+                    language: 'ch',
+                    format: "yyyy-mm-dd hh:ii",
+                    clearBtn: true,
+                    startDate: new Date(t)
+                });
+                var timer=null;
+                //加载弹窗页面
+                $('body').on('click', '.j_add', function(e) {
+                   timer= setTimeout(function() {
+                        dialog_form_radio('store.php?app=radioDialog&act=goodsDialog', '添加商品');
+                    }, 100);
+                    _that = $(this);
+                })
+                function dialog_form_radio(file_url, title) {
+                    $.get(file_url, function(data) {
+                        $.confirm({
+                            boxWidth: '60%',
+                            useBootstrap: false,
+                            title: title,
+                            content: data,
+                            animationBounce: 1.5,
+                            type: 'blue',
+                            buttons: {
+                                confirm: {
+                                    btnClass: 'btn-blue',
+                                    text: '保存',
+                                    action: function() {
+                                        var obj = $('.tc-box tbody input[type="radio"]:checked');
+                                        dataid = obj.attr('data-id');
+                                        dataurl = obj.attr('data-url');
+                                        dataname = obj.attr('data-name'); //商品名称
+                                        datasprice = obj.attr('data-sprice');
+                                        datamprice = obj.attr('data-mprice');
+                                        var a = obj.parents('tr').next().find('.att a');
+                                        var attr = obj.parents('tr').next().find('.active');
+                                        var flag_1 = $('input[type=radio]:checked').val();
+                                        if(dataid.length < 0){
+                                            return false;
+                                        }
+                                        if (a.length > 0) {//有active
+                                            var dataattr = attr.attr('data-attr');
+                                            var datakey = attr.attr('data-key');
+                                            var dataiprice = attr.attr('data-iprice');
+                                            var dataitem = attr.attr('data-item');
+                                            var name = dataname + ' ' + dataattr;
+                                            var flag = quChong(dataid + datakey);
+                                            if (!flag) {
+                                                _that.val(name);
+                                                if (_that.parents('tr').find('.hid').length == 0) {
+                                                    _that.parents('tr').append('<input type="hidden" class="hid" value="' + dataid + datakey + '"/>');
+                                                } else {
+                                                    _that.parents('tr').find('.hid').val(dataid + datakey);
+                                                }
+                                                var html = dataid + ',' + datakey + ',' + datasprice;
+
+                                                if (flag_1 == 1) {
+                                                    if (_that.parents('tr').find('.parameter_1').length == 0) {
+                                                        _that.parents('tr').append('<input type="hidden" class="parameter_1" value="' + html + '"/>');
+                                                    } else {
+                                                        _that.parents('tr').find('.parameter_1').val(html);
+                                                    }
+                                                } else {
+                                                    if (_that.parents('tr').find('.parameter_2').length == 0) {
+                                                        _that.parents('tr').append('<input type="hidden" class="parameter_2" value="' + html + '"/>');
+                                                    } else {
+                                                        _that.parents('tr').find('.parameter_2').val(html);
+                                                    }
+                                                }
+
+                                            }
+
+                                        } else {//如果没有属性
+                                            var dataattr = attr.attr('data-attr');
+                                            var datakey = attr.attr('data-key');
+                                            var dataiprice = attr.attr('data-iprice');
+                                            var dataitem = attr.attr('data-item');
+                                            var name = dataname + ' ' + dataattr;
+                                            var flag = quChong(dataid + datakey);
+                                            if (datakey == undefined || datakey == '' || datakey == null) {
+                                                datakey = '';
+                                            }
+                                            if (!flag) {
+                                                if (_that.parents('tr').find('.hid').length == 0) {
+                                                    _that.parents('tr').append('<input type="hidden" class="hid" value="' + dataid + datakey + '"/>');
+                                                } else {
+                                                    _that.parents('tr').find('.hid').val(dataid + datakey);
+                                                }
+                                                var html = dataid + ',' + datakey + ',' + datasprice;
+                                                _that.val(dataname);
+                                                if (_that.parents('tr').find('.parameter_1').length == 0) {
+                                                    _that.parents('tr').append('<input type="hidden" class="parameter_1" value="' + html + '"/>');
+                                                }
+
+
+                                                if (flag_1 == 1) {
+                                                    if (_that.parents('tr').find('.parameter_1').length == 0) {
+                                                        _that.parents('tr').append('<input type="hidden" class="parameter_1" value="' + html + '"/>');
+                                                    } else {
+                                                        _that.parents('tr').find('.parameter_1').val(html);
+                                                    }
+                                                } else {
+                                                    if (_that.parents('tr').find('.parameter_2').length == 0) {
+                                                        _that.parents('tr').append('<input type="hidden" class="parameter_2" value="' + html + '"/>');
+                                                    } else {
+                                                        _that.parents('tr').find('.parameter_2').val(html);
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                },
+                                cancel: {
+                                    btnClass: 'btn-default', // multiple classes.
+                                    text: '取消',
+                                    action: function () {
+                                       clearTimeout(timer);
+                                        timer = null;
+                                    }
+                                }
+                            }
+                        });
+
+                    })
+                }
+                //去重函数
+                function quChong(str) {
+                    var arr = [];
+                    var flag;
+                    hidden = _that.parents('.new-table-responsive').find('.hid');
+                    if (hidden.length == 0) {
+                        flag = 0;
+                    } else {
+                        for (var i = 0; i < hidden.length; i++) {
+                            if (str == $(hidden[i]).val()) {
+                                flag = 1;
+                                break;//如果找到相同的就跳出循环
+                            } else {
+                                flag = 0;
+                            }
+                        }
+                    }
+                    return flag;
+                }
+
+                $('.j_type input[type="radio"]').click(function() {
+                    if ($(this).val() == 1) {
+                        $('.new-table-responsive').hide();
+                        $('.new-table-responsive').eq(0).show();
+                    }
+                    if ($(this).val() == 2) {
+                        $('.new-table-responsive').hide();
+                        $('.new-table-responsive').eq(1).show();
+                    }
+                })
+                //添加表格行
+                $('body').on('click', '.j_addtr', function() {
+                    var html = '';
+                    html += '<tr>' +
+                            '<td>' +
+                            '消费&nbsp;' +
+                            '<input type="text"  name="mPrice" class="form-control w70 inblock ml15 mr15">' +
+                            '&nbsp;元' +
+                            '</td>' +
+                            '<td>' +
+                            '送赠品' +
+                            '</td>' +
+                            '<td>' +
+                            '<input type="text" value="" class="form-control w250 inblock j_add giftname" readonly="true"  placeholder="选择赠品">' +
+                            '</td>' +
+                            '<td>' +
+                            '<input type="text"  name="setNum"  class="form-control w70 inblock" placeholder="数量">' +
+                            '</td>' +
+                            '<td>' +
+                            '<a href="##" name="7" data-toggle="tooltip" class="btn btn-xs btn-success j_addtr" data-original-title="添加"><i class="fa fa-plus"></i></a>&nbsp;' +
+                            '<a href="##" name="7" data-toggle="tooltip" class="btn btn-xs btn-danger delete-table1" data-original-title="删除"><i class="fa fa-times"></i></a>' +
+                            '</td>' +
+                            '</tr>';
+                    $('.j_tbody').append(html);
+                })
+                //添加表格行
+                $('body').on('click', '.j_addtr1', function() {
+                    var html = '';
+                    html += '<tr>' +
+                            '<td>' +
+                            '消费&nbsp;' +
+                            '<input type="text" value=""  name="amount" class="form-control w70 inblock ml15 mr15">' +
+                            '&nbsp;件' +
+                            '</td>' +
+                            '<td>' +
+                            '送赠品' +
+                            '</td>' +
+                            '<td>' +
+                            '<input type="text" value="" name="goods_name"  class="form-control w250 inblock j_add giftname" readonly="true"  placeholder="选择赠品">' +
+                            '</td>' +
+                            '<td>' +
+                            '<input type="text" value="" name="setNum" class="form-control w70 inblock" placeholder="数量">' +
+                            '</td>' +
+                            '<td>' +
+                            '<a href="##" name="7" data-toggle="tooltip" class="btn btn-xs btn-success j_addtr1" data-original-title="添加"><i class="fa fa-plus"></i></a>&nbsp;' +
+                            '<a href="##" name="7" data-toggle="tooltip" class="btn btn-xs btn-danger delete-table1" data-original-title="删除"><i class="fa fa-times"></i></a>' +
+                            '</td>' +
+                            '</tr>';
+                    $('.j_tbody1').append(html);
+                })
+                //单个删除
+                $('body').on('click', '.delete-table1', function() {
+                    var that = $(this);
+                    $.confirm({
+                        title: '',
+                        closeIcon: true,
+                        content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i> 您确认要删除所选数据？",
+                        type: 'blue',
+                        buttons: {
+                            confirm: {
+                                btnClass: 'btn-blue',
+                                text: '确认',
+                                action: function() {
+                                    that.parents('tr').remove();
+                                }
+                            },
+                            cancel: {
+                                btnClass: 'btn-default', // multiple classes.
+                                text: '取消'
+                            }
+                        }
+                    });
+
+                });
+
+                // 点击保存事件
+                $('body').on('click', '#submit', function() {
+                    var flag = $('input[type=radio]:checked').val(); //1.满额送 2.满件送
+                    var active_name = $('input[name=active_name]').val();
+                    var start_time = $('input[name=start_time]').val();
+                    var end_time = $('input[name=end_time]').val();
+                    var lang_id = $('input[name=lang_id]').val();
+                    var store_id = $('input[name=store_id]').val();
+                    var arr = []; // 商品规格参数
+                    var price = [];
+                    var goodNum = [];
+                    var goodsName = [];
+                    var preg_zheng = /^[1-9]\d*$/;
+                    if ($.trim(active_name) == '') {
+                        dialog('请填写活动名称！');
+                        return;
+                    }
+                    if ((!start_time) || (!end_time)) {
+                        dialog('请填写时间区间！');
+                        return;
+                    }
+                    if (dateTotime(start_time) >= dateTotime(end_time)) {
+                        dialog('请填写开始时间不能大于结束时间！');
+                        return;
+                    }
+                    if (flag == 1) {
+                        $('.parameter_1').each(function() {
+                            arr.push($(this).val());
+                        });
+                        $('.new-table-responsive').eq(0).find('input[name=mPrice]').each(function() {
+                            price.push($(this).val());
+
+                        });
+                        $('.new-table-responsive').eq(0).find('input[name=setNum]').each(function() {
+                            goodNum.push($(this).val());
+
+                        });
+                        $('.new-table-responsive').eq(0).find('input[name=goods_name]').each(function() {
+                            goodsName.push($(this).val());
+
+                        });
+                        for (var i = 0; i < price.length; i++) {
+                            if (price[i] == '') {
+                                dialog('请输入金额！');
+                                return;
+                            }
+                            if (!preg_zheng.test(price[i])) {
+                                dialog('金额输入格式不正确！');
+                                return;
+                            }
+
+                        }
+                        for (var i = 0; i < goodsName.length; i++) {
+                            if (goodsName[i] == '') {
+                                dialog('请加入商品信息！');
+                                return;
+                            }
+                        }
+                        for (var i = 0; i < goodNum.length; i++) {
+                            if (goodNum[i] == '') {
+                                dialog('请输入商品数量信息！');
+                                return;
+                            }
+                            if (!preg_zheng.test(goodNum[i])) {
+                                dialog('商品数量格式不正确！');
+                                return;
+                            }
+                        }
+                    } else {
+                        $('.parameter_2').each(function() {
+                            arr.push($(this).val());
+                        });
+                        $('.new-table-responsive').eq(1).find('input[name=amount]').each(function() {
+                            price.push($(this).val());
+
+                        });
+                        $('.new-table-responsive').eq(1).find('input[name=setNum]').each(function() {
+                            goodNum.push($(this).val());
+
+                        });
+                        $('.new-table-responsive').eq(1).find('input[name=goods_name]').each(function() {
+                            goodsName.push($(this).val());
+
+                        });
+                        for (var i = 0; i < price.length; i++) {
+                            if (price[i] == '') {
+                                dialog('请输入金额！');
+                                return;
+                            }
+                            if (!preg_zheng.test(price[i])) {
+                                dialog('金额输入格式不正确！');
+                                return;
+                            }
+
+                        }
+                        for (var i = 0; i < goodsName.length; i++) {
+                            if (goodsName[i] == '') {
+                                dialog('请加入商品信息！');
+                                return;
+                            }
+                        }
+                        for (var i = 0; i < goodNum.length; i++) {
+                            if (goodNum[i] == '') {
+                                dialog('请输入商品数量信息！');
+                                return;
+                            }
+                            if (!preg_zheng.test(goodNum[i])) {
+                                dialog('商品数量格式不正确！');
+                                return;
+                            }
+                        }
+
+                    }
+                    var data = {'flag': flag, 'lang_id': lang_id, 'store_id': store_id, 'active_name': active_name, 'start_time': start_time, 'end_time': end_time, 'arr': arr, 'price': price, 'goodNum': goodNum};
+                    $.ajax({
+                        url: '?app=giftActivity&act=doAdd',
+                        type: 'POST',
+                        data: data,
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.status == 1) {
+                                var d = $.dialog({
+                                    content: '<div class="text-center">' + data.message + '</div>',
+                                    title: false, // hides the title.
+                                    closeIcon: false, // hides the close icon.
+                                    columnClass: 'xsmall',
+                                    onOpen: function() {
+                                        setTimeout(function() {
+                                            d.close();
+                                        }, 1000);
+                                        window.location.href = data.info.url;
+                                    }
+                                });
+                                return false;
+                            } else {
+                                var d = $.dialog({
+                                    content: '<div class="text-center">' + data.message + '</div>',
+                                    title: false, // hides the title.
+                                    closeIcon: false, // hides the close icon.
+                                    columnClass: 'xsmall',
+                                    onOpen: function() {
+                                        setTimeout(function() {
+                                            d.close();
+                                        }, 1000);
+                                    }
+                                });
+                                return false;
+                            }
+                        }
+                    });
+                });
+
+            })
+
+
+            function dialog(msg) {
+                $.confirm({
+                    title: '',
+                    closeIcon: true,
+                    content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>&nbsp;&nbsp; " + msg + "",
+                    type: 'blue',
+                    buttons: {
+                        confirm: {
+                            btnClass: 'btn-blue',
+                            text: '确认',
+                            action: function() {
+
+                            }
+                        }
+                    }
+                });
+                return;
+            }
+
+            /** 时间格式转换成时间戳*/
+            function dateTotime(fromDate) {
+                var stringTime = fromDate;
+                var timestamp2 = Date.parse(new Date(stringTime));
+                timestamp2 = timestamp2 / 1000;
+                return timestamp2;
+            }
+
+        </script>
+        {/literal}
+    </body>
+</html>

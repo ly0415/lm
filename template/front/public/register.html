@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>home 711</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="{$STATIC_URL}/front/css/base.css">
+        <!-- iCheck -->
+        <link rel="stylesheet" href="{$STATIC_URL}/plugin/iCheck/square/blue.css">
+    </head>
+    <body style="background-color:#fff;">
+        <div class="container clearfix login-header">
+            <div style="width:240px;margin-top:8px;float:left;">
+                <a href="index.php?storeid={$storeid}&lang={$langid}" class="logo fl mt20">
+                    <img src="{$webconf.store_logo.value}" style="width:100%">
+                </a>
+            </div>
+            <div class="login fr">
+                {$langdata.login_security}
+                <i class="ico-lock ico"></i>
+            </div>
+        </div>
+        <div class="login-box ">
+            <div>
+                <div class="login-tit" style="margin-bottom:20px;">
+                    {$langdata.login_Welcome}
+                    <p class="sub">{$langdata.login_Establish}</p>
+                </div>
+                <div class="login-content">
+                    <p>
+                        <input type="text" name="email"  class="text" {if $username}value="{$username}" readonly {else} placeholder="{$langdata.login_mail}" {/if}>
+                    <div class="error" style="display: none;" id="email_error">{$langdata.login_input}。</div>
+                    <input name="store_id" type="hidden" value="{$store_id}">
+                    <input name="langid" type="hidden" value="{$langid}">
+                    <input name="lang_id" type="hidden" value="{$lang_id}">
+                    </p>
+                    <p class=" password">
+                        <input type="password" name="password" value="" placeholder="{$langdata.login_Password}" class="text"><span class="show">{$langdata.login_display}</span>
+                    <div class="error" style="display: none;" id="password_error">{$langdata.login_input}。</div>
+                    </p>
+
+                    <p>
+                        <button class="btn-sub" id="login_button">{$langdata.login_Account}</button>
+                    <div class="error" style="display: none;" id="callback_result"></div>
+                    </p>
+                    <p class="other">
+                        {$langdata.login_Yes}<br/>
+                        <a href="index.php?app=user&act=login">{$langdata.login_Land}</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="login-footer">
+            <p class="web">www.711home.com www.711home.net</p>
+            <p>Copyright @ 2003-2016 {$langdata.login_Amy}</p>
+        </div>
+
+        <script type="text/javascript" src="{$STATIC_URL}/front/js/jquery.1.8.2.min.js"></script>
+        <!-- iCheck -->
+        <script src="{$STATIC_URL}/plugin/iCheck/icheck.min.js"></script>
+        <script type="text/javascript" src="{$STATIC_URL}/front/js/common.js"></script>
+        <script>
+            $(function () {
+                $('input').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '20%' // optional
+                });
+                document.onkeydown = function (event) {
+                    e = event ? event : (window.event ? window.event : null);
+                    if (e.keyCode == 13) {
+                        var button = document.getElementById('login_button');
+                        button.focus();
+                        button.onclick();
+                    }
+                };
+            });
+        </script>    
+        {if $lang_id =='ZH'}
+
+        {literal}
+        <script>
+            //点击显示和掩藏密码
+            $(function () {
+                $('.password').on('click', '.show', function () {
+                    name = $(this).prev().attr('name');
+                    value = $(this).prev().attr('value');
+                    if ($(this).prev().attr('type') == 'password') {
+                        $('.password').html('<input type="text" name="' + name + '" value="' + value + '"placeholder="请输入密码" class="text"><span class="show">显示</span>');
+                    } else if ($(this).prev().attr('type') == 'text') {
+                        $('.password').html('<input type="password" name="' + name + '" value="' + value + '"placeholder="请输入密码" class="text"><span class="show">显示</span>');
+                    }
+                })
+            })
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('.btn-sub').click(function () {
+                    var email = $('input[name=email]').val();
+                    var password = $('input[name=password]').val();
+                    var store_id = $('input[name=store_id]').val();
+                    var lang_id = $('input[name=lang_id]').val();
+                    var lang = $('input[name=langid]').val();
+                    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+                    if (email == "") {
+                        $('#email_error').css('display', 'block');
+                        $('#callback_result').css('display', 'none');
+                        $('input[name=yanzheng]').focus();
+                        return false;
+                    }
+                    if (!reg.test(email)) {
+                        $('#email_error').css('display', 'block');
+                        $('#callback_result').css('display', 'none');
+                        $('#email_error').html('邮箱格式错误!');
+                        return false;
+                    }
+                    if (password.length < 6 || password.length > 16) {
+                        $('#password_error').css('display', 'block');
+                        $('#callback_result').css('display', 'none');
+                        $('#password_error').html('密码长度是6-16个字符!');
+                        return false;
+                    }
+                    $.ajax({
+                        url: 'index.php?app=user&act=doRegister',
+                        type: 'post',
+                        data: {'username': email, 'password': password, 'store_id': store_id, 'lang_id': lang_id, 'lang': lang},
+                        async: false, //默认为true 异步
+                        error: function () {
+                            alert('error');
+                        },
+                        success: function (data) {
+                            var data = eval("(" + data + ")");
+                            $('#callback_result').css('display', 'block');
+                            $('#password_error').css('display', 'none');
+                            $('#email_error').css('display', 'none');
+                            if (data.status == 1) {
+                                $('#callback_result').html(data.message);
+                                window.location.href = data.info.url;
+                            } else {
+                                $('#callback_result').html(data.message);
+                            }
+
+                        }
+                    });
+                })
+            })
+        </script>
+        {/literal}
+        {else}
+        {literal}
+        <script>
+            //点击显示和掩藏密码
+            $(function () {
+                $('.password').on('click', '.show', function () {
+                    name = $(this).prev().attr('name');
+                    value = $(this).prev().attr('value');
+                    if ($(this).prev().attr('type') == 'password') {
+                        $('.password').html('<input type="text" name="' + name + '" value="' + value + '" placeholder="Please input a password" class="text"><span class="show">Show</span>');
+                    } else if ($(this).prev().attr('type') == 'text') {
+                        $('.password').html('<input type="password" name="' + name + '" value="' + value + '" placeholder="Please input a password"  class="text"><span class="show">Show</span>');
+                    }
+                })
+            })
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('.btn-sub').click(function () {
+                    var email = $('input[name=email]').val();
+                    var password = $('input[name=password]').val();
+                    var store_id = $('input[name=store_id]').val();
+                    var lang_id = $('input[name=lang_id]').val();
+                    var lang = $('input[name=langid]').val();
+                    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+                    if (email == "") {
+                        $('#email_error').css('display', 'block');
+                        $('#callback_result').css('display', 'none');
+                        $('input[name=yanzheng]').focus();
+                        return false;
+                    }
+                    if (!reg.test(email)) {
+                        $('#email_error').css('display', 'block');
+                        $('#callback_result').css('display', 'none');
+                        $('#email_error').html('邮箱格式错误!');
+                        return false;
+                    }
+                    if (password.length < 6 || password.length > 16) {
+                        $('#password_error').css('display', 'block');
+                        $('#callback_result').css('display', 'none');
+                        $('#password_error').html('密码长度是6-16个字符!');
+                        return false;
+                    }
+                    $.ajax({
+                        url: 'index.php?app=user&act=doRegister',
+                        type: 'post',
+                        data: {'username': email, 'password': password, 'store_id': store_id, 'lang_id': lang_id, 'lang': lang},
+                        async: false, //默认为true 异步
+                        error: function () {
+                            alert('error');
+                        },
+                        success: function (data) {
+                            var data = eval("(" + data + ")");
+                            $('#callback_result').css('display', 'block');
+                            $('#password_error').css('display', 'none');
+                            $('#email_error').css('display', 'none');
+                            if (data.status == 1) {
+                                $('#callback_result').html(data.message);
+                                window.location.href = data.info.url;
+                            } else {
+                                $('#callback_result').html(data.message);
+                            }
+
+                        }
+                    });
+                })
+            })
+        </script>
+        {/literal}
+        {/if}
+    </body>
+</html>

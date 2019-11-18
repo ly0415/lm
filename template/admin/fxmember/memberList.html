@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+        <style>
+
+        </style>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        分销人员
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="admin.php?app=default&act=index&lang_id={$lang_id}"><i class="fa fa-dashboard"></i> 首页</a></li>
+                        <li class="active">分销管理</li>
+                        <li class="active">分销人员</li>
+                    </ol>
+
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <form class="form-inline col-sm-10 col-md-11 no-padding">
+                                    </form>
+                                    <div class="col-sm-2  col-md-1 no-padding">
+                                        <a class="btn btn-primary pull-right btn-sm" href="?app=fxmember&act=memadd&lang_id={$lang_id}&store_id={$store_id}"   role="button"><i class="fa fa-plus"></i> 添加分销人员</a>
+                                    </div>
+                                </div>
+
+                                <div class="new-table-responsive">
+                                    <div class="box-body table-responsive no-padding ">
+                                        <table id="example-advanced" class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th  style="padding-left: 25px !important;" >会员id</th>
+                                                    <th>真实姓名</th>
+                                                    <th>邮箱</th>
+                                                    <th>手机号码</th>
+                                                    <th>开户银行</th>
+                                                    <th>银行帐号</th>
+                                                    <th>账户余额</th>
+                                                    <th>状态</th>
+                                                    <th>加入时间</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {foreach from=$res item=v}
+                                                <tr data-tt-id="{$v.id}" data-tt-parent-id="0">
+                                                    <td>{$v.user_id}</td>
+                                                    <td>
+                                                        {$v.real_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v.email}
+                                                    </td>
+                                                    <td>
+                                                        {$v.telephone}
+                                                    </td>
+                                                    <td>
+                                                        {$v.bank_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v.bank_account}
+                                                    </td>
+                                                    <td>
+                                                        {$v.money}
+                                                    </td>
+                                                    <td>
+                                                        {if $v.freeze == 1 } <span class="bg-had">正常</span> {else} <span class="bg-fail">冻结</span> {/if}
+                                                    </td>
+                                                    <td>
+                                                        {$v.add_time|date_format:"%Y-%m-%d"}
+                                                    </td>
+                                                    <td>
+                                                        <a href="?app=fxmember&act=edit&lang_id={$lang_id}&treeid={$v.id}&store_id={$store_id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;"  >编辑</a>
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  data-status = {$v.freeze}  onclick="dongjie(this, '{$v.uid}');"  >  {if $v.freeze == 1 } 去冻结  {else}  去解冻  {/if}   </a>
+                                                    </td>
+                                                </tr>
+                                                {foreach from=$v.childs item=vo}
+                                                <tr data-tt-id="{$vo.id}" data-tt-parent-id="{$v.id}">
+                                                    <td>{$vo.user_id}</td>
+                                                    <td>
+                                                        {$vo.real_name}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.email}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.telephone}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.bank_name}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.bank_account}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.money}
+                                                    </td>
+                                                    <td>
+                                                        {if $vo.freeze == 1 } <span class="bg-had">正常</span> {else} <span class="bg-fail">冻结</span> {/if}
+                                                    </td>
+                                                    <td>
+                                                        {$vo.add_time|date_format:"%Y-%m-%d"}
+                                                    </td>
+                                                    <td>
+                                                        <a href="?app=fxmember&act=edit&treeid={$vo.id}&lang_id={$lang_id}&store_id={$store_id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;" >编辑</a>
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  data-status = {$vo.freeze}  onclick="dongjie(this, '{$vo.uid}');"  >  {if $vo.freeze == 1 } 去冻结  {else}  去解冻  {/if}   </a>
+                                                    </td>
+                                                </tr>
+                                                {foreach from=$vo.childs item=v1}
+                                                <tr data-tt-id="{$v1.id}" data-tt-parent-id="{$vo.id}">
+                                                    <td>{$v1.user_id}</td>
+                                                    <td>
+                                                        {$v1.real_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.email}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.telephone}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.bank_name}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.bank_account}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.money}
+                                                    </td>
+                                                    <td>
+                                                        {if $v1.freeze == 1 } <span class="bg-had">正常</span> {else} <span class="bg-fail">冻结</span> {/if}
+                                                    </td>
+                                                    <td>
+                                                        {$v1.add_time|date_format:"%Y-%m-%d"}
+                                                    </td>
+                                                    <td>
+                                                        <a href="?app=fxmember&act=edit&treeid={$v1.id}&lang_id={$lang_id}&store_id={$store_id}" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;" >编辑</a>
+                                                        <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  data-status = {$v1.freeze}  onclick="dongjie(this, '{$v1.uid}');"  > {if $v1.freeze == 1 } 去冻结  {else}  去解冻  {/if}  </a>
+                                                    </td>
+                                                </tr>
+                                                {/foreach}
+                                                {/foreach}
+                                                {/foreach}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            {include file="public/footer.html"}
+        </div>
+
+
+        <script type="text/javascript">
+
+            $(function() {
+                $("#example-advanced").treetable({
+                    expandable: true,
+                    clickableNodeNames: true
+                });
+            });
+            //账户的冻结  1正常，2冻结
+            function dongjie(obj, uid) {
+
+                //提示js
+                $.confirm({
+                    title: '提示',
+                    closeIcon: true,
+                    content: "<i class='fa fa-warning text-yellow' style='font-size:38px'></i>您确认要执行该操作！",
+                    type: 'blue',
+                    buttons: {
+                        confirm: {
+                            btnClass: 'btn-blue',
+                            text: '确认',
+                            action: function() {
+                                //
+                                var status = parseInt(obj.getAttribute('data-status'));
+                                if (status == 1) {
+                                    // ajax
+                                    var freeze = 2;
+                                    var url = '?app=fxmember&act=ajaxfreeze&uid=' + uid + '&freeze=' + freeze;
+                                    $.get(url, function(res) {
+                                        if (res.status) {
+                                            obj.text = '去解冻';
+                                            obj.setAttribute('data-status', 2);
+                                            $(obj).parents('tr').find('td').eq(7).html('<span class="bg-fail">冻结</span>')
+
+                                        }
+                                    }, 'json');
+
+                                } else {
+                                    // ajax
+                                    var freeze = 1;
+                                    var url = '?app=fxmember&act=ajaxfreeze&uid=' + uid + '&freeze=' + freeze;
+                                    $.get(url, function(res) {
+                                        if (res.status) {
+                                            obj.text = '去冻结';
+                                            obj.setAttribute('data-status', 1);
+                                            $(obj).parents('tr').find('td').eq(7).html('<span class="bg-had">正常</span>')
+
+                                        }
+                                    }, 'json');
+                                }
+                                //
+                            }
+                        },
+                        cancel: {
+                            btnClass: 'btn-default', // multiple classes.
+                            text: '取消'
+                        }
+                    }
+                });
+
+            }
+
+        </script>
+
+
+    </body>
+</html>

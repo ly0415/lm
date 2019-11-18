@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+        <style>
+
+        </style>
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        文章列表
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="store.php?app=default&act=index&lang_id={$lang_id}"><i class="fa fa-dashboard"></i> 首页</a></li>
+                        <li class="active">文章管理</li>
+                        <li class="active">文章列表</li>
+                    </ol>
+
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <form class="form-inline col-sm-10 col-md-11 no-padding">
+                                        <input type='hidden' name='app' value='article'>
+                                        <input type='hidden' name='act' value='articleList'>
+                                        <input type="hidden" name = "delAll" value="dele">
+                                        <input type="hidden" name = "lang_id" value="{$lang_id}">
+
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">文章名称：</small>
+                                            <input type="text" class="form-control" name="title" value="{$title}">
+                                        </div>
+
+
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">文章分类：</small>
+                                            <select class="form-control" name="cat_id"  >
+                                                {$options}
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">推荐状态：</small>
+                                            <select class="form-control" name="isrecom"  >
+                                                <option value="0" >--请选择--</option>
+                                                <option value="1" {if $isrecom ==1}selected{/if} >是</option>
+                                                <option value="2" {if $isrecom ==2}selected{/if} >否</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-group-sm form-mar">
+                                            <button type="submit" class="btn btn-default btn-sm">
+                                                搜索 <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                    <div class="col-sm-2  col-md-1 no-padding">
+                                        <a class="btn btn-primary pull-right btn-sm" href="?app=article&act=add&lang_id={$lang_id}&p={$p}"   role="button"><i class="fa fa-plus"></i> 添加文章</a>
+                                    </div>
+
+                                </div>
+                                <div class="new-table-responsive">
+                                    <div class="box-body table-responsive no-padding">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" name="" id="all"/></th>
+                                                    <th>序号</th>
+                                                    <th>文章标题</th>
+                                                    <th>文章分类</th>
+                                                    <th>推荐</th>
+                                                    <th>发布时间</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                            </thead>
+
+                                            {foreach from=$list item=item}
+                                            <tr>
+                                                <td><input type="checkbox" name="check-name" value="{$item.id}" /></td>
+                                                <td>{$item.sort_id}</td>
+                                                <td >{$item.title}</td>
+                                                <td>{$item.article_cate_name}</td>
+                                                <td> <a href="javascript:;" onclick="upisrecom($(this), {$item.id})"   {if $item.isrecom ==2 }class="2" {else} class="1"  {/if}  >{$item.statusName}</a></td>
+                                                <td>{$item.add_time|date_format:"%Y-%m-%d"}</td>
+                                                <td>
+
+                                                    <!--<a href="javascript:;" data-toggle="tooltip" class="btn btn-xs btn-success "  onclick="chakan({$item.id});"    style="overflow: hidden; position: relative;"  >查看</a>-->
+
+                                                    <a href="?app=article&act=edit&id={$item.id}&lang_id={$lang_id}&p={$p}"  data-toggle="tooltip" class="btn btn-xs btn-success "   style="overflow: hidden; position: relative;"  >编辑</a>
+
+                                                    <a href="javascript:;" data-toggle="tooltip" class="btn btn-xs btn-danger "  onclick="shanchu({$item.id});"   style="overflow: hidden; position: relative;"  >删除</a>
+
+                                                </td>
+
+                                            </tr>
+                                            {/foreach}
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="box-footer clearfix">
+                                    <a href="##"  class="btn btn-primary btn-sm delete-all"><i class="fa fa-trash-o"></i> 批量删除</a>
+                                    {$page_html}
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            {include file="public/footer.html"}
+        </div>
+        <script type="text/javascript">
+
+
+                    //查看
+                    function chakan(id){
+                    //alert(id);
+                    window.open("http://www.baidu.com");
+                    }
+                    /*删除*/
+                    function shanchu(id){
+                    deletes('?app=article&act=dele&lang_id={$lang_id}&id=' + id);
+                    }
+
+        </script>
+        <script type="text/javascript">
+                    /*更改推荐状态*/
+                    function upisrecom(obj, id){
+                    var that = obj;
+                            var recom = that.text();
+                            if (recom == '否'){
+                    that.text('是');
+//            that.removeClass();
+//            that.addClass('onrecom');
+                    } else{
+                    that.text('否');
+//            that.removeClass();
+//            that.addClass('offrecom');
+                    }
+                    //ajax后台更改
+                    var url = '?app=article&act=upIsrecom&id=' + id + '&recom=' + recom + "&lang_id=0";
+                            $.get(url, function(){
+
+                            })
+                    }
+        </script>
+    </body>
+</html>

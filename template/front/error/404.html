@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>404</title>
+    <meta charset="utf-8" />
+    {include file="public/header.html"}
+</head>
+<body>
+<!-- header -->
+{include file="public/daohang.html"}
+<!-- header end -->
+<!-- navs-box -->
+
+
+<!-- navs-box end -->
+<div class="border"></div>
+
+<div class="error-wrap tc">
+    <img src="{$STATIC_URL}/front/images/404.png">
+    <div class="inblock text1">
+        Error
+    </div>
+    <div class="inblock text2">
+        非常抱歉，你访问的页面不存在
+    </div>
+    <div class="inblock text3">
+        <a href="#" onclick="self.location=document.referrer;" class="btn btn-o">返回刚才的页面</a>
+    </div>
+</div>
+
+{include file="public/footer.html"}
+
+<script type="text/javascript">
+
+
+</script>
+</body>
+</html>

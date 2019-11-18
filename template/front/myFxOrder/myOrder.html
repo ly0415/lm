@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$langdata.Personal_Center}</title>
+	<meta charset="utf-8" />
+	{include file="public/header.html"}
+</head>
+<body>
+	<!-- header -->
+	{include file="public/daohang.html"}
+
+	<div class="container distribution-myorder">
+		<!-- bread-box -->
+		<div class="bread-box">
+			<a href="##">{$langdata.fx_Administration}</a>
+			<i>»</i>
+			<span class="or"> {$langdata.fx_order}</span>
+		</div>
+		<h1 class="font24 normal">{$langdata.fx_order}</h1>
+		<form >
+		<input type="hidden" value="myFxOrder"  name ='app'/>
+		<input type="hidden" value="act"  name ='act'/>
+		<div class="mt30 mb30">
+			<!--<select class="select">-->
+				<!--<option>南京雨花客厅体验店</option>-->
+				<!--<option>北京体验店</option>-->
+			<!--</select>-->
+		</div>
+		</form>
+		<div class="m-ultable">
+			<ul class="m-ultitle clearfix">
+				<li>{$langdata.fx_order_sn}</li>
+				<li>{$langdata.fx_personnel}</li>
+				<li>{$langdata.fx_money}</li>
+				<li>{$langdata.fx_Commission}</li>
+				<li>{$langdata.fx_state}</li>
+			</ul>
+			<ul class="m-ullist">
+				{foreach from=$list item=vo}
+				<li class="clearfix">
+					<div class="item">
+						{$vo.order_sn} <a  class="btn btn-o j_look" value="{$vo.order_sn}">{$langdata.fx_See}</a>
+					</div>
+					<div class="item">
+						{$vo.fx_username}
+					</div>
+					<div class="item">
+						{$vo.order_money}
+					</div>
+					<div class="item">
+						{$vo.revenue}
+					</div>
+					<div class="item">
+						<span class="blue">{$vo.order_state}</span>
+					</div>
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+
+		<!-- paypal -->
+		<div class="payoptions">
+			<h2><span>{$langdata.myacc_Payment}</span></h2>
+			<div class="img">
+				<img src="{$STATIC_URL}/front/images/zhifu.png">
+				<img src="{$STATIC_URL}/front/images/paypal.png">
+				<img src="{$STATIC_URL}/front/images/weixin.png">
+			</div>
+		</div>
+	</div>
+	{include file="public/footer.html"}
+
+</body>
+</html>
+
+<script type="text/javascript">
+    $('.j_look').click(function(){
+        var id = $(this).attr('value');
+        dialog_load_form1('index.php?app=myFxOrder&act=dialog&lang={$langid}&id='+id);
+    })
+    //	$('.j_look').click(function(){
+    //		layer.open({
+    //		  type: 1,
+    //		  title: false,
+    //		  closeBtn: 0,
+    //		  shadeClose: true,
+    //		  area: ['1120px', '620px'],
+    //		  skin: 'looklayer',
+    //		  content: $('.lookorder-box').html()
+    //		});
+    //	})
+    function dialog_load_form1(file_url){
+        //$(name).click(function(){
+        $.get(file_url, function(data) {
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                shadeClose: true,
+                area: ['70%', '60%'],
+                skin: 'looklayer',
+                content:data
+            });
+        })
+        //})
+    }
+</script>

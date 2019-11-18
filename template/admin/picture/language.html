@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="public/header.html"}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        {include file="public/menu.html"}
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <form method="post">
+                    <input type='hidden' name='app' value='goods'>
+                    <input type='hidden' name='act' value='goodAdd'>
+                <div class="col-xs-8 col-xs-offset-2">
+                    <div class="chooselang-box text-center">
+                        <h2>选择您需要的语言</h2>
+                        <img src="{$STATIC_URL}/admin/dist/img/ico-c.png" width="128" height="129">
+                        <div class="selectbox">
+                            <div class="textbox">
+                                <div class="text font18" >请选择语言</div>
+                                <i class="ico-down"></i>
+                                <input type="hidden" value="" id="id" name="language_id"/>
+                            </div>
+                            <div class="optionbox">
+                                {foreach from=$lang_list item=item}
+                                <div class="item" id="{$item.id}">
+                                    <div class="img col-xs-6">
+                                        <img src="{$item.logo}" width="64" height="36">
+                                    </div>
+                                    <div class="name col-xs-6">
+                                        {$item.name}
+                                    </div>
+                                </div>
+                                {/foreach}
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <a href="?app=goods&act=goodsIndex" class="btn btn-default w100 mr60">取消</a>
+                            <button type="submit" class="btn btn-primary w100 ml60">下一步</button>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                </form>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+
+    <!-- Control Sidebar -->
+
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    {include file="public/footer.html"}
+</div>
+<!-- ./wrapper -->
+
+
+<script type="text/javascript">
+    $(function(){
+        $('.textbox').click(function(){
+            $('.optionbox').show();
+        })
+        $('.optionbox .item').click(function(){
+            $('#id').val($(this).attr('id'));
+            var html = $(this).html();
+            $('.textbox .text').html(html);
+            $('.optionbox').hide();
+
+        })
+    })
+</script>
+</body>
+</html>

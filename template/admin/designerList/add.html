@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        设计师添加
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="admin.php?app=default&act=index&lang_id={$lang_id}"><i class="fa fa-dashboard"></i> 首页</a></li>
+                        <li class="active">网站管理</li>
+                        <li class="active">设计师添加</li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <!-- right column -->
+                        <div class="col-xs-12">
+                            <!-- Horizontal Form -->
+                            <div class="box box-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title"></h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form class="form-horizontal" action="?app=designerList&act=doAdd" data-type="ajax" method="post">
+                                    <div class="box-body">
+                                        <input type ="hidden" value="{$lang_id}"  name="lang_id"/>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 设计师名称：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="name" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span> 联系电话：</label>
+                                            <div class="col-sm-6 col-md-5 col-lg-4">
+                                                <input type="text" class="form-control" name="phone" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="ch">
+                                            <label class="col-sm-4 col-md-2  col-lg-2 control-label"><span class="text-red">*</span>设计师地址：</label>
+                                            <div class="col-sm-2">
+                                                <select class="form-control w160 j_select" name="pro_id" id="pro_id" onchange="getcitylist(this.id)">
+                                                    <option value="0">请选择省份</option>
+                                                    {foreach from=$pros item=p}
+                                                    <option value='{$p.id}'>{$p.name}</option>
+                                                    {/foreach}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <select class="form-control w160 j_select" name="city_id" id="city_id" onchange="getarealist(this.id)">
+                                                    <option value="0">请选择城市</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <div class="form-group">
+                                            <div class="col-sm-6 col-sm-offset-4 col-md-5 col-md-offset-2 col-lg-4 col-lg-offset-2">
+                                                <a href="?app=designerList&act=index&lang_id={$lang_id}&p={$prrp}" class="btn btn-default"><i class="fa fa-times-circle"></i> 关 闭</a>
+                                                <button class="btn btn-primary pull-right" id="submit"><i class="fa fa-save"></i> 保 存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- /.box -->
+                                <!-- general form elements disabled -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!--/.col (right) -->
+                    </div>
+                    <!-- /.row -->
+                </section>
+                <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            {include file="public/footer.html"}
+        </div>
+        {literal}
+        <style type="text/css">
+            html,body{margin:0;padding:0;}
+            .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+            .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+            #input1,#input2{
+                width:100px;
+            }
+        </style>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"></script>
+        <script  type="text/javascript">
+                                                        $(function () {
+
+
+                                                            $('.j_addse').click(function () {
+                                                                $('.j_chooseboxse').show();
+                                                            });
+                                                            $('.j_shouse').click(function () {
+                                                                $('.j_chooseboxse').hide();
+                                                            });
+                                                            //配送范围的选择
+                                                            var str = '';
+                                                            var i = 0;
+                                                            var active = true;
+                                                            var lang_id = $('input[name=lang_id]').val();
+                                                            $('.j_chooseboxse').on('click', '.j_surese', function () {
+                                                                $('#name_lang input[type=text]').each(function () {
+                                                                    if ($(this).val() == '') {
+                                                                        if (lang_id == 0) {
+                                                                            var d = $.dialog({
+                                                                                content: '<div class="text-center">辅助名称不可以为空</div>',
+                                                                                title: false, // hides the title.
+                                                                                closeIcon: false, // hides the close icon.
+                                                                                columnClass: 'xsmall',
+                                                                                onOpen: function () {
+                                                                                    setTimeout(function () {
+                                                                                        d.close();
+                                                                                    }, 1000);
+                                                                                }
+                                                                            });
+                                                                            active = false;
+                                                                            return false;
+                                                                        }
+                                                                    }
+                                                                    active = true;
+                                                                });
+                                                                if (active == true) {
+                                                                    $("#name_lang input").each(function () {
+                                                                        str += '<span  name=' + $(this).attr('data-id') + ' value=' + $(this).val() + '>' + $(this).val() + ' 、' + '</span><input type="hidden" name="name_fu[' + i + '][' + $(this).attr('data-id') + ']" value="' + $(this).val() + '"/>';
+                                                                    });
+                                                                    skt = "<span class='tag'>" + str + "<em class='j_del'>×</em></span>";
+                                                                    $('#box1se').append(skt);
+                                                                    str = '';
+                                                                    i++;
+                                                                }
+
+                                                            });
+                                                            //中国的删除
+                                                            $('#box1se').on('click', '.j_del', function () {
+                                                                var that = $(this);
+                                                                $(this).parent().remove();
+                                                            });
+                                                        })
+        </script>
+        <script type="text/javascript">
+            // 百度地图API功能
+            function G(id) {
+                return document.getElementById(id);
+            }
+
+            var longitude = $("#longitude").attr("value");
+            var latitude = $("#latitude").attr("value");
+            var mp = new BMap.Map("allmap");
+            console.log(mp);
+            var point = new BMap.Point(116.408955, 39.906585);
+            mp.centerAndZoom(point, 11);
+            var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+                    {"input": "suggestId"
+                        , "location": mp
+                    });
+            //map.removeOverlay(circle)
+            var flag = true;
+            var marker = {};
+            mp.addEventListener("click", function (e) {
+                if (!flag) {
+                    console.log(flag);
+                    console.log(marker);
+                    mp.removeOverlay(marker); //删除
+                }
+                longitude = e.point.lng;
+                latitude = e.point.lat;
+                document.getElementById('longitude').value = longitude;
+                document.getElementById('latitude').value = latitude;
+                var point = new BMap.Point(longitude, latitude);
+                var geoc = new BMap.Geocoder();
+                mp.centerAndZoom(point, 18);
+                marker = new BMap.Marker(point); // 创建标注
+                console.log("创建标注 " + marker);
+                mp.addOverlay(marker); //添加标注
+                flag = false;
+                var pt = e.point;
+                geoc.getLocation(pt, function (rs) {
+                    var addComp = rs.addressComponents;
+                    add = (addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+                    document.getElementById('suggestId').value = add;
+                });
+            });
+            window.mp = mp; //将map变量存储在全局
+            mp.enableScrollWheelZoom();
+            mp.enableInertialDragging();
+            mp.enableContinuousZoom();
+//                                                        var size = new BMap.Size(10, 20);
+//                                                        mp.addControl(new BMap.CityListControl({
+//                                                            anchor: BMAP_ANCHOR_TOP_LEFT,
+//                                                            offset: size
+//                                                        }));
+
+            ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+                var str = "";
+                var _value = e.fromitem.value;
+                var value = "";
+                if (e.fromitem.index > -1) {
+                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                }
+                str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+                value = "";
+                if (e.toitem.index > -1) {
+                    _value = e.toitem.value;
+                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                }
+                str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+                G("searchResultPanel").innerHTML = str;
+            });
+            var myValue;
+            ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+                var _value = e.item.value;
+                myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+                G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+                setPlace();
+            });
+            function setPlace() {
+                mp.clearOverlays(); //清除地图上所有覆盖物
+                function myFun() {
+                    var pp = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
+                    mp.centerAndZoom(pp, 18);
+                    longitude = pp.lng;
+                    latitude = pp.lat;
+                    document.getElementById('longitude').value = longitude;
+                    document.getElementById('latitude').value = latitude;
+//                                                                mp.addOverlay(new BMap.Marker(pp));    //添加标注
+                    marker = new BMap.Marker(pp); // 创建标注
+                    console.log("创建标注 " + marker);
+                    mp.addOverlay(marker); //添加标注
+                    flag = false;
+                }
+                var local = new BMap.LocalSearch(mp, {//智能搜索
+                    onSearchComplete: myFun
+                });
+                local.search(myValue);
+            }
+        </script>
+
+        <script type="text/javascript">
+            //站点国家的切换
+            $('#store_cate').change(function () {
+                var cateid = $('#store_cate').val();
+                var url = 'admin.php?app=areaStore&act=getStoreCate&cateid=' + cateid;
+                $.get(url, function (res) {
+                    //console.log(res);
+                    var langid = res.lang_id;
+                    var currencyid = res.currency_id;
+                    $('input[name="language_id"]').val(langid);
+                    $('input[name="currency_id"]').val(currencyid);
+                }, 'json');
+            });
+            $(function () {
+                $('#en_dis').addClass('mp100');
+            });
+
+
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#server').on('click', '.s_sure', function () {
+                    var sure = $(this).html();
+                    var select = $(this).parent().clone();
+                    if (sure == '+') {
+                        $('.select').append(select);
+                        select.find('.s_sure').html('-');
+                    } else {
+                        $(this).html('+');
+                        $(this).parent().remove();
+                    }
+
+                })
+
+
+                $("#validate").click(function () {
+
+                    if ($("#file1").val().length > 0) {
+                        $.ajaxFileUpload
+                                (
+                                        {
+                                            url: 'admin.php?app=areaStore&act=upload', //用于文件上传的服务器端请求地址
+                                            secureuri: false, //是否需要安全协议，一般设置为false
+                                            fileElementId: 'file1', //文件上传域的ID
+                                            dataType: 'JSON', //返回值类型 一般设置为json
+                                            data: {
+                                                image_id: $('#image_id').val()
+                                            },
+                                            success: function (obj, status)  //服务器成功响应处理函数
+                                            {
+                                                //alert(obj);
+                                                var data = eval('(' + obj + ')'); //由JSON字符串转换为JSON对象
+                                                //alert(data);
+                                                if (data.status == 'error') {
+                                                    var d = $.dialog({
+                                                        content: '<div class="text-center">' + data.message + '</div>',
+                                                        title: false, // hides the title.
+                                                        closeIcon: false, // hides the close icon.
+                                                        columnClass: 'xsmall',
+                                                        onOpen: function () {
+                                                            setTimeout(function () {
+                                                                d.close();
+                                                            }, 1000);
+                                                        }
+                                                    });
+                                                    return false;
+                                                }
+                                                //                                alert(data.image_id);
+                                                $("#img1").attr("src", data.url);
+                                                $("#img1").show();
+                                                $("#img1").attr("width", '100px');
+                                                $("#img1").attr("height", '100px');
+                                                $("#image_id").val(data.url);
+                                                $("#img1").attr("style", 'display:block');
+                                            },
+                                            error: function (data, status, e)//服务器响应失败处理函数
+                                            {
+                                                alert(e);
+                                            }
+                                        }
+                                )
+                        return false;
+                    } else {
+                        var d = $.dialog({
+                            content: '<div class="text-center">请选择图片</div>',
+                            title: false, // hides the title.
+                            closeIcon: false, // hides the close icon.
+                            columnClass: 'xsmall',
+                            onOpen: function () {
+                                setTimeout(function () {
+                                    d.close();
+                                }, 1000);
+                            }
+                        });
+                        return false;
+                    }
+                })
+            })
+        </script>
+        <script type="text/javascript">
+            function getcitylist(id) {
+                var pro_id = $.trim($("#" + id).val());
+                if (pro_id == 0) {
+                    var html = "<option value='0'>请选择城市</option>";
+                    $("#" + id).parent().next().find('select').html(html);
+                    var city_id = $("#" + id).parent().next().find('select').val();
+                    if (city_id == 0) {
+                        var html = "<option value='0'>请选择区域</option>";
+                        $("#" + id).parent().next().next().find('select').html(html);
+                    }
+                    return false;
+                }
+                $.ajax({
+                    url: '?app=areaStore&act=getAjaxData',
+                    type: 'POST',
+                    data: "pro_id=" + pro_id,
+                    dataType: "json",
+                    success: function (msg) {
+                        var html = "<option value=''>请选择城市</option>";
+                        $.each(msg, function (key, value) {
+                            html += "<option value='" + value.id + "'>" + value.name + "</option>";
+                        });
+                        $("#" + id).parent().next().find('select').html(html);
+                        var html_1 = "<option value='0'>请选择区域</option>";
+                        $("#" + id).parent().next().next().find('select').html(html_1);
+                    }
+                });
+                return false;
+            }
+            //获取当前区域列表
+            function getarealist(id) {
+                var city_id = $.trim($("#" + id).val());
+                if (pro_id == 0) {
+                    var html = "<option value='0'>请选择区域</option>";
+                    $("#" + id).parent().next().find('select').html(html);
+                    return false;
+                }
+                $.ajax({
+                    url: '?app=areaStore&act=getAjaxData',
+                    type: 'POST',
+                    data: "pro_id=" + city_id,
+                    dataType: "json",
+                    success: function (msg) {
+                        var html = "<option value=''>请选择区域</option>";
+                        $.each(msg, function (key, value) {
+                            html += "<option value='" + value.id + "'>" + value.name + "</option>";
+                        });
+                        $("#" + id).parent().next().find('select').html(html);
+                    }
+                });
+                return false;
+            }
+        </script>
+        <script  type="text/javascript">
+            $(function () {
+                var new_html;
+                var g_new_html;
+                $('.j_add').click(function () {
+                    $('.j_choosebox').show();
+                });
+                $('.j_shou').click(function () {
+                    $('.j_choosebox').hide();
+                });
+                //配送范围的选择
+                $('.j_choosebox').on('click', '.j_sure', function () {
+                    var sw = $('#switch').val();
+                    if (sw == 2) {
+                        var country = $("#delivery_country_id").find("option:selected").attr("data-name");
+                        var zone = $("#delivery_zone_id").find("option:selected").attr("data-name");
+                        if (zone == '请选择城市') {
+                            var g_html = country;
+                        } else {
+                            var g_html = country + ',' + zone;
+                        }
+                        var g_area = $('input[name=g_area]').val();
+                        if ((country == '请选择国家')) {
+                            var d = $.dialog({
+                                content: '<div class="text-center">请选择地区</div>',
+                                title: false, // hides the title.
+                                closeIcon: false, // hides the close icon.
+                                columnClass: 'xsmall',
+                                onOpen: function () {
+                                    setTimeout(function () {
+                                        d.close();
+                                    }, 1000);
+                                }
+                            });
+                        } else {
+                            var str = '<span class="tag echotag">' + '<span>' + g_html + '</span>' + '<em class="j_del">×</em></span>';
+                            if (g_area == '') {
+                                g_new_html = g_html;
+                            } else {
+                                g_new_html = g_area;
+                                var g_arr = g_new_html.split(':')
+                                var g_exist = $.inArray(g_html, g_arr); //从0开始
+                                if (g_exist >= 0) {
+                                    var d = $.dialog({
+                                        content: '<div class="text-center">当前地区已存在！</div>',
+                                        title: false, // hides the title.
+                                        closeIcon: false, // hides the close icon.
+                                        columnClass: 'xsmall',
+                                        onOpen: function () {
+                                            setTimeout(function () {
+                                                d.close();
+                                            }, 1000);
+                                        }
+                                    });
+                                    return false;
+                                }
+
+                                g_new_html = g_area + ':' + g_html;
+                            }
+//str +='<input type="hidden" name="area" value='+html+'/>';
+                            $('#box2').append(str);
+                            $('input[name=g_area]').val(g_new_html);
+                        }
+                        return false;
+                    } else {  //国内
+                        var shen = $("#shen_id").find("option:selected").attr("data-name");
+                        var shi = $("#shi_id").find("option:selected").attr("data-name");
+                        var qu = $("#qu_id").find("option:selected").attr("data-name");
+                        var html;
+                        if ((shen != '请选择省份')) {
+                            html = shen;
+                            if (shi != '请选择城市') {
+                                html += ',' + shi;
+                                if (qu != '请选择区域') {
+                                    html += ',' + qu;
+                                }
+                            }
+                        }
+// var html =shen+','+shi+','+qu;
+                        var area = $('input[name=area]').val();
+                        if (shen == '请选择省份') {
+                            //console.log(html);
+
+                            var d = $.dialog({
+                                content: '<div class="text-center">请选择地区</div>',
+                                title: false, // hides the title.
+                                closeIcon: false, // hides the close icon.
+                                columnClass: 'xsmall',
+                                onOpen: function () {
+                                    setTimeout(function () {
+                                        d.close();
+                                    }, 1000);
+                                }
+                            });
+                        } else {
+                            var str = '<span class="tag echotag"><span>' + html + '</span><em class="j_del">×</em></span>';
+                            if (area == '') {
+                                new_html = html;
+                            } else {
+                                new_html = area;
+                                var arr = new_html.split(':');
+                                var _exist = $.inArray(html, arr); //从0开始
+                                if (_exist >= 0) {
+                                    var d = $.dialog({
+                                        content: '<div class="text-center">当前地区已存在！</div>',
+                                        title: false, // hides the title.
+                                        closeIcon: false, // hides the close icon.
+                                        columnClass: 'xsmall',
+                                        onOpen: function () {
+                                            setTimeout(function () {
+                                                d.close();
+                                            }, 1000);
+                                        }
+                                    });
+                                    return false;
+                                }
+
+                                new_html = area + ':' + html;
+                            }
+                            //str +='<input type="hidden" name="area" value='+html+'/>';
+                            $('#box1').append(str);
+                            $('input[name=area]').val(new_html);
+                            //<input type="hidden" name="area" value='"+str+"'/>
+                        }
+                    }
+                });
+                //中国的删除
+                $('#box1').on('click', '.j_del', function () {
+                    var that = $(this);
+                    $(this).parent().remove();
+                    var obj = $('#box1').find('.tag').find('span');
+                    var arr = [];
+                    obj.each(function () {
+                        arr.push($(this).text())
+                    });
+                    var str = arr.join(':');
+                    $('input[name=area]').val(str);
+                });
+                //国外的删除
+                $('#box2').on('click', '.j_del', function () {
+                    var that = $(this);
+                    $(this).parent().remove();
+                    var obj = $('#box2').find('.tag').find('span');
+                    var arr = [];
+                    obj.each(function () {
+                        arr.push($(this).text())
+                    });
+                    var str = arr.join(':');
+                    $('input[name=g_area]').val(str);
+                });
+            })
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $("[name='is_site']").bootstrapSwitch({
+                    onText: "是",
+                    offText: "否",
+                    size: "small",
+                    onSwitchChange: function (event, state) {
+                        if (state == true) {
+                            $(this).val("1");
+                        } else {
+                            $(this).val("2");
+                        }
+                    }
+                });
+            })
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $("[name='switch-lan']").bootstrapSwitch({
+                    onText: "国内",
+                    offText: "国际",
+                    size: "small",
+                    onSwitchChange: function (event, state) {
+                        if (state == true) {
+                            $(this).val('1');
+                            $('#en').addClass('mp100');
+                            $('#ch').removeClass('mp100');
+                            $('#ch_dis').removeClass('mp100');
+                            $('#en_dis').addClass('mp100');
+                            $(".echotag").remove();
+                            $('#delivery_country_id').val('0');
+                            $('#delivery_zone_id').val('0');
+                            $('input[name=area]').val('');
+                        } else {
+                            $(this).val('2');
+                            $('#ch').addClass('mp100');
+                            $('#en').removeClass('mp100');
+                            $('#ch_dis').addClass('mp100');
+                            $('#en_dis').removeClass('mp100');
+                            $(".echotag").remove();
+                            $('#shen_id').val('0');
+                            $('#shi_id').val('0');
+                            $('#qu_id').val('0');
+                            $('input[name=g_area]').val('');
+                        }
+                    }
+                });
+            })
+        </script>
+        <script type="text/javascript">
+            function getZonelist(id) {
+                var pro_id = $.trim($("#" + id).val());
+                if (pro_id == 0) {
+                    var html = "<option value='0'>请选择城市</option>";
+                    $("#" + id).parent().next().find('select').html(html);
+                    return;
+                }
+                $.ajax({
+                    url: '?app=areaStore&act=getZoneData',
+                    type: 'POST',
+                    data: "pro_id=" + pro_id,
+                    dataType: "json",
+                    success: function (msg) {
+                        // console.log(msg);
+                        // return false;
+                        var html = "<option value=''>请选择城市</option>";
+                        $.each(msg, function (key, value) {
+                            html += "<option value='" + value.zone_id + "'>" + value.name + "</option>";
+                        });
+                        $("#" + id).parent().next().find('select').html(html);
+                    }
+                });
+                return false;
+            }
+        </script>
+        <script type="text/javascript">
+            function getcitylist(id) {
+                var pro_id = $.trim($("#" + id).val());
+                if (pro_id == 0) {
+                    var html = "<option value='0'>请选择城市</option>";
+                    $("#" + id).parent().next().find('select').html(html);
+                    var city_id = $("#" + id).parent().next().find('select').val();
+                    if (city_id == 0) {
+                        var html = "<option value='0'>请选择区域</option>";
+                        $("#" + id).parent().next().next().find('select').html(html);
+                    }
+                    return;
+                }
+                $.ajax({
+                    url: '?app=areaStore&act=getAjaxData',
+                    type: 'POST',
+                    data: "pro_id=" + pro_id,
+                    dataType: "json",
+                    success: function (msg) {
+                        // console.log(msg);
+                        // return false;
+                        var html = "<option value=''>请选择城市</option>";
+                        $.each(msg, function (key, value) {
+                            html += "<option value='" + value.id + "' data-name='" + value.name + "'>" + value.name + "</option>";
+                        });
+                        //                console.log(html);
+                        $("#" + id).parent().next().find('select').html(html);
+                        var html_1 = "<option value='0'>请选择区域</option>";
+                        $("#" + id).parent().next().next().find('select').html(html_1);
+                    }
+                });
+                return false;
+            }
+            //获取当前区域列表
+            function getarealist(id) {
+                var pro_id = $.trim($("#" + id).val());
+                $.ajax({
+                    url: '?app=areaStore&act=getAjaxData',
+                    type: 'POST',
+                    data: "pro_id=" + pro_id,
+                    dataType: "json",
+                    success: function (msg) {
+                        var html = "<option value=''>请选择区域</option>";
+                        $.each(msg, function (key, value) {
+                            html += "<option value='" + value.id + "' data-name='" + value.name + "'>" + value.name + "</option>";
+                        });
+                        console.log(html);
+                        $("#" + id).parent().next().find('select').html(html);
+                    }
+                });
+                return false;
+            }
+        </script>
+        <script type="text/javascript">
+            function getshilist(id) {
+                var pro_id = $.trim($("#" + id).val());
+                if (pro_id == 0) {
+                    var html = "<option value='0' data-name='请选择城市'>请选择城市</option>";
+                    $("#" + id).next().find('select').html(html);
+                    var city_id = $("#" + id).parent().next().find('select').val();
+                    if (city_id == 0) {
+                        var html = "<option value='0' data-name='请选择区域'>请选择区域</option>";
+                        $("#" + id).next().next().find('select').html(html);
+                    }
+                    return;
+                }
+                $.ajax({
+                    url: '?app=areaStore&act=getAjaxData',
+                    type: 'POST',
+                    data: "pro_id=" + pro_id,
+                    dataType: "json",
+                    success: function (msg) {
+                        // console.log(msg);
+                        // return false;
+                        var html = "<option value='0' data-name='请选择城市'>请选择城市</option>";
+                        $.each(msg, function (key, value) {
+                            html += "<option value='" + value.id + "' data-name='" + value.name + "'>" + value.name + "</option>";
+                        });
+                        $("#" + id).siblings().eq(0).html(html);
+                        var html_1 = "<option value='0' data-name='请选择区域'>请选择区域</option>";
+                        $("#" + id).siblings().eq(1).html(html_1);
+                    }
+                });
+                return false;
+            }
+            //获取当前区域列表
+            function getquyulist(id) {
+                var pro_id = $.trim($("#" + id).val());
+                if (pro_id == 0 || pro_id == null) {
+                    var html = "<option value='0' data-name='请选择区域'>请选择区域</option>";
+                    $("#" + id).siblings().eq(1).html(html);
+                    return;
+                }
+                $.ajax({
+                    url: '?app=areaStore&act=getAjaxData',
+                    type: 'POST',
+                    data: "pro_id=" + pro_id,
+                    dataType: "json",
+                    success: function (msg) {
+                        var html = "<option value='0' data-name='请选择区域'>请选择区域</option>";
+                        $.each(msg, function (key, value) {
+                            html += "<option value='" + value.id + "' data-name='" + value.name + "'>" + value.name + "</option>";
+                        });
+                        $("#" + id).siblings().eq(1).html(html);
+                    }
+                });
+                return false;
+            }
+        </script>
+        <script type="text/javascript">
+            function getDelConutry(id) {
+                var pro_id = $.trim($("#" + id).val());
+                if (pro_id == 0) {
+                    var html = "<option value='0' data-name='请选择城市'>请选择城市</option>";
+                    $("#" + id).next().html(html);
+                    return;
+                }
+                $.ajax({
+                    url: '?app=areaStore&act=getZoneData',
+                    type: 'POST',
+                    data: "pro_id=" + pro_id,
+                    dataType: "json",
+                    success: function (msg) {
+                        var html = "<option value='0' data-name='请选择城市'>请选择城市</option>";
+                        $.each(msg, function (key, value) {
+                            html += "<option value='" + value.zone_id + "' data-name='" + value.name + "'>" + value.name + "</option>";
+                        });
+                        $("#" + id).next().html(html);
+                    }
+                });
+                return false;
+            }
+        </script>
+        {/literal}
+        {literal}
+
+        <script type="text/javascript">
+            $(function () {
+                //图片上传
+                $("#validate").click(function () {
+
+                    if ($("#file1").val().length > 0) {
+                        $.ajaxFileUpload
+                                (
+                                        {
+                                            url: 'admin.php?app=areaGood&act=upload', //用于文件上传的服务器端请求地址
+                                            secureuri: false, //是否需要安全协议，一般设置为false
+                                            fileElementId: 'file1', //文件上传域的ID
+                                            dataType: 'JSON', //返回值类型 一般设置为json
+                                            data: {
+                                                image_id: $('#image_id').val()
+                                            },
+                                            success: function (obj, status)  //服务器成功响应处理函数
+                                            {
+                                                //alert(obj);
+                                                var data = eval('(' + obj + ')'); //由JSON字符串转换为JSON对象
+                                                //alert(data);
+                                                if (data.status == 'error') {
+                                                    var d = $.dialog({
+                                                        content: '<div class="text-center">' + data.message + '</div>',
+                                                        title: false, // hides the title.
+                                                        closeIcon: false, // hides the close icon.
+                                                        columnClass: 'xsmall',
+                                                        onOpen: function () {
+                                                            setTimeout(function () {
+                                                                d.close();
+                                                            }, 1000);
+                                                        }
+                                                    });
+                                                    return false;
+                                                }
+                                                //                                alert(data.image_id);
+                                                $("#img1").attr("src", data.url);
+                                                $("#img1").show();
+                                                $("#img1").attr("width", '100px');
+                                                $("#img1").attr("height", '100px');
+                                                $("#image_id").val(data.url);
+                                                $("#img1").attr("style", 'display:block');
+                                            },
+                                            error: function (data, status, e)//服务器响应失败处理函数
+                                            {
+                                                alert(e);
+                                            }
+                                        }
+                                )
+                        return false;
+                    } else {
+                        var d = $.dialog({
+                            content: '<div class="text-center">请选择图片</div>',
+                            title: false, // hides the title.
+                            closeIcon: false, // hides the close icon.
+                            columnClass: 'xsmall',
+                            onOpen: function () {
+                                setTimeout(function () {
+                                    d.close();
+                                }, 1000);
+                            }
+                        });
+                        return false;
+                    }
+                });
+
+                //ico图片
+                $("#validate2").click(function () {
+
+                    if ($("#file2").val().length > 0) {
+                        $.ajaxFileUpload
+                                (
+                                        {
+                                            url: 'admin.php?app=webconfig&act=upload2', //用于文件上传的服务器端请求地址
+                                            secureuri: false, //是否需要安全协议，一般设置为false
+                                            fileElementId: 'file2', //文件上传域的ID
+                                            dataType: 'JSON', //返回值类型 一般设置为json
+                                            data: {
+                                                image_id: $('#image_id2').val()
+                                            },
+                                            success: function (obj, status)  //服务器成功响应处理函数
+                                            {
+                                                //alert(obj);
+                                                var data = eval('(' + obj + ')'); //由JSON字符串转换为JSON对象
+                                                //alert(data);
+                                                if (data.status == 'error') {
+                                                    var d = $.dialog({
+                                                        content: '<div class="text-center">' + data.message + '</div>',
+                                                        title: false, // hides the title.
+                                                        closeIcon: false, // hides the close icon.
+                                                        columnClass: 'xsmall',
+                                                        onOpen: function () {
+                                                            setTimeout(function () {
+                                                                d.close();
+                                                            }, 1000);
+                                                        }
+                                                    });
+                                                    return false;
+                                                }
+                                                //                                alert(data.image_id);
+                                                $("#img2").attr("src", data.url);
+                                                $("#img2").show();
+                                                $("#img2").attr("width", '100px');
+                                                $("#img2").attr("height", '100px');
+                                                $("#image_id2").val(data.url);
+                                                $("#img2").attr("style", 'display:block');
+                                            },
+                                            error: function (data, status, e)//服务器响应失败处理函数
+                                            {
+                                                alert(e);
+                                            }
+                                        }
+                                )
+                        return false;
+                    } else {
+                        var d = $.dialog({
+                            content: '<div class="text-center">请选择图片</div>',
+                            title: false, // hides the title.
+                            closeIcon: false, // hides the close icon.
+                            columnClass: 'xsmall',
+                            onOpen: function () {
+                                setTimeout(function () {
+                                    d.close();
+                                }, 1000);
+                            }
+                        });
+                        return false;
+                    }
+                });
+
+                //直接在页面显示
+                $("#input1").shijian({
+                    showNowTime: false,
+                    Year: false, //是否显示年//
+                    Month: false, //是否显示月//
+                    Day: false, //是否显示日//
+                    h: "00",
+                    m: "01",
+                    alwaysShow: true,
+                    timeElm: $(".time-box1")//sjObj表示当前对象  也可以使用 sjObj  用字符串
+                            //timeElm:"sjObj.prev()",// 也可以使用 sjObj  用字符串  sjObj 表示当前input
+                })
+                $("#input2").shijian({
+                    showNowTime: false,
+                    Year: false, //是否显示年//
+                    Month: false, //是否显示月//
+                    Day: false, //是否显示日//
+                    h: "00",
+                    m: "01",
+                    alwaysShow: true,
+                    timeElm: $(".time-box2")//sjObj表示当前对象  也可以使用 sjObj  用字符串
+                            //timeElm:"sjObj.prev()",// 也可以使用 sjObj  用字符串  sjObj 表示当前input
+                })
+            })
+        </script>
+        {/literal}
+    </body>
+</html>

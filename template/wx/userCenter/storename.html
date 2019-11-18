@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+        <title></title>
+        <link href="{$STATIC_URL}/phone/css/style.css"  rel="stylesheet" type="text/css"/>
+        <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+        <style>
+            div.nationalStation li.active{
+                background-color:#DED2C5;
+            }
+            html {
+                height: 100%;
+                font-size: 50px;
+                background-color: #f6f6f6;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="searchHeader">
+            <div class="search"> 
+                <input type="text" id="inputKw" name='storelang_name' placeholder="{$langdata.Lookup_content}"/>
+                <div class="searchIcon">
+                    <span></span>
+                </div>
+                <ul id="suggest">
+                </ul>
+                <div style="clear:both"></div>
+            </div>
+        </header>
+        <section class="citySection">
+            <div class="nationalStation">
+                <ul>
+                    {foreach from=$storeCate item=item}
+                    <li data-id="{$item.id}" class=" {if $item.id == $cid} active {/if}"><a href="#{$item.id}">{$item.lcatename}</a></li>
+                    {/foreach}
+                    <!--                    <li class="active"><a href="#d1">中国站</a></li>-->
+
+                </ul>
+            </div>
+            <div class="cityStation">
+                {foreach from=$storeCate item=item}
+                <div id="{$item.id}" {if $item.id == $cid} class="active" {/if}>
+                     <ul>
+                        {foreach $item['store'] item=v}
+                        <li><a href="wx.php?storeid={$v.id}&lang={$v.lang_id}&auxiliary={$v.distinguish}&latlon={$latlon}">{$v.store_name}</a></li>
+                        <input type='hidden' name='auxiliary' value='{$v.distinguish}'>
+                        {/foreach}
+                    </ul>
+                </div>
+                {/foreach}
+                <input type='hidden' name='storeid' value='{$storeid}'>
+                <input type='hidden' name='lang' value='{$langid}'>
+            <input type="hidden" name="latlon" value="{$latlon}">
+            </div>
+        </section>
+        {if $lang_id ==ZH}
+        <script language="javascript">
+            $(function () {
+                $("#inputKw")[0].onkeyup = function () {
+                    var lang = $('input[name=lang]').val();
+                    var store_name = $(this).val();
+                    var latlon=$("input[name='latlon']").val();
+                    var html = '';
+                    var no_html = '';
+                    if (!store_name) {
+                        return $('#suggest').html("");
+                    } else {
+                        $.ajax({
+                            url: 'wx.php?app=storeName&act=store_name&lang=' + lang + '&store_name=' + store_name+'&latlon='+latlon,
+                            type: 'get',
+                            async: false, //默认为true 异步
+                            success: function (rs) {
+                                console.log(JSON.stringify(rs))
+                                if (rs != '[]') {
+                                    var rs = eval("(" + rs + ")");
+                                    $.each(rs, function (key, value) {
+                                        html += "<li><a href='wx.php?latlon="+latlon+"&storeid=" + value.store_id + "&lang=" + value.lang_id + "&auxiliary=" + value.distinguish + "'>" + value.store_name + "</a></li>";
+
+                                    });
+                                    $('#suggest').html(no_html);
+                                    $('#suggest').append(html);
+                                } else {
+                                    html += "<li style='text-align:center;'><a href='##'>" + '未匹配到对应的数据' + "</a></li>";
+                                    $('#suggest').html(no_html);
+                                    $('#suggest').append(html);
+                                }
+
+
+                            }
+
+                        });
+                    }
+                }
+            })
+
+
+        </script>   
+        {else}
+        <script language="javascript">
+            $(function () {
+                $("#inputKw")[0].onkeyup = function () {
+                    var lang = $('input[name=lang]').val();
+                    var store_name = $(this).val();
+                    var latlon=$("input[name='latlon']").val();
+                    var html = '';
+                    var no_html = '';
+                    if (!store_name) {
+                        return $('#suggest').html("");
+                    } else {
+                        $.ajax({
+                            url: 'wx.php?app=storeName&act=store_name&lang=' + lang + '&store_name=' + store_name+'&latlon='+latlon,
+                            type: 'get',
+                            async: false, //默认为true 异步
+                            success: function (rs) {
+                                console.log(JSON.stringify(rs))
+                                if (rs != '[]') {
+                                    var rs = eval("(" + rs + ")");
+                                    $.each(rs, function (key, value) {
+                                        html += "<li><a href='wx.php?latlon="+latlon+"storeid=" + value.store_id + "&lang=" + value.lang_id + "&auxiliary=" + value.distinguish + "'>" + value.store_name + "</a></li>";
+
+                                    });
+                                    $('#suggest').html(no_html);
+                                    $('#suggest').append(html);
+                                } else {
+                                    html += "<li style='text-align:center;'><a href='##'>" + 'Not matched to the corresponding data' + "</a></li>";
+                                    $('#suggest').html(no_html);
+                                    $('#suggest').append(html);
+                                }
+
+
+                            }
+
+                        });
+                    }
+                }
+            })
+
+
+        </script>   
+        {/if}
+        <script>
+            $("div.nationalStation li").click(function () {
+                $(this).addClass("active").siblings("li.active").removeClass("active");
+                var id = $(this).find("a").attr("href");
+                $(id).addClass("active").siblings("div.active").removeClass("active");
+            });
+        </script>
+    </body>
+</html>

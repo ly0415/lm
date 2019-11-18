@@ -1,0 +1,101 @@
+<ul class="nav nav-tabs" role="tablist">
+    <li class="discount_li quantab_yhj active"><a href="#div1" data-toggle="tab">折扣卷</a></li>
+    <li class="discount_li quantab_dhj" role="presentation"><a href="#div2" data-toggle="tab">兑换券</a></li>
+</ul>
+<div class="voucher tab-content">
+    <div class="yhimg col-sm-12 tab-pane active" id="div1">
+        <div class="row tabs" id="div_yhj">
+            <ul class="discountMain ">
+                {foreach from=$infoYHJ item=item}
+                <li {if $item.usetype==2}class="overdue"{/if} data-coupon-money="{$item.discount}" data-coupon-id="{$item.id}" data-userCouponid="{$item.user_coupon_id}">
+                    <div class='discountShow'>
+                        <div class="discountLeft" >
+                            <p class="discount_tip">{$item.discount}元折扣卷</p>
+                            <p class="discount_enough">满<span>{$item.money}元</span>使用</p>
+                            <p class="discount_use clearfix">
+                                <span >使用须知</span>
+                                <img src="./assets/wx/arrowdown1.png"   alt=""/>
+                            </p>
+                        </div>
+                        <div class="discountRight">
+                            <p class="title">副券</p>
+                            <p class="time">{$item.start_time|date_format:'%Y-%m-%d %H:%M'}</p>
+                            <p class="time">{$item.end_time|date_format:'%Y-%m-%d %H:%M'}</p>
+                            <a class="typename" href="##">立即使用</a>
+                        </div>
+                        <img src="./assets/wx/selectimg.png" alt="" class="selectimg"/>
+                    </div>
+                    <div class='discountHidden'>
+                        <p>适用范围：限<span>{$item.store_names}</span>使用</p>
+
+                        <p style="padding-top: 0;">使用次数：一天<span>{$item.day_times}</span>次</p>
+                    </div>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+    <div class="yhimg col-sm-12 tab-pane" id="div2" >
+        <div class="row tabs" id="div_dhj">
+            <ul class="discountMain ">
+                {foreach from=$infoDHJ item=item}
+                <li {if $item.usetype==2}class="overdue"{/if} data-coupon-money="{$item.money}" data-coupon-id="{$item.id}" data-userCouponid="{$item.user_coupon_id}" data-room-id="{$item.room_type_id}">
+                    <div class='discountShow'>
+                        <div class="discountLeft">
+                            <p class="discount_tip">兑换券</p>
+                            <p class="discount_enough">限<span>{$item.money}元</span>内使用</p>
+                            <p class="discount_use clearfix">
+                                <span >使用须知</span>
+                                <img src="./assets/wx/arrowdown1.png"   alt=""/>
+                            </p>
+                        </div>
+                        <div class="discountRight">
+                            <p class="title">副券</p>
+                            <p class="time">{$item.start_time|date_format:'%Y-%m-%d %H:%M'}</p>
+                            <p class="time">{$item.end_time|date_format:'%Y-%m-%d %H:%M'}</p>
+                            <a class="typename" href="##">立即使用</a>
+                        </div>
+                        <img src="./assets/wx/selectimg.png" alt="" class="selectimg"/>
+                    </div>
+                    <div class='discountHidden'>
+                        <p>兑换范围：限<span>{$item.type_name}</span>使用</p>
+                    </div>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    //voucher
+    $('.discount_li').click(function(){
+        setTimeout(getPayment, 200);
+    });
+    //点击展开优惠券
+    $('.discountLeft .discount_use').on('click', function () {
+        if ($(this).parent().parent().next('.discountHidden').is(':hidden')) {
+            $(this).parent().parent().next('.discountHidden').show();
+            return false;
+        } else { //否则
+            $(this).parent().parent().next('.discountHidden').hide();
+            return false;
+        }
+    });
+    //选中
+    $('.discountMain li').on('click', function () {
+        if (!$(this).hasClass('overdue')) {
+            if ($(this).hasClass('activediv')) {
+                $(this).removeClass('activediv');
+                $(this).children().children().children('a').text('立即使用');
+                $('#point_check').prop('checked', false);
+                getPayment();
+            } else {
+                $(this).children().children().children('a').text('已选择')
+                $(this).addClass('activediv').siblings('li').removeClass('activediv');
+                $('#point_check').prop('checked', false);
+                getPayment();
+            }
+        }
+    });
+</script>

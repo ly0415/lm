@@ -1,0 +1,9 @@
+{foreach from=$data item=item}
+<tr>
+    <td><input class="radio-name" type="checkbox" name="radio" data-name="{$item.store_name}" data-id="{$item.id}" /></td>
+    <td>{$item.store_name}</td>
+</tr>
+
+{/foreach}
+
+

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        {$language1->language_manage}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="admin.php?app=default&act=index"><i class="fa fa-dashboard"></i>{$language1->index}</a></li>
+                        <li class="active">{$language1->web_manage}</li>
+                        <li class="active"> {$language1->language_manage}</li>
+                    </ol>
+
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <form class="form-inline col-sm-10 col-md-11 no-padding">
+                                        <input type='hidden' name='app' value='language'>
+                                        <input type='hidden' name='act' value='index'>
+                                        <input type="hidden" name = "delAll" value="dele">
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">{$language1->language_name}：</small>
+                                            <input type="text" class="form-control" name="name" value="{$name}">
+                                        </div>
+
+                                        <div class="form-group form-group-sm form-mar">
+                                            <button type="submit" class="btn btn-default btn-sm">
+                                                {$language2->search} <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+
+                                    </form>
+
+                                    <div class="col-sm-2  col-md-1 no-padding">
+                                        <a class="btn btn-primary pull-right btn-sm" href="?app=language&act=languageAdd&p={$p}"   role="button"><i class="fa fa-plus"></i> {$language2->add_to}</a>
+                                    </div>
+
+                                </div>
+                                <div class="new-table-responsive">
+                                    <div class="box-body table-responsive no-padding">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <!--<th><input type="checkbox" name="" id="all"/></th>-->
+                                                    <th>{$language1->language_name}</th>
+                                                    <th>{$language1->english_name}</th>
+                                                    <th>{$language1->shorthand}</th>
+                                                    <th>logo</th>
+                                                    <th>{$language1->is_default}</th>
+                                                    <th>{$language1->language_enabled}</th>
+                                                    <th>{$language2->add_time}</th>
+                                                    <!--<th>广告位描述</th>-->
+                                                    <th>{$language2->control}</th>
+                                                </tr>
+                                            </thead>
+
+                                            {foreach from=$list item=item}
+                                            <tr>
+                                                <!--<td><input type="checkbox" name="check-name" value="{$item.comment_id}" /></td>-->
+                                                <td>{$item.name}</td>
+                                                <td>{$item.name_en}</td>
+                                                <td>{$item.shorthand}</td>
+                                                <td>
+                                                    <p class="file-img">
+                                                        <img   src="{$item.logo}"   width="60" height="40"  />
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    {if $item.is_default eq 2}
+                                                    <input  type="checkbox" class="is-default" value="2" data-lang="{$item.id}" checked  onclick="lang_click({$item.id});">
+                                                    {else}
+                                                    <input  type="checkbox" class="is-default" data-lang="{$item.id}"  value="1">
+                                                    {/if}
+                                                </td>
+                                                <td>
+                                                    {if $item.enable ==1}
+                                                    <input  type="checkbox" class="is-Enable"  name="Enable" checked data-value = '{$item.id}' >
+                                                    {else}
+                                                    <input  type="checkbox" class="is-Enable"  name="Enable"  data-value = '{$item.id}' >
+                                                    {/if}
+                                                </td>
+                                                <td>{$item.add_time|date_format:"%Y-%m-%d"}</td>
+
+                                                <td>
+
+                                                    <a href="?app=language&act=languageEdit&id={$item.id}&p={$p}" data-toggle="tooltip" class="btn btn-xs btn-success "   style="overflow: hidden; position: relative;"  >{$language2->edit}</a>
+                                                    {if ($item.shorthand=='ZH') || ($item.shorthand=='EN')}
+                                                    {else}
+                                                    {if $item.is_default neq 2}
+                                                    <a href="javascript:;" data-toggle="tooltip" class="btn btn-xs btn-success "  onclick="shanchu({$item.id});"   style="overflow: hidden; position: relative;"  >{$language2->drop}</a>
+                                                    {/if}
+                                                    {/if}
+                                                </td>
+
+                                            </tr>
+                                            {/foreach}
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="box-footer clearfix">
+                                    <!--<a href="##"  class="btn btn-primary btn-sm delete-all"><i class="fa fa-trash-o"></i> 批量删除</a>-->
+                                    {$page_html}
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                 <input type="hidden" name = "language2_yes" value="{$language2->yes}"/>
+                 <input type="hidden" name = "language2_no" value="{$language2->no}"/>
+                <!-- /.content -->
+            </div>
+            {include file="public/footer.html"}
+        </div>
+        {literal}
+        <script type="text/javascript">
+            var no=$('input[name=language2_no]').val();
+            $(".is-default").bootstrapSwitch({
+                    offText: no,
+                    size: "small",
+                    onSwitchChange: function(event, state) {
+                    if (state == true) {
+                    var lang_id = $(this).attr('data-lang');
+                    $(this).val("2");
+                    var is_default = $(this).val();
+                    $.ajax({
+                    url: 'admin.php?app=language&act=changeLanguage',
+                            type: 'POST',
+                            data: {'lang_id': lang_id, 'is_default': is_default},
+                            dataType: "json",
+                            success: function(msg) {
+                            if (msg.status == 1) {
+                            window.location.reload();
+                            } else{
+                            layer.alert(msg.message, {
+                            icon: 2,
+                                    shadeClose: false,
+                                    skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                                    time: 1000,
+                                    btn:false,
+                                    area: ['259px', '166px']
+                            })
+                                    setTimeout(function(){ window.location.reload(); }, 1000);
+                            }
+                            }
+                    });
+                    } else {
+                    var lang_id = $(this).attr('data-lang');
+                    $(this).val("1");
+                    var is_default = $(this).val();
+                    $.ajax({
+                    url: 'admin.php?app=language&act=changeLanguage',
+                            type: 'POST',
+                            data: {'lang_id': lang_id, 'is_default': is_default},
+                            dataType: "json",
+                            success: function(msg) {
+                            if (msg.status == 1) {
+                            window.location.reload();
+                            } else {
+                            layer.alert(msg.message, {
+                            icon: 2,
+                                    shadeClose: false,
+                                    skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                                    time: 1000,
+                                    btn:false,
+                                    area: ['259px', '166px']
+                            })
+                                    setTimeout(function(){ window.location.reload(); }, 1000);
+                            }
+                            }
+                    });
+                    }
+                    }
+            });
+            /*删除*/
+            function shanchu(id){
+            deletes('?app=language&act=delete&id=' + id);
+            }
+            function lang_click(id){
+            $.ajax({
+            type: "GET",
+                    dataType: "json",
+                    url: url,
+                    data: 'ids=' + check_val,
+                    success: function (obj) {
+                    if (obj.status == 1){
+                    layer.alert(obj.message, {
+                    icon: 1,
+                            shadeClose: false,
+                            skin: 'layer-ext-moon',
+                            btn:false,
+                            area: ['259px', '166px']
+                    })
+                            setTimeout(function(){ window.location.reload(); }, 1000);
+                    }
+                    else{
+                    layer.alert(obj.message, {
+                    icon: 2,
+                            shadeClose: false,
+                            skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                            time: 1000,
+                            btn:false,
+                            area: ['259px', '166px']
+                    })
+                            setTimeout(function(){ window.location.reload(); }, 1000);
+                    }
+                    },
+                    error: function(data) {
+                    layer.alert('网络错误', {
+                    icon: 0,
+                            shadeClose: false,
+                            skin: 'layer-ext-moon' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                    })
+                    }
+            });
+            }
+
+            var yes=$('input[name=language2_yes]').val();
+            var no=$('input[name=language2_no]').val();
+            $(".is-Enable").bootstrapSwitch({
+            onText: yes,
+                    offText: no,
+                    size: "small",
+                    onSwitchChange: function(event, state) {
+                    if (state == true) {
+                    var id = $(this).attr('data-value');
+                    $(this).val("1");
+                    var Enable = $(this).val();
+                    $.ajax({
+                    url: 'admin.php?app=language&act=changeSales',
+                            type: 'POST',
+                            data: {'id': id, 'Enable': Enable},
+                            dataType: "json",
+                            success: function(re) {
+                            if (re.status == 1) {
+                            window.location.reload();
+                            } else{
+                            layer.alert(re.message, {
+                            icon: 2,
+                                    shadeClose: false,
+                                    skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                                    time: 1000,
+                                    btn:false,
+                                    area: ['259px', '166px']
+                            })
+                                    setTimeout(function(){ window.location.reload(); }, 1000);
+                            }
+                            }
+                    });
+                    } else {
+                    var id = $(this).attr('data-value');
+                    $(this).val("2");
+                    var Enable = $(this).val();
+                    $.ajax({
+                    url: 'admin.php?app=language&act=changeSales',
+                            type: 'POST',
+                            data: {'id': id, 'Enable': Enable},
+                            dataType: "json",
+                            success: function(re) {
+                            if (re.status == 1) {
+                            window.location.reload();
+                            } else {
+                            layer.alert(re.message, {
+                            icon: 2,
+                                    shadeClose: false,
+                                    skin: 'layer-ext-moon', //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，去这里查阅
+                                    time: 1000,
+                                    btn:false,
+                                    area: ['259px', '166px']
+                            })
+                                    setTimeout(function(){ window.location.reload(); }, 1000);
+                            }
+                            }
+                    });
+                    }
+                    }
+            });
+ </script>
+  {/literal}
+    </body>
+</html>

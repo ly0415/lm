@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head  class="main-header">
+    {include file="public/header.html"}
+    <!-- Logo -->
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    {include file="public/title.html"}
+    <!-- Left side column. contains the logo and sidebar -->
+    {include file="public/menu.html"}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        {include file="public/headtab.html"}
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- /.row -->
+            <div class="row">
+                <iframe name="demo-iframe" width="1200" height="600" id="demo-iframe" src="{$errormsg}">
+                    <h2>这是酷家乐装修设计或户型修改页面，当前未登录</h2>
+                </iframe>
+            </div>
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    {include file="public/footer.html"}
+</div>
+<!-- ./wrapper -->
+</body>
+</html>

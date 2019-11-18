@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html style="background-color: #eeeeee;">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>优惠券</title>
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css" rel="stylesheet" type="text/css" />
+		<link href="{$STATIC_URL}/phone/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="{$STATIC_URL}/phone/css/swiper.min.css" rel="stylesheet" type="text/css" />
+	</head>
+	<style>
+		.discountMain {
+			margin: 0 .3rem;
+		}
+		.discountMain li.activediv{
+			border: 1px solid #fa9880;
+		}
+		.discountMain li {
+			margin-top: .3rem;			
+			box-shadow: 0rem 0rem .02rem .02rem rgba(122,122,122,0.2);
+		}
+		.discountMain li .discountShow{
+		
+			border-radius: 5px;
+			display: flex;
+		}
+		.discountMain li .discountShow .discountLeft {
+			display: inline-block;
+			width: 30%;
+			text-align: center;
+			background-color: #fa9880;
+			color: #fff;
+			padding: 0 .15rem;
+			box-sizing: border-box;
+		}
+		.discountMain li .discountShow .discountLeft.overdue{
+			background-color: #999999;
+		}
+		.discountMain li .discountShow .discountRight {
+			display: inline-block;
+			width: 70%;
+			box-sizing: border-box;
+            background-color: #fff;
+		}
+		.discountMain li .discountShow .discountRight .discountinfo{
+			padding: .25rem .2rem;
+			border-bottom: 1px solid #dddddd;
+		}
+		.clearfix:after {
+			content: ".";
+			display: block;
+			height: 0;
+			clear: both;
+			visibility: hidden
+		}
+		
+		.discountShow .discountLeft .discountprice {
+			margin: .3rem 0 .35rem;
+			font-size: .36rem
+		}
+		
+		.discountShow .discountLeft .discountneed {
+			font-size: .2rem;
+			padding-bottom: .1rem;
+			border-bottom: 1px dashed #fff;
+		}
+		
+		.discountShow .discountLeft .discountvalue {
+			font-size: .26rem;
+			margin: .1rem 0 .3rem 0;
+		}
+		.discountShow .discountRight .discountdate{
+			font-size: .26rem;
+			color: #666666;
+		}
+		.discountShow .discountRight .discountuse{
+			font-size: .24rem;
+			color: #666666;
+			margin-top: .3rem;
+		}
+		.discountShow .discountRight .discountuse .times {
+			float: left;
+			margin-top: .1rem;
+		}
+		.discountShow .discountRight .discountuse .times span{
+			color: #fa9a81;
+		}
+		.discountShow .discountRight .discountuse .times span.overdue{
+			color: #999999;
+		}
+		.discountShow .discountRight .discountuse a{
+			float: right;
+			color: #fa9a81;
+			padding: .08rem 0;
+			border-radius: 10rem;
+			border: 1px solid #fa9a81;
+			font-size: .24rem;
+			width: 1.2rem;
+			text-align: center;
+		}
+		.discountShow .discountRight .discountuse a.overdue{
+			color: #999999;
+			border: 1px solid #999999;
+		}
+		.discountShow .discountRight .usediscount{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 .2rem;
+			font-size: .24rem;
+			color: #999999;
+			line-height: .59rem;
+		}
+		.discountShow .discountRight .usediscount img{
+			width: .22rem;
+			height: .13rem;
+			display: inline-block;
+		}
+		.discountHidden{
+			border-top: 1px solid #dddddd;	
+			background-color: #fff;
+			display: none;
+			border-radius: 5px;
+		}
+		.discountHidden p{
+			color: #666666;
+			font-size: .24rem;
+			padding: .4rem .25rem;
+		}
+		.discountHidden p span{
+			font-size: .26rem;
+			color: #fa9880;
+			letter-spacing: .01rem;
+		}
+		/*添加的兑换券*/
+		.discounttitle{
+			margin-top: .9rem;
+			background-color: #fff;
+			border-top:1px solid #eeeeee
+		}
+		.discounttitle a{
+			width: 50%;
+			float: left;
+			text-align: center;
+			font-size: .28rem;
+			padding: .3rem 0 0 0;
+			letter-spacing: .05rem;
+		}
+		.discounttitle a span{
+			padding-left: .2rem;
+			padding-right: .2rem;
+			padding-bottom: .3rem;
+			display: inline-block;
+		}
+		.discounttitle a span.activespan{
+			border-bottom: 2px solid #fa9c82;
+		}
+		.showdiscount ul{
+			display: none;
+		}
+		.showdiscount ul.activeul{
+			display: block;
+		}
+		.discountShow .discountRight .discountuse .times1{
+			width: 2.8rem;
+			display: inline-block;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			vertical-align: -webkit-baseline-middle;
+		}
+		.discountShow .discountLeft .discountneed1{
+			font-size: .24rem;
+			margin-top: .6rem;
+			padding-bottom: .15rem;
+			border-bottom: 1px dashed #fff;
+
+		}
+		.discountShow .discountLeft .discountvalue1{
+			font-size: .26rem;
+			margin-top: .2rem;
+		}
+	</style>
+
+	<body>
+		<div class="discountPage">
+			<!--头部-->
+			<div class="ss-nav">
+				<a href="javascript:history.back(-1);" class="ss-nav-back backimg" style="width: .2rem;height: .3rem;"></a>
+				<div class="ss-nav-title">优惠券</div>
+			</div>
+			<!--主要内容-->
+			<div class="discounttitle clearfix">
+				<a href="##"><span class="activespan">抵扣劵</span></a>
+				<a href="##"><span>兑换券</span></a>
+			</div>
+			<!--主要内容-->
+			<div class="showdiscount">
+				<ul class="discountMain activeul">
+					{foreach from=$res item=val}
+					<li class="divitem"  data-money="{$val.money}" data-discount="{$val.discount}" data-expire="{$val.usetype}"  data-id="{$val.id}" data-userCouponId="{$val.user_coupon_id}" data-type="{$val.type}">
+						<div class='discountShow'>
+							<div class="discountLeft">
+								<p class="discountprice"><span style="font-size: .24rem;">{$symbol}</span>{$val.discount}</p>
+								<p class="discountneed">满{$val.money}元使用</p>
+								<p class="discountvalue">{$val.discount}元抵扣劵</p>
+							</div>
+							<div class="discountRight">
+								<div class="discountinfo">
+									<p class="discountdate">有效期：{$val.start_time|date_format:'%Y.%m.%d'}-{$val.end_time|date_format:'%Y.%m.%d'}</p>
+									<p class="discountuse clearfix">
+										<!--<span class="times">剩余：<span >{$val.left_times}</span>次</span>-->
+										<a href="##">立即使用</a>
+									</p>
+								</div>
+								<p class="usediscount">
+									<span>使用须知</span>
+									<img src="./assets/wx/arrowdown.png" alt="" />
+								</p>
+							</div>
+						</div>
+						{if $val.usetype==1}
+						<div class='discountHidden'>
+							<p>适用范围：限<span>{$val.store_names}</span>使用</p>
+							<p style="padding-top: 0;">使用次数：一天<span>{$val.day_times}</span>次，共<span>{$val.total_times}</span>次</p>
+						</div>
+						{/if}
+					</li>
+					{/foreach}
+				</ul>
+				<!--兑换券-->
+				<ul class="discountMain">
+					{foreach from=$voucherData item=val}
+
+					<li class="divitem" data-money="{$val.money}" data-discount="{$val.discount}" data-expire="{$val.usetype}"  data-id="{$val.id}" data-userCouponId="{$val.user_coupon_id}" data-type="{$val.type}" data-roomTypeId="{$val.room_type_id}">
+						<div class='discountShow '>
+							<div class="discountLeft">
+								<p class="discountneed1">限{$val.money}元内使用</p>
+								<p class="discountvalue1">{$val.money}元兑换券</p>
+							</div>
+							<div class="discountRight">
+								<div class="discountinfo">
+									<p class="discountdate">有效期：{$val.start_time|date_format:'%Y.%m.%d'}-{$val.end_time|date_format:'%Y.%m.%d'}</p>
+									<p class="discountuse clearfix">
+										<span class="times1">仅限购买{$val.type_name}使用</span>
+										<a href="##">立即使用</a>
+									</p>
+								</div>
+								<p class="usediscount">
+									<span>使用须知</span>
+									<img src="./assets/wx/arrowdown.png" alt="" />
+								</p>
+							</div>
+						</div>
+						<div class='discountHidden'>
+							<p>兑换范围：限<span>{$val.type_name}</span>使用</p>
+						</div>
+					</li>
+					{/foreach}
+				</ul>
+			</div>
+			<!--<ul class="discountMain">-->
+				<!--{foreach from=$res item=val}-->
+				<!--<li class="divitem"  data-money="{$val.money}" data-discount="{$val.discount}" data-expire="{$val.usetype}"  data-id="{$val.id}">-->
+					<!--<div class='discountShow '>-->
+						<!--<div class="discountLeft">-->
+							<!--<p class="discountprice"><span style="font-size: .24rem;">{$symbol}</span>{$val.discount}</p>-->
+							<!--<p class="discountneed">满{$val.money}元使用</p>-->
+							<!--<p class="discountvalue">{$val.discount}元优惠券</p>-->
+						<!--</div>-->
+						<!--<div class="discountRight">-->
+							<!--<div class="discountinfo">-->
+								<!--<p class="discountdate">有效期：{$val.start_time|date_format:'%Y.%m.%d'}-{$val.end_time|date_format:'%Y.%m.%d'}</p>-->
+								<!--<p class="discountuse clearfix">-->
+									<!--<span class="times">剩余：<span >{$val.left_times}</span>次</span>-->
+									<!--<a href="##">立即使用</a>-->
+								<!--</p>-->
+							<!--</div>-->
+
+							<!--<p class="usediscount">-->
+								<!--<span>使用须知</span>-->
+								<!--<img src="{$STATIC_URL}/wx/arrowdown.png" alt="" />-->
+							<!--</p>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class='discountHidden'>-->
+						<!--<p>适用范围：限<span>{$val.store_names}</span>使用</p>-->
+						<!--<p style="padding-top: 0;">使用次数：一天<span>{$val.day_times}</span>次，共<span>{$val.total_times}</span>次</p>-->
+					<!--</div>-->
+				<!--</li>-->
+				<!--{/foreach}-->
+			<!--</ul>-->
+			<!--底部-->
+			<div class="height110"></div>
+
+		</div>
+		<script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+		<script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+		<script src="{$STATIC_URL}/phone/js/layer/layer.js" type="text/javascript"></script>
+		<script src="{$STATIC_URL}/phone/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+		<script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+		<script src="{$STATIC_URL}/phone/js/swiper.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+            <!--点击优惠券-->
+            $('.discountRight .usediscount').on('click',function(){
+                $(this).removeClass('active');
+                $(this).parent().parent().next('.discountHidden').toggle();
+                return false;
+            })
+            //选中
+            $('.discountMain .divitem').on('click',function(){
+                // $(this).removeClass('activediv');
+                if($(this).hasClass('activediv')){
+                    $(this).removeClass('activediv')
+                }else if(!$(this).hasClass('activediv')){
+                    $(this).addClass('activediv').parent().siblings().children('li').removeClass('activediv')
+                    $(this).addClass('activediv').siblings('li').removeClass('activediv')
+                }
+
+            });
+            //切换优惠券兑换券
+            $('.discounttitle a').on('click',function(){
+                $(this).children('span').addClass("activespan").parent().siblings('a').children('span').removeClass("activespan");
+                $(this).parent().next('.showdiscount').children('.discountMain').eq($(this).index()).addClass('activeul').siblings().removeClass('activeul')
+            })
+		</script>
+	</body>
+
+</html>

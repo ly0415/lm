@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {include file="public/header.html"}
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+            {include file="public/title.html"}
+            <!-- Left side column. contains the logo and sidebar -->
+            {include file="public/menu.html"}
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {include file="public/headtab.html"}
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        {$language1->role_list}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="admin.php?app=default&act=index"><i class="fa fa-dashboard"></i> {$language1->index}</a></li>
+                        <li class="active">{$language1->auth_manage}</li>
+                        <li class="active">{$language1->role_list}</li>
+                    </ol>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <form class="form-inline col-sm-10 col-md-11 no-padding">
+                                        <input type='hidden' name='app' value='systemRole'>
+                                        <input type='hidden' name='act' value='index'>
+                                        <input type="hidden" name = "delAll" value="dele">
+                                        <div class="form-group form-group-sm form-mar">
+                                            <small class="control-label">{$language1->role_name}：</small>
+                                            <input type="text" class="form-control"   name='name' value='{$name}'>
+                                        </div>
+
+                                        <div class="form-group form-group-sm form-mar">
+                                            <button type="submit" class="btn btn-default btn-sm">
+                                                {$language1->search} <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+
+
+                                    <div class="col-sm-2  col-md-1 no-padding">
+                                        <a class="btn btn-primary pull-right btn-sm" href="javascript:;" id="add-role" ><i class="fa fa-plus"></i> {$language1->add_role}</a>
+                                    </div>
+
+                                </div>
+                                <div class="new-table-responsive">
+                                    <div class="box-body table-responsive no-padding">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" name="" id="all"/></th>
+                                                    <th>{$language2->serial_number}</th>
+                                                    <th>{$language1->role_name}</th>
+                                                    <th>{$language1->grade}</th>
+                                                    <th>{$language1->area_countroy}</th>
+                                                    <th>{$language2->sort}</th>
+                                                    <th>{$language2->add_time}</th>
+                                                    <th style="width: 120px;">{$language2->control}</th>
+                                                </tr>
+                                            </thead>
+
+                                            {foreach from=$list item=item}
+                                            <tr>
+                                                <td><input type="checkbox" name="check-name" value="{$item.id}" /></td>
+                                                <td>{$item.sort_id}</td>                                           
+                                                <td>{$item.name}</td>
+                                                <td>{$role_arr[$item.level]}</td>
+                                                <td>{if $item.s_name}{$item.s_name} {else} --{/if}</td>
+                                                <td>{$item.sort}</td>
+                                                <td>{$item.add_time|date_format:"%Y-%m-%d" }</td>
+                                                <td class="cz">
+                                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-success edit-table" style="overflow: hidden; position: relative;" onclick="bianj('{$item.id}');">{$language2->edit}</a>
+                                                    <!--<a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs bg-orange " style="overflow: hidden; position: relative;"  onclick="chakan({$val.id});" data-original-title="查看" ><i class="fa fa-search"></i></a>-->
+                                                    <a href="?app=systemRole&act=roleAuth&id={$item.id}" data-toggle="tooltip" class="btn btn-xs btn-success " style="overflow: hidden; position: relative;">{$language1->configuration_permission}</a>
+                                                    <a href="javascript:void(0)" data-toggle="tooltip" title="" class="btn btn-xs btn-danger delete-table" style="overflow: hidden; position: relative;"  onclick="shanchu('{$item.id}');">{$language2->drop}
+                                                        </a>
+                                                </td>
+
+                                            </tr>
+                                            {/foreach}
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="box-footer clearfix">
+                                    <a href="#" class="btn btn-primary btn-sm delete-all"><i class="fa fa-trash-o"></i> {$language2->all_drop}</a>
+                                    {$page_html}
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /.content -->
+            </div>
+            {include file="public/footer.html"}
+        </div>
+        <script type="text/javascript">
+            $('#add-role').click(function() {
+                dialog_form('?app=systemRole&act=add', '{$language2->add_role}');
+            });
+
+            /*编辑*/
+            function bianj(id) {
+                dialog_form('?app=systemRole&act=edit&id=' + id, '{$language->edit_role}');
+            }
+
+            /*删除*/
+            function shanchu(id) {
+                deletes('?app=systemRole&act=dele&id=' + id);
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$langdata.seck_list}</title>
+        <meta charset="utf-8" />
+        {include file="public/header.html"}
+    </head>
+    <body class="index">
+
+        {include file="public/daohang.html"}
+        <!-- navs-box end -->
+
+        <!-- navs-box end -->
+        <div class="border"></div>
+
+        <!-- navs -->
+        <div class="active-menu">
+            <div class="container">
+                <a href="?app=combined&act=c_index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Sale}</a>
+                <a class="active" href="index.php?app=seckill&act=goodslist&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Seckill}</a>
+                <a href="index.php?app=goodPromotion&act=index&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Promotion}</a>
+                <a  href="index.php?app=groupbuy&act=goodslist&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.Group}</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="miaosha-wrap mt60">
+                <div class="active-box">
+                    <ul class="clearfix">
+                        {foreach from=$res.data  item=val}
+                        {if $val.in_time ==2 }
+                        <li>
+                            <a href="?app=seckill&act=goodsDetail&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}&sid={$val.id}">
+                                <div class="img">
+                                    <img src="{$val.goods_img}">
+                                    <span class="solde">{$val.discount}0%</span>
+                                    <span class="name">{$val.name}</span>
+                                </div>
+                                <div class="cont">
+                                    <div class="clearfix">
+                                        <p class="ellipsis mb5 fl" title="" style="width: 70%">{$val.goods_name}</p>
+                                        <p class="price fr red">{$symbol} {$val.price}</p>
+                                    </div>
+                                    <!--<p class="mb5 tag"><span>{$val.item_name}</span></p>-->
+                                    <div class="red">
+                                        <i class="ico ico-clock2"></i>
+                                        <span>{$langdata.prom_Time}：</span>
+                                        <input type="hidden" value="{$val.end_time}" />
+                                        <span class="clock"></span>
+                                    </div>
+
+                                </div>
+                            </a>
+                        </li>
+                        {elseif $val.in_time ==1}
+                        <li>
+                            <a href="##">
+                                <div class="img">
+                                    <img src="{$val.goods_img}">
+                                    <span class="solde">{$val.discount}0%</span>
+                                    <span class="ji-start">{$langdata.prom_start}</span>
+                                    <span class="name">{$val.name}</span>
+                                </div>
+                                <div class="cont">
+                                    <div class="clearfix">
+                                        <p class="ellipsis mb5 fl" title="" style="width: 70%">{$val.goods_name}</p>
+                                        <p class="price fr red">{$symbol} {$val.price}</p>
+                                    </div>
+
+                                    <!--<p class="mb5 tag"><span>{$val.item_name}</span></p>-->
+                                    <div class="red">
+                                        <i class="ico ico-clock1"></i>
+                                        <span>{$langdata.prom_Sale}：</span>
+                                        <span>{$val.start_our|date_format:"%H:%M "} - {$val.end_our|date_format:"%H:%M "}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        {/if}
+                        {/foreach}
+                    </ul>
+                </div>
+                {if $langguages =='ZH'}
+                <div class="more">
+                    <img src="{$STATIC_URL}/front/images/m-more.png" width="1200" height="240">
+                </div>
+                {else}
+                <div class="more">
+                    <img src="{$STATIC_URL}/front/images/m-more-en.png" width="1200" height="240">
+                </div> 
+                {/if}
+
+            </div>
+            {$res.pagelink}
+
+            <!-- paypal -->
+            <div class="payoptions">
+                <h2><span>{$langdata.Lately}</span></h2>
+                <div class="img">
+                    <img src="{$STATIC_URL}/front/images/zhifu.png">
+                    <img src="{$STATIC_URL}/front/images/paypal.png">
+                    <img src="{$STATIC_URL}/front/images/weixin.png">
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        {include file="public/footer.html"}
+        <!-- footer end -->
+        <div class="to-top tc">
+            <img src="{$STATIC_URL}/front/images/gotop.png" width="28" height="28">
+            <p class="mt5">{$langdata.prom_Return}</p>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                $('.active-menu a').click(function () {
+                    $('.active-menu a').removeClass('active');
+                    $(this).addClass('active');
+                })
+
+                var clock = $('.clock');
+                for (var i = 0; i < clock.length; i++) {
+                    var twoDaysFromNow = $(clock[i]).prev().val();
+                    var nowTime = new Date().valueOf();
+                    var countDown = (nowTime + twoDaysFromNow * 1000);
+                    $(clock[i]).countdown(countDown, function (event) {
+                        $(this).html(event.strftime('%D 天 %H 小时 %M 分钟 %S 秒'));
+                    });
+                }
+            })
+        </script>
+    </body>
+</html>

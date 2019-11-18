@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{$langdata.Personal_Center}</title>
+        <meta charset="utf-8" />
+        {include file="public/header.html"}
+        <style>
+            .manage-address .ad-box {
+                background-color: #fff;
+                width: 360px;
+                padding: 30px 20px;
+                font-size: 16px;
+                float: left;
+                margin-right: 10px;
+        }
+            .clearfix span.redse{
+                background: #f63d3d;
+                color: #fff;
+                border-radius: 10px;
+                padding: 0.02rem 0.5rem;
+            }
+            .ad-box .img-box{
+                    float: left;
+                    width: 20%;
+                    text-align: center;
+                    margin-top: 50px;
+            }
+            .ad-box .mid{
+                float:left;
+            }
+            .container a{
+               text-decoration:none;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- header -->
+        {include file="public/daohang.html"}
+        <!-- navs-box end -->
+        <div class="border"></div>
+
+        <div class="container">
+            <!-- bread-box -->
+            <div class="bread-box">
+                <a href="?app=userCenter&act=myCenter&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}">{$langdata.manage_Account}</a>
+                <i>»</i>
+                <span class="or">{$langdata.manage_addr}</span>
+            </div>
+            <div class="g-box clearfix  manage-address">
+                  
+                <div class="g-left fl">
+                    <h1 class="title mb30">{$langdata.manage_addr}</h1>
+                    <p class="text ">{$langdata.manage_brief}</p>
+                    <h3 class="mt20 font18"><a href="?app=userCenter&act=addAddress&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}&pageUrl={$url}" class="font18 uline">{$langdata.manage_add}</a></h3>
+                    <!--默认地址-->
+                    {foreach from=$mr_res item=info_mr}    
+                    <div class="ad-box mt30"> 
+                        <div class="top clearfix">
+                            <span class='redse'>默认</span>
+                            <div class="inblock fr">
+                                <a href="?app=userCenter&act=editAddress&id={$info_mr.id}&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}" class="uline">{$langdata.manage_edit}</a>|
+                                <a href="javascript:;"   onclick="shanchu({$info_mr.id});" class="uline">{$langdata.manage_delete}</a>
+                            </div>
+                        </div>
+                       {if $pageUrl != ''}
+                       <a href="{$pageUrl}&addr_id={$info_mr.id}" >
+                        <div class="img-box">
+                             <img src="{$STATIC_URL}/phone/images/ico-right.png" width="20px" class="img">
+                        </div>
+                        <div class="mid mt15">
+                            <p>{$info_mr.name}</p> 
+                            <p>{$info_mr.phone}</p>
+                            <p>{$info_mr.pays}{$info_mr.app}</p>
+                        </div>
+                       </a>
+                         {else}
+                        <div class="img-box">
+                             <img src="{$STATIC_URL}/phone/images/ico-right.png" width="20px" class="img">
+                        </div>
+                        <div class="mid mt15">
+                            <p>{$info_mr.name}</p> 
+                            <p>{$info_mr.phone}</p>
+                            <p>{$info_mr.pays}{$info_mr.app}</p>
+                        </div>
+                         {/if}
+                    </div>
+                    {/foreach}
+                    <!--非默认地址-->
+                    {foreach from=$res item=info}    
+                    <div class="ad-box mt30"> 
+                        <div class="top clearfix">
+                            <span class="fl red is_default" data-value = '{$info.id}'>设置默认</span>
+                            <div class="inblock fr">
+                                <a href="?app=userCenter&act=editAddress&id={$info.id}&storeid={$storeid}&lang={$langid}&auxiliary={$auxiliary}" class="uline">{$langdata.manage_edit}</a>|
+                                <a href="javascript:;"   onclick="shanchu({$info.id});" class="uline">{$langdata.manage_delete}</a>
+                            </div>
+                        </div>
+                       {if $pageUrl != ''}
+                        <a href="{$pageUrl}&addr_id={$info.id}" >
+                        <div class="mid mt15">
+                            <p>{$info.name}</p> 
+                            <p>{$info.phone}</p>
+                            <p>{$info.pays}{$info.app}</p>
+                        </div>
+                        </a>
+                       {else}
+                         <div class="mid mt15">
+                            <p>{$info.name}</p> 
+                            <p>{$info.phone}</p>
+                            <p>{$info.pays}{$info.app}</p>
+                        </div>
+                       {/if}
+                    </div>
+                    {/foreach}
+                </div>
+                
+                {include file="userCenter/menu.html"}
+            </div>
+            <!-- paypal -->
+            <div class="payoptions">
+                <h2><span>{$langdata.manage_Options}</span></h2>
+                <div class="img">
+                    <img src="{$STATIC_URL}/front/images/zhifu.png">
+                    <img src="{$STATIC_URL}/front/images/paypal.png">
+                    <img src="{$STATIC_URL}/front/images/weixin.png">
+                </div>
+            </div>
+        </div>
+
+        {include file="public/footer.html"}  
+        {if $lang_id == 'ZH'}  
+        <script type="text/javascript">
+            {literal}
+            /*删除*/
+            function shanchu(id) {
+            deletes('?app=userCenter&act=addDelete&id=' + id);
+            }
+            {/literal}
+        </script>
+         <script type="text/javascript">
+            $(".is_default").click(function () {
+                var data_id = $(this).attr("data-value");
+                layer.open({
+                    className: 'layer-confirm'
+                    , content: '确定设置当前地址为默认地址？'
+                    , btn: ['确定', '取消']
+                    , yes: function (index) {
+                        $.ajax({
+                            url: "index.php?app=userCenter&act=addr_default",
+                            data: "data_id=" + data_id,
+                            type: "Post",
+                            dataType: "json",
+                            success: function (res) {
+                                if (res.status == '1') {
+                                    layer.alert(res.message, {
+                                    icon: 1,
+                                            btn:false,
+                                            title:false,
+                                            closeBtn: 0,
+                                            time:3000,
+                                            skin:'alt-layer'
+                                    });
+                                     setTimeout(function () {
+                                        window.location.reload();
+                                    }, 1000);
+                                } else {
+                                       layer.alert(res.message, {
+                                    icon: 1,
+                                            btn:false,
+                                            title:false,
+                                            closeBtn: 0,
+                                            time:3000,
+                                            skin:'alt-layer'
+                                    });
+                                }
+                            }
+                        })
+                    }
+                });
+            })
+        </script>
+        {else}
+        <script type="text/javascript">
+            {literal}
+            /*删除*/
+            function shanchu(id) {
+            deletes_en('?app=userCenter&act=addDelete&id=' + id);
+            }
+            {/literal}
+        </script>
+
+        {/if}
+    </body>
+</html>

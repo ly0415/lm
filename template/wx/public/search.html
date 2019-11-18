@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{$langdata.index_map}</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link href="{$STATIC_URL}/phone/css/mobiscroll.custom-2.17.1.min.css"  rel="stylesheet" type="text/css"/>
+    <link href="{$STATIC_URL}/phone/css/style.css"  rel="stylesheet" type="text/css"/>
+    {literal}
+    <style type="text/css">
+        body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";font-size:14px;}
+        #l-map{height:300px;width:100%;}
+        #r-result{width:70%;margin-right:0.3rem;float:left}
+        #r-result input{
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 0.2rem;
+            height: 0.6rem;
+            padding-left:0.1rem;
+            box-sizing:border-box;
+        }
+        .btn{
+            width:20%;
+            float:left;
+            height:0.6rem;
+            line-height:0.6rem;
+        }
+        .btn input{
+            border: none;
+            background: #BEA58C;
+            color: #fff;
+        }
+        .container{
+            padding:0.2rem;
+            width:100%;
+            box-sizing: border-box;
+        }
+        div.container>div{
+            display: block;
+        }
+        h2{
+            padding: 0.1rem 0 0.2rem 0.5rem;
+        }
+    </style>
+    {/literal}
+</head>
+<body>
+<div class="cate-wrap">
+    {include file="public/head.html"}
+    <div class="height90"></div>
+    <div class="cate-content clearfix">
+        <div id="l-map"></div>
+        <div class="container">
+            <h2>{$langdata.shuru}:</h2>
+            <div id="r-result">
+                <input type="text" id="suggestId" size="20"/>
+            </div>
+            <div class="btn">
+                <input type="button" class="submit" value="{$langdata.queding}"/>
+            </div>
+            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+            <p></p>
+            <input type="hidden" name="latlon" value="{$latlon}">
+            <input type="hidden" name="lang" value="{$lang}">
+            <input type="hidden" name="storeid" value="{$storeid}">
+            <input type="hidden" name="lat" value="{$lat}">
+            <input type="hidden" name="lng" value="{$lng}">
+            <input type="hidden"  name='returnUrl' value="{$returnUrl}"/>
+            <input type="hidden" name="address" >
+        </div>
+
+        {include file="public/footer1.html"}
+    </div>
+</div>
+<script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/common.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/layer/layer.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/mobiscroll.custom-2.17.1.min.js" type="text/javascript"></script>
+<script src="{$STATIC_URL}/phone/js/index.js" type="text/javascript"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+{include file="public/wxjs.html"}
+{literal}
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=CmfcOlGRQE7OztyHtDGLoiiNGYUu37Te"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+<script type="text/javascript">
+    // 百度地图API功能
+    function G(id) {
+        return document.getElementById(id);
+    }
+
+    var mp = new BMap.Map("l-map");
+    var lat=parseFloat($("input[name='lat']").val());
+    var lng=parseFloat($("input[name='lng']").val());
+    if (lng == '') {
+        var point = new BMap.Point(116.404, 39.915);
+    } else {
+        var point = new BMap.Point(lng, lat);
+    }
+    mp.centerAndZoom(point, 11);
+    //                                                                        var suggestId = $("#suggestId").attr("value");
+    //                                                                        var ac = new BMap.Autocomplete({suggestId, "location": mp
+    //                                                                        });//建立一个自动完成的对象
+    var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+        {"input": "suggestId"
+            , "location": mp
+        });
+    var marker = new BMap.Marker(point);  // 创建标注
+    mp.addOverlay(marker);              // 将标注添加到地图中
+    mp.addEventListener("click", function (e) {
+        mp.removeOverlay(marker);//删除
+        longitude = e.point.lng;
+        latitude = e.point.lat;
+        var point = new BMap.Point(longitude, latitude);
+        var geoc = new BMap.Geocoder();
+        mp.centerAndZoom(point, 18);
+        marker = new BMap.Marker(point);  // 创建标注
+        mp.addOverlay(marker);               // 将标注添加到地图中
+        var pt = e.point;
+
+        geoc.getLocation(pt, function (rs) {
+            var addComp = rs.addressComponents;
+            console.log(rs.point.lng);
+            var latlon=rs.point.lng+','+rs.point.lat;
+
+            add = (addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+            document.getElementById('suggestId').blur();
+            document.getElementById('suggestId').value = add;
+            $('input[name=address]').val(document.getElementById('suggestId').value);
+            $('input[name=latlon]').val(latlon);
+        });
+    });
+    window.mp = mp;//将map变量存储在全局
+    mp.enableScrollWheelZoom();
+    mp.enableInertialDragging();
+    mp.enableContinuousZoom();
+    ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        document.getElementById('suggestId').blur();
+        G("searchResultPanel").innerHTML = str;
+    });
+
+    var myValue;
+    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+        G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+        document.getElementById('suggestId').blur();
+        setPlace();
+    });
+
+    function setPlace() {
+        mp.clearOverlays();    //清除地图上所有覆盖物
+        function myFun() {
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            mp.centerAndZoom(pp, 18);
+            longitude = pp.lng;
+            latitude = pp.lat;
+            document.getElementById('longitude').value = longitude;
+            document.getElementById('latitude').value = latitude;
+//                                                                mp.addOverlay(new BMap.Marker(pp));    //添加标注
+            marker = new BMap.Marker(pp);  // 创建标注
+            console.log("创建标注 " + marker);
+            mp.addOverlay(marker);  //添加标注
+            flag = false;
+        }
+        var local = new BMap.LocalSearch(mp, {//智能搜索
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }
+</script>
+<script>/*
+    $('#suggestId').blur(function(){
+        $('input[name=address]').val(document.getElementById('suggestId').value);
+    });*/
+    $('.submit').click(function () {
+       /* var address=$('input[name=address]').val();*/
+        var returnUrl=$('input[name=returnUrl]').val();
+        var latlon=$('input[name=latlon]').val();
+        setTimeout(function () {
+             var url=changeURLArg(returnUrl,'latlon',latlon);
+            window.location.href =url;
+        }, 1000);
+    })
+
+function changeURLArg(url,arg,arg_val){
+    var pattern=arg+'=([^&]*)';
+    var replaceText=arg+'='+arg_val;
+    if(url.match(pattern)){
+        var tmp='/('+ arg+'=)([^&]*)/gi';
+        tmp=url.replace(eval(tmp),replaceText);
+        return tmp;
+    }else{
+        if(url.match('[\?]')){
+            return url+'&'+replaceText;
+        }else{
+            return url+'?'+replaceText;
+        }
+    }
+    return url+'\n'+arg+'\n'+arg_val;
+}
+
+</script>
+{/literal}
+</body>
+</html>

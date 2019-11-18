@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html style="background-color:#fff">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <link rel="stylesheet" href="{$STATIC_URL}/phone/css/style.css"/>
+</head>
+<body>
+    <div class="detail_container">
+        <p class="title">{$detail.title}</p>
+        <div class="remark">
+            <span>{$langdata.abstract}：</span>
+            <p>{$detail.brif}</p>
+        </div>
+        <div class="c_text">
+            {$detail.body}
+        </div>
+        <div class="footer">
+            {if $detail.type == 1 }
+            <span class="start start1 sc" id="{$detail.article_id}" >{$langdata.closeCollect}</span>
+            {else}
+            <span class="start sc" id="{$detail.article_id}" >{$langdata.collect}</span>
+            {/if}
+           <span class="dataTime">{$detail.add_time|date_format:"%Y-%m-%d"}</span>
+            <input type="hidden" name="store_id" value="{$storeid}"/>
+            <input type="hidden" name="user_id" value="{$user_id}"/>
+        </div>
+        <input type="hidden" name="image" value="{$detail.image}">
+        <input type="hidden" name="title" value="{$detail.title}">
+        <input type="hidden" name="brif" value="{$detail.brif}">
+        <input type="hidden" name="collect" value="{$langdata.collect}">
+        <input type="hidden" name="closeCollect" value="{$langdata.closeCollect}">
+        <input type="hidden" name="latlon" value="{$latlon}">
+    </div>
+    <script src="{$STATIC_URL}/phone/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    {include file="public/wxjs.html"}
+    {literal}
+    <script>
+        $(function () {
+            $('.footer .start').on('click', function () {
+                var type = $(this).hasClass('start1');
+                var id = $(this).attr('id');
+                var store_id = $('input[name=store_id]').val();
+                var user_id = $('input[name=user_id]').val();
+                var collect=$('input[name=collect]').val();
+                var closeCollect=$('input[name=closeCollect]').val();
+                var latlon=$('input[name=latlon]').val();
+                if (user_id == '') {
+                    setTimeout(function () {
+                        window.location.href = 'wx.php?app=article&act=index&tp=1&latlon='+latlon;
+                    }, 1000);
+                } else {
+                    $.ajax({
+                        url: 'wx.php?app=article&act=docollectionarticle',
+                        type: 'GET',
+                        data: {id: id, type: type, store_id: store_id},
+                        dataType: 'json',
+                        success: function (res) {
+                            if (res.statu) {
+                                $('.footer .start[id=' + res.id + ']').toggleClass('start1').html(closeCollect);
+                            } else {
+                                $('.footer .start[id=' + res.id + ']').toggleClass('start1').html(collect);
+                            }
+                        }
+                    })
+                }
+                //                    $(this).toggleClass('sc1-active');
+            })
+        });
+    </script>
+
+    <script type="text/javascript">
+        var share_title =$('input[name=title]').val();
+        var share_desc = $('input[name=brif]').val();
+        var share_image ='http://www.711home.net/'+ $('input[name=image]').val();
+        wx.ready(function () {
+
+            wx.onMenuShareAppMessage({
+                title: share_title , // 分享标题
+                desc: share_desc, // 分享描述
+                link: '', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: share_image, // 分享图标
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+
+                },
+                cancel: function () {
+
+                }
+            });
+            alert($share_image);
+        });
+    </script>
+    {/literal}
+
+
+
+
+
+
+</body>
+
+</html>

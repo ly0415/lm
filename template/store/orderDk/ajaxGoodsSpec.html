@@ -1,0 +1,30 @@
+<div class="popContent">
+    <input type="hidden" class="spec_key">
+    <input type="hidden" class="spec_name_save">
+    <input type="hidden" class="spec_name_show">
+    {foreach from=$specInfo item=item}
+    <div class="popContent1">
+        <span>{$item.spec_name}:</span>
+        <ul>
+            {foreach from=$item.itemInfo key=key item=val}
+            <li data-spec-item-id="{$val.item_id}" {if $key==0}class="active"{/if} onclick="changeSpecItem(this)">{$val.item_name}</li>
+            {/foreach}
+        </ul>
+    </div>
+    {/foreach}
+    <div class="popContent2">
+        <span>数量:</span>
+
+        <div>
+            <button class="pre" onclick="popPre(this)">-</button>
+            <button class="count">1</button>
+            <button class="next" onclick="popNext(this)">+</button>
+        </div>
+        <div style="color:red">
+            {$symbol}<span class="price1">0.00</span>
+        </div>
+    </div>
+</div>
+<div class="popFooter">
+    <button class="addCart" onclick="addCart(this);return false;">添加到购物车</button>
+</div>

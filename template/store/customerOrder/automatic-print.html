@@ -1,0 +1,153 @@
+<div class="wrapper">
+    <textarea id="textarea1" style="display: none" js-print-id1="">
+         <table style="width: 92%;margin-left:-40px;">
+                {foreach from=$print_data item=item}
+                    <tr>
+                        <td height="10">
+                            <div id="js-content">
+                                <span style="display: block;margin: 10px;text-align: center;font-weight: bold"><font face="楷体" size="3">{$item['store_name']}</font></span>
+                                <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">订 单 号:<span style="position: absolute;right: 0">{$item['order_sn']}</span></font></span>
+                                <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">取 货 码:<span style="position: absolute;right: 0">{$item['number_order']}</span></font></span>
+                                <span style="display: block;margin-bottom: 5px;"><font face="楷体" size="3">订单商品: </font></span>
+                                {foreach from=$item['goods_list'] item=val}
+                                    <div style="width:100%;height: 50px;">
+                                        <span style="display: block;margin: 0 0 5px 15px"><font face="楷体" size="2"><b>{$val['goods_name']}</b></font><font face="楷体" size="1">&nbsp;&nbsp;&nbsp;规格:（{$val['spec_key_name']}）</font></span>
+                                        <span style="display: block;margin-bottom: 5px;position: relative"><font face="楷体" size="3"><span style="position: absolute;right: 0"> X {$val['goods_num']}&nbsp&nbsp&nbsp&nbsp{$val['goods_pay_price']}</span></font></span>
+                                    </div>
+                                {/foreach}
+                                <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">订单状态: <span style="position: absolute;right: 0">{$item['format_order_state']}</span></font></span>
+                                <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">支付方式: <span style="position: absolute;right: 0">{$item['format_payment_type']}</span></font></span>
+                                <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">用 户 名: <span style="position: absolute;right: 0">{$item['username']}</span></font></span>
+                                <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">用户电话: <span style="position: absolute;right: 0">{$item['format_phone']}</span></font></span>
+                                <span style="display: block;margin: 5px 0;position: relative;"><font face="楷体" size="3">商品总额: <span style="position: absolute;right: 0">{$item['goods_amount']}</span></font></span>
+                                {if $item['fx_user_id']}
+                                    <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">优惠金额: <span style="position: absolute;right: 0">{$item['fx_money']}</span></font></span>
+                                {/if}
+                                {if $item['sendout']==2}
+                                    <span style="display: block;margin: 5px 0;position: relative;"><font face="楷体" size="3">配 送 费: <span style="position: absolute;right: 0">{$item['shipping_fee']}</span></font></span>
+                                {/if}
+                                {if $item['discount'] != '0'}
+                                    <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">到店优惠: <span style="position: absolute;right: 0">{$item['discount']}</span></font></span>
+                                {/if}
+                                {if $item['point_discount'] != '0'}
+                                    <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">积分抵扣: <span style="position: absolute;right: 0">{$item['point_discount']}</span></font></span>
+                                {/if}
+                                {if $item['coupon_discount'] != '0'}
+                                    <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">电子券优惠: <span style="position: absolute;right: 0">{$item['coupon_discount']}</span></font></span>
+                                {/if}
+                                <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">支付总额: <span style="position: absolute;right: 0">{$item['order_amount']}</span></font></span>
+                                {if $item['seller_msg'] != ''}
+                                    <div style="margin-bottom: 5px">
+                                        <span style="display: block;"><font face="楷体" size="3">用户留言:{$item['seller_msg']}</font></span>
+                                    </div>
+                                {/if}
+                                <span style="display: block;margin-bottom: 5px"><font face="楷体" size="3">客户签字: </font></span>
+                                 {if $item['sendout'] == 1}
+                                    <span style="display: block;overflow: hidden;border: 1px dashed #000000;height: 1px;margin-bottom: 5px"></span>
+                                    <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">配送属性: <span style="position: absolute;right: 0">门店自取</span></font></span>
+                                    <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">自取时间: <span style="position: absolute;right: 0">{$print_data[0]['format_sendout_time']}</span></font></span>
+                                {/if}
+                                {if $item['sendout']==2}
+                                    <span  style="display: block;overflow: hidden;border: 1px dashed #000000;height: 1px;margin-bottom: 5px;"></span>
+                                    <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">配送属性: <span style="position: absolute;right: 0">门店直配</span></font></span>
+                                    <span style="display: block;margin-bottom: 5px;position: relative;"><font face="楷体" size="3">配送信息: <span style="position: absolute;right: 0"><b>{$print_data[0]['format_delivery']['name']}</b></span></font></span>
+                                    <span style="display: block;margin-bottom: 25px;position: relative;"><font face="楷体" size="3"><span style="position: absolute;right: 0"><b>{$print_data[0]['format_delivery']['phone']}</b></span></font></span>
+                                    <span style="display: block;margin-bottom: 55px;position: relative;"><font face="楷体" size="3"><span style="position: absolute;right: 0"><b>{$print_data[0]['format_delivery']['address']}</b></span></font></span>
+                                {/if}
+                            </div>
+                        </td>
+                    </tr>
+                {/foreach}
+         </table>
+    </textarea>
+    <textarea id="textarea2" style="display: none" js-print-id2="">
+        <table style="margin-left: 5px;">
+            {$i = 1}
+            {foreach from=$print_data item=value}
+                {foreach from=$value['goods_list'] item=good}
+                    {for $foo=1 to $good['goods_num']}
+                        <tr>
+                            <td style="width:100%">
+                                <div id="js-content2" style="width:100%;height:98px;overflow: hidden;position:relative;font-size:10px;">
+                                    <span style="display: block;width:100%;margin-bottom: 2px;position: relative;">
+                                        <font face="黑体">{if $value['sendout'] == 1}门店自取{/if}{if $value['sendout'] == 2}门店直配{/if}&nbsp&nbsp&nbsp&nbsp{$print_data[0]['format_phone']}<span style="position: absolute;right: 3"></span>
+                                        </font>
+                                    </span>
+                                    <span class="storeN" style="display: block;width:100%;position: relative;height: 25px"><span face="黑体" style="">{$value['store_name']}</span><span class="storeP" style="position: absolute;right:0;top: 10px;">{$value['store_mobile']}</span></span>
+                                    <div style="clear:both;width:130px;display:block">
+                                        <span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2"><font face="黑体" style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2">{$good['goods_name']}</font></span>
+                                    </div>
+                                    <div style="width:100%">
+                                        <span style="width:100%;overflow: hidden;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2"><font face="黑体" style="overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2">{$good['spec_key_name']}</font></span>
+                                    </div>
+                                    <div style="position:absolute;top:70px;width:100%">
+                                        <div style="width:100%;display: block;text-align:right;width:100%;><font face="黑体" ><span style="background-color:#FFF;"> ￥ {$good['goods_pay_price']}</span></font></div>
+                                        <div style="width:100%;display: block;margin-top: 0px;"><span style="width:30%">{$i++}/{$print_data[0]['total_num']}</span><span style="width:70%;text-align:right">{$value['add_time']|date_format:"%Y-%m-%d %H:%M"}</span></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {/for}
+                {/foreach}
+            {/foreach}
+        </table>
+    </textarea>
+</div>
+<!--<script src="{$STATIC_URL}/plugin/jQuery/jquery-2.2.3.min.js"></script>-->
+<!--<script src="{$STATIC_URL}/plugin/lodop/LodopFuncs.js"></script>-->
+<script src="http://www.lmeri.com/assets/plugin/jQuery/jquery-2.2.3.min.js"></script>
+<script src="http://www.lmeri.com/assets/plugin/lodop/LodopFuncs.js"></script>
+<script language="javascript" type="text/javascript">
+    var LODOP; //声明为全局变量
+
+    //计算打印控件个数
+    function printerShow() {
+        LODOP=getLodop();
+        var printNum = LODOP.GET_PRINTER_COUNT();
+        if (!printNum){
+            return false;
+        }
+        for (var i=0;i < printNum;i++){
+            if( LODOP.GET_PRINTER_NAME(i) == 'FK-80x Printer'){
+                $('#textarea1').attr('js-print-id1', i);
+            } else if(LODOP.GET_PRINTER_NAME(i) == 'Fujitsu LPK140'){
+                $('#textarea2').attr('js-print-id2', i);
+            }
+        }
+    };
+
+    function PrintByPrinterIndex() {
+        var intPrinterIndex = $('#textarea1').attr('js-print-id1');
+        CreatePrintPage();
+        if (LODOP.SET_PRINTER_INDEX(intPrinterIndex))
+            LODOP.PRINT();
+    };
+
+    function CreatePrintPage() {
+        LODOP = getLodop();
+        LODOP.PRINT_INIT("复坤打印机");
+        LODOP.ADD_PRINT_HTM(10,55,"100%","100%",document.getElementById("textarea1").value);
+    };
+
+    function PrintByPrinterIndex_biaoqian() {
+        var intPrinterIndex = $('#textarea2').attr('js-print-id2');
+        CreatePrintPage_biaoqian();
+        if (LODOP.SET_PRINTER_INDEX(intPrinterIndex))
+            LODOP.PRINT();
+    };
+
+    function CreatePrintPage_biaoqian() {
+        LODOP = getLodop();
+        LODOP.PRINT_INIT("富士通打印机");
+        LODOP.ADD_PRINT_HTM(0,0,"100%","100%",document.getElementById("textarea2").value);
+    };
+</script>
+
+<script language="javascript" type="text/javascript">
+    setTimeout(function(){
+        printerShow();
+        PrintByPrinterIndex();
+        PrintByPrinterIndex_biaoqian();
+    }, 1000)
+</script>
+

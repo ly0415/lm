@@ -1,0 +1,480 @@
+<!-- floor-8 end -->
+<div class="footer">
+    <div class="top">
+        <ul class="clearfix">
+            <li>
+                <a href="##"><img src="{$STATIC_URL}/front/images/f1.png" width="115" height="44"></a>
+            </li>
+            <li>
+                <a href="##"><img src="{$STATIC_URL}/front/images/f2.png" width="115" height="44"></a>
+            </li>
+            <li>
+                <a href="##"><img src="{$STATIC_URL}/front/images/f3.png" width="115" height="44"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="sitename">{$webconf.store_name.value}</div>
+    <div class="siteinfo">
+        <p>全球化的M2C家居生态网-711家居网</p>
+        <p>Global M2C home furnishing cosystem network</p>
+        <p>核心价值观：坦诚Honest  守约Discipline  平等Equality  感恩Thanksgiving</p>
+        <p>中国站WWW.LMERI.COM      国际站WWW.LMERI.COM      官网WWW.LMERI.COM</p>
+        <p> 联系人: {$webconf.link_name.value}      联系电话: {$webconf.link_phone.value}      客服电话: {$webconf.kefu_phone.value}</p>
+    </div>
+    <div class="sitelicense">Copyright © 2003-2016 艾美家居股份有限公司--711家居网   {$webconf.record_no.value}</div>
+</div>
+<script type="text/javascript" src="{$STATIC_URL}/front/js/jquery.1.8.2.min.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/front/js/swiper.min.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/front/plus/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/front/js/common.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/front/js/webuploader/webuploader.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/front/plus/layer/layer.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/front/plus/jquery.countdown.js"></script>
+<script type="text/javascript" src="{$STATIC_URL}/plugin/ajaxfileupload/ajaxfileupload.js"></script>
+<script src="{$STATIC_URL}/front/plus/treetable/jquery.treeTable.js"></script>
+
+<!--无刷新分页插件-->
+<script src="{$STATIC_URL}/plugin/jqpage/jqPaginator.js"></script>
+
+
+<!--luffy 2018-7-23 start-->
+{if $viewJs}
+    <script src="{$viewJs}"></script>
+{/if}
+<!--luffy 2018-7-23 end-->
+
+
+
+{if $lang_id =='ZH'}
+<script language="javascript">
+    $(function () {
+        $("#inputKw")[0].onkeyup = function () {
+            var lang = $('input[name=lang]').val();
+            var store_name = $(this).val();
+            var html = '';
+            var no_html = '';
+            if (!store_name) {
+                return $('#suggest').html("");
+            } else {
+                $.ajax({
+                    url: 'index.php?app=storeName&act=index&lang=' + lang + '&store_name=' + store_name,
+                    type: 'get',
+                    async: false, //默认为true 异步
+                    success: function (rs) {
+                        if (rs != '[]') {
+                            var rs = eval("(" + rs + ")");
+                            $.each(rs, function (key, value) {
+                                html += "<li><a href='index.php?storeid=" + value.store_id + "&lang=" + value.lang_id + "'>" + value.store_name + "</a></li>";
+
+                            });
+                            $('#suggest').html(no_html);
+                            $('#suggest').append(html);
+                        } else {
+                            html += "<li style='text-align:center;'><a href='##'>" + '未匹配到对应的数据' + "</a></li>";
+                            $('#suggest').html(no_html);
+                            $('#suggest').append(html);
+                        }
+
+
+                    }
+
+                });
+            }
+        }
+    })
+
+
+</script>    
+<script  type="text/javascript" >
+    $(function () {
+        $('.area-select').hover(function () {
+            $('.area-choose').show();
+        }, function () {
+            $('.area-choose').hide();
+        });
+         $('.navs-list .tit1').eq(0).addClass("active");
+        $('.navs-list .item-box').eq(0).show();
+        //国家选择
+        $('.area-select').on('click', '.area-choose p', function () {
+            $('.area-text .text').text($(this).text());
+            $('.area1-text .text').text('站点选择');
+            $('.area-choose').hide();
+
+            var id = $(this).attr('data-id');  //获取国家的id
+            //alert(id);
+            var url = 'index.php?app=default&act=ajaxCateStores&cateid=' + id;
+            $.get(url, function (res) {
+                var html = '<div class="area1-choose" style="display: none;" >';
+                $.each(res, function (key, val) {
+                    html += '<p><a href="index.php?storeid=' + val.id + '&lang=' + val.lang_id + '" >' + val.store_name + '</a></p>';
+                });
+                html += '</div>';
+                $('.result2').html(html);
+                //商品评价
+//                dialog_load_form('?app=default&act=storePopup&cateid=' + id, '请选择站点');
+            }, 'json');
+
+        });
+
+        $('.area1-select').hover(function () {
+            $('.area1-choose').show();
+        }, function () {
+            $('.area1-choose').hide();
+        });
+        //站点的选择
+        $('.area1-select').on('click', '.area1-choose p', function () {
+            $('.area1-text .text').text($(this).text());
+            $('.area1-choose').hide();
+
+        });
+        //
+        $('.area2-select').hover(function () {
+            $('.area2-choose').show();
+        }, function () {
+            $('.area2-choose').hide();
+        });
+        //语言的单击选择
+        $('.area2-choose p').click(function () {
+            $('.area2-text .txt').html($(this).html());
+            $('.area2-choose').hide();
+
+            var langid = $(this).attr('data-id');  //获取语言的id
+
+            var cururl = window.location.search;  /*？号以后的部分*/
+            var encodeurl = encodeURIComponent(cururl);
+            var url = 'index.php?app=default&act=ajaxLangUrl&langid=' + langid + '&cururl=' + encodeurl;
+            $.get(url, function (res) {
+                var reurl = res.reurl;
+                var redirect = 'index.php' + reurl;
+                window.location.href = redirect;
+
+            }, 'json');
+
+
+        })
+
+    });
+
+</script>
+
+<script  type="text/javascript" >
+    /*站点切换*/
+    $('#sotre').change(function () {
+        var storeid = $('#sotre  option:selected').val();
+        var url = 'index.php?app=default&act=ajaxStoreUrl&storeid=' + storeid;
+        $.get(url, function (res) {
+            var langid = res.lang_id;
+            var reurl = 'index.php?storeid=' + storeid + '&lang=' + langid;
+            window.location.href = reurl;
+        }, 'json');
+
+    });
+    /*语言切换*/
+    $('#lang').change(function () {
+        var langid = $('#lang  option:selected').val();
+        var cururl = window.location.search;  /*？号以后的部分*/
+        var encodeurl = encodeURIComponent(cururl);
+        var url = 'index.php?app=default&act=ajaxLangUrl&langid=' + langid + '&cururl=' + encodeurl;
+        $.get(url, function (res) {
+            var reurl = res.reurl;
+            var redirect = 'index.php' + reurl;
+            window.location.href = redirect;
+
+        }, 'json');
+
+    });
+    /*退出*/
+    $('#front_logout').click(function () {
+        $.get('index.php?app=default&act=logout', function (data) {
+            var data = eval("(" + data + ")");
+            if (data.status == 1) {
+                layer.alert('退出成功', {
+                    icon: 1,
+                    shadeClose: false,
+                    skin: 'layer-ext-moon',
+                    btn: false,
+                    area: ['259px', '120px'],
+                    time: 10000
+                });
+                setTimeout(function () {
+                    window.location.href = data.info.url;
+                }, 3000);
+            }
+        });
+    });
+    $('#merchantSettled').click(function () {
+        $.get('?app=merSettled&act=yanCond', function (data) {
+            var data = eval("(" + data + ")");
+            window.location.href = data.info.url;
+            //跳到登录页
+        });
+    });
+    /*商品搜索*/
+    $('#search-form').submit(function () {
+        var gname = $.trim($('input[name="gname"]').val());
+        if (gname.length == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+    /* 价格搜索*/
+    $('#search-price').click(function () {
+        //alert('ok');
+        var start_price = parseInt($('input[name="start_price"]').val());
+        var end_price = parseInt($('input[name="end_price"]').val());
+        var cururl = window.location.search;
+        var encodeurl = encodeURIComponent(cururl);
+        //var  data= ;
+        if (isNaN(start_price) || start_price < 0) {
+            alert('请填写合法的正整数');
+            return false;
+        }
+        if (isNaN(end_price) || end_price < 0) {
+            alert('请填写合法的正整数');
+            return  false;
+        }
+        var url = 'index.php?app=searchPage&act=ajaxUrl&cururl=' + encodeurl + '&start_price=' + start_price + '&end_price=' + end_price;
+        $.get(url, function (res) {
+            var reurl = res.reurl;
+            var redirect = 'index.php' + reurl;
+            window.location.href = redirect;
+        }, 'json');
+    });
+</script>
+{else}
+<script  type="text/javascript" >
+    $(function () {
+        $('.navs-list .tit1').eq(0).addClass("active");
+        $('.navs-list .item-box').eq(0).show();
+        //国家选择
+        $('.area-select').on('click', '.area-choose p', function () {
+            $('.area-text .text').text($(this).text());
+            $('.area1-text .text').text('Site selection');
+            $('.area-choose').hide();
+
+            var id = $(this).attr('data-id');  //获取国家的id
+            //alert(id);
+            var url = 'index.php?app=default&act=ajaxCateStores&cateid=' + id;
+            $.get(url, function (res) {
+                var html = '<div class="area1-choose" style="display: none;" >';
+                $.each(res, function (key, val) {
+                    html += '<p><a href="index.php?storeid=' + val.id + '&lang=' + val.lang_id + '" >' + val.store_name + '</a></p>';
+                });
+                html += '</div>';
+                $('.result2').html(html);
+
+            }, 'json');
+
+        });
+
+        $('.area1-select').hover(function () {
+            $('.area1-choose').show();
+        }, function () {
+            $('.area1-choose').hide();
+        });
+        //站点的选择
+        $('.area1-select').on('click', '.area1-choose p', function () {
+            $('.area1-text .text').text($(this).text());
+            $('.area1-choose').hide();
+
+        });
+        //
+        $('.area2-select').hover(function () {
+            $('.area2-choose').show();
+        }, function () {
+            $('.area2-choose').hide();
+        });
+        //语言的单击选择
+        $('.area2-choose p').click(function () {
+            $('.area2-text .txt').html($(this).html());
+            $('.area2-choose').hide();
+
+            var langid = $(this).attr('data-id');  //获取语言的id
+
+            var cururl = window.location.search;  /*？号以后的部分*/
+            var encodeurl = encodeURIComponent(cururl);
+            var url = 'index.php?app=default&act=ajaxLangUrl&langid=' + langid + '&cururl=' + encodeurl;
+            $.get(url, function (res) {
+                var reurl = res.reurl;
+                var redirect = 'index.php' + reurl;
+                window.location.href = redirect;
+
+            }, 'json');
+
+
+        })
+
+    });
+
+</script>
+
+<script  type="text/javascript" >
+    /*站点切换*/
+    $('#sotre').change(function () {
+        var storeid = $('#sotre  option:selected').val();
+        var url = 'index.php?app=default&act=ajaxStoreUrl&storeid=' + storeid;
+        $.get(url, function (res) {
+            var langid = res.lang_id;
+            var reurl = 'index.php?storeid=' + storeid + '&lang=' + langid;
+            window.location.href = reurl;
+        }, 'json');
+
+    });
+    /*语言切换*/
+    $('#lang').change(function () {
+        var langid = $('#lang  option:selected').val();
+        var cururl = window.location.search;  /*？号以后的部分*/
+        var encodeurl = encodeURIComponent(cururl);
+        var url = 'index.php?app=default&act=ajaxLangUrl&langid=' + langid + '&cururl=' + encodeurl;
+        $.get(url, function (res) {
+            var reurl = res.reurl;
+            var redirect = 'index.php' + reurl;
+            window.location.href = redirect;
+
+        }, 'json');
+
+    });
+    /*退出*/
+    $('#front_logout').click(function () {
+        $.get('index.php?app=default&act=logout', function (data) {
+            var data = eval("(" + data + ")");
+            if (data.status == 1) {
+                layer.alert('Withdraw from success', {
+                    icon: 1,
+                    shadeClose: false,
+                    skin: 'layer-ext-moon',
+                    btn: false,
+                    area: ['259px', '120px'],
+                    time: 10000
+                });
+                setTimeout(function () {
+                     window.location.href = data.info.url;
+                }, 3000);
+            }
+        });
+    });
+    $('#merchantSettled').click(function () {
+        $.get('?app=merSettled&act=yanCond', function (data) {
+            var data = eval("(" + data + ")");
+            window.location.href = data.info.url;
+            //跳到登录页
+        });
+    });
+    /*商品搜索*/
+    $('#search-form').submit(function () {
+        var gname = $.trim($('input[name="gname"]').val());
+        if (gname.length == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+    /* 价格搜索*/
+    $('#search-price').click(function () {
+        //alert('ok');
+        var start_price = parseInt($('input[name="start_price"]').val());
+        var end_price = parseInt($('input[name="end_price"]').val());
+        var cururl = window.location.search;
+        var encodeurl = encodeURIComponent(cururl);
+        //var  data= ;
+        if (isNaN(start_price) || start_price < 0) {
+            alert('Please fill in the legitimate positive integer');
+            return false;
+        }
+        if (isNaN(end_price) || end_price < 0) {
+            alert('Please fill in the legitimate positive integer');
+            return  false;
+        }
+        var url = 'index.php?app=searchPage&act=ajaxUrl&cururl=' + encodeurl + '&start_price=' + start_price + '&end_price=' + end_price;
+        $.get(url, function (res) {
+            var reurl = res.reurl;
+            var redirect = 'index.php' + reurl;
+            window.location.href = redirect;
+        }, 'json');
+    });
+</script>
+{/if}
+{literal}
+<script>
+    //客服的显示和隐藏
+    var flag = true;
+    $(".talkTip").click(function () {
+        if (flag) {
+            $(".talkBox").animate({right: "0"});
+            $(this).animate({right: "196px"});
+            $(".talkTip span:last-child").removeClass("icon2").addClass("icon22");
+            flag = false;
+        } else if (!flag) {
+            $(".talkBox").animate({right: "-196px"});
+            $(this).animate({right: "0"});
+            $(".talkTip span:last-child").removeClass("icon22").addClass("icon2");
+            flag = true;
+        }
+    });
+
+    //模态框的弹出与隐藏
+    $("div.area-text span.text").click(function () {
+        $("div.modal").css("display", "block");
+        $("html").css("overflow", "hidden");
+        $("body").css("overflow", "hidden");
+
+
+        function setCurrentSlide(ele, index) {
+            $(".swiper1 .swiper-slide").removeClass("selected");
+            ele.addClass("selected");
+//swiper1.initialSlide=index;
+            console.log("ele " + ele);
+            console.log("index " + index);
+        }
+
+        var swiper1 = new Swiper('.swiper1', {
+//	设置slider容器能够同时显示的slides数量(carousel模式)。
+//	可以设置为number或者 'auto'则自动根据slides的宽度来设定数量。
+//	loop模式下如果设置为'auto'还需要设置另外一个参数loopedSlides。
+            slidesPerView: 5,
+            paginationClickable: true, //此参数设置为true时，点击分页器的指示点分页器会控制Swiper切换。
+            spaceBetween: 10, //slide之间的距离（单位px）。
+            freeMode: true, //默认为false，普通模式：slide滑动时只滑动一格，并自动贴合wrapper，设置为true则变为free模式，slide会根据惯性滑动且不会贴合。
+            loop: false, //是否可循环
+            onTab: function (swiper) {
+                var n = swiper1.clickedIndex;
+            }
+        });
+        console.log(swiper1);
+        swiper1.slides.each(function (index, val) {
+            var ele = $(this);
+            ele.on("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                setCurrentSlide(ele, index);
+                // swiper2.slideTo(index, 500, false);
+//mySwiper.initialSlide=index;
+            });
+        });
+
+        $(".swiper-slide").click(function () {
+            var id = $(this).find("a").attr("href");
+            console.log(id);
+            console.log("outer: ", $(window).scrollTop());
+            setTimeout(function () {
+                console.log("inner before: ", $(window).scrollTop());
+                $(window).scrollTop(0);
+                console.log("inner after: ", $(window).scrollTop());
+                $(id).addClass("active").siblings("div.active").removeClass("active");
+            }, 0.1)
+
+
+        });
+
+
+    });
+
+    $("span.cross").click(function () {
+        $("div.modal").css("display", "none");
+        $("html").css("overflow", "auto");
+        $("body").css("overflow", "auto");
+    });
+
+</script>
+{/literal}
