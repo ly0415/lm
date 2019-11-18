@@ -1,0 +1,235 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+ul {
+  list-style-type: none; }
+
+#goodsDesplay {
+  width: 100%; }
+  #goodsDesplay .nav {
+    background-color: #e84c3d;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0; }
+    #goodsDesplay .nav .navBox {
+      padding: 15px 0;
+      box-sizing: border-box; }
+      #goodsDesplay .nav .navBox form {
+        height: 50px;
+        position: relative; }
+        #goodsDesplay .nav .navBox form img {
+          display: block;
+          width: 24px;
+          height: 24px;
+          position: absolute;
+          top: 13px;
+          left: 280px;
+          z-index: 2; }
+        #goodsDesplay .nav .navBox form input {
+          display: block;
+          width: 500px;
+          height: 50px;
+          margin: 0 auto;
+          border: 0;
+          border-radius: 14px;
+          outline: 0;
+          padding-left: 50px;
+          box-sizing: border-box;
+          font-size: 24px; }
+  #goodsDesplay .container {
+    position: relative; }
+    #goodsDesplay .container .menusNav {
+      width: 300px;
+      padding-left: 50px;
+      box-sizing: border-box;
+      position: fixed;
+      left: 0;
+      top: 110px; }
+      #goodsDesplay .container .menusNav .itemBox {
+        height: 60px;
+        margin-bottom: 20px;
+        align-items: center;
+        position: relative; }
+        #goodsDesplay .container .menusNav .itemBox .c_text {
+          width: 180px;
+          height: 60px; }
+          #goodsDesplay .container .menusNav .itemBox .c_text a {
+            width: 100%;
+            height: 100%;
+            color: #333;
+            display: block;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 26px;
+            text-align: center;
+            line-height: 60px;
+            background-color: rgba(0, 0, 0, 0.1); }
+          #goodsDesplay .container .menusNav .itemBox .c_text .show {
+            background-color: rgba(0, 0, 0, 0);
+            color: #fff; }
+        #goodsDesplay .container .menusNav .itemBox img {
+          display: none;
+          width: 199px;
+          height: 60px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: -1; }
+        #goodsDesplay .container .menusNav .itemBox .active {
+          display: block; }
+    #goodsDesplay .container .goodsMenus {
+      width: 725px;
+      position: absolute;
+      top: 110px;
+      right: 0;
+      z-index: -1;
+      padding: 0 50px 0 35px;
+      box-sizing: border-box; }
+      #goodsDesplay .container .goodsMenus .goodsMenusBox {
+        width: 100%; }
+        #goodsDesplay .container .goodsMenus .goodsMenusBox .title {
+          display: flex;
+          height: 42px;
+          width: 100%; }
+          #goodsDesplay .container .goodsMenus .goodsMenusBox .title .s {
+            width: 6px;
+            height: 25px;
+            background-color: #e84c3d; }
+          #goodsDesplay .container .goodsMenus .goodsMenusBox .title .div {
+            display: block;
+            font-size: 26px;
+            font-weight: 400;
+            margin-left: 15px;
+            margin-top: -5px; }
+        #goodsDesplay .container .goodsMenus .goodsMenusBox .goodsItem {
+          padding-left: 20px;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          align-content: space-between; }
+          #goodsDesplay .container .goodsMenus .goodsMenusBox .goodsItem .itemsBox {
+            width: 280px;
+            height: 320px;
+            border-radius: 10px;
+            box-shadow: -1px 3px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 60px;
+            padding: 20px 30px 30px 30px;
+            box-sizing: border-box; }
+            #goodsDesplay .container .goodsMenus .goodsMenusBox .goodsItem .itemsBox .goodsImgBox {
+              height: 150px; }
+              #goodsDesplay .container .goodsMenus .goodsMenusBox .goodsItem .itemsBox .goodsImgBox img {
+                width: 100%;
+                overflow: hidden; }
+            #goodsDesplay .container .goodsMenus .goodsMenusBox .goodsItem .itemsBox .goodsTitleBox {
+              margin: 20px 0;
+              font-size: 20px;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
+              overflow: hidden; }
+            #goodsDesplay .container .goodsMenus .goodsMenusBox .goodsItem .itemsBox .goodsPriceBox {
+              position: relative; }
+              #goodsDesplay .container .goodsMenus .goodsMenusBox .goodsItem .itemsBox .goodsPriceBox .priceBox {
+                font-size: 20px;
+                color: #e84c3d; }
+                #goodsDesplay .container .goodsMenus .goodsMenusBox .goodsItem .itemsBox .goodsPriceBox .priceBox .price {
+                  font-size: 28px;
+                  margin-left: -10px; }
+                #goodsDesplay .container .goodsMenus .goodsMenusBox .goodsItem .itemsBox .goodsPriceBox .priceBox .txt {
+                  margin-left: -5px; }
+              #goodsDesplay .container .goodsMenus .goodsMenusBox .goodsItem .itemsBox .goodsPriceBox .addBox {
+                position: absolute;
+                bottom: 0;
+                right: -5px;
+                width: 40px;
+                height: 40px; }
+                #goodsDesplay .container .goodsMenus .goodsMenusBox .goodsItem .itemsBox .goodsPriceBox .addBox img {
+                  width: 100%;
+                  overflow: hidden; }
+
+#goodsDesplay .el-dialog {
+  margin-top: 2vh;
+  margin-bottom: 0; }
+  #goodsDesplay .el-dialog .el-dialog__header {
+    padding: 0;
+    border-top: 2px solid white; }
+  #goodsDesplay .el-dialog .el-dialog__body {
+    padding: 0; }
+    #goodsDesplay .el-dialog .el-dialog__body .dialogBox .perRow .perRowTitle {
+      font-size: 24px;
+      margin: 29px 0 20px 44px; }
+    #goodsDesplay .el-dialog .el-dialog__body .dialogBox .perRow .perRowList {
+      display: flex;
+      margin-left: 38px; }
+      #goodsDesplay .el-dialog .el-dialog__body .dialogBox .perRow .perRowList li {
+        width: 116px;
+        height: 36px;
+        border: 2px  solid #e84c3d;
+        line-height: 36px;
+        text-align: center;
+        font-size: 24px;
+        color: #606266;
+        background-color: white;
+        margin: 0 10px;
+        border-radius: 5px; }
+      #goodsDesplay .el-dialog .el-dialog__body .dialogBox .perRow .perRowList .active {
+        color: white;
+        background-color: #e84c3d; }
+    #goodsDesplay .el-dialog .el-dialog__body .dialogBox .numPart {
+      display: flex;
+      justify-content: flex-start; }
+      #goodsDesplay .el-dialog .el-dialog__body .dialogBox .numPart .leftBox .addReduce {
+        margin-left: 48px;
+        display: flex;
+        justify-content: flex-start; }
+        #goodsDesplay .el-dialog .el-dialog__body .dialogBox .numPart .leftBox .addReduce .numBtn {
+          display: inline-block;
+          width: 70px;
+          height: 36px;
+          text-align: center;
+          line-height: 36px;
+          font-size: 24px;
+          border: 2px solid black; }
+        #goodsDesplay .el-dialog .el-dialog__body .dialogBox .numPart .leftBox .addReduce .reduceBtn {
+          border-right: none; }
+        #goodsDesplay .el-dialog .el-dialog__body .dialogBox .numPart .leftBox .addReduce .numBox {
+          color: #e84c3d;
+          border-right: none; }
+        #goodsDesplay .el-dialog .el-dialog__body .dialogBox .numPart .leftBox .addReduce .price {
+          height: 40px;
+          line-height: 40px;
+          font-size: 24px;
+          color: #e84c3d;
+          margin-left: 58px; }
+      #goodsDesplay .el-dialog .el-dialog__body .dialogBox .numPart .rightPart {
+        margin-left: 50px; }
+        #goodsDesplay .el-dialog .el-dialog__body .dialogBox .numPart .rightPart .glassTotal {
+          width: 116px;
+          height: 36px;
+          border: 2px  solid #e84c3d;
+          line-height: 36px;
+          text-align: center;
+          font-size: 24px;
+          color: #606266;
+          background-color: white;
+          margin: 0 10px;
+          border-radius: 5px;
+          margin-left: 44px; }
+    #goodsDesplay .el-dialog .el-dialog__body .dialogBox .bottomBox {
+      margin-top: 82px;
+      padding-bottom: 38px; }
+      #goodsDesplay .el-dialog .el-dialog__body .dialogBox .bottomBox .orderBtn {
+        width: 240px;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        font-size: 28px;
+        color: white;
+        background-color: #e84c3d;
+        border-radius: 5px;
+        margin: 0 auto; }
+
+/*# sourceMappingURL=goodsDisplay.css.map */

@@ -1,0 +1,290 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style-type: none;
+}
+#goodsDesplay{
+    width: 100%;
+    .nav{
+        background-color: #e84c3d;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        .navBox{
+           padding: 15px 0;
+           box-sizing: border-box;
+           form{
+               height:50px;
+               position: relative;
+               img{
+                   display: block;
+                   width: 24px;
+                   height: 24px;
+                   position: absolute;
+                   top: 13px;
+                   left:280px;
+                   z-index: 2;
+               }
+               input{
+                   display: block;
+                   width: 500px;
+                   height:50px;
+                   margin: 0 auto;
+                   border: 0;
+                   border-radius: 14px;
+                   outline: 0;
+                   padding-left: 50px;
+                   box-sizing: border-box;
+                   font-size: 24px;
+               }
+           }
+        }
+    }
+    .container{
+        position: relative;
+        .menusNav{
+            width: 300px;
+            padding-left: 50px;
+            box-sizing: border-box;
+            position: fixed;
+            left:0;
+            top:110px;
+            .itemBox{
+                height: 60px;
+                margin-bottom: 20px;
+                align-items: center;
+                position: relative;
+                .c_text{
+                    width: 180px;
+                    height:60px;
+                    a{
+                        width: 100%;
+                        height:100%;
+                        color: #333;
+                        display: block;
+                        border-radius: 5px;
+                        text-decoration: none;
+                        font-size: 26px;
+                        text-align: center;
+                        line-height: 60px;
+                        background-color: rgba(0,0,0,0.1);
+                    }
+                    .show{
+                        background-color: rgba(0,0,0,0);
+                        color: #fff;
+                    }
+                }
+                img{
+                   display: none;
+                   width: 199px;
+                   height:60px;
+                   position: absolute;
+                   top:0;
+                   left: 0;
+                   z-index:-1;
+
+                }
+                .active{
+                    display: block;
+                }
+            }
+        }
+        .goodsMenus{
+            width: 725px;
+            position: absolute;
+            top:110px;
+            right: 0;
+            z-index: -1;
+            padding: 0 50px 0 35px;
+            box-sizing: border-box;           
+            .goodsMenusBox{
+                width: 100%;
+                .title{
+                    display: flex;
+                    height: 42px;
+                    width: 100%;
+                    .s{
+                        width: 6px;
+                        height: 25px;
+                        background-color: #e84c3d;
+                    }
+                    .div{
+                        display: block;
+                        font-size: 26px;
+                        font-weight: 400;
+                        margin-left: 15px;
+                        margin-top: -5px;
+                    }
+                }
+                .goodsItem{
+                    padding-left: 20px;
+                    box-sizing: border-box;
+                    display: flex;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    align-content: space-between;
+                    .itemsBox{
+                        width: 280px;
+                        height: 320px;
+                        border-radius:10px;
+                        box-shadow: -1px 3px 10px rgba(0,0,0,0.3); 
+                        margin-bottom: 60px;
+                        padding: 20px 30px 30px 30px;
+                        box-sizing: border-box;
+                        .goodsImgBox{
+                            height: 150px;
+                            img{
+                               width: 100%;
+                               overflow: hidden;
+                            }
+                        }
+                        .goodsTitleBox{
+                            margin: 20px 0;
+                            font-size: 20px;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp:2;
+                            overflow: hidden;
+                        }
+                        .goodsPriceBox{
+                            position: relative;
+                          .priceBox{
+                              font-size: 20px;
+                              color: #e84c3d;
+                              .price{
+                                  font-size: 28px;
+                                  margin-left: -10px;
+                              }
+                              .txt{
+                                  margin-left: -5px;
+                              }
+                          }
+                          .addBox{
+                              position: absolute;
+                              bottom:0;
+                              right: -5px;
+                              width: 40px;
+                              height: 40px;
+                              img{
+                                  width: 100%;
+                                  overflow: hidden;
+                              }
+                          } 
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+}
+#goodsDesplay{
+    .el-dialog{
+        margin-top: 2vh;
+        margin-bottom: 0;
+        .el-dialog__header{
+            padding: 0;
+            border-top: 2px solid white;
+        }
+        .el-dialog__body{
+            padding: 0;
+            .dialogBox{
+                .perRow{
+                    .perRowTitle{
+                        font-size: 24px;
+                        margin: 29px 0 20px 44px;
+                    }
+                    .perRowList{
+                        display: flex;
+                        margin-left: 38px;
+                        li{
+                            width: 116px;
+                            height: 36px;
+                            border: 2px  solid #e84c3d;
+                            line-height: 36px;
+                            text-align: center;
+                            font-size: 24px;
+                            color: #606266;
+                            background-color: white;
+                            margin: 0 10px;
+                            border-radius: 5px;
+                        }
+                        .active{
+                            color: white;
+                            background-color: #e84c3d;
+                        }
+                    }
+                }
+                .numPart{
+                    display: flex;
+                    justify-content: flex-start;
+                    .leftBox{
+                        .addReduce{
+                            margin-left: 48px;
+                            display: flex;
+                            justify-content: flex-start;
+                            .numBtn{
+                                display: inline-block;
+                                width: 70px;
+                                height: 36px;
+                                text-align: center;
+                                line-height: 36px;
+                                font-size: 24px;
+                                border: 2px solid black;
+                            }
+                            .reduceBtn{
+                                border-right: none;
+                            }
+                            .numBox{
+                                color: #e84c3d;
+                                border-right: none;
+                            }
+                            .price{
+                                height: 40px;
+                                line-height: 40px;
+                                font-size: 24px;
+                                color: #e84c3d;
+                                margin-left: 58px;
+                            }
+                        }
+                    }
+                    .rightPart{
+                        margin-left: 50px;
+                        .glassTotal{
+                            width: 116px;
+                            height: 36px;
+                            border: 2px  solid #e84c3d;
+                            line-height: 36px;
+                            text-align: center;
+                            font-size: 24px;
+                            color: #606266;
+                            background-color: white;
+                            margin: 0 10px;
+                            border-radius: 5px;
+                            margin-left: 44px;
+                        }
+                    }
+                }
+                .bottomBox{
+                    margin-top: 82px;
+                    padding-bottom: 38px;
+                    .orderBtn{
+                        width: 240px;
+                        height: 60px;
+                        text-align: center;
+                        line-height: 60px;
+                        font-size: 28px;
+                        color: white;
+                        background-color: #e84c3d;
+                        border-radius: 5px;
+                        margin: 0 auto;
+                    }
+                }
+            }
+        }
+    }
+    
+}

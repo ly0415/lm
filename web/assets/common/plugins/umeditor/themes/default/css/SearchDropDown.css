@@ -1,0 +1,36 @@
+.searchstoreBox{
+    width: 300px;
+    border: 1px solid #e6e6e6;
+    height: 33px;
+    padding: 6px 0 7px 0;
+}
+.searchstoreBtn{
+    height: 18px;
+    display: flex;
+    justify-content: space-between;
+}
+.storeDesc{
+    color: #444444;
+}
+.searchstoreImg{
+    width: 18px;
+    height: 18px;
+}
+.DropDownbox{
+    background-color: #fff;
+    min-height: 400px;
+    width: 300px;
+    position: absolute;
+    z-index: 10;
+    border: 1px solid #dddddd;
+    margin-top: 10px;
+    display: none;
+}
+.searchdownList{
+    min-height: 400px;
+}
+.searchdownList>li{
+    height: 30px;
+    line-height: 20px;
+    padding: 5px 9px;
+}
