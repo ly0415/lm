@@ -4,7 +4,7 @@
  * @author: gao
  * @date: 2018-08-14
  */
-class GoodsListApp extends BasePhApp
+class goodsList1App extends BasePhApp
 {
     private $goodsCommentMod;
     private $footPrintMod;
@@ -2543,6 +2543,7 @@ class GoodsListApp extends BasePhApp
             'symbol' => $this->symbol,
             'storeId' => $storeId,
         );
+        print_r($listData);die;
         $this->setData($listData, 1, '');
     } 
 

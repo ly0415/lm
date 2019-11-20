@@ -2224,7 +2224,7 @@ public function storeName($store_id, $auxiliary, $lang_id)
             'body' => '艾美睿零售',
             'mch_id' => '1450526802',
             'sub_appid' => 'wxd483c388c3d545f3',
-            'sub_mch_id' => $config[0]['mchid'],
+            'sub_mch_id' => '1561584171',
             'nonce_str' => $this->createNoncestr(),
             'notify_url' => $notify_url,  // 异步通知地址
             'sub_openid' => $openid,
@@ -2422,7 +2422,7 @@ public function storeName($store_id, $auxiliary, $lang_id)
                     $fxOrderMod = &m('fxOrder');
                     	$fxOrderMod->addFxOrderByOrderSn($orderSn,2);
                     	$res = $orderMod->doEditSpec($cond, $data);
-                    	$orderMod->update_pay_time($store_id, $orderSn, $data['transaction_id'], 2, 20, 0,$data['number_order']);
+                    	$orderMod->update_pay_time($store_id, $orderSn, $data['pay_sn'], 2, 20, 0,$data['number_order']);
                     	$this->updateStock($orderSn);
                   
                 }

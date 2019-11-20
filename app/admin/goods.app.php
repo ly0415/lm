@@ -484,7 +484,20 @@ class GoodsApp extends BackendApp {
         }
         $attributes_str=substr($attributes_str,0,-1);
 
-        // echo '<pre>';print_r($attributes_str);die;
+        //删除关联数据
+        $this->goodMod->sql_b_spec("delete from " . DB_PREFIX . "goods_auxiliary_class where goods_id = " . $_POST['goods_id']);
+        if($auxiliary_type){
+            //增加关联数据
+            $ccc = explode(',', $auxiliary_type);
+            foreach ($ccc as $value){
+                $this->goodMod->sql_b_spec("INSERT INTO " . DB_PREFIX . "goods_auxiliary_class ( goods_id,  business_id ) VALUES (" . $_POST['goods_id'] . " , " . $value . ")");
+            }
+            if(!in_array($room_id, $ccc)){
+                $this->goodMod->sql_b_spec("INSERT INTO " . DB_PREFIX . "goods_auxiliary_class ( goods_id,  business_id ) VALUES (" . $_POST['goods_id'] . " , " . $room_id . ")");
+            }
+        } else {
+            $this->goodMod->sql_b_spec("INSERT INTO " . DB_PREFIX . "goods_auxiliary_class ( goods_id,  business_id ) VALUES (" . $_POST['goods_id'] . " , " . $room_id . ")");
+        }
 
         // by xt
         if (in_array(2, explode(',', $attributes_str))) {
@@ -903,31 +916,36 @@ class GoodsApp extends BackendApp {
         $img_arr = $goodImg->getData(array('cond' => "goods_id=" . $info['goods_id']));
         $type_list = $typeMod->getLangData($this->lang_id);
         $style_list = $styleMod->getLangData($this->lang_id);
-        $ch_scope = $info['auxiliary_class'];
-        $auxiliary_type = $info['auxiliary_type'];
-        $this->assign('ch_scope', $ch_scope);
-        $this->assign('auxiliary_type', $auxiliary_type);
+
+
+        $roomTypeMod = &m('roomTypeLang');
         $auxiliary_arr = explode(":", $info['auxiliary_class']);
         $auxiliary_type_arr = explode(",", $info['auxiliary_type']);
-        $roomTypeMod = &m('roomTypeLang');
         foreach ($auxiliary_arr as $k => $v) {
             if ($auxiliary_type_arr) {
-                foreach ($auxiliary_type_arr as $key => $value) {
-                    $type = $roomTypeMod->getOne(array('cond'=>'type_id='.$auxiliary_type_arr[$k].' and lang_id='.$this->lang_id));
+                $type = $roomTypeMod->getOne(array('cond'=>'type_id='.$auxiliary_type_arr[$k].' and lang_id='.$this->lang_id));
+                if(!empty($type)){
                     $auxiliary[$k]['type_name'] = $type['type_name'];
+                    $cat_arrs = explode("_", $v);
+                    $auxiliary_class = $catMod->getOne(array("cond" => "id=" . $cat_arrs[3]));
+                    $cat_arre = explode("_", $auxiliary_class['parent_id_path']);
+                    $auxiliary_list_1 = $this->getCategoryLang($cat_arre[1], $this->lang_id);
+                    $auxiliary_list_2 = $this->getCategoryLang($cat_arre[2], $this->lang_id);
+                    $auxiliary_list_3 = $this->getCategoryLang($cat_arre[3], $this->lang_id);
+                    $auxiliary[$k]['auxiliary_list'] = $auxiliary_list_1[0];
+                    $auxiliary[$k]['auxiliary_lists'] = $auxiliary_list_2[0];
+                    $auxiliary[$k]['auxiliary_liste'] = $auxiliary_list_3[0];
+                } else {
+                    unset($auxiliary_arr[$k]);
+                    unset($auxiliary_type_arr[$k]);
                 }
             }
-            $cat_arrs = explode("_", $v);
-            $auxiliary_class = $catMod->getOne(array("cond" => "id=" . $cat_arrs[3]));
-            $cat_arre = explode("_", $auxiliary_class['parent_id_path']);
-            $auxiliary_list_1 = $this->getCategoryLang($cat_arre[1], $this->lang_id);
-            $auxiliary_list_2 = $this->getCategoryLang($cat_arre[2], $this->lang_id);
-            $auxiliary_list_3 = $this->getCategoryLang($cat_arre[3], $this->lang_id);
-            $auxiliary[$k]['auxiliary_list'] = $auxiliary_list_1[0];
-            $auxiliary[$k]['auxiliary_lists'] = $auxiliary_list_2[0];
-            $auxiliary[$k]['auxiliary_liste'] = $auxiliary_list_3[0];
         }
-        $this->assign('auxiliary', $auxiliary);
+        $this->assign('ch_scope',  implode(':', $auxiliary_arr));
+        $this->assign('auxiliary_type',  implode(',', $auxiliary_type_arr));
+        $this->assign('auxiliary', array_values($auxiliary));
+
+
         $attributes_arr = explode(",", $info['attributes']);
         foreach ($attributes_arr as $k => $v) {
             if($v ==1){
