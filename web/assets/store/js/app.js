@@ -100,6 +100,7 @@
                     , multiple: false    // 是否多选
                     , limit: null        // 图片数量 (如果存在done回调函数则无效)
                     , done: null  // 选择完成后的回调函数
+                    , isShow: false
                 }
                 , options = $.extend({}, defaults, option);
             // 显示文件库 选择文件
@@ -112,7 +113,7 @@
                     }
                     // 新增图片列表
                     var list = options.multiple ? data : [data[0]];
-                    var $html = $(template('tpl-file-item', {list: list, name: options.name}))
+                    var $html = $(template('tpl-file-item', {list: list, name: options.name,isShow:options.isShow}))
                         , $imagesList = $this.next(options.imagesList);
                     if (
                         options.limit > 0
