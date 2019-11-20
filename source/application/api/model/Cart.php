@@ -124,13 +124,15 @@ class Cart extends CartModel{
             return [
                 'start_time'=> '00:00',
                 'end_time'  => '23:59',
-                'add_time' => '00:10'
+                'add_time' => '00:10',
+                'sub_time' => '23:49'
             ];
         }
         return [
             'start_time'=>  $start_time,
             'end_time'  => $end_time,
-            'add_time' => date('H:i',strtotime(date('Y-m-d').$start_time) + 600)
+            'add_time' => date('H:i',strtotime(date('Y-m-d').$start_time) + 600),
+            'sub_time' => date('H:i',strtotime(date('Y-m-d').$end_time) - 600)
         ];
 //        $current_str    = date('Y-m-d ');
 //        $start_time     = strtotime($current_str.$start_time);

@@ -431,7 +431,7 @@
             var $userList = $('#select_input');
             $.selectData({
                 title: '选择用户',
-                uri: 'user/lists',
+                uri: "<?=url('data.user/lists')?>",
                 dataIndex: 'id',
                 done: function (data) {
                     var user = data[0];

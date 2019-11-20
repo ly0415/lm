@@ -216,6 +216,7 @@ return [
                     'order.tag/add',
                     'order.tag/edit',
                     'order/detail',
+                    'order/extract',
      		        'order/appoint',
                     'order/order_print',
                     'order/get_notips_order',
@@ -322,6 +323,7 @@ return [
                 'uris' => [
                     'goods/index',
                     'goods/bcode',
+                    'goods/joint',
                     'goods/add',
                     'goods/edit',
    		            'goods/on',
@@ -361,14 +363,14 @@ return [
                 'name' => '充值统计',
                 'submenu' => [
                     [
-                        'name' => '充值券统计',
+                        'name' => '余额充值',
                         'index' => 'statistics.recharge_statistics/index',
                         'uris' => [
                             'statistics.recharge_statistics/index',
                         ],
                     ],
                 ]
-            ],
+            ]
         ],
     ],'comment' => [
         'name' => '评价管理',

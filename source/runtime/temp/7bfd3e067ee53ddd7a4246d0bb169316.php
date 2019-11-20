@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:81:"D:\phpStudy\WWW\lmeriPro\web/../source/application/store\view\store\shop\edit.php";i:1572400948;s:73:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\layout.php";i:1573699389;s:89:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\_template\file_library.php";i:1571624106;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:81:"D:\phpStudy\WWW\lmeriPro\web/../source/application/store\view\store\shop\edit.php";i:1574216224;s:73:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\layout.php";i:1573699389;s:89:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\_template\file_library.php";i:1571624106;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -227,14 +227,21 @@
                                             </button>
                                             <div class="uploader-list am-cf">
                                                 <?php if(isset($model['format_background_img'])): foreach ($model['format_background_img'] as $v):?>
-                                                    <div class="file-item">
+                                                    <div class="file-item am-text-center" style="padding-top:30px;">
                                                         <a href="<?= BIG_IMG.$v['background']?>" title="点击查看大图" target="_blank">
                                                             <img src="<?= SIM_IMG.$v['background']?>">
                                                         </a>
+                                                        <input type="text" data-isShow="true" value="<?= !empty($v['url'])?$v['url']:''?>" name="shop[url][]" style="width:170px;text-align:center;margin:10px 10px 20px 10px;">
                                                         <input type="hidden" name="shop[background_img][]" value="<?=$v['background']?>">
                                                         <i class="iconfont icon-shanchu file-item-delete"></i>
                                                     </div>
                                                 <?php endforeach;endif;?>
+                                            </div>
+                                            <div>
+                                                <small>注：活动页面路径：/exercise/exercise</small>
+                                            </div>
+                                            <div>
+                                                <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;秒杀页面路径：/miaosha/miaosha</small>
                                             </div>
                                         </div>
                                     </div>
@@ -380,10 +387,15 @@
 <!-- 图片文件列表模板 -->
 <script id="tpl-file-item" type="text/template">
     {{ each list }}
-    <div class="file-item">
+    <div class="file-item" style="padding-top:30px;">
         <a href="{{ $value.file_big_path }}" title="点击查看大图" target="_blank">
             <img src="{{ $value.file_path }}">
         </a>
+
+        {{ if isShow }}
+         <input type="text" data-isShow="{{ isShow }}" name="shop[url][]" style="width:170px;text-align:center;margin:10px 10px 20px 10px;">
+        {{/if}}
+
         <input type="hidden" name="{{ name }}" value="{{ $value.file_name }}">
         <i class="iconfont icon-shanchu file-item-delete"></i>
     </div>
@@ -539,8 +551,8 @@
             city.html(_html);
             region.html(_html);
             if(province_id > 0){
-                $.post("<?=url('City/getProvince')?>",{parent_id:province_id},function (res) {
-                    addItem(city,res.data);
+                $.post("<?=url('api/city/getCityProvince')?>",{parent_id:province_id},function (res) {
+                    addItem(city,res);
                 },'JSON')
             }
         });
@@ -551,8 +563,8 @@
             var _html = "<option value='0'>请选择城市</option>";
             region.html(_html);
             if(city_id > 0){
-                $.post("<?=url('City/getProvince')?>",{parent_id:city_id},function (res) {
-                    addItem(region,res.data);
+                $.post("<?=url('api/city/getCityProvince')?>",{parent_id:city_id},function (res) {
+                    addItem(region,res);
                 },'JSON')
             }
         });
@@ -575,6 +587,7 @@
         $('.background_img').selectImages({
             name: 'shop[background_img][]'
             , multiple: true
+            , isShow:true
         });
 
         //时间选择器

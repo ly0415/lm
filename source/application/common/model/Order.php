@@ -442,6 +442,7 @@ class Order extends BaseModel
         $order['point'] = StorePointSite::detail(['store_id'=>$order['store_id']]);
         return $this->transaction(function () use ($order,$source) {
             $this->addPoint($order);
+            $this->addFxMoney($order['order_sn']);
             // 更新订单状态：已发货、已收货
             return $this->edit($order,$source);
         });
@@ -490,7 +491,7 @@ class Order extends BaseModel
         $user = User::detail($order['buyer_id']);
         $point = !empty($order['point']) ? ceil($order['point']['order_point'] * $order['order_amount'] * 0.01) : 0;
         // 添加积分日志
-        PointLog::add([
+        $point > 0 &&  PointLog::add([
             'username' => $user['phone'],
             'operator' => '--',
             'deposit' => (int)$point,
@@ -502,5 +503,17 @@ class Order extends BaseModel
         ]);
         //更新用户积分
         return $user->setInc('point', (int)$point);
+    }
+
+    /**
+     * 分销佣金
+     * Created by PhpStorm.
+     * Author: fup
+     * Date: 2019-11-15
+     * Time: 10:07
+     */
+    private function addFxMoney($order_sn){
+        $model = new FxOrder();
+        return $model->getFxMoney($order_sn);
     }
 }

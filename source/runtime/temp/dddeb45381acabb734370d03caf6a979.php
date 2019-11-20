@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:102:"D:\phpStudy\WWW\lmeriPro\web/../source/application/store\view\statistics\recharge_statistics\index.php";i:1574048088;s:73:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\layout.php";i:1573699389;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:102:"D:\phpStudy\WWW\lmeriPro\web/../source/application/store\view\statistics\recharge_statistics\index.php";i:1574165399;s:73:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\layout.php";i:1573699389;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -306,7 +306,7 @@
             city.html(_html);
             region.html(_html);
             if(province_id > 0){
-                $.post("<?=url('statistics.user_statistics/getStoreUser')?>",{store_id:province_id},function (res) {
+                $.post("<?=url('api/user_statistics/getStoreUser')?>",{store_id:province_id},function (res) {
                     addItem(city,res);
                 },'JSON')
             }

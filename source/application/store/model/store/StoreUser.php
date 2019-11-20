@@ -272,6 +272,7 @@ class StoreUser extends StoreUserModel
         }
             //获得指定天的统计
 //        $endtime='2018-3';
+        $total=0;
         if($endtime){
             $storetime = $endtime;
             $storme    = explode('-',$endtime);
@@ -297,8 +298,10 @@ class StoreUser extends StoreUserModel
                 $list['data'][] = $this->getuserListAll($store_id,$storeuser_id,$starttime,$endtimee);
 //                print_r($list['data']);die;
 
+
             }
         }
+        $list['total']      = array_sum($list['data']);
         $list['endtime']      = $storetime;
         $list['count']        = count($list['data']);
         $list['store_id']     = $store_id;

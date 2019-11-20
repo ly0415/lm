@@ -47,18 +47,20 @@
                             </div>
                             <div class="am-u-sm-12 am-u-md-9">
                                 <div class="am fr">
-                                    <div class="am-form-group am-fl">
-                                        <?php $business_id = $request->get('business_id') ?: null; ?>
-                                        <select name="business_id" data-am-selected="{searchBox: 1, btnSize: 'sm',  placeholder: '业务类型', maxHeight: 400}">
-                                            <option value="0">请选择业务类型</option>
-                                            <?php if (isset($business)): foreach ($business as $first): ?>
-                                                <option value="<?= $first['id'] ?>"
-                                                    <?= $business_id == $first['id'] ? 'selected' : '' ?>>
-                                                    <?= $first['name'] ?>
-                                                </option>
-                                            <?php endforeach; endif; ?>
-                                        </select>
-                                    </div>
+                                    <?php if (isset($business) && $business): ?>
+                                        <div class="am-form-group am-fl">
+                                            <?php $business_id = $request->get('business_id') ?: null; ?>
+                                            <select name="business_id" data-am-selected="{searchBox: 1, btnSize: 'sm',  placeholder: '业务类型', maxHeight: 400}">
+                                                <option value="0">请选择业务类型</option>
+                                                <?php  foreach ($business as $first): ?>
+                                                    <option value="<?= $first['id'] ?>"
+                                                        <?= $business_id == $first['id'] ? 'selected' : '' ?>>
+                                                        <?= $first['name'] ?>
+                                                    </option>
+                                                <?php endforeach;  ?>
+                                            </select>
+                                        </div>
+                                    <?php endif; ?>
                                     <div class="am-form-group am-fl">
                                         <?php $category_id = $request->get('category_id') ?: null; ?>
                                         <select name="category_id" data-am-selected="{searchBox: 1, btnSize: 'sm',  placeholder: '商品分类', maxHeight: 400}">

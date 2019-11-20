@@ -4,6 +4,7 @@ namespace app\store\controller\store;
 
 use app\store\controller\Controller;
 use app\store\model\Business as BusinessModel;
+use app\store\model\GoodsCategory;
 use app\store\model\RoomCategory;
 
 /**
@@ -35,7 +36,8 @@ class Business extends Controller
         $model = new BusinessModel;
         if (!$this->request->isAjax()) {
             $business = $model->getListAll(['level'=>1]);
-            return $this->fetch('add', compact('list','business'));
+            $category = GoodsCategory::getCacheTree();
+            return $this->fetch('add', compact('category','business'));
         }
         // 新增记录
         if ($model->add($this->postData('business'))) {
@@ -55,7 +57,10 @@ class Business extends Controller
         // 模板详情
         $model = BusinessModel::get($id);
         if (!$this->request->isAjax()) {
-            return $this->fetch('edit', compact('model'));
+            $business = $model->getListAll(['level'=>1]);
+            $category = GoodsCategory::getCacheTree();
+            $_category = GoodsCategory::getCateByThreeId($model['cate_id']);
+            return $this->fetch('edit', compact('model','business','category','_category'));
         }
         // 更新记录
         if ($model->edit($this->postData('business'))) {

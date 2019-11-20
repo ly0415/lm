@@ -45,12 +45,12 @@ class Test extends \think\Controller
             ->field('a.order_sn')
             ->join('bs_order_details_'.$store_id.' b','a.order_sn = b.order_sn')
             ->join('bs_order_relation_'.$store_id.' c','b.order_sn = c.order_sn')
-            ->where(['b.fx_user_id'=>['neq', 0],'c.payment_type'=>['neq',5],'a.order_state'=>['>', 10],'a.add_time'=>['>=',1564588800],'a.mark'=>1])
+            ->where(['b.fx_user_id'=>['neq', 0],'c.payment_type'=>['neq',5],'a.order_state'=>['>', 10],'a.add_time'=>['>=',1572537600],'a.mark'=>1])
             ->select();
         echo '<pre>';print_r( count($data ));
         $data1 = Db::table('bs_fx_order')->alias('a')
             ->join('bs_order_'.$store_id.' b','a.order_sn = b.order_sn')
-            ->where(['a.store_id'=>$store_id,'b.add_time'=>['>=',1564588800],'b.mark'=>1])->select();
+            ->where(['a.store_id'=>$store_id,'b.add_time'=>['>=',1572537600],'b.mark'=>1])->select();
         echo '<pre>';print_r( count($data1 ));die;
     }
 
@@ -64,12 +64,12 @@ class Test extends \think\Controller
             ->field('a.order_sn')
             ->join('bs_order_details_'.$store_id.' b','a.order_sn = b.order_sn')
             ->join('bs_order_relation_'.$store_id.' c','b.order_sn = c.order_sn')
-            ->where(['b.fx_user_id'=>['neq', 0],'c.payment_type'=>['neq',5],'a.order_state'=>['>', 10],'a.add_time'=>['>=',1564588800],'a.mark'=>1])
+            ->where(['b.fx_user_id'=>['neq', 0],'c.payment_type'=>['neq',5],'a.order_state'=>['>', 10],'a.add_time'=>['>=',1572537600],'a.mark'=>1])
             ->select();
         echo '<pre>';print_r( count($data ));
         $data1 = Db::table('bs_fx_order')->alias('a')
             ->join('bs_order_'.$store_id.' b','a.order_sn = b.order_sn')
-            ->where(['a.store_id'=>$store_id,'b.add_time'=>['>=',1564588800],'b.mark'=>1])->select();
+            ->where(['a.store_id'=>$store_id,'b.add_time'=>['>=',1572537600],'b.mark'=>1])->select();
         echo '<pre>';print_r( count($data1 ));die;
     }
 
@@ -83,14 +83,14 @@ class Test extends \think\Controller
             ->field('a.order_sn')
             ->join('bs_order_details_'.$store_id.' b','a.order_sn = b.order_sn')
             ->join('bs_order_relation_'.$store_id.' c','b.order_sn = c.order_sn')
-            ->where(['b.fx_user_id'=>['neq', 0],'c.payment_type'=>['neq',5],'a.order_state'=>['>', 10],'a.add_time'=>['>=',1564588800],'a.mark'=>1])
+            ->where(['b.fx_user_id'=>['neq', 0],'c.payment_type'=>['neq',5],'a.order_state'=>['>', 10],'a.add_time'=>['>=',1572537600],'a.mark'=>1])
             ->select();
         foreach($data as $value){
             $a[] = $value['order_sn'];
         }
         $data1 = Db::table('bs_fx_order')->alias('a')
             ->join('bs_order_'.$store_id.' b','a.order_sn = b.order_sn')
-            ->where(['a.store_id'=>$store_id,'b.add_time'=>['>=',1564588800],'b.mark'=>1])->select();
+            ->where(['a.store_id'=>$store_id,'b.add_time'=>['>=',1572537600],'b.mark'=>1])->select();
         foreach ($data1 as $value){
             if(!in_array($value['order_sn'], $a)){
                 echo '<pre>';print_r( $value['order_sn'] );die;
@@ -113,7 +113,7 @@ class Test extends \think\Controller
     }
 
     /**
-     * 核对分销订单
+     * 核对分销订单---核查订单表未生成分销数据，补数据的
      * @author: luffy
      * @date  : 2019-09-18
      */
@@ -122,11 +122,11 @@ class Test extends \think\Controller
             ->field('a.id,a.order_sn,a.mark')
             ->join('bs_order_details_'.$store_id.' b','a.order_sn = b.order_sn')
             ->join('bs_order_relation_'.$store_id.' c','b.order_sn = c.order_sn')
-            ->where(['b.fx_user_id'=>['neq', 0],'c.payment_type'=>['neq',5],'a.order_state'=>['>', 10],'a.add_time'=>['>=',1564588800],'a.mark'=>1])
+            ->where(['b.fx_user_id'=>['neq', 0],'c.payment_type'=>['neq',5],'a.order_state'=>['>', 10],'a.add_time'=>['>=',1572537600],'a.mark'=>1])
             ->select();
         $data1 = Db::table('bs_fx_order')->alias('a')
             ->join('bs_order_'.$store_id.' b','a.order_sn = b.order_sn')
-            ->where(['a.store_id'=>$store_id,'b.add_time'=>['>=',1564588800],'b.mark'=>1])->select();
+            ->where(['a.store_id'=>$store_id,'b.add_time'=>['>=',1572537600],'b.mark'=>1])->select();
 
         foreach($data1 as $value){
             $a[] = $value['order_sn'];
@@ -374,7 +374,8 @@ class Test extends \think\Controller
             ->field('a.*,b.id as bid,b.lev1_prop,b.lev2_prop')
             ->alias('a')
             ->join('fx_rule b','a.rule_id = b.id','LEFT')
-            ->order('id ASC')->page($page,5000)->select()->toArray();
+            ->where('a.id','>',64070)
+            ->order('id ASC')->page($page,1000)->select()->toArray();
         $i = 0;
         dump($data);die;
 //        die;
@@ -382,7 +383,6 @@ class Test extends \think\Controller
             $i++;
             Db::name('fx_order')->where('id','=',$v['id'])
                 ->update([
-                    'fx_commission' => number_format($v['pay_money'] * $v['fx_commission_percent'] * 0.01, 2, '.', ''),
                     'fx_commission_1' => number_format($v['pay_money'] * $v['lev1_prop'] * 0.01, 2, '.', ''),
                     'fx_commission_2' => number_format($v['pay_money'] * $v['lev2_prop'] * 0.01, 2, '.', '')
                 ]);
@@ -399,13 +399,10 @@ class Test extends \think\Controller
      * Time: 16:58
      */
     public function bcode(){
-        echo 1;
-        die;
         require VENDOR_PATH.'/bcode/BCGFontFile.php';
         require VENDOR_PATH.'/bcode/BCGDrawing.php';
         require VENDOR_PATH.'/bcode/BCGcode39.barcode.php';
 
-        for($i =0; $i<=5;$i++){
             //颜色条形码
             $color_black = new \BCGColor(0, 0, 0);
             $color_white = new \BCGColor(255, 255, 255);
@@ -418,14 +415,14 @@ class Test extends \think\Controller
                 $code->setForegroundColor($color_black); // 条形码颜色
                 $code->setBackgroundColor($color_white); // 空白间隙颜色
                 // $code->setFont($font); //
-                $code->parse($i); // 条形码需要的数据内容
+                $code->parse(123456); // 条形码需要的数据内容
             }
             catch(\Exception $exception)
             {
                 $drawException = $exception;
             }
             //根据以上条件绘制条形码
-            $drawing = new \BCGDrawing(ROOT_PATH.'upload/bcode/'.$i.'.png', $color_white);
+            $drawing = new \BCGDrawing('', $color_white);
             if($drawException) {
                 $drawing->drawException($drawException);
             }else{
@@ -433,11 +430,9 @@ class Test extends \think\Controller
                 $drawing->draw();
             }
             // 生成PNG格式的图片
-            header('Content-Type: image/png');
+//            header('Content-Type: image/png');
 //         header('Content-Disposition:attachment; filename="1.png"'); //自动下载
             $drawing->finish(\BCGDrawing::IMG_FORMAT_PNG);
-            echo $i;
-        }
 
 die;
 
@@ -509,6 +504,33 @@ die;
 //        dump($order);die;
         $payment =$model->paymentByWechat([],$order);
         dump($payment);die;
+    }
+
+    //导出
+    public function excel(){
+        $model = new \app\store\model\Order();
+        $model->exportList(['start_time' => '2019-11-11','end_time'=>'2019-11-19']);
+    }
+
+    //刷订单表微信支付单号
+    public function pay_sn($page = 1){
+
+        $data = Db::name('order')->alias('a')
+            ->join('order_details_72 b','a.order_sn = b.order_sn','LEFT')
+            ->join('order_relation_72 c' ,'b.order_sn = c.order_sn','LEFT')
+            ->field('a.order_id,a.pay_sn apay_sn,a.order_sn,b.id,b.pay_sn,c.payment_type ')
+            ->where('a.pay_sn','neq','')
+            ->where('b.pay_sn','=','')
+            ->where('c.payment_type','=',2)
+            ->page($page,5000)
+            ->select();
+        dump($data->toArray());die;
+        $i = 0;
+        foreach ($data as $item){
+            $i+=1;
+            Db::name('order_details_72')->where('id','=',$item['id'])->update(['pay_sn'=>$item['apay_sn']]);
+        }
+        echo $i;
     }
 
 }

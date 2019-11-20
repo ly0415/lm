@@ -149,7 +149,7 @@
             city.html(_html);
             region.html(_html);
             if(province_id > 0){
-                $.post("<?=url('statistics.user_statistics/getStoreUser')?>",{store_id:province_id},function (res) {
+                $.post("<?=url('api/user_statistics/getStoreUser')?>",{store_id:province_id},function (res) {
                     addItem(city,res);
                 },'JSON')
             }

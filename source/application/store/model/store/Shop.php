@@ -156,13 +156,17 @@ class Shop extends StoreModel
         $data['is_site'] = 2;
         $data['store_cate_id'] = 17;
         $data['lang_id'] = 29;
-        $data['background_img'] = serialize(array_map(function ($img) {
+        //添加链接地址  ly
+        $data['background_img'] = serialize(array_map(function ($img,$url) {
             return [
-                'background' => $img,
-                'activity_id' => 0
+                'background'  => $img,
+                'activity_id' => 0,
+                'url'         => $url
+
             ];
-        }, $data['background_img']));
-        return $data;
+        }, $data['background_img'],$data['url']));
+        unset($data['url']);
+        return $data    ;
     }
 
     /**

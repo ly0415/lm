@@ -4,3 +4,30 @@
 ---------------------------------------------------------------
 [ 2019-11-18T11:42:57+08:00 ] 127.0.0.1 GET www.phpstudy.net/index.php?s=/store/store.shop/edit/store_id/98.html
 [ error ] [8]未定义数组索引: business_id[D:\phpStudy\WWW\lmeriPro\source\runtime\temp\7bfd3e067ee53ddd7a4246d0bb169316.php:268]
+---------------------------------------------------------------
+[ 2019-11-18T17:51:47+08:00 ] 127.0.0.1 GET www.phpstudy.net/index.php?s=/store/goods/index.html
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'lmeri.bs_goods_auxiliary_class' doesn't exist[D:\phpStudy\WWW\lmeriPro\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-11-18T17:51:51+08:00 ] 127.0.0.1 GET www.phpstudy.net/index.php?s=/store/goods/index.html
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'lmeri.bs_goods_auxiliary_class' doesn't exist[D:\phpStudy\WWW\lmeriPro\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-11-18T18:37:25+08:00 ] 127.0.0.1 GET www.phpstudy.net/index.php?s=/store/goods/index.html
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'lmeri.bs_goods_auxiliary_class' doesn't exist[D:\phpStudy\WWW\lmeriPro\source\thinkphp\library\think\db\Connection.php:385]
+---------------------------------------------------------------
+[ 2019-11-18T18:50:27+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.rotation_chart/edit/id/3.html
+[ error ] [2]Cannot use a scalar value as an array[D:\phpStudy\WWW\lmeriPro\source\application\store\model\RotationChart.php:86]
+---------------------------------------------------------------
+[ 2019-11-18T18:51:38+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.rotation_chart/edit/id/3.html
+[ error ] [2]Cannot use a scalar value as an array[D:\phpStudy\WWW\lmeriPro\source\application\store\model\RotationChart.php:86]
+---------------------------------------------------------------
+[ 2019-11-18T18:52:52+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.rotation_chart/edit/id/3.html
+[ error ] [2]Cannot use a scalar value as an array[D:\phpStudy\WWW\lmeriPro\source\application\store\model\RotationChart.php:86]
+---------------------------------------------------------------
+[ 2019-11-18T18:54:18+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.rotation_chart/edit/id/3.html
+[ error ] [2]Cannot use a scalar value as an array[D:\phpStudy\WWW\lmeriPro\source\application\store\model\RotationChart.php:86]
+---------------------------------------------------------------
+[ 2019-11-18T18:55:40+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.rotation_chart/edit/id/3.html
+[ error ] [2]Cannot use a scalar value as an array[D:\phpStudy\WWW\lmeriPro\source\application\store\model\RotationChart.php:86]
+---------------------------------------------------------------
+[ 2019-11-18T18:56:22+08:00 ] 127.0.0.1 POST www.phpstudy.net/index.php?s=/store/store.rotation_chart/edit/id/3.html
+[ error ] [2]Cannot use a scalar value as an array[D:\phpStudy\WWW\lmeriPro\source\application\store\model\RotationChart.php:86]

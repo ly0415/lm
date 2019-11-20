@@ -9,6 +9,7 @@ use app\api\model\OrderGoods;
 use app\api\model\SpikeActivity;
 use app\api\model\SpikeGoods;
 use app\api\model\StoreGoodsSpecPrice;
+use app\api\service\Bcode;
 
 
 /**
@@ -128,7 +129,7 @@ class Order extends Controller
 
     public function extractQrcode($order_sn = null,$user_id = null)
     {
-
+        if(!$order_sn || !$user_id)  return $this->renderError('缺少必要参数');
         require VENDOR_PATH.'/phpqrcode/phpqrcode.php'; //引入二维码
 
         $orderModel = new OrderModel();
@@ -141,6 +142,29 @@ class Order extends Controller
         $params = $order['order_sn'];
         \QRcode::png($params);
     }
+
+    /**
+     * 获取订单核销条形码
+     * Created by PhpStorm.
+     * Author: fup
+     * Date: 2019-11-18
+     * Time: 17:02
+     */
+    public function extractBcode($order_sn = null,$user_id = null)
+    {
+
+        if(!$order_sn || !$user_id)  return $this->renderError('缺少必要参数');
+        $orderModel = new OrderModel();
+        $model = new Bcode();
+        // 订单详情
+        $order = $orderModel->getOrderDetail($order_sn,$user_id);
+        // 判断是否为待核销订单
+        if (!$orderModel->checkExtractOrder($order)) {
+            return $this->renderError($orderModel->getError());
+        }
+        $model->createCode($order['order_sn']);
+    }
+
 
     /**
      * 订单核销

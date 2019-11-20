@@ -22,9 +22,9 @@ class Activity extends Controller
      * Date: 2019-10-11
      * Time: 15:13
      */
-    public function lists($page = 1){
+    public function lists($page = 1,$store_id=''){
         $model = new StoreActivityModel();
-        $list = $model->getList($page);
+        $list = $model->getList($page,$store_id);
         $banner = ['web/uploads/big/120/Store/20191012/lADPDgQ9rGUPyFnNASzNArI_690_300.jpg','web/uploads/big/120/Store/20191012/lADPDgQ9rGUQdn3NASzNArI_690_300.jpg','web/uploads/big/120/Store/20191012/lADPDgQ9rGUVKxzNASzNArI_690_300.jpg'];
 //        dump($list->toArray());die;
         return $this->renderSuccess(['banner' =>$banner ,'page'=>$page, 'data' => $list]);

@@ -20,12 +20,17 @@ class Business extends BaseModel
      * @date    2019-08-23
      */
     public static function getCache(){
-        $model = new static;
+        $model          = new static;
         if (!Cache::get('business')) {
-            $data   = $model->where(['mark'=>1])->order(['sort' => 'ASC', 'create_time' => 'DESC'])->select();
-            $all    = !empty($data) ? $data->toArray() : [];
-            $tree   = toTree($all);
-            Cache::tag('business')->set('business', compact('all','tree'));
+            $data       = $model->where(['mark'=>1])->order(['sort' => 'ASC', 'create_time' => 'DESC'])->select();
+            if(!empty($data)){
+                $all    = [];
+                foreach($data->toArray() as $key => $value){
+                    $all[$value['id']] = $value;
+                }
+                $tree   = toTree($all);
+                Cache::tag('business')->set('business', compact('all','tree'));
+            }
         }
         return Cache::get('business');
     }

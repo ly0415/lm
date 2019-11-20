@@ -19,7 +19,8 @@ class StoreActivity extends StoreActivityModel
      * Date: 2019-10-11
      * Time: 16:21
      */
-    public function getList($page){
+    public function getList($page,$store_id=''){
+        !empty($store_id)     && $this->where('store_id','=',$store_id) ;
         return $this
             ->where('mark', '=', 1)
             ->where('status','=',1)

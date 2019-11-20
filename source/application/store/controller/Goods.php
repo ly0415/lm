@@ -28,7 +28,7 @@ class Goods extends Controller
         // 商品分类
         $category = GoodsCategoryModel::getCacheTree();
         // 业务类型
-        $business = isset(Business::getCacheTree()[BUSINESS_ID]) ? Business::getCacheTree()[BUSINESS_ID]['child'] : '';
+        BUSINESS_ID && $business = isset(Business::getCacheTree()[BUSINESS_ID]) ? Business::getCacheTree()[BUSINESS_ID]['child'] : '';
         // 商品列表
         $model = new StoreGoodsModel;
         $list = $model->getList(false, $business_id, $category_id, $goods_name, $goods_status, $goods_sn);

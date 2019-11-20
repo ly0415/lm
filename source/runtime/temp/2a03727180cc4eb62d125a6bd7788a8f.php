@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\WWW\lmeriPro\web/../source/application/store\view\store\rotation_chart\edit.php";i:1573200408;s:73:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\layout.php";i:1573699389;s:89:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\_template\file_library.php";i:1571624106;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:91:"D:\phpStudy\WWW\lmeriPro\web/../source/application/store\view\store\rotation_chart\edit.php";i:1574133575;s:73:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\layout.php";i:1573699389;s:89:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\_template\file_library.php";i:1571624106;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -180,7 +180,7 @@
                                 </div>
                             </div>
 
-                            <div class="am-form-group am-margin-left-lg">
+                            <!-- <div class="am-form-group am-margin-left-lg">
                                 <div>
                                     <div>
                                         <small style="width:40px;">注：</small>
@@ -188,7 +188,7 @@
                                     </div>
                                     <small style="margin-left:29px;">2、小程序秒杀页面路径为 pages/miaosha/miaosha</small>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="am-form-group">
                                 <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">轮播图片</label>
@@ -203,7 +203,7 @@
                                                 <?php if (!empty($roionList['imgs'])): foreach ($roionList['imgs'] as $role):  ?>
                                                     <div class="file-item" style="width:460px;display:flex;justify-content: space-between;align-items:center;">
                                                         <img src="uploads/big/<?= $role['img'] ?>" width="100" height="30" alt="">
-                                                        <input name="rotionc[url][]" style="width:330px;height:30px;border:none;border-bottom:1px solid #999;outline:none;padding:0;margin-right:10px;" value="">
+                                                        <input type="hidden" name="rotionc[url][]" style="width:330px;height:30px;border:none;border-bottom:1px solid #999;outline:none;padding:0;margin-right:10px;" value="">
                                                         <input type="hidden" name="rotionc[img][]" value="<?= $role['img'] ?>">
                                                         <i class="iconfont icon-shanchu file-item-delete"></i>
                                                     </div>
@@ -243,7 +243,7 @@
                                 {{ each list }}
                                 <div class="file-item" style="width:460px;display:flex;justify-content: space-between;align-items:center;">
                                     <img src="{{ $value.file_path }}" width="100" height="30" alt="">
-                                    <input name="rotionc[url][]" style="width:330px;height:30px;border:none;border-bottom:1px solid #999;outline:none;padding:0;margin-right:10px;" value="">
+                                    <input type="hidden" name="rotionc[url][]" style="width:330px;height:30px;border:none;border-bottom:1px solid #999;outline:none;padding:0;margin-right:10px;" value="">
                                     <input type="hidden" name="{{ name }}" value="{{ $value.file_name }}">
                                     <i class="iconfont icon-shanchu file-item-delete"></i>
                                 </div>

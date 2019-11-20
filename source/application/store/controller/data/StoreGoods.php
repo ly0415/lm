@@ -37,12 +37,12 @@ class StoreGoods extends  Controller
      * @return mixed
      * @throws \think\exception\DbException
      */
-    public function lists($category_id = null, $goods_name = '')
+    public function lists($category_id = null, $business_id = 0, $goods_name = '')
     {
         // 商品分类
         $category = GoodsCategoryModel::getCacheTree();
         // 商品列表
-        $list = $this->model->getList(false, $category_id, $goods_name,1,'',1);
+        $list = $this->model->getList(false, $business_id, $category_id, $goods_name,1,'',1);
         return $this->fetch('list', compact('list', 'category'));
     }
 

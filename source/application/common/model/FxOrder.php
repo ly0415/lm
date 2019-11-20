@@ -29,7 +29,7 @@ class FxOrder extends BaseModel{
         //未入账可处理
         $order_info = self::get(['order_sn'=>$order_sn]);
         if(isset($order_info) && $order_info['is_on'] == 1){    //已入账不计算
-            return false;
+            return true;
         }
         $DistributionModel = new DistributionModel;
         //获取二级和一级分销人员

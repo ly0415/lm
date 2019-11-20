@@ -18,9 +18,9 @@
                             <div class="am-form-group switch-expire_type expire_type__20">
                                 <label class="am-u-sm-2 am-u-lg-2 am-form-label form-require">时间范围 </label>
                                 <div class="am-u-sm-10 am-u-end">
-                                    <input type="text" class="j-startTime am-form-field am-margin-bottom-sm"
+                                    <input autocomplete="off" type="text" class="j-startTime am-form-field am-margin-bottom-sm"
                                            name="spike[start_time]" value="<?=$model['start_time']['text']?>" placeholder="请选择开始日期" required>
-                                    <input type="text" value="<?=$model['end_time']['text']?>" class="j-endTime am-form-field" name="spike[end_time]"
+                                    <input type="text" value="<?=$model['end_time']['text']?>" autocomplete="off" class="j-endTime am-form-field" name="spike[end_time]"
                                            placeholder="请选择结束日期" required>
                                     <small>&nbsp;&nbsp;如开始时间:2019-01-01，结束时间2019-12-31</small>
                                 </div>
@@ -214,7 +214,7 @@
                         viewDate = inYear;
                         break;
                 }
-                return date.valueOf() <= viewDate ? 'am-disabled' : '';
+                return date.valueOf() < viewDate ? 'am-disabled' : '';
             }
         }).on('changeDate.datepicker.amui', function (ev) {
             checkout.close();

@@ -153,15 +153,15 @@ class Order extends OrderModel{
     public function getExpList($query = []){
         $where['a.mark'] = 1;
         $where['a.order_state'] = ['>',10];
-        $where['c.payment_time'] = ['BETWEEN',[strtotime(date('Y-m-d')),strtotime(date('Y-m-d')) + 86400-1]];
+        $where['a.add_time'] = ['BETWEEN',[strtotime(date('Y-m-d')),strtotime(date('Y-m-d')) + 86400-1]];
         if (isset($query['start_time']) && !empty($query['start_time'])) {
-            $where['c.payment_time'] = ['>=',strtotime($query['start_time'])];
+            $where['a.add_time'] = ['>=',strtotime($query['start_time'])];
         }
         if (isset($query['end_time']) && !empty($query['end_time'])) {
-            $where['c.payment_time'] = ['<',strtotime($query['end_time']) + 86400];
+            $where['a.add_time'] = ['<',strtotime($query['end_time']) + 86400];
         }
         if (isset($query['end_time']) && !empty($query['end_time']) && isset($query['start_time']) && !empty($query['start_time'])) {
-            $where['c.payment_time'] = ['BETWEEN',[strtotime($query['start_time']),strtotime($query['end_time']) + 86400-1]];
+            $where['a.add_time'] = ['BETWEEN',[strtotime($query['start_time']),strtotime($query['end_time']) + 86400-1]];
         }
         if (isset($query['sendout']) && !empty($query['sendout']) && $query['sendout'] != -1) {
             $where['a.sendout'] = $query['sendout'];
@@ -180,12 +180,11 @@ class Order extends OrderModel{
         }else{
             $store_id = SELECT_STORE_ID;
         }
+//        dump($where);die;
         //店铺缓存
         $this->storeAll = StoreModel::getCacheAll();
         //数据转换
         $this->OrderGoodsModel = new OrderModel;
-
-
         $data = Db::name('order_'.$store_id)
             ->alias('a')
             ->field('a.order_sn,a.order_amount,a.order_state,a.sendout,a.evaluation_state,a.store_id,b.discount,b.fx_money,b.point_discount,b.coupon_discount,b.shipping_fee,b.pay_sn,c.payment_type,c.payment_source,c.payment_time,d.username,d.phone,e.name as sourceName')
@@ -365,13 +364,13 @@ class Order extends OrderModel{
             $where['c.payment_source'] = $query['sourceId'];
         }
         if(isset($query['start_time']) && !empty($query['start_time'])){
-            $where['c.payment_time'] =['>=',strtotime($query['start_time'])];
+            $where['a.add_time'] =['>=',strtotime($query['start_time'])];
         }
         if(isset($query['end_time']) && !empty($query['end_time'])){
-            $where['c.payment_time'] = ['<=',strtotime($query['end_time'])+ 86400-1];
+            $where['a.add_time'] = ['<=',strtotime($query['end_time'])+ 86400-1];
         }
         if(isset($query['start_time']) && !empty($query['start_time']) && isset($query['end_time']) && !empty($query['end_time'])){
-            $where['c.payment_time'] = ['BETWEEN',[strtotime($query['start_time']),strtotime($query['end_time']) + 86400-1]];
+            $where['a.add_time'] = ['BETWEEN',[strtotime($query['start_time']),strtotime($query['end_time']) + 86400-1]];
 
         }
         if(isset($query['store_id']) && !empty($query['store_id']) && $query['store_id'] != -1){
@@ -552,6 +551,193 @@ class Order extends OrderModel{
         }
         echo "\n";
     }
+
+
+    /**
+     * 交班报表
+     * Created by PhpStorm.
+     * Author: fup
+     * Date: 2019-11-18
+     * Time: 17:48
+     */
+    public function exportList($query = [])
+    {
+        // 获取订单列表
+
+        $where['a.mark'] = 1;
+        $where['a.order_state'] = ['>',10];
+        if(isset($query['sendout']) && !empty($query['sendout']) && $query['sendout'] != -1){
+            $where['a.sendout'] = $query['sendout'];
+        }
+        if(isset($query['store_user_id']) && !empty($query['store_user_id']) && $query['store_user_id'] != -1){
+            $where['b.valet_order_user_id'] = $query['store_user_id'];
+        }
+        if(isset($query['paymentType']) && !empty($query['paymentType']) && $query['paymentType'] != -1){
+            $where['c.payment_type'] =$query['paymentType'];
+        }
+        if(isset($query['sourceId']) && !empty($query['sourceId']) && $query['sourceId'] != -1){
+            $where['c.payment_source'] = $query['sourceId'];
+        }
+        if(isset($query['start_time']) && !empty($query['start_time'])){
+            $where['a.add_time'] =['>=',strtotime($query['start_time'])];
+        }
+        if(isset($query['end_time']) && !empty($query['end_time'])){
+            $where['a.add_time'] = ['<=',strtotime($query['end_time'])+ 86400-1];
+        }
+        if(isset($query['start_time']) && !empty($query['start_time']) && isset($query['end_time']) && !empty($query['end_time'])){
+            $where['a.add_time'] = ['BETWEEN',[strtotime($query['start_time']),strtotime($query['end_time']) + 86400-1]];
+
+        }
+        if(isset($query['store_id']) && !empty($query['store_id']) && $query['store_id'] != -1){
+            $store_id = $query['store_id'];
+        }else{
+            $store_id = STORE_ID ;
+        }
+
+//        dump($where);die;
+
+//        dump($storeUserName);die;
+        $data = Db::name('order_'.$store_id)->alias('a')->join('order_details_'.$store_id . ' b','a.order_sn = b.order_sn','LEFT')
+            ->join('order_relation_'.$store_id.' c','a.order_sn = c.order_sn','LEFT')
+            ->join('order_refund r','c.order_sn = r.order_sn','LEFT')
+            ->join('user d','a.buyer_id = d.id','LEFT')
+            ->join('store_source e','b.store_source_id = e.id','LEFT')
+            ->where($where)
+            ->field('a.id,a.order_sn,a.goods_amount,a.order_amount,a.order_state,a.sendout,a.evaluation_state,a.add_time,b.pay_sn,b.discount,b.fx_money,b.point_discount,b.coupon_discount,b.shipping_fee,c.payment_type,c.payment_source,c.payment_time,r.refund_amount,r.add_time as r_time,d.username,d.phone,e.name as sourceName')
+            ->order('a.id DESC')
+            ->select()->toArray();
+        foreach ($data as $k => &$item){
+            $item['original_price'] = 0;
+            //订单状态
+            $item['statusName'] = self::getOrderStatusName($item['sendout'], $item['order_state'], $item['evaluation_state']);
+            if(isset($item['sendout']) && !empty($item['sendout'])){
+                $item['sendoutName'] = $this->delivery_type[$item['sendout']];
+            }else{
+                $item['sendoutName'] = '';
+            }
+            //支付方式
+            $item['paymentName']  = !empty($item['payment_type']) ? $this->payment_type[$item['payment_type']] : '未付款';
+            if($item['payment_type'] == 11){
+                if(isset($item['pay_sn']) && strpos($item['pay_sn'],'_') !== false){
+                    $p = explode('_',$item['pay_sn'])[1];
+                    $item['paymentName'] .= '-'.$this->payment[$p];
+
+                }
+            }
+            //付款时间
+            $item['payment_time'] = date('Y-m-d H:i', $item['payment_time']);
+            $item['shipping_fee'] = $item['sendout']==1 ? 0 : $item['shipping_fee'];
+        }
+        // 表格标题
+        $tileArray = ['订单号', '配送方式', '买家姓名', '买家手机', '订单来源', '支付方式', '付款时间','支付单号','订单金额','付款金额', '运费金额',
+            '订单状态', '退款金额','退款时间', '优惠金额', '分销码抵扣', '睿积分抵扣', '优惠券抵扣', '下单时间'];
+
+        // 表格内容
+        $dataArray = [];
+        $totalMoney = 0;//订单总金额
+        $payMoney = 0;//实付金额
+        $discountMoney = 0;//优惠金额
+        $fxMoney = 0;//分销金额
+        $couponMoney = 0;//优惠券金额
+        foreach ($data as $order) {
+            $totalMoney += $order['goods_amount'];
+            $order['order_state'] != 70 && $payMoney += $order['order_amount'];
+            $discountMoney += $order['discount'];
+            $fxMoney += $order['fx_money'];
+            $couponMoney += $order['coupon_discount'];
+                $dataArray[] = [
+                    '订单号' => $this->filterValue($order['order_sn']),
+                    '配送方式' => $order['sendoutName'],
+                    '买家姓名' => $order['username'],
+                    '买家手机' => $this->filterValue($order['phone']),
+                    '订单来源' => $order['sourceName'],
+                    '支付方式' => $order['paymentName'],
+                    '付款时间' => $this->filterValue($order['payment_time']),
+                    '支付单号' => $this->filterValue($order['pay_sn']),
+                    '订单金额' => $order['goods_amount'],
+                    '付款金额' => $order['order_amount'],
+                    '运费金额' => $order['shipping_fee'],
+                    '订单状态' => $order['statusName'],
+                    '退款金额' => $order['refund_amount'] ? : 0,
+                    '退款时间' => $order['r_time'] ? $this->filterValue(date('Y-m-d H:i',$order['r_time'])) : '',
+                    '优惠金额' => $order['discount'],
+                    '分销码抵扣' => $order['fx_money'],
+                    '睿积分抵扣' => $order['point_discount'],
+                    '优惠券抵扣' => $order['coupon_discount'],
+                    '下单时间' => $this->filterValue(date('Y-m-d H:i',$order['add_time']))
+                ];
+        }
+        $dataArray[] = [
+            '订单号' => '',
+            '配送方式' => '',
+            '买家姓名' => '',
+            '买家手机' => '',
+            '订单来源' => '',
+            '支付方式' => '',
+            '付款时间' => '',
+            '支付单号' => '',
+            '订单金额' => '',
+            '付款金额' => '',
+            '运费金额' => '',
+            '订单状态' => '',
+            '退款金额' => '',
+            '退款时间' => '',
+            '优惠金额' => '',
+            '分销码抵扣' => '',
+            '睿积分抵扣' => '',
+            '优惠券抵扣' => '',
+            '下单时间' => ''
+        ];
+        $dataArray[] = [
+            '订单号' => '',
+            '配送方式' => '',
+            '买家姓名' => '',
+            '买家手机' => '订单原金额:',
+            '订单来源' => $totalMoney,
+            '支付方式' => '订单实付金额:',
+            '付款时间' => $payMoney,
+            '支付单号' => '优惠金额:',
+            '订单金额' => $discountMoney,
+            '付款金额' => '优惠券金额:',
+            '运费金额' => $couponMoney,
+            '订单状态' => '',
+            '退款金额' => '',
+            '退款时间' => '',
+            '优惠金额' => '',
+            '分销码抵扣' => '',
+            '睿积分抵扣' => '',
+            '优惠券抵扣' => '',
+            '下单时间' => ''
+        ];
+        $dataArray[] = [
+            '订单号' => '',
+            '配送方式' => '',
+            '买家姓名' => '',
+            '买家手机' => '',
+            '订单来源' => '',
+            '支付方式' => '',
+            '付款时间' => '',
+            '支付单号' => '',
+            '订单金额' => '',
+            '付款金额' => '',
+            '运费金额' => '',
+            '订单状态' => '',
+            '退款金额' => '',
+            '退款时间' => '筛选时间：',
+            '优惠金额' => $this->filterValue($query['start_time'].'至'.$query['end_time']),
+            '分销码抵扣' => '',
+            '睿积分抵扣' => '',
+            '优惠券抵扣' => '',
+            '下单时间' => ''
+        ];
+        // 导出csv文件
+        $filename = '交班报表-' . date('YmdHis');
+        return export_excel($filename . '.csv', $tileArray, $dataArray);
+    }
+
+
+
+
 
     /**
      * 通过sendout、evaluation_state和order_status获取订单状态

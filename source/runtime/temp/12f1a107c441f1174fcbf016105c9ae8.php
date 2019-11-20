@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:87:"D:\phpStudy\WWW\lmeriPro\web/../source/application/store\view\shop\store_user\index.php";i:1571624104;s:73:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\layout.php";i:1572400948;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:87:"D:\phpStudy\WWW\lmeriPro\web/../source/application/store\view\shop\store_user\index.php";i:1571624104;s:73:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\layout.php";i:1573699389;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -323,7 +323,7 @@
        setInterval(function(){
            if( LODOP.VERSION ){
                //页面轮询---查询订单
-               var url = "<?=url('order/get_notips_order');?>";
+               var url = "<?=url('order/get_notips_order','',false);?>";
                $.post(url,{} ,function (res) {
                    if(res.code == 1){
                        var myAuto = document.getElementById('myaudio');

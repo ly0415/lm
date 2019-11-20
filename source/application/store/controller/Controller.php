@@ -89,7 +89,6 @@ class Controller extends \think\Controller
         define('IS_ADMIN', $this->yoshop_store['is_admin']);
         //获取业务类型
         $business_id    = (new StoreUserModel())->getUserBusiness(USER_ID);
-        $business_id    = $business_id != 0 ? $business_id : 120;
         define('BUSINESS_ID', $business_id);
 
         define('T_ADMIN',    (IS_ADMIN && !BUSINESS_ID ) ? TRUE : FALSE);

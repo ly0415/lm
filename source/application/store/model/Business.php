@@ -42,7 +42,7 @@ class Business extends BusinessModel
         }
         if($data['b_pid_3']){
             if($this->where('name','=',$data['name'])
-                ->where('cate_id','=',$data['b_pid_3'])->find()){
+                ->where('cate_id','=',$data['b_pid_3'])->where('mark','=',1)->find()){
                 $this->error = '业务类型相对应的商品分类已经存在';
                 return false;
             }
@@ -70,7 +70,7 @@ class Business extends BusinessModel
         }
         if($data['b_pid_3']){
             if($this->where('name','=',$data['name'])
-                ->where('cate_id','=',$data['b_pid_3'])->find()){
+                ->where('cate_id','=',$data['b_pid_3'])->where('mark','=',1)->where('id','neq',$this['id'])->find()){
                 $this->error = '业务类型相对应的商品分类已经存在';
                 return false;
             }
@@ -108,25 +108,6 @@ class Business extends BusinessModel
             }
         }
         return $tree;
-    }
-
-    public static function getBusinessByCateId($category_id = 0){
-        $business = [];
-        $all = self::getCacheTree();
-        foreach ($all as $k => $first){
-            if(isset($first['child'])){
-                foreach ($first['child'] as $two){
-                    if($category_id > 0 && $two['cate_id'] == $category_id){
-                        $business = [
-                            'first'=>['id'=>$first['id'],'name'=>$first['name'],'sort'=>$first['sort'],'create_time'=>$first['create_time']],
-                            'two'=>['id'=>$two['id'],'name'=>$two['name'],'sort'=>$two['sort'],'create_time'=>$two['create_time']]
-                        ];
-                    }
-                }
-            }
-
-        }
-        return $business;
     }
 
 }

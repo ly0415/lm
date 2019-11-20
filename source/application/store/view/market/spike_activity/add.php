@@ -19,8 +19,8 @@
                                 <label class="am-u-sm-2 am-u-lg-2 am-form-label form-require">时间范围 </label>
                                 <div class="am-u-sm-10 am-u-end">
                                     <input type="text" class="j-startTime am-form-field am-margin-bottom-sm"
-                                           name="spike[start_time]" placeholder="请选择开始日期" required>
-                                    <input type="text" class="j-endTime am-form-field" name="spike[end_time]"
+                                           name="spike[start_time]" placeholder="请选择开始日期" autocomplete="off" required>
+                                    <input type="text" autocomplete="off" class="j-endTime am-form-field" name="spike[end_time]"
                                            placeholder="请选择结束日期" required>
                                     <small>&nbsp;&nbsp;如开始时间:2015-06-15，结束时间2015-06-16</small>
                                 </div>
@@ -209,7 +209,7 @@
                         viewDate = inYear;
                         break;
                 }
-                return date.valueOf() <= viewDate ? 'am-disabled' : '';
+                return date.valueOf() < viewDate ? 'am-disabled' : '';
             }
         }).on('changeDate.datepicker.amui', function (ev) {
             checkout.close();

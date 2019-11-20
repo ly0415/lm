@@ -33,7 +33,7 @@ class SpikeGoods extends BaseModel
      */
     public function goods()
     {
-        return $this->belongsTo('StoreGoods', 'goods_id', 'id')->field('id,goods_name,original_img,store_id,store_name');
+        return $this->belongsTo('StoreGoods', 'store_goods_id', 'id')->field('id,goods_name,original_img,store_id,store_name,is_on_sale,attributes')->where('mark','=',1);
     }
 
     /**

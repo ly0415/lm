@@ -19,12 +19,12 @@ class SpikeGoods extends Controller
      * Date: 2019-08-14
      * Time: 11:22
      */
-    public function getList($time_point = 0){
+    public function getList($time_point = 0,$store_id=''){
 //        dump($time_point);die;
         $model = new SpikeGoodsModel();
         $time_point = $time_point ? $time_point : SpikeGoodsModel::getDefaultTimePoint();
 //        dump($time_point);die;
-        $list = $model->getList($time_point);
+        $list = $model->getList($time_point,$store_id);
         return $this->renderSuccess($list);
     }
 
@@ -52,7 +52,7 @@ class SpikeGoods extends Controller
     public function getBuyNums($activityGoodsId = null,$num = 1,$activityId = null,$userId = null,$source = 1){
         $spikeModel = new SpikeActivityModel;
         if(!$spikeModel->checkStatus($activityId)){
-            return $this->renderError($spikeModel->getError() ? : '活动异常');
+            return $this->renderError($spikeModel->getError() ? : '购买失败');
         }
         if(!$model = SpikeGoodsModel::detail($activityGoodsId)){
             return $this->renderError('商品不存在');

@@ -20,7 +20,7 @@ class Goods extends GoodsModel
      * Date: 2019-08-20
      * Time: 15:44
      */
-    public function getList($is_list = false, $category_id = 0, $search = '', $goods_sn = '')
+    public function getList($is_list = false, $business_id = 0, $category_id = 0, $search = '', $goods_sn = '')
     {
         // 筛选条件
         $filter = ['is_on_sale'=>1];

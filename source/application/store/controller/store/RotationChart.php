@@ -19,11 +19,10 @@ class RotationChart extends Controller
      */
     public function index($id='')
     {
-//  $a=[['img'=>"ssdasdasdsdadasda.jpg",'url'=>"sdadadasdasdad/sdad"],['img'=>"ssdasdasdsdadasda.jpg",'url'=>"sdadadasdasdad/sdad"]];
         $model = new RotationChartModel;
-        $list = $model->getList($id);
+        $list  = $model->getList($id);
 //        print_r($list->toArray());die;
-        $smallimg='/'.BIG_IMG;
+        $smallimg ='/'.BIG_IMG;
         return $this->fetch('index', compact('list','smallimg'));
     }
 

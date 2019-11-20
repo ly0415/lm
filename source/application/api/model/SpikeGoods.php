@@ -18,8 +18,9 @@ class SpikeGoods extends SpikeGoodsModel
      * Date: 2019-08-14
      * Time: 11:31
      */
-    public function getList($time_point){
+    public function getList($time_point,$store_id){
 
+        !empty($store_id)     && $this->where('b.store_id','=',$store_id) ;
         $list = $this->alias('a')
             ->field('a.*,b.store_id')
             ->join('spike_activity b','a.spike_id = b.id','LEFT')
@@ -119,7 +120,7 @@ class SpikeGoods extends SpikeGoodsModel
         } else {
             $filter['id'] = (int)$where;
         }
-        return self::get($filter,'activity');
+        return self::get($filter,['activity','goods']);
     }
 
     /**
@@ -134,6 +135,20 @@ class SpikeGoods extends SpikeGoodsModel
             $this->error = '你选择的数量大于该商品的限购数量！';
             return false;
         }
+
+        if(!isset($this['goods']) || !$this['goods']){
+            $this->error = '商品不存在';
+            return false;
+        }
+        if((int)$this['goods']['is_on_sale']['value'] !== 1){
+            $this->error = '商品已下架';
+            return false;
+        }
+
+        if(!in_array(1,explode(',',$this['goods']['attributes']))){
+            $this->error = '仅允许秒杀门店自提商品哦~';
+            return false;
+        }
         if(!OrderGoods::checkActivityTimes($userId)){
             $this->error = '每天只允许秒杀一次哦~';
             return false;
@@ -146,7 +161,16 @@ class SpikeGoods extends SpikeGoodsModel
             $this->error = '库存不足';
             return false;
         }
-        if(!$stock = StoreGoodsSpecPrice::getSpecPriceStock($this['store_goods_id'],$this['goods_key'])){
+        $spec_arr = [];
+        $key = $this['goods_key'];
+        if ($key) {
+            $key_arr = explode('_', $key);
+            $key_pailie = arrangement($key_arr, count($key_arr));
+            foreach ($key_pailie as $v) {
+                $spec_arr[] = implode('_', $v);
+            }
+        }
+        if(!$stock = StoreGoodsSpecPrice::getSpecPriceStock($this['store_goods_id'],$spec_arr)){
             $this->error = '商品库存不足';
             return false;
         }

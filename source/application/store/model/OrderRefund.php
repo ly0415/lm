@@ -57,14 +57,13 @@ class OrderRefund extends OrderRefundModel
         } else {
             //查询信息
             $info = Db::name('order_'.STORE_ID)->alias('a')
-                ->field('a.id,a.order_state,a.buyer_id,b.id as relation_id,b.payment_type,b.refund_source,b.yinlian_order,c.refund_amount,d.amount,e.pay_sn')
+                ->field('a.id,a.store_id,a.order_state,a.buyer_id,b.id as relation_id,b.payment_type,b.refund_source,e.yinlian_order,c.refund_amount,d.amount,e.pay_sn')
                 ->join('order_details_'.STORE_ID. ' e', 'e.order_sn = a.order_sn')
                 ->join('order_relation_'.STORE_ID. ' b', 'a.order_sn = b.order_sn')
                 ->join('order_refund c', 'b.order_sn = c.order_sn')
                 ->join('user d', 'a.buyer_id = d.id')
                 ->where(['a.order_sn'=>$order_sn])
                 ->find();
-
             switch ($info['payment_type']) {
                 case 1:     //支付宝
                     break;
@@ -107,14 +106,16 @@ class OrderRefund extends OrderRefundModel
                 case 5:     //免费兑换
                     break;
                 case 11:    //银联支付
+                    header('Content-Type: text/html; charset=utf-8');
+
                     //退款订单号
                     $refund_order_sn    = $order_sn.rand(1000, 9999);
                     $this->where('order_sn', $order_sn)->update(['yinlian_order'=>$refund_order_sn]);
 
                     //执行退款操作
                     include_once VENDOR_PATH."/shijicloud/OrderRefund.php";
-                    $SearchOrder = new \OrderRefund();
-                    $SearchOrder->orderRefund([$order_sn['yinlian_order'], $refund_order_sn, $info['pay_sn']])->index();
+                    $SearchOrder        = new \OrderRefund();
+                    $SearchOrder->orderRefund([$info['yinlian_order'], $refund_order_sn, $info['pay_sn'], $info['refund_amount'], $info['store_id']])->index();
                     break;
             }
             $this->startTrans();

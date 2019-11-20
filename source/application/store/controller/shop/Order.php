@@ -37,7 +37,7 @@ class Order extends Controller{
     {
         $orderModel = new OrderModel;
         //获取订单数据
-        $orderModel->excelOut($this->request->param());
+        $orderModel->exportList($this->request->param());
     }
 
 }

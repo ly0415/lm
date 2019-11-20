@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:92:"D:\phpStudy\WWW\lmeriPro\web/../source/application/store\view\store\rotation_chart\index.php";i:1573200231;s:73:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\layout.php";i:1573699389;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:92:"D:\phpStudy\WWW\lmeriPro\web/../source/application/store\view\store\rotation_chart\index.php";i:1574063532;s:73:"D:\phpStudy\WWW\lmeriPro\source\application\store\view\layouts\layout.php";i:1573699389;}*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -181,7 +181,7 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>轮播图片</th>
+                                <th>轮播图类型</th>
                                 <th>添加人</th>
                                 <th>添加时间</th>
                                 <th>操作</th>
@@ -191,10 +191,11 @@
                             <?php if (!$list->isEmpty()): foreach ($list as $item): ?>
                                 <tr>
                                     <td class="am-text-middle"><?= $item['id'] ?></td>
-                                    <td class="am-text-middle">
-                                        <?php if (!empty($item['imgs'])): foreach ($item['imgs'] as $role):  ?>
-                                            <img src="uploads/big/<?= $role['img'] ?>" width="50" height="50" alt="">
-                                        <?php endforeach;endif;  ?>
+                                    <td class="am-text-middle"><?= $item['typename'] ?>
+<!--                                        --><?php //if (!empty($item['imgs'])): foreach ($item['imgs'] as $role):  ?>
+<!--                                            <img src="uploads/big/--><?php echo '<?'; ?>
+//= $role['img'] ?><!--" width="50" height="50" alt="">-->
+<!--                                        --><?php //endforeach;endif;  ?>
                                     </td>
                                     <td class="am-text-middle"><?= $item['user_name'] ?></td>
                                     <td class="am-text-middle"><?= $item['update_time'] ?></td>
