@@ -69,6 +69,26 @@ class Order extends Controller
         return $this->renderSuccess($cart_info);
     }
 
+    /**
+     * 总仓支配、海外   提交订单展示页面
+     * Created by PhpStorm.
+     * Author: ly
+     * Date: 2019-11-21
+     * Time:
+     */
+    public function submitOrderShow2($user_id=0, $cart_ids = '',$address_id = 0){
+        // 商品结算信息
+        $user_id=35035;
+        $cart_ids=[1259,4096];//4552
+        if(empty($user_id) || empty($cart_ids) ){
+            return $this->renderError('参数错误！');
+        }
+
+        //获取提交购物信息
+        $cartModel  = new CartModel();
+        $cart_info  = $cartModel -> getCartInfos($cart_ids,$user_id,$address_id);
+        return $this->renderSuccess($cart_info);
+    }
 
     /**
      * 结算校验库存

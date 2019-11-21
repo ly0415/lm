@@ -38,8 +38,8 @@
                                             </button>
                                             <div class="uploader-list am-cf">
                                                 <?php if (!empty($roionList['imgs'])): foreach ($roionList['imgs'] as $role):  ?>
-                                                    <div class="file-item" style="width:460px;display:flex;justify-content: space-between;align-items:center;">
-                                                        <img src="uploads/big/<?= $role['img'] ?>" width="100" height="30" alt="">
+                                                    <div class="file-item" style="width:345px;display:flex;justify-content: space-between;align-items:center;">
+                                                        <img src="uploads/big/<?= $role['img'] ?>" width="100%" height="100%" alt="">
                                                         <input type="hidden" name="rotionc[url][]" style="width:330px;height:30px;border:none;border-bottom:1px solid #999;outline:none;padding:0;margin-right:10px;" value="">
                                                         <input type="hidden" name="rotionc[img][]" value="<?= $role['img'] ?>">
                                                         <i class="iconfont icon-shanchu file-item-delete"></i>
@@ -78,8 +78,8 @@
                             <!-- 图片文件列表模板 -->
                             <script id="tpl-file-item" type="text/template">
                                 {{ each list }}
-                                <div class="file-item" style="width:460px;display:flex;justify-content: space-between;align-items:center;">
-                                    <img src="{{ $value.file_path }}" width="100" height="30" alt="">
+                                <div class="file-item" style="width:345px;display:flex;justify-content: space-between;align-items:center;">
+                                    <img src="{{ $value.file_path }}" width="100%" height="100%" alt="">
                                     <input type="hidden" name="rotionc[url][]" style="width:330px;height:30px;border:none;border-bottom:1px solid #999;outline:none;padding:0;margin-right:10px;" value="">
                                     <input type="hidden" name="{{ name }}" value="{{ $value.file_name }}">
                                     <i class="iconfont icon-shanchu file-item-delete"></i>

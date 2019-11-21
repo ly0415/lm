@@ -5,6 +5,7 @@ namespace app\api\model;
 use app\common\model\Business;
 use app\common\model\Store      as StoreModel;
 use app\common\model\StoreGoods as StoreGoodsModel;
+use app\store\model\Store       as StoreStoreModel;
 
 /**
  * 用户收货地址模型
@@ -43,6 +44,18 @@ class StoreGoods extends StoreGoodsModel
      * @date    2019-08-04
      */
     public function getStoreGoods($store_id, $rtid, $type, $page, $search_name, $type_id){
+
+        $StoreModel = new StoreModel;
+        //总仓直配、海外  获得总站商品 ly 19/11/21
+        if($type==3||$type==4){
+            $store_id=StoreStoreModel::getAdminStoreId();
+            $this->order('a.add_time','DESC');
+            $store_info = $StoreModel::get($store_id);
+            $rtid=$store_info['business_id'];
+        }else{
+            $store_info = $StoreModel::get($store_id);
+        }
+
         $where = [
             'a.mark' => 1, 'a.is_on_sale'=>1, 'a.store_id'=>$store_id
         ];
@@ -66,8 +79,7 @@ class StoreGoods extends StoreGoodsModel
             ->order(['a.sort'=>'ASC', 'a.id'=>'DESC'])
             ->select()->toArray();
         //获取门店折扣
-        $StoreModel = new StoreModel;
-        $store_info = $StoreModel::get($store_id);
+//        $store_info = $StoreModel::get($store_id);
         //数据处理
         foreach ($list as $k => $v){
             //商品三个价格
@@ -90,6 +102,8 @@ class StoreGoods extends StoreGoodsModel
                 }
             }
         }
+//        print_r($business);die;
+
         return ['goods'=>$new_data, 'room'=>$business];
     }
 

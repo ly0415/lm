@@ -40,12 +40,96 @@ class Cart extends CartModel{
         }
 
         $delivery_type  = $info[0]['delivery_type'];
+        if($delivery_type ==3||$delivery_type ==4){
+            return $this->getSettlementList($info, $user_id ,$address_id);
+        }else{
+            echo 3;die;
+            $store_id       = $info[0]['store_id'];
+            $cacheStore     = Store::getCacheAll()[$store_id];
+            //自提获取自提时间范围
+            if($delivery_type == 1){
+                $timeArea   = $this->getTineArea($cacheStore['store_start_time'], $cacheStore['store_end_time']);
+            }
+            //获取配送属性名称
+            $OrderModel     = new OrderModel();
+            //获取用户所属分销人员信息
+            $fxInfo         = FxUser::getBeloneFxUser($info[0]['user_id'], 'a.id,a.fx_code,a.discount,b.discounts');
+            $address        = UserAddress::detail($user_id,$address_id);
+            //获取最大抵扣睿积分和对应金额
+//        $point_price  = GoodsModelSpec::getStorePointSite($info[0]['store_id']);   //获取店铺可抵扣比例（后期替换掉）
+            //初始化返回数组
+            $pubArr = [
+                'data'              => [],
+                'delivery_type'     => $delivery_type,
+                'format_delivery_type'  => $OrderModel->delivery_type[$delivery_type],
+                'total_goods_num'   => 0,
+                'delivery_fee' => 0,
+                'percent' => [],
+                'rule_fee' => 0,
+                'shipping_fee' => 0,
+                'total_goods_price' => 0,
+                'fx_code'           => (!empty($fxInfo) ? $fxInfo['fx_code'] : ''),
+                'fx_user_id'           => (!empty($fxInfo) ? $fxInfo['id'] : ''),
+                'fx_discount_money' => 0,
+                'userAddress'       => $address,
+                'timeArea'          => (!empty($timeArea) ? $timeArea : ''),
+                'store_name'        => $cacheStore['store_name'] //获取店铺名称
+            ];
+
+            $goodsList  = [];
+            foreach ($info as $key => $value){
+
+                //获取原始商品运费
+                $pubArr['delivery_fee'] += StoreGoodsModel::getDeliveryFee($value['goods_id']) * $value['goods_num'];
+
+                //获取商品图片
+                $info[$key]['format_goods_image']   = (new StoreGoods)->where('id','=',$value['goods_id'])->value('original_img');
+
+                $goods_price_all                    = ($value['goods_price'] * $value['goods_num']);
+
+                //商品总价
+                $pubArr['total_goods_price']        += $goods_price_all;
+                $info[$key]['totalMoney']           = $goods_price_all;
+                //商品总数
+                $pubArr['total_goods_num']          += $value['goods_num'];
+                //获取规格名称
+                if($value['spec_key']){
+                    $info[$key]['format_spec_name'] = GoodsModelSpec::getGoodsSpecName($value['spec_key']);
+                }
+            }
+            $pubArr['data']         = $info;
+
+            if(isset($delivery_type) && $delivery_type == 2){
+                $shipping_fee       = StoreFare::getFare($pubArr['total_goods_num'], $store_id);
+                $pubArr['rule_fee'] = $shipping_fee;
+                $percent = StoreConsoleModel::getStorePercent($store_id);
+                if($percent == 0){
+                    $pubArr['percent'] = ['text'=>'活动期间，配送费全额减免','value'=>$percent];
+                }elseif ($percent > 0 && $percent < 1){
+                    $pubArr['percent'] = ['text'=>sprintf('活动期间，配送费打%s折',$percent * 10),'value'=>$percent];
+                }
+                $pubArr['shipping_fee']         = $pubArr['delivery_fee'] * $shipping_fee * $percent;
+                $pubArr['total_goods_price']    += $pubArr['delivery_fee'] * $shipping_fee * $percent;
+
+            }
+            if(!empty($fxInfo))
+                $pubArr['fx_discount_money'] = number_format(($pubArr['total_goods_price'] - $pubArr['shipping_fee']) * $fxInfo['discount'] * 0.01, 2, '.', '');
+            return $pubArr;
+        }
+
+    }
+
+    /**
+     * 总仓支配、海外  获取提交购物信息
+     * @author  ly
+     * @date    2019-11-21
+     */
+    public function getSettlementList($info, $user_id = 0, $address_id = 0){
+        $delivery_type  = $info[0]['delivery_type'];
         $store_id       = $info[0]['store_id'];
         $cacheStore     = Store::getCacheAll()[$store_id];
         //自提获取自提时间范围
-        if($delivery_type == 1){
-            $timeArea   = $this->getTineArea($cacheStore['store_start_time'], $cacheStore['store_end_time']);
-        }
+        $timeArea   = $this->getTineArea($cacheStore['store_start_time'], $cacheStore['store_end_time']);
         //获取配送属性名称
         $OrderModel     = new OrderModel();
         //获取用户所属分销人员信息
@@ -94,22 +178,9 @@ class Cart extends CartModel{
             }
         }
         $pubArr['data']         = $info;
-
-        if(isset($delivery_type) && $delivery_type == 2){
-            $shipping_fee       = StoreFare::getFare($pubArr['total_goods_num'], $store_id);
-            $pubArr['rule_fee'] = $shipping_fee;
-                $percent = StoreConsoleModel::getStorePercent($store_id);
-                if($percent == 0){
-                    $pubArr['percent'] = ['text'=>'活动期间，配送费全额减免','value'=>$percent];
-                }elseif ($percent > 0 && $percent < 1){
-                    $pubArr['percent'] = ['text'=>sprintf('活动期间，配送费打%s折',$percent * 10),'value'=>$percent];
-                }
-                $pubArr['shipping_fee']         = $pubArr['delivery_fee'] * $shipping_fee * $percent;
-                $pubArr['total_goods_price']    += $pubArr['delivery_fee'] * $shipping_fee * $percent;
-
-        }
         if(!empty($fxInfo))
             $pubArr['fx_discount_money'] = number_format(($pubArr['total_goods_price'] - $pubArr['shipping_fee']) * $fxInfo['discount'] * 0.01, 2, '.', '');
+        print_r($pubArr);die;
         return $pubArr;
     }
 

@@ -1,7 +1,0 @@
-
-{foreach from=$sendout item=val key=k name=sendout}
-<li>
-    <span class="sendTypeText">{$val}</span>
-    <span style="cursor: pointer" class="sendTypeChoose {if $dataId==$k} checkedType {/if}" id="{$k}"></span>
-</li>
-{/foreach}

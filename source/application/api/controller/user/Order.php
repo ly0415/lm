@@ -140,7 +140,8 @@ class Order extends Controller
             return $this->renderError($orderModel->getError());
         }
         $params = $order['order_sn'];
-        \QRcode::png($params);
+        //$text, $outfile = false, $level = QR_ECLEVEL_L, $size = 3, $margin = 4
+        \QRcode::png($params,false,QR_ECLEVEL_L,3,0);
     }
 
     /**

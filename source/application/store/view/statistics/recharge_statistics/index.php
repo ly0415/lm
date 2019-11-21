@@ -87,10 +87,7 @@
         ],
         yAxis : [
             {
-                type : 'value',
-                axisLabel: {
-                    formatter: '{value} °C'
-                }
+                type : 'value'
             }
         ],
         series : [
@@ -98,7 +95,7 @@
                 name:'充值总额',
                 type:'bar',
                 data:[<?php foreach($storeuserlist['data'] as $k=>$val){  ?>
-                    {value:<?= !empty($val['total'])?($val['total']):0?>,name:'张'},
+                    '<?= !empty($val['total'])?($val['total']):0?>',
                     <?php  } ?>]
             },
             <?php if(!empty($storeuserlist['type'])){ foreach($storeuserlist['type'] as $val){?>
@@ -107,7 +104,7 @@
                 type:'bar',
                 stack: '广告',
                 data:[<?php foreach($storeuserlist['data'] as $item){ if(!empty($item['list'])){  ?>
-                    {value:<?= !empty($item['list'][$val])?($item['list'][$val]['total']):0 ?>,name:'张'},
+                    '<?= !empty($item['list'][$val])?($item['list'][$val]['total']):0 ?>',
                     <?php      }else{?>
                     '0',
             <?php } }?>

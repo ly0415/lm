@@ -7,6 +7,7 @@
  */
 
 namespace app\api\controller;
+use app\api\service\BarCode128;
 use think\Config;
 use app\common\library\wechat\WxPay;
 use think\Db;
@@ -34,4 +35,11 @@ class Test extends Controller
         return $this->renderSuccess($payment);
 
     }
+
+    public function bcode(){
+        $barcode = new BarCode128('8888888');
+
+        $barcode->createBarCode();
+    }
+
 }

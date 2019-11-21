@@ -1,3 +1,0 @@
----------------------------------------------------------------
-[ 2019-08-05T09:43:43+08:00 ] 0.0.0.0 GET localhost/lmeriPro/newLmeri/web/index.php?s=/api/order/submitOrderShow/user_id/1/cart_ids/72123,72125,72126
-[ error ] [8]未定义数组索引: total_goods_price[D:\wamp\www\lmeriPro\newLmeri\source\application\api\model\Cart.php:58]

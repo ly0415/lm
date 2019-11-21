@@ -90,7 +90,7 @@ class StoreGoods extends Controller{
         }
         $model      = new StoreGoodsModel;
         $list       = $model->getStoreGoods($store_id, $rtid, $type, $page, $search_name, $type_id);
-        $this->setData(['goods'=>array_values($list['goods']), 'bus_type'=>array_values($list['room']), 'type'=>$type], '1', '');      //用老的方法
+        $this->setData(['goods'=>array_values($list['goods']), 'bus_type'=>array_values($list['room']), 'type'=>$type, 'type_id'=>$list['type_id']], '1', '');      //用老的方法
     }
 
     /**
