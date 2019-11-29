@@ -2561,7 +2561,27 @@ class UserCenterApp extends BasePhApp
         foreach ($res as $k => $v) {
             $store_address = explode('_', $v['address']);
             $res[$k]['address'] = $store_address[0];
+            if(!empty($v['mailing_address'])){
+                if($v['pays'] == 1){
+                    $maiadd['addre']   = $v['city'].$v['mailing_address'];
+                    $maiadd['id']      = $v['id'];
+                    $maiadd['default_addr']      = $v['default_addr'];
+                    $maiadd['phone']      = $v['phone'];
+                    $maiadd['name']      = $v['name'];
+                    $delivery_address[] = $maiadd;
+                }else{
+                    $maiadd['addre']   = $v['mailing_address'];
+                    $maiadd['id']      = $v['id'];
+                    $maiadd['default_addr']      = $v['default_addr'];
+                    $maiadd['phone']      = $v['phone'];
+                    $maiadd['name']      = $v['name'];
+                    $mailing_address[] = $maiadd;
+
+                }
+            }
         }
+        $address['a'] = !empty($delivery_address)?$delivery_address:[];
+        $address['b'] = !empty($mailing_address)?$mailing_address:[];
         $data = array(
             'langData' => $langData,
             'listData' => $res,
@@ -2569,6 +2589,7 @@ class UserCenterApp extends BasePhApp
             'lang_id' => $this->lang_id,
             'store_id' => $this->store_id,
             'auxiliary' => $auxiliary,
+            'address' => $address,
         );
         // if ($res){
         $this->setData($data,1,'');

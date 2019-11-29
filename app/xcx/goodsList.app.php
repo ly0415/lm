@@ -791,7 +791,7 @@ class GoodsListApp extends BasePhApp
             $this->langData->public->total_selection,
         );
 
-        $sql = "select * from " . DB_PREFIX . "cart where `user_id` = '{$this->userId}'";
+        $sql = "select * from " . DB_PREFIX . "cart where `user_id` = '{$this->userId}' AND is_buy_now != 1";
 
         $rsSql = $cartMod->querySql($sql);
         foreach ($rsSql as $k1 => $v1) {
@@ -804,7 +804,7 @@ class GoodsListApp extends BasePhApp
                 $cartMod->doDelete(array('cond' => "`goods_id` in ({$v1['goods_id']})"));
             }
         }
-        $sql = "select * from " . DB_PREFIX . "cart where `user_id` = '{$this->userId}'";
+        $sql = "select * from " . DB_PREFIX . "cart where `user_id` = '{$this->userId}' AND is_buy_now != 1";
         $rs = $cartMod->querySql($sql);
 //        echo '<pre>';
 //        var_dump($rs);die;

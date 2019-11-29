@@ -4,7 +4,7 @@
  * @author: luffy
  * @date:   2018-08-21
  */
-class OperateApp extends BasePhApp{
+class Operate1App extends BasePhApp{
     private $goodsCommentMod;
     private $cartMod;
     private $fxUserMod;
@@ -657,25 +657,34 @@ class OperateApp extends BasePhApp{
      */
     public function doCart()
     {
-
-        $store_goods_id = !empty($_REQUEST['store_goods_id']) ? htmlspecialchars($_REQUEST['store_goods_id']) : '';
-        $item_id = !empty($_REQUEST['item_id']) ? htmlspecialchars($_REQUEST['item_id']) : '';
-        $goods_num = !empty($_REQUEST['goods_num']) ? htmlspecialchars($_REQUEST['goods_num']) : '';
-        $laton = !empty($_REQUEST['latlon']) ? htmlspecialchars(trim($_REQUEST['latlon'])) : '0';
-
-        $prom_id = !empty($_REQUEST['prom_id']) ? htmlspecialchars($_REQUEST['prom_id']) : '0';
-        $goods_price = !empty($_REQUEST['goods_price']) ? htmlspecialchars($_REQUEST['goods_price']) : '';
-        $shipping_price = !empty($_REQUEST['shipping_price']) ? htmlspecialchars($_REQUEST['shipping_price']) : '0';
-        $order_from = !empty($_REQUEST['order_from']) ? htmlspecialchars($_REQUEST['order_from']) : '0';
-        $store_id = !empty($_REQUEST['store_id']) ? htmlspecialchars($_REQUEST['store_id']) : $this->store_id;
-        $lang = !empty($_REQUEST['lang_id']) ? htmlspecialchars($_REQUEST['lang_id']) : $this->lang_id;
-        $shipping_store_id = !empty($_REQUEST['shipping_store_id']) ? (int) ($_REQUEST['shipping_store_id']) : 0 ;
-        $auxiliary = !empty($_REQUEST['auxiliary']) ? htmlspecialchars(trim($_REQUEST['auxiliary'])) : '0';
-        $type =!empty($_REQUEST['type']) ? $_REQUEST['type'] : 0;
-        $deliveryType =!empty($_REQUEST['deliverytype']) ? $_REQUEST['deliverytype'] : 0;
-        if(!$this->userId){
-            $this->setData($info = array(),0, '参数错误');
-        }
+        $user_id=18918;
+        $lang_id=29;
+        $item_id= 1064;
+        $goods_price= 8909.00;
+        $store_id= 78;
+        $store_goods_id= 27753;
+        $shipping_store_id= 78;
+        $goods_num= 1;
+        $order_from= 2;
+        $deliveryType= 3;
+//        $store_goods_id = !empty($_REQUEST['store_goods_id']) ? htmlspecialchars($_REQUEST['store_goods_id']) : '';
+//        $item_id = !empty($_REQUEST['item_id']) ? htmlspecialchars($_REQUEST['item_id']) : '';
+//        $goods_num = !empty($_REQUEST['goods_num']) ? htmlspecialchars($_REQUEST['goods_num']) : '';
+//        $laton = !empty($_REQUEST['latlon']) ? htmlspecialchars(trim($_REQUEST['latlon'])) : '0';
+//
+//        $prom_id = !empty($_REQUEST['prom_id']) ? htmlspecialchars($_REQUEST['prom_id']) : '0';
+//        $goods_price = !empty($_REQUEST['goods_price']) ? htmlspecialchars($_REQUEST['goods_price']) : '';
+//        $shipping_price = !empty($_REQUEST['shipping_price']) ? htmlspecialchars($_REQUEST['shipping_price']) : '0';
+//        $order_from = !empty($_REQUEST['order_from']) ? htmlspecialchars($_REQUEST['order_from']) : '0';
+//        $store_id = !empty($_REQUEST['store_id']) ? htmlspecialchars($_REQUEST['store_id']) : $this->store_id;
+//        $lang = !empty($_REQUEST['lang_id']) ? htmlspecialchars($_REQUEST['lang_id']) : $this->lang_id;
+//        $shipping_store_id = !empty($_REQUEST['shipping_store_id']) ? (int) ($_REQUEST['shipping_store_id']) : 0 ;
+//        $auxiliary = !empty($_REQUEST['auxiliary']) ? htmlspecialchars(trim($_REQUEST['auxiliary'])) : '0';
+//        $type =!empty($_REQUEST['type']) ? $_REQUEST['type'] : 0;
+//        $deliveryType =!empty($_REQUEST['deliverytype']) ? $_REQUEST['deliverytype'] : 0;
+//        if(!$this->userId){
+//            $this->setData($info = array(),0, '参数错误');
+//        }
         $cart_data = array(
             'store_goods_id'    => $store_goods_id,
             'item_id'           => $item_id,
@@ -689,9 +698,9 @@ class OperateApp extends BasePhApp{
             'shipping_store_id' => $shipping_store_id,
             'delivery_type' => $deliveryType
         );
-
-        $rs = $this->cartMod->addCart($cart_data, $goods_num,$type);
-
+        print_r($cart_data);
+        $rs = $this->cartMod->addCart1($cart_data, $goods_num,$type);
+ echo 2;die;
         $data=array(
             'store_id'=>$store_id,
             'cart_id'=>$rs
@@ -2178,10 +2187,7 @@ public function storeName($store_id, $auxiliary, $lang_id)
             return false;
         }
         $result = $this->xml_to_data( $response );
-        if($store_id == 98){
-            $orderRelationMod = &m('orderRelation' . $store_id);
-            $orderRelationMod->doEditSpec(array('order_sn'=>$out_trade_no),array('prepay_id'=>$result['prepay_id']));
-        }
+
         $result['timeStamp'] = $time;
         $result['nonce_str'] = $wOpt['nonce_str'];
         $paySign =  MD5("appId=". $appid."&nonceStr=".$result['nonce_str']."&package=prepay_id=".$result['prepay_id']."&signType=MD5&timeStamp=".$time."&key=".$apiKey);

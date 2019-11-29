@@ -3053,7 +3053,284 @@ class goodsList1App extends BasePhApp
             }
         }
     }
- 
+
+    /**
+     * 确认下单按钮操作
+     * @author wanyan
+     * @date 2017-10-23
+     */
+    public function comfirm2() {
+        $cartMod=&m('cart');
+        $storeMod=&m('store');
+        $userAddressMod=&m('userAddress');
+        $userMod = &m('user');
+        $orderMod=&m('order');
+        $orderDetailMod=&m('orderDetail');
+//        $cart_ids = !empty($_REQUEST['cart_ids']) ? htmlspecialchars($_REQUEST['cart_ids']) : ''; //购物车id
+//        $seller_msg = !empty($_REQUEST['seller_msg']) ? htmlspecialchars($_REQUEST['seller_msg']) : ''; //留言
+//        $addressId = !empty($_REQUEST['addressId']) ? htmlspecialchars($_REQUEST['addressId']) : 0; //地址id
+//        $fxPhone = !empty($_REQUEST['fxPhone']) ? $_REQUEST['fxPhone'] : ''; //分销code
+//        $storeid = !empty($_REQUEST['store_id']) ? intval($_REQUEST['store_id']) : ''; //店铺
+//        $lang = !empty($_REQUEST['lang']) ? intval($_REQUEST['lang']) : $this->langid; //语言
+//        $discount_rate = !empty($_REQUEST['discount_rate']) ? intval($_REQUEST['discount_rate']) : '';//分销抵扣比例
+//        $point = !empty($_REQUEST['point']) ? $_REQUEST['point'] : ''; //睿积分数值
+//        $price = !empty($_REQUEST['price']) ? $_REQUEST['price'] : '';//睿积分抵扣金额
+//        $sendout = !empty($_REQUEST['sendout']) ? $_REQUEST['sendout'] : 1; //配送方式 数组形式 商品id-配送方式
+//        $pei_time = !empty($_REQUEST['pei_time']) ? strtotime(date('Y-m-d ').$_REQUEST['pei_time']) : '';
+//        $shippingfee = !empty($_REQUEST['shippingfee']) ? htmlspecialchars($_REQUEST['shippingfee']) : 0; //邮费
+//        $fx_user_id = !empty($_REQUEST['fx_user_id']) ? intval($_REQUEST['fx_user_id']) : ''; //分销用户id
+//        $couponId = !empty($_REQUEST['couponId']) ? $_REQUEST['couponId'] : 0;//优惠劵Id
+//        $userCouponId=!empty($_REQUEST['userCouponId']) ? $_REQUEST['userCouponId']:0;//用户优惠劵Id
+//        $discount_price=!empty($_REQUEST['discount_price']) ? $_REQUEST['discount_price'] : 0;//优惠劵优惠金额
+//        //生成小票编号
+
+        $storeid=98;
+        $addressId=1079;
+        $discount_price=0;
+        $sendout=1;
+        $discount_rate=0;
+        $price=0;
+        $userCouponId=0;
+        $shippingfee=0;
+        $seller_msg='wwwww';
+        $cart_ids='116439,116438';
+        $couponId='';
+        $number_order = $this->createNumberOrder($storeid);
+        if(!empty($cart_ids)){ //购物车商品信息
+            //订单信息
+            //订单号生成
+            $rand = $this->buildNo(1);
+            $orderNo = date('YmdHis') . $rand[0];
+            $sql = "select c.user_id,c.store_id,c.shipping_store_id,SUM(c.goods_price*goods_num) as goods_amount,u.email,u.username from " .
+                DB_PREFIX . "cart as c  LEFT JOIN " . DB_PREFIX . "user as u ON c.user_id = u.id  where c.`id` in  ({$cart_ids}) ";
+            $orderInfo = $cartMod->querySql($sql);
+            //获取购物车信息
+            $goodsInfo = $cartMod->getGoodByCartId($cart_ids);
+            //店铺名称
+            $orderInfo[0]['store_name'] = $storeMod->getNameById($orderInfo[0]['shipping_store_id'],$lang);
+            $storeName = $orderInfo[0]['store_name']; //店铺名称
+            $goodsAmount = $orderInfo[0]['goods_amount'] ; //订单商品金额
+            $storeId = $orderInfo[0]['shipping_store_id'] ;  //店铺id
+            $buyerId=$orderInfo[0]['user_id']; //购买者
+        }
+        print_r($goodsInfo);print_r($orderInfo);
+        //商品库存判断
+        foreach($goodsInfo as $k=>$v){
+            $invalid=$cartMod->isInvalid($v['goods_id'],$v['spec_key']);
+            if($invalid<$v['goods_num']){
+                $this->setData(array(),'0',$v['goods_name'].'商品库存不足');
+            }
+        }
+        //获取用户地址信息
+        $user_address = $userAddressMod->getAddress($addressId);
+        print_r($user_address);die;
+        $fxuserInfo = array();
+        //分销优惠金额计算
+        if (!empty($fxPhone)) {
+            $fxuserMod      = &m('fxuser');
+            $fxuserInfo     = $fxuserMod->getOne(array('cond' => "fx_code = '{$fxPhone}' AND mark = 1"));
+            $discount = (($goodsAmount - $price-$discount_price) * $fxuserInfo['discount'] * 0.01);
+        } else {
+            $discount = 0;
+        }
+        $couponType = 0;
+        $couponMod = &m('coupon'); //优惠劵模型
+        //是否使用了优惠劵
+        if(!empty($couponId)){
+            $couponData = $couponMod->getOne(array('cond' => "`id` = '{$couponId}'", 'fields' => "type")); //1代表 抵扣劵 2是兑换券
+            $couponType = $couponData['type']; //优惠劵类型  1代表 抵扣劵 2是兑换券
+            $cmod = &m('userCoupon');
+            $userCoupon = $cmod->getOne(array('cond' => "`id` = '{$userCouponId}' AND `user_id` = '{$buyerId}' AND `c_id` = '{$couponId}'"));
+            $order_amount = $goodsAmount + $shippingfee - $discount - $price-$discount_price;
+            $lmod = &m('errorlog');
+            $lmod->doInsert(array('request_params'=>$orderNo,'deal_params'=>$couponId,'user_id'=>$buyerId,'add_time'=>time()));
+        }else{
+            $order_amount = $goodsAmount + $shippingfee - $discount - $price;
+        }
+        if ($order_amount <= 0) {
+            $order_amount = 0.01;
+        }
+
+        if(!empty($couponId) && !empty($userCoupon) &&  $couponType == 2){
+            $order_amount = $shippingfee;
+            $discount = 0;//分销价格
+            $fxuserInfo = array();
+            $lmod = &m('errorlog');
+            $lmod->doInsert(array('request_params'=>$orderNo,'deal_params'=>$couponId,'important_params'=>$couponType,'user_id'=>$buyerId,'add_time'=>time()));
+        }
+
+        //收货信息
+//        $count = strpos($user_address['address'], "_");
+//        if($count==false){
+//            $addressStr=$user_address['address'];
+//        }else{
+//            $addressStr = substr_replace($user_address['address'], "", $count, 1);
+//        }
+//        $userData=$userMod->getOne(array('cond'=>"`id` = '{$this->userId}' and mark=1",'fields'=>'phone'));
+//        if (empty($user_address)) {
+//            $user_address['phone'] = $userData['phone'];
+//            $user_address['name'] = $userData['phone'];
+//        }
+        // 主订单数据
+        $insert_main_data = array(
+            'order_sn' => $orderNo,
+            'store_id' => $storeId,
+            'sendout' => $sendout,
+            'store_name' => $storeName,
+            'buyer_id' => $buyerId,
+//            'buyer_name' => addslashes($user_address['name']),
+            'buyer_email' => '',
+            'goods_amount' => $goodsAmount,
+            'order_amount' => $order_amount,
+            'shipping_fee' => $shippingfee,
+            'order_state' => 10,
+            'order_from' => 2,
+//            'buyer_address' => $addressStr,
+//            'buyer_phone' => $user_address['phone'],
+            'discount' => $discount,//分销
+            'fx_discount_rate' => $discount_rate,
+            'fx_phone' => $fxPhone,
+            'add_time' => time(),
+//            'number_order' => $number_order, //生成小票编号
+            'seller_msg' => $seller_msg, //订单的留言
+            'sub_user' => 2,
+            'is_source'=>3,
+            'fx_user_id'=> $fxuserInfo['id'] ? $fxuserInfo['id'] : 0,
+        );
+        //优惠劵
+        if(!empty($couponId)){
+            $insert_main_data['cid']=$couponId;
+            $insert_main_data['cp_amount']=$discount_price;
+        }
+        print_r($insert_main_data);die;
+        try {
+            //事务开始
+            $orderMod->begin();
+            //原来生成订单数据
+            $main_rs = $orderMod->doInsert($insert_main_data);
+            //生成新的订单表数据
+            $insert_main_data['cp_amount']=$discount_price;
+            $insert_main_data['pd_amount']=$price;
+            $insert_main_data['fx_money']=$discount;
+            $insert_main_data['pei_time']=$pei_time;
+            $insert_main_data['address_id']=$addressId;
+            $insert_main_data['delivery'] = $user_address;
+            $createOrderRes = $orderMod->createOrder($insert_main_data,1);
+            if (empty($main_rs) || empty($createOrderRes)) {
+                //事务回滚
+                $orderMod->rollback();
+                $this->setData(array(), 0, '提交订单失败');
+            } else {
+                //事务提交
+                $orderMod->commit();
+            }
+        } catch (Exception $e) {
+            //事务回滚
+            $orderMod->rollback();
+            writeLog($e->getMessage());
+            $this->setData(array(), 0, '提交订单失败');
+        }
+        if(!empty($couponId)){
+            //用户使用优惠劵记录
+            $couponLogMod=&m('couponLog');
+            $couponLogData=array(
+                'user_coupon_id'=>$userCouponId,
+                'coupon_id'=>$couponId,
+                'user_id'=>$this->userId,
+                'order_id'=>$main_rs,
+                'order_sn'=>$orderNo,  // by xt 2019.03.21
+                'add_time'=>time()
+            );
+            $couponLogMod->doInsert($couponLogData);
+        }
+
+        //免费兑换修改支付状态
+//        if(!empty($couponId) && !empty($userCoupon) && $couponType == 2){
+//            $datas = array(
+//                'pay_sn' => '免费兑换',
+//                'payment_code' => '免费兑换',
+//                'payment_time' => time(),
+//                'order_state' => 20, //已付款状态
+//                'is_old' => 1
+//            ); //区域配送安装完成时间
+//            $conds = array(
+//                'order_sn' => $orderNo
+//            );
+//            $lmod = &m('errorlog');
+//            $lmod->doInsert(array('request_params'=>$orderNo,'deal_params'=>$couponId,'important_params'=>$couponType,'user_id'=>$buyerId,'add_time'=>time()));
+//            $res = $orderMod->doEditSpec($conds, $datas);
+//            $orderMod->update_pay_time($storeid, $orderNo, '免费兑换',5);
+//            $this->updateStock($orderNo);
+//        }
+
+        // 先插入子订单
+        if ($main_rs) {
+            foreach ($goodsInfo as $k => $v) {
+                if(!empty($activityInfo)){
+                    $goodsPayPrice = $v['discount_price'] ;
+                    $goodsPrice = $v['goods_price'];
+                    $insert_sub_data['prom_id']=$v['prom_id'];
+                    $insert_sub_data['prom_type']=$v['prom_type'];
+                }else{
+                    $goodsPayPrice =$orderMod->getGoodsPayPrice($v['store_id'],$v['goods_id'],$v['spec_key']);
+                    $goodsPrice = $orderMod->getPrice($v['store_id'],$v['goods_id'],$v['spec_key']);
+                }
+                $insert_sub_data = array(
+                    'order_id' => $orderNo,
+                    'goods_id' => $v['goods_id'],
+                    'goods_name' => addslashes(stripslashes($v['goods_name'])),
+                    'goods_price' => $goodsPrice,
+                    'goods_num' => $v['goods_num'],
+                    'goods_image' => $this->getGoodImg($v['goods_id'], $v['store_id']),
+                    'goods_pay_price'=>$goodsPayPrice,
+                    'spec_key_name' => $v['spec_key_name'],
+                    'spec_key' => $v['spec_key'],
+                    'store_id' => $v['store_id'],
+                    'buyer_id' => $v['user_id'],
+                    'goods_type' => 0,
+                    'order_state' => 10,
+                    'fx_code' => $v['fx_code'],
+                    'discount' => ($v['goods_price'] + $shippingfee) * ($fxuserInfo['discount']) * 0.01,
+                    'discount_rate' => $fxuserInfo['discount'],
+                    'shipping_price' => $v['shipping_price'],
+                    'shipping_store_id' => $v['shipping_store_id'],
+                    'add_time' => time(),
+                    'good_id'=>$this->getGoodId($v['goods_id']),
+                    'deduction'=>$this->getDeduction($v['goods_id'])
+                );
+                if(!empty($activityInfo)){
+                    $insert_sub_data['prom_id']=$v['prom_id'];
+                    $insert_sub_data['prom_type']=$v['prom_type'];
+                }
+                $rs[] = $orderDetailMod->doInsert($insert_sub_data);
+            }
+            $rs = array_filter($rs);
+            if (count($rs)) {
+
+
+
+                if ($this->delCart($cart_ids)) {
+                    //添加积分优惠
+                    if ($price && $price!='0.00') {
+                        $this->getPointPrice($orderNo, $price, $point);
+                    }
+                    $info = array(
+                        'orderNo'=>$orderNo,
+                        'orderId'=>$main_rs,
+                        'storeId'=>$storeId
+                    );
+                    //分单
+                    $orderMod=&m('order');
+                    $orderMod->separateOrder($orderNo,2,1);
+                    $this->setData($info, $status = 1, '提交订单成功,请前往支付');
+                } else {
+                    $this->setData($info = array(), $status = 0, '提交订单失败');
+                }
+            }
+        }
+    }
+
+
 
    /**
      * 确认下单按钮操作
