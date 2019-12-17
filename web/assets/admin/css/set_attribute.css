@@ -1,0 +1,219 @@
+#earlyBox>div{
+    float:left;
+    margin-right:40px;      
+}
+
+#addInfomBox .shopinfoEach{
+    width:700px;
+    padding-top:10px;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#addInfomBox .shopinfoEach:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+#addInfomBox .shopinfoEach>div{
+   font-size: 14px;
+   color:#555;
+   float: left;
+}
+
+#addInfomBox .shopinfoEach .shopNameAlls{
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10px;
+}
+
+#addInfomBox .shopinfoEach .shopNameAlls>div{
+    position:relative;
+    margin-right: 25px;
+    width:80px;
+    text-align:center;
+    margin-bottom:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+#addInfomBox .shopinfoEach .shopNameAlls>div>i{
+    position:absolute;
+    top:-15px;
+    right:-10px;
+    display: none;
+}
+
+#addInfomBox .shopinfoEach .shopNameAlls>div:hover i{
+    display: block;
+}
+
+#addInfomBox .shopinfoEach>i{
+    position: absolute;
+    top:-15px;
+    right:-10px;
+    display: none;
+}
+
+#addInfomBox .shopinfoEach:hover i{
+    display: block;
+}
+
+#addInfomBox {
+    position: relative;
+}
+
+.select-content{
+    position: relative;
+}
+
+.select-content .search-select {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 40px;
+    z-index: 999;
+    min-width: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+.select-content .search-select .select-ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.select-content .search-select .select-ul .li-select {
+    color: #555;
+    padding: 2px 10px;
+    cursor: pointer;
+}
+.select-content .search-select .select-ul .li-hover {
+    /* color: #fff; */
+    background-color: #cfcfcf;
+}
+
+.tipText{
+    font-size:14px;color:#ff3838cf;
+}
+
+.shopsContent{
+    width:500px;
+}
+
+.shopsContent>li{
+    float:left;
+    position:relative;
+    text-align:center;
+    line-height:30px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    margin:0 10px 10px 0;
+    padding:5px 10px;
+    box-sizing:border-box;
+    background:#fff;
+}
+
+.shopsContent>li>i{
+    position:absolute;
+    top:-10px;
+    right:-10px;
+}
+.am-modal-bd{
+    position: relative;
+}
+.specBox{
+    text-align: left;
+    padding: 20px 20px 10px 20px;
+    margin-bottom: 10px;
+}
+.specBox>div{
+    margin-bottom: 10px;
+    display: flex;
+}
+.specName{
+    width: 100px;
+}
+.specBox .specVal{
+    display: flex;
+    width: 410px;
+    flex-wrap: wrap;
+}
+.specVal>span{
+    display: inline-block;
+    padding: 0 10px;
+    background-color: rgb(220, 220, 220);
+    color: #333333;
+    outline: none;
+    margin: 0 10px 5px 0;
+    border-radius: 3px;
+}
+.row>.priceCount{
+    width: 50%;
+}
+
+.row>input{
+    width: 160px;
+    height: 32px;
+    border:0;
+    border-bottom: 1px solid #d6d6d6;
+    padding: 6px 5px;
+    outline:none;
+}
+.row>span{
+    display: inline-block;
+    width: 100px;
+    height: 32px;
+    line-height: 45px;
+    text-align: right;
+    padding-right: 10px;
+}
+.row>.specName{
+    text-align: right;
+    padding-right: 10px;
+}
+
+.priceCount>.count{
+    color: red;
+}
+.priceCount>.perPrice{
+    color: red;
+}
+.specVal>.activeAttr{
+    background-color: #bea58c;
+    color: white;
+}
+.specVal>button{
+    width: 60px;
+    height: 30px;
+    background-color: #fff;
+    outline: none;
+    border: 1px solid rgb(196, 196, 196);
+}
+.numBox{
+    height: 30px;
+    line-height: 30px;
+}
+.btnBox{
+    padding: 10px;
+    width: 430px;
+    text-align: right;
+    bottom: 0;
+    background-color: #f8f8f8;
+    border-top: 1px solid #cecece;
+}
+.btnBox>button{
+    background-color: #bea58c;
+    color: white;
+    border: none;
+    outline: none;
+    height: 30px;
+    width: 60px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 15px;
+}

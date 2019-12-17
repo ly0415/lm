@@ -1,0 +1,149 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#Index{
+    width: 100%;
+    background-color: #ffffff;
+    .header{
+        padding: 10px 0 10px 81px;
+        box-sizing: border-box;
+        background-color: #e84c3d;
+        display: flex;
+        .shopImg{
+            width: 100px;
+            height: 100px;
+            background-color: #ccc;
+        }
+        .shopTit{
+            margin-left: 30px;
+            .cName{
+                font-size: 36px;
+                font-weight: bold;
+                color: #fff;
+                margin-top: 10px;
+            }
+            .eName{
+                font-size:20px;
+                // font-weight: bold;
+                color: #ccc;
+                margin-top: 5px;
+            }
+        }
+    }
+    .content{
+        width: 860px;
+        height:420px;
+        margin: 0 auto;
+        margin-top: 54px;
+        display: flex;
+        div{
+            height:420px;
+        }
+        .partLeft{
+            width: 440px;
+            position: relative;
+           div{
+             width: 200px;
+             margin-right: 20px;
+             background-color: #e84c3d;
+             border-radius: 15px;
+             position: absolute;
+             padding-top: 32px;
+             box-sizing: border-box;
+             span{
+                 display: block;
+             }
+             .icon{
+                 width: 100%;
+                  img{
+                     width: 80px;
+                     height:80px;
+                     margin: 0 auto;
+                     display: block;
+                    //  margin: 0 auto;
+                 }
+             }
+             .text{
+                 margin-top: 20px;
+                 text-align: center;
+                 font-size: 30px;
+                 color: #fff;
+             }
+           }  
+           .order{
+              top:0;
+              left: 0;
+           }
+           .orderHistory{
+               height:200px;
+               top:0;
+               right: 0;
+           }
+           .coming{
+               height:200px;
+               right:0;
+               margin-top: 20px;
+               bottom:0;
+           }
+        }
+        .partRight{
+            width: 420px;
+            position: relative;
+            div{
+                width: 200px;
+                height:200px;
+                background-color: #e84c3d;
+                position: absolute;
+                border-radius: 15px;
+                padding-top: 32px;
+                box-sizing: border-box;
+                span{
+                    display: block;
+                }
+                .icon{
+                    width: 100%;
+                     img{
+                        width: 80px;
+                        height:80px;
+                        margin: 0 auto;
+                        display: block;
+                        margin: 0 auto;
+                    }
+                }
+                .text{
+                    margin-top: 20px;
+                    text-align: center;
+                    font-size: 30px;
+                    color: #fff;
+                }
+            }
+            .preOrders{
+                margin-right: 20px;
+                top:0;
+                left:0;
+            }
+            .set{
+                top:0;
+                right: 0;
+            }
+            .coming{
+                width: 420px;
+                margin-top: 20px;
+                bottom:0;
+                left: 0;
+                right: 0;
+                .icon{
+                    img{
+                        margin-right: 58px;
+                    }
+                }
+                .text{
+                    text-align: right;
+                    padding-right: 40px;
+                    box-sizing: border-box;
+                }
+            }
+        }
+    }
+}

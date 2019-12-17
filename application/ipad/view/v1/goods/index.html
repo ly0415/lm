@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商品展示</title>
+    <link rel="stylesheet" href="assets/ipad/css/goodsDisplay.css">
+    <link rel="stylesheet" href="assets/ipad/css/element-index.css">
+</head>
+
+<body>
+    <div id="app"></div>
+    <template id="root">
+        <div id="goodsDesplay">
+            <!-- 固定导航部分 -->
+            <div class="nav">
+                <div class="navBox">
+                    <form action="">
+                        <img src="assets/ipad/images/sousuo.png" alt="">
+                        <input type="text" placeholder="输入物品名称">
+                    </form>
+                </div>
+            </div>
+
+            <!-- 内容部分 -->
+            <div class="container">
+                <!-- 左侧固定菜单导航 -->
+                <div class="menusNav">
+                    <div class="itemBox" v-for="(goods,index) in goodBox" :key="'goods_'+index"
+                        @click="addClass(index) ">
+                        <div class="c_text">
+                            <a :href="'#'+goods.id" :class="{show:index==nowIndex}">{{goods.classify}}</a>
+                        </div>
+                        <img src="assets/ipad/images/cBgImg.png" alt="" :class="{active:index==nowIndex}">
+                    </div>
+                </div>
+
+                <!-- 右侧商品部分 -->
+                <div class="goodsMenus">
+                    <div class="goodsMenusBox" v-for="(goods,i) in goodBox" :key="'goods_'+i">
+                        <!-- 设置暗锚点 -->
+                        <a :name="goods.id" style="position:relative;top: -110px;display: block;height: 0px;overflow: hidden;"></a>
+                        <!-- 真实锚点显示地方 -->
+                        <div class="title">
+                            <div class="s"></div>
+                            <span class="div">{{goods.title}}</span>
+                        </div>
+                        <div class="goodsItem">
+                            <div class="itemsBox"  v-for="(v,i) in goods.goodsInfo" :key="'v_'+i">
+                                <div class="goodsImgBox" >
+                                    <img :src="v.img" alt="">
+                                </div>
+                                <div class="goodsTitleBox">{{v.text}}</div>
+                                <div class="goodsPriceBox">
+                                    <div class="priceBox">
+                                        <span class="iconY">￥</span>
+                                        <span class="price">{{v.price}}</span>
+                                        <span class="txt">起</span>
+                                    </div>
+                                    <div class="addBox"  @click="dialogVisible=true">
+                                        <img src="assets/ipad/images/add.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 添加页面 -->
+            <el-dialog :visible.sync="dialogVisible" top="65px" width="750px" :show-close="false">
+                <div class="dialogBox">
+                    <div class="perRow">
+                        <div class="perRowTitle">{{Feeding.title}}</div>
+                        <ul class="perRowList">
+                            <li v-for="(val2,index2) in Feeding.content" :key="'FeedingContent_'+index2"
+                                @click="change2(index2)" :class="{active:index2==selectBtn2}">{{val2}}</li>
+                        </ul>
+                    </div>
+                    <div class="perRow">
+                        <div class="perRowTitle">{{temperature.title}}</div>
+                        <ul class="perRowList">
+                            <li v-for="(val3,index3) in temperature.content" :key="'temperatureContent_'+index3"
+                                @click="change3(index3)" :class="{active:index3==selectBtn3}">{{val3}}</li>
+                        </ul>
+                    </div>
+                    <div class="perRow">
+                        <div class="perRowTitle">{{sugarcontent.title}}</div>
+                        <ul class="perRowList">
+                            <li v-for="(val4,index4) in sugarcontent.content" :key="'sugarcontentContent_'+index4"
+                                @click="change4(index4)" :class="{active:index4==selectBtn4}">{{val4}}</li>
+                        </ul>
+                    </div>
+                    <div class="perRow numPart">
+                        <div class="leftBox">
+                            <div class="perRowTitle">数量</div>
+                            <div class="addReduce">
+                                <div @click="down" class="reduceBtn numBtn">-</div>
+                                <div class="numBox numBtn">{{num}}</div>
+                                <div @click="up" class="addBtn numBtn">+</div>
+                                <div class="price">￥{{totalPrice}}</div>
+                            </div>
+                        </div>
+                        <div class="rightPart">
+                            <div class="Stock perRowTitle">库存</div>
+                            <div class="glassTotal">{{num2}}杯</div>
+                        </div>
+                    </div>
+                    <div class="bottomBox">
+                        <div class="orderBtn" @click="order()">确认下单</div>
+                    </div>
+                </div>
+            </el-dialog>
+        </div>
+    </template>
+    <script src="assets/ipad/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/ipad/js/vue.js"></script>
+    <script src="//unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            template: '#root',
+            // mounted: function () {
+            //     var lis = document.querySelectorAll('.goodsMenus .goodsMenusBox');
+            //     var mlis = document.querySelectorAll('.menusNav .itemBox a');
+            //     var Ilis  = document.querySelectorAll('.menusNav .itemBox img')
+            //     window.onscroll = function (e) {
+            //     mlis.forEach(function (el) {
+            //        el.style.background = '';
+            //        el.style.color = '';
+            //     });
+            //     Ilis.forEach(function (el) {
+            //         el.style.display = '';
+            //     ;
+            //     });
+            //     lis.forEach(function (el, index) {
+            //         var scrollTop = document.documentElement.scrollTop;
+            //         var offsetTop = el.offsetTop;
+            //         var clientHeight = el.clientHeight;
+            //         if (scrollTop >= offsetTop && scrollTop <= offsetTop + clientHeight) {
+            //         mlis[index].style.background = 'rgba(0,0,0,0)';
+            //         mlis[index].style.color = '#fff';
+            //         Ilis[index].style.display = 'block';
+
+            //         }
+            //     });
+            //     }
+            // },
+            data() {
+                return {
+                    selectBtn2: 0,
+                    selectBtn3: 0,
+                    selectBtn4: 0,
+                    price: 15,
+                    totalPrice: 15,
+                    num: 1,
+                    num2: 100,
+                    dialogVisible: false,
+                    Feeding: {
+                        title: "加料",
+                        content: ['常规', '椰果', '珍珠']
+                    },
+                    temperature: {
+                        title: "温度",
+                        content: ['常规冰', '多冰', '少冰', '不加冰']
+                    },
+                    sugarcontent: {
+                        title: "糖度",
+                        content: ['常规糖', '多糖', '少糖', '不加糖']
+                    },
+                    nowIndex: 0,
+                    jFlag: true,
+                    goodBox: [
+                        {
+                            "id": "p1",
+                            "title": '各式各样的奶茶1',
+                            "classify": "物品类别1",
+                            "goodsInfo": [
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '22.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '12.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '33.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '35.0' },
+                            ]
+                        },
+                        {
+                            "id": "p2",
+                            "title": '各式各样的奶茶2',
+                            "classify": "物品类别2",
+                            "goodsInfo": [
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '34.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '44.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '33.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '44.0' },
+                            ]
+                        },
+                        {
+                            "id": "p3",
+                            "title": '各式各样的奶茶3',
+                            "classify": "物品类别3",
+                            "goodsInfo": [
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '43.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '23.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '12.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '18.0' },
+                            ]
+                        },
+                        {
+                            "id": "p4",
+                            "title": '各式各样的奶茶4',
+                            "classify": "物品类别4",
+                            "goodsInfo": [
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '22.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '32.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '15.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '19.0' },
+                            ]
+                        },
+                        {
+                            "id": "p5",
+                            "title": '各式各样的奶茶5',
+                            "classify": "物品类别5",
+                            "goodsInfo": [
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '23.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '12.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '18.0' },
+                                { "img": "assets/ipad/images/timg.png", "text": "奶茶名凑字数的凑字数 凑字数凑字数 凑字数凑字数凑字数凑字数凑字数凑字数", "price": '32.0' },
+                            ]
+                        },
+                    ],
+                    classes: [
+                        { "title": '加料', 'content': ['常规', '椰果', '珍珠'] },
+                        { "title": '温度', 'content': ['常规冰', '多冰', '少冰', '不加冰'] },
+                        { "title": '糖度', 'content': ['常规糖', '多糖', '少糖', '不加糖'] }
+                    ]
+
+                }
+            },
+            created(){
+
+            },
+            methods: {
+                order() {
+                    this.dialogVisible = false;
+                    this.selectBtn2 = 0;
+                    this.selectBtn3 = 0;
+                    this.selectBtn4 = 0;
+                    this.num = 1;
+                    this.tolalPrice = 15;
+                },
+                down() {
+                    if (this.num > 1) {
+                        this.num--;
+                        this.totalPrice = this.price * this.num;
+                    } else {
+                        if (this.jFlag) {
+                            this.jFlag = false;
+                            this.$message({
+                                message: '不能再减啦！',
+                                type: 'warning',
+                                duration: 1000,
+                                onClose: () => {
+                                    this.jFlag = true;
+                                }
+
+                            });
+                        }
+                    }
+                },
+                up() {
+                    if (this.num >= this.num2) {
+                        this.jFlag = false;
+                        this.$message({
+                            message: ' 没有库存啦！',
+                            type: 'warning',
+                            duration: 1000,
+                            onClose: () => {
+                                this.jFlag = true;
+                            }
+                        })
+                        this.num = this.num2;
+                    } else {
+                        this.num++;
+                        this.totalPrice = this.price * this.num;
+                    }
+
+                },
+                change2(index) {
+                    this.selectBtn2 = index;
+                },
+                change3(index) {
+                    this.selectBtn3 = index;
+                },
+                change4(index) {
+                    this.selectBtn4 = index;
+                },
+                addClass(index) {
+                    this.nowIndex = index;
+                },
+            }
+        })
+    </script>
+</body>
+
+</html><SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>
