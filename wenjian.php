@@ -225,7 +225,13 @@ Db::name('')->where([''])
         arr.push(this.value);// 将值加到数组里面
         });
 
-6、
+6、github 清楚账号密码
+        运行一下命令缓存输入的用户名和密码：
+        git config --global credential.helper wincred
+        清除掉缓存在git中的用户名和密码
+        git credential-manager uninstall
+
+7、
 
 
 
@@ -561,26 +567,6 @@ qqqqqqqqqqqqqqqqqqqqqqqqq
         echo $daifu;
         echo $post_sendout;
         echo 3;die;
-        $data['cart_ids']='116439,116438';
-        $data['seller_msg']='';
-        $data['addressId']=1079;
-        $data['fxPhone']='';
-        $data['storeid']=98;
-        $data['discount_rate']=0;
-        $data['sendout']=1;
-        $data['post_sendout']=1;
-        $data['shippingfee']='';
-        $data['fx_user_id']='';
-        $data['daifu']='';
-        $data['couponId']='';
-        $data['userCouponId']=0;
-        $data['discount_price']=0;
-        $cartModel = new CartModel;
-
-        print_r($data);die;
-        $post_sendout='',$cart_ids='',$seller_msg='',$addressId=0,$fxPhone='',$storeid='',$discount_rate='',$sendout=1,$shippingfee=0,$couponId=0,$userCouponId=0,$discount_price=0,$fx_user_id='',$daifu=''
-
-
 
 
 
@@ -612,4 +598,8 @@ qqqqqqqqqqqqqqqqqqqqqqqqq
             print_r($goodsList);die;
             echo $limit;die;
 
-        }
+        $post_sendout='',$cart_ids='',$seller_msg='',$addressId=0,$fxPhone='',$storeid='',$discount_rate='',$sendout=1,$shippingfee=0,$couponId=0,$userCouponId=0,$discount_price=0,$fx_user_id='',$daifu=''
+
+        链接
+        https://www.runoob.com/php/func-string-sprintf.html     //PHP sprintf() 函数
+
